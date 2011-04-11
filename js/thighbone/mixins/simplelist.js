@@ -1,9 +1,12 @@
 Thighbone.mixins.SimpleList = function (myOptions) {
     myOptions = myOptions || {};
 
-    var ItemRenderer = myOptions.ItemRenderer,
+    var elementSelector = myOptions.elementSelector,
+        listAttributeName = myOptions.listAttributeName,
+        ItemRenderer = myOptions.ItemRenderer,
+        initializeOnlyWhenOpen = myOptions.initiazeOnlyWhenOpen || false,
         InnerClosure = function () {
-            var that, listViews = {},
+            var that, listModel, listViews,
                 addOne = function (item) {
                     if (!listViews.hasOwnProperty(item.cid)) {
                         var listView = new ItemRenderer({ model: item });
@@ -12,7 +15,7 @@ Thighbone.mixins.SimpleList = function (myOptions) {
                     }
                 },
                 addAll = function () {
-                    that.model.each(addOne);
+                    listModel.each(addOne);
                 },
                 removeOne = function (item) {
                     delete listViews[item.cid];
@@ -22,15 +25,18 @@ Thighbone.mixins.SimpleList = function (myOptions) {
             return {
                 customInitialize: function () {
                     that = this;
-                    this.model.bind("add", addOne);
-                    this.model.bind("remove", removeOne);
-                    this.model.bind("refresh", addAll);
+                    listViews = {};
+                    listModel = listAttributeName ? this.model.get(listAttributeName) : this.model;
+                    listModel.bind("add", addOne);
+                    listModel.bind("remove", removeOne);
+                    listModel.bind("refresh", addAll);
                     addAll();
                 },
                 redraw: function () {
-                    $(that.el).children().detach();
+                    var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
+                    $elem.children().detach();
                     _.each(listViews, function (view) {
-                        $(that.el).append(view.el);
+                        $elem.append(view.el);
                     });
                 },
                 render: function () {

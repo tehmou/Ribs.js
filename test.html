@@ -41,7 +41,11 @@
             display: inline-block;
         }
 
-        .item-body, .nested-fruit-list>div {
+        .fruit-item {
+            margin-left: 30px;
+        }
+
+        .item-body, .fruit-item {
             background: #eee;
             width: 200px;
             border: 1px solid #ddd;
@@ -52,17 +56,13 @@
             right: 0;
         }
 
-        .fruit-item {
-            margin-left: 30px;
-        }
-
-        .item-body.selected, .nested-fruit-list>div.selected {
+        .item-body.selected, .fruit-item.selected {
             background: #444;
             border: 1px solid #000;
             color: #fff;
         }
 
-        .item-body.hovering, .nested-fruit-list>div.hovering {
+        .item-body.hovering, .fruit-item.hovering {
             border: 1px solid #666;
         }
 
@@ -103,7 +103,8 @@
                 var FruitItem = Thighbone.createMixed({
                        mixinClasses: [
                            Thighbone.mixins.Templated({
-                               templateFunction: _.template($("#fruit-item-tmpl").html())
+                               templateFunction: _.template($("#fruit-item-tmpl").html()),
+                               tagClass: "fruit-item"
                            }),
                            Thighbone.mixins.Hoverable({}),
                            Thighbone.mixins.Selectable({})
@@ -119,9 +120,15 @@
                     AlphabetItem = Thighbone.createMixed({
                         mixinClasses: [
                             Thighbone.mixins.Templated({
-                                templateFunction: _.template($("#alphabet-item-tmpl").html())
+                                templateFunction: _.template($("#alphabet-item-tmpl").html()),
+                                tagClass: "alphabet-item"
                             }),
-                            Thighbone.mixins.NestedList({ elementSelector: ".nested-fruit-list", ItemRenderer: FruitItem, listAttributeName: "fruits" }),
+                            Thighbone.mixins.ToggleableElement({ elementSelector: ".nested-fruit-list:first" }),
+                            Thighbone.mixins.SimpleList({
+                                elementSelector: ".nested-fruit-list:first",
+                                ItemRenderer: FruitItem,
+                                listAttributeName: "fruits"
+                            }),
                             Thighbone.mixins.Hoverable({ elementSelector: ".item-body:first" }),
                             Thighbone.mixins.Selectable({ elementSelector: ".item-body:first" }),
                             Thighbone.mixins.Toggleable({ elementSelector: ".folder-icon:first", usePlusMinus: true })
@@ -154,6 +161,7 @@
                 .script("js/thighbone/mixins/simplelist.js")
                 .script("js/thighbone/mixins/templated.js")
                 .script("js/thighbone/mixins/toggleable.js")
+                .script("js/thighbone/mixins/toggleableelement.js")
                 .script("js/thighbone/utils/uimanager.js")
                 .wait(function () {
                     $.ajax({ url: "json/fruits.json", dataType: "text" })
