@@ -12,6 +12,8 @@ Thighbone.mixins.Toggleable = function (myOptions) {
             return {
                 customInitialize: function () {
                     that = this;
+                },
+                modelChanged: function () {
                     this.model.thighboneUI.set({ open: false });
                 },
                 refresh: function () {

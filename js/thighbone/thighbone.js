@@ -8,30 +8,38 @@
     Thighbone.mixins = {};
 
     Thighbone.augmentModelWithUIAttributes = function (model) {
-        model.thighboneUI = new Backbone.Model();
-        model.thighboneUI.bind("all", function (event) {
-            model.trigger("thighboneUI:" + event, Array.prototype.slice.call(arguments, 1));
-        });
+        if (!model.hasOwnProperty("thighboneUI")) {
+            model.thighboneUI = new Backbone.Model();
+            model.thighboneUI.set({ owner: model });
+            model.thighboneUI.bind("all", function (event) {
+                model.trigger("thighboneUI:" + event, Array.prototype.slice.call(arguments, 1));
+            });
+        }
     };
 
     Thighbone.ManagedView = Backbone.View.extend({
         invalidated: true,
         refreshOnlyIfVisible: false,
-        requireModel: true,
 
         initialize: function () {
             _.bindAll(this, "customInitialize", "render", "redraw", "refresh", "hide", "dispose");
             Backbone.View.prototype.initialize.apply(this, arguments);
-            if (this.model) {
-                Thighbone.augmentModelWithUIAttributes(this.model);
-                this.model.thighboneUI.bind("all", this.render);
-            } else if (this.requireModel) {
-                throw "No model defined even though requireModel==true";
-            }
+            this.model && this.bindToModel(this.model);
             this.customInitialize();
             this.render();
         },
         customInitialize: function () { },
+        bindToModel: function (model) {
+            this.model && this.model.thighboneUI && this.model.thighboneUI.unbind("all", this.render);
+            this.model = model;
+            if (this.model) {
+                Thighbone.augmentModelWithUIAttributes(this.model);
+                this.model.thighboneUI.bind("all", this.render);
+            }
+            this.modelChanged();
+            this.render();
+        },
+        modelChanged: function () { },
         render: function () {
             if (this.invalidated) {
                 this.redraw();
@@ -87,7 +95,7 @@
             Thighbone.ManagedView.prototype.initialize.apply(this, arguments);
         };
 
-        delegateToMixins(["customInitialize", "redraw", "refresh", "hide", "dispose"]);
+        delegateToMixins(["customInitialize", "modelChanged", "render", "redraw", "refresh", "hide", "dispose"]);
 
         return Buildee;
     };

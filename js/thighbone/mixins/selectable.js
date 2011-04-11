@@ -10,6 +10,8 @@ Thighbone.mixins.Selectable = function (myOptions) {
             return {
                 customInitialize: function () {
                     that = this;
+                },
+                modelChanged: function () {
                     this.model.thighboneUI.set({ selected: false });
                 },
                 refresh: function () {

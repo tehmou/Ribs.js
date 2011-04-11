@@ -14,7 +14,9 @@ Thighbone.mixins.Hoverable = function (myOptions) {
             return {
                 customInitialize: function () {
                     that = this;
-                    this.model.thighboneUI.set({ hovering: false });
+                },
+                modelChanged: function () {
+                    this.model && this.model.thighboneUI.set({ hovering: false });
                 },
                 refresh: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
