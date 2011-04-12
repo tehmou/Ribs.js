@@ -1,0 +1,84 @@
+Ribs.js augments Backbone.js by making it easier to create modular Backbone.View components.
+
+
+PRIMER
+
+Backbone.js is an excellent MVC framework for JS. It has the raw functionality any project can utilize. See
+http://documentcloud.github.com/backbone/ for reference.
+
+Underscore.js utility-belt library for JavaScript. It is used in Backbone.js and Ribs.js. http://documentcloud.github.com/underscore/
+
+Essentially a Backbone.js View (I also use the word component) has a reference to a DOM element--called "el"--and a Backbone.Model that it represents. Such a Model can be inserted into several Views, and it sends events to all of them whenever it is changed. This allows for the Views to update themselves in the DOM tree via render().
+
+
+PROBLEMS
+
+Normally one would create a Backbone.View by extending it. Perhaps like this:
+
+var FruitItem = Backbone.View.extend({
+	initialize: function () {
+		this.model.bind("change", this.render);
+	},
+	render: function () {
+		var json = this.model.toJSON();
+		$(this.el)
+				.html(_.template($("#fruit-item-tmpl").html(), json)
+				.bind("click", function () {
+					this.model.set({ selected: !this.model.get("selected") });
+				})
+				.bind("mouseover", function () {
+					this.model.set({ hovering: true })
+				})
+				.bind("mouseout", function () {
+					this.model.set({ hovering: false })
+				});
+	}
+});
+
+There may be a better way of doing this, but in that case it not being obvious is part of the problem.
+
+This approach has three major problems:
+
+1) Usually the Views always end up having similar functionality, albeit a different mix of it. The code seen above is very hard to reuse--if you try to extend it, you have to be very careful about the rendering order and remembering to call the replaced functions (which in JS is far from trivial.)
+
+2) We are using the data model for storing transient information about the state of the UI. Conceptually this does not make any sense, and we might end up sending selected=true to the server.
+
+3) Everytime we render, we have to update everything. This can be expensive, and in practise impossible in the case of hovering.
+
+
+SOLUTIONS Ribs.js OFFERS
+
+1) Ribs.js introduces mixins to create suitable components on the fly. Let's see some code.
+
+var FruitItem = Ribs.createMixed({
+   mixinClasses: [
+       Ribs.mixins.Templated({
+           templateFunction: _.template($("#fruit-item-tmpl").html())
+       }),
+       Ribs.mixins.Hoverable(),
+       Ribs.mixins.Selectable()
+   ]
+});
+
+Here we have created a View for an item on a list. It extends Backbone.View and behaves accordingly. The mixins are independent modules that encapsulate certain functionality. In this sample, we use a template mixin to create the View elements from an underscore.js template, such as
+
+<script id="fruit-item-tmpl" type="text/html">
+<%= name %> (<%= available ? "available" : "sold out"%>)
+</script>
+
+and then we say that we want to listen for hovering and selecting events and change the ui model according.
+
+2) UI model? That is a Backbone.Model that stores the transient state of the component from the point of UI. It is attached to all models used in Ribs.js components, and goes by the property name of "ribsUI". For convenience, it delegates all of its events to its owning model, with the prefix "ribsui:".
+
+For instance, Ribs.mixins.Hoverable adds listeners to mouseover and mouseout, and change the attribute "hovering" of the corresponding ribsUI model. Other mixins can react to changes in these attributes, but since the mixins are independent, the existence of a particular attribute is never guaranteed.
+
+3) ManagedView that acts as the base View for all Ribs.js components addresses the last problem. You can see it at https://github.com/tehmou/Ribs.js/blob/master/js/ribs/managedview.js
+
+The most important thing about ManageView is that it only calls redraw() in case invalidated is set to true. refresh(), on the other hand, is always called, unless we have set it off for invisible components. These methods offer the point in which the mixins can do their stuff. The corresponding methods of all mixins within a component are called in the order they appear in mixinClasses list.
+
+
+USAGE
+
+Currently there is no one unified file to download. This is to come, but for now you have to clone the repository and take the js/ribs folder… and include all of the files you want to use. I'll write a build script soon enough to put all of them into one file.
+
+Thank you for your patience! :)
