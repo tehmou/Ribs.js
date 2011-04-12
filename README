@@ -1,6 +1,7 @@
 Ribs.js augments Backbone.js by making it easier to create modular Backbone.View components.
 
 
+
 PRIMER
 
 Backbone.js is an excellent MVC framework for JS. It has the raw functionality any project can utilize. See
@@ -11,7 +12,8 @@ Underscore.js utility-belt library for JavaScript. It is used in Backbone.js and
 Essentially a Backbone.js View (I also use the word component) has a reference to a DOM element--called "el"--and a Backbone.Model that it represents. Such a Model can be inserted into several Views, and it sends events to all of them whenever it is changed. This allows for the Views to update themselves in the DOM tree via render().
 
 
-PROBLEMS
+
+PROBLEMS WITH VIEWS
 
 Normally one would create a Backbone.View by extending it. Perhaps like this:
 
@@ -46,7 +48,8 @@ This approach has three major problems:
 3) Everytime we render, we have to update everything. This can be expensive, and in practise impossible in the case of hovering.
 
 
-SOLUTIONS Ribs.js OFFERS
+
+Ribs.js SOLUTIONS
 
 1) Ribs.js introduces mixins to create suitable components on the fly. Let's see some code.
 
@@ -75,6 +78,7 @@ For instance, Ribs.mixins.Hoverable adds listeners to mouseover and mouseout, an
 3) ManagedView that acts as the base View for all Ribs.js components addresses the last problem. You can see it at https://github.com/tehmou/Ribs.js/blob/master/js/ribs/managedview.js
 
 The most important thing about ManageView is that it only calls redraw() in case invalidated is set to true. refresh(), on the other hand, is always called, unless we have set it off for invisible components. These methods offer the point in which the mixins can do their stuff. The corresponding methods of all mixins within a component are called in the order they appear in mixinClasses list.
+
 
 
 USAGE
