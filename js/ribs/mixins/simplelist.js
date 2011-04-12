@@ -1,4 +1,4 @@
-Thighbone.mixins.SimpleList = function (myOptions) {
+Ribs.mixins.SimpleList = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,

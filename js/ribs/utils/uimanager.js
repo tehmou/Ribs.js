@@ -1,9 +1,9 @@
-Thighbone.createUIManager = function (key, myOptions) {
+Ribs.createUIManager = function (key, myOptions) {
     myOptions = myOptions || {};
 
-    Thighbone.uiManagers = Thighbone.uiManagers || {};
+    Ribs.uiManagers = Ribs.uiManagers || {};
 
-    Thighbone.uiManagers[key] = function () {
+    Ribs.uiManagers[key] = function () {
         var allowMultiselect = myOptions.allowMultiselect,
             viewModel = new Backbone.Model({ nowHovering: null, nowSelected: null }),
             hoveringChanged = function (event) {
@@ -33,14 +33,14 @@ Thighbone.createUIManager = function (key, myOptions) {
             register = function (model) {
                 if (model) {
                     unregister(model);
-                    model.bind("thighboneUI:change:hovering", hoveringChanged);
-                    model.bind("thighboneUI:change:selected", selectedChanged);
+                    model.bind("ribsUI:change:hovering", hoveringChanged);
+                    model.bind("ribsUI:change:selected", selectedChanged);
                 }
             },
             unregister = function (model) {
                 if (model) {
-                    model.unbind("thighboneUI:change:hovering", hoveringChanged);
-                    model.unbind("thighboneUI:change:selected", selectedChanged);
+                    model.unbind("ribsUI:change:hovering", hoveringChanged);
+                    model.unbind("ribsUI:change:selected", selectedChanged);
                 }
             };
 

@@ -71,7 +71,20 @@
         }
 
     </style>
-    <script src="lib/LAB.js" type="text/javascript"></script>
+    <script src="lib/jquery-1.5.min.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    
+    <script src="js/ribs/core.js"></script>
+    <script src="js/ribs/managedview.js"></script>
+    <script src="js/ribs/mixins/hoverable.js"></script>
+    <script src="js/ribs/mixins/selectable.js"></script>
+    <script src="js/ribs/mixins/simplelist.js"></script>
+    <script src="js/ribs/mixins/templated.js"></script>
+    <script src="js/ribs/mixins/toggleable.js"></script>
+    <script src="js/ribs/mixins/toggleableelement.js"></script>
+    <script src="js/ribs/utils/uimanager.js"></script>
+    
     <script type="text/javascript">
         var fruitsCollection, alphabets = {}, alphabetsCollection,
             fruitDetailsView,
@@ -103,69 +116,69 @@
                 });
             },
             initialize = function () {
-                var FruitItem = Thighbone.createMixed({
+                var FruitItem = Ribs.createMixed({
                        mixinClasses: [
-                           Thighbone.mixins.Templated({
+                           Ribs.mixins.Templated({
                                templateFunction: _.template($("#fruit-item-tmpl").html()),
                                tagClass: "fruit-item"
                            }),
-                           Thighbone.mixins.Hoverable({}),
-                           Thighbone.mixins.Selectable({})
+                           Ribs.mixins.Hoverable({}),
+                           Ribs.mixins.Selectable({})
                        ]
                     }),
-                    FruitDetails = Thighbone.createMixed({
+                    FruitDetails = Ribs.createMixed({
                         requireModel: false,
                         mixinClasses: [
-                            Thighbone.mixins.Templated({
+                            Ribs.mixins.Templated({
                                 templateFunction: _.template($("#fruit-details-tmpl").html())
                             })
                         ]
                     }),
-                    PlainList = Thighbone.createMixed({
+                    PlainList = Ribs.createMixed({
                         mixinClasses: [
-                            Thighbone.mixins.Templated({
+                            Ribs.mixins.Templated({
                                templateFunction: _.template($("#plain-list-tmpl").html())
                             }),
-                            Thighbone.mixins.SimpleList({
+                            Ribs.mixins.SimpleList({
                                 elementSelector: ".list",
                                 ItemRenderer: FruitItem
                             })
                         ]
                     }),
-                    AlphabetItem = Thighbone.createMixed({
+                    AlphabetItem = Ribs.createMixed({
                         mixinClasses: [
-                            Thighbone.mixins.Templated({
+                            Ribs.mixins.Templated({
                                 templateFunction: _.template($("#alphabet-item-tmpl").html()),
                                 tagClass: "alphabet-item"
                             }),
-                            Thighbone.mixins.ToggleableElement({ elementSelector: ".nested-fruit-list:first" }),
-                            Thighbone.mixins.SimpleList({
+                            Ribs.mixins.ToggleableElement({ elementSelector: ".nested-fruit-list:first" }),
+                            Ribs.mixins.SimpleList({
                                 elementSelector: ".nested-fruit-list:first",
                                 ItemRenderer: FruitItem,
                                 listAttributeName: "fruits"
                             }),
-                            Thighbone.mixins.Hoverable({ elementSelector: ".item-body:first" }),
-                            Thighbone.mixins.Hoverable({ elementSelector: ".folder-icon:first" }),
-                            Thighbone.mixins.Toggleable({ elementSelector: ".item-body:first" }),
-                            Thighbone.mixins.Toggleable({ elementSelector: ".folder-icon:first", usePlusMinus: true })
+                            Ribs.mixins.Hoverable({ elementSelector: ".item-body:first" }),
+                            Ribs.mixins.Hoverable({ elementSelector: ".folder-icon:first" }),
+                            Ribs.mixins.Toggleable({ elementSelector: ".item-body:first" }),
+                            Ribs.mixins.Toggleable({ elementSelector: ".folder-icon:first", usePlusMinus: true })
                         ]
                     }),
-                    AlphabetList = Thighbone.createMixed({
+                    AlphabetList = Ribs.createMixed({
                         mixinClasses: [
-                            Thighbone.mixins.Templated({
+                            Ribs.mixins.Templated({
                                 templateFunction: _.template($("#alphabet-list-tmpl").html())
                             }),
-                            Thighbone.mixins.SimpleList({
+                            Ribs.mixins.SimpleList({
                                 elementSelector: ".list",
                                 ItemRenderer: AlphabetItem
                             })
                         ]
                     });
 
-                Thighbone.createUIManager("main", { allowMultiselect: false });
-                Thighbone.uiManagers.main.register(fruitsCollection);
-                Thighbone.uiManagers.main.register(alphabetsCollection);
-                Thighbone.uiManagers.main.getViewModel().bind("change:nowSelected", function (item) {
+                Ribs.createUIManager("main", { allowMultiselect: false });
+                Ribs.uiManagers.main.register(fruitsCollection);
+                Ribs.uiManagers.main.register(alphabetsCollection);
+                Ribs.uiManagers.main.getViewModel().bind("change:nowSelected", function (item) {
                     var nowSelected = item.get("nowSelected");
                     fruitDetailsView.bindToModel(nowSelected ? nowSelected.get("owner") : null);
                     fruitDetailsView.render();
@@ -177,26 +190,14 @@
                 new AlphabetList({ model: alphabetsCollection, el: $("#alphabet-list")});
             };
 
-        $LAB
-                .script("lib/jquery-1.5.min.js")
-                .script("lib/underscore.js")
-                .script("lib/backbone.js").wait()
-                .script("js/thighbone/thighbone.js").wait()
-                .script("js/thighbone/mixins/hoverable.js")
-                .script("js/thighbone/mixins/selectable.js")
-                .script("js/thighbone/mixins/simplelist.js")
-                .script("js/thighbone/mixins/templated.js")
-                .script("js/thighbone/mixins/toggleable.js")
-                .script("js/thighbone/mixins/toggleableelement.js")
-                .script("js/thighbone/utils/uimanager.js")
-                .wait(function () {
-                    $.ajax({ url: "json/fruits.json", dataType: "text" })
-                            .success(function (data) {
-                                generateAlphabets();
-                                generateFruits(data);
-                                initialize();
-                            });
-                });
+            $.ajax({ url: "json/fruits.json", dataType: "text",
+                    success: function (data) {
+                        generateAlphabets();
+                        generateFruits(data);
+                        initialize();
+                    }
+            });
+
     </script>
 </head>
 <body>

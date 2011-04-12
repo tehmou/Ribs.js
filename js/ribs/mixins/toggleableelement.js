@@ -1,4 +1,4 @@
-Thighbone.mixins.ToggleableElement = function (myOptions) {
+Ribs.mixins.ToggleableElement = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
@@ -13,11 +13,11 @@ Thighbone.mixins.ToggleableElement = function (myOptions) {
                     that = this;
                 },
                 modelChanged: function () {
-                    this.model.bind("thighbone:ui:open", openChanged);
+                    this.model.bind("ribs:ui:open", openChanged);
                 },
                 redraw: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
-                    $elem.toggle(this.model.thighboneUI.get("open"));
+                    $elem.toggle(this.model.ribsUI.get("open"));
                 }
             };
         };

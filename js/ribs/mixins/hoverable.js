@@ -1,14 +1,14 @@
-Thighbone.mixins.Hoverable = function (myOptions) {
+Ribs.mixins.Hoverable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         InnerClosure = function () {
             var that,
                 mouseOver = function () {
-                    that.model.thighboneUI.set({ hovering: true });
+                    that.model.ribsUI.set({ hovering: true });
                 },
                 mouseOut = function () {
-                    that.model.thighboneUI.set({ hovering: false });
+                    that.model.ribsUI.set({ hovering: false });
                 };
 
             return {
@@ -16,7 +16,7 @@ Thighbone.mixins.Hoverable = function (myOptions) {
                     that = this;
                 },
                 modelChanged: function () {
-                    this.model && this.model.thighboneUI.set({ hovering: false });
+                    this.model && this.model.ribsUI.set({ hovering: false });
                 },
                 refresh: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
@@ -25,7 +25,7 @@ Thighbone.mixins.Hoverable = function (myOptions) {
                             .unbind("mouseout", mouseOut)
                             .bind("mouseover", mouseOver)
                             .bind("mouseout", mouseOut)
-                            .toggleClass("hovering", this.model.thighboneUI.get("hovering"));
+                            .toggleClass("hovering", this.model.ribsUI.get("hovering"));
                 }
             };
         };

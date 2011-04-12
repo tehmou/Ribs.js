@@ -1,4 +1,4 @@
-Thighbone.mixins.Toggleable = function (myOptions) {
+Ribs.mixins.Toggleable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
@@ -6,7 +6,7 @@ Thighbone.mixins.Toggleable = function (myOptions) {
         InnerClosure = function () {
             var that,
                 toggle = function () {
-                    that.model.thighboneUI.set({ open: !that.model.thighboneUI.get("open") });
+                    that.model.ribsUI.set({ open: !that.model.ribsUI.get("open") });
                 };
 
             return {
@@ -14,7 +14,7 @@ Thighbone.mixins.Toggleable = function (myOptions) {
                     that = this;
                 },
                 modelChanged: function () {
-                    this.model.thighboneUI.set({ open: false });
+                    this.model.ribsUI.set({ open: false });
                 },
                 refresh: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
@@ -22,7 +22,7 @@ Thighbone.mixins.Toggleable = function (myOptions) {
                             .unbind("click", toggle)
                             .bind("click", toggle);
                     if (usePlusMinus) {
-                        $elem.text(this.model.thighboneUI.get("open") ? "-" : "+");
+                        $elem.text(this.model.ribsUI.get("open") ? "-" : "+");
                     }
                 }
             };

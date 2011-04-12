@@ -1,4 +1,4 @@
-Thighbone.mixins.Templated = function (myOptions) {
+Ribs.mixins.Templated = function (myOptions) {
     myOptions = myOptions || {};
 
     var tagClass = myOptions.tagClass,
