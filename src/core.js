@@ -32,11 +32,7 @@
                         }, this));
                     }
 
-                    if (this.entryPoint) {
-                        this.entryPoint.apply(this, [doIt].concat(arguments));
-                    } else {
-                        doIt.apply(this, arguments);
-                    }
+                    doIt.apply(this, arguments);
                 }
             },
             delegateToMixins = function (methods) {

@@ -3,7 +3,7 @@ Ribs.ManagedView = Backbone.View.extend({
     refreshOnlyIfVisible: false,
 
     initialize: function () {
-        _.bindAll(this, "customInitialize", "render", "redraw", "refresh", "hide", "dispose");
+        _.bindAll(this, "customInitialize", "bindToModel", "modelChanged", "render", "redraw", "refresh", "hide", "dispose");
         Backbone.View.prototype.initialize.apply(this, arguments);
         this.model && this.bindToModel(this.model);
         this.customInitialize();
@@ -11,6 +11,7 @@ Ribs.ManagedView = Backbone.View.extend({
     },
     customInitialize: function () { },
     bindToModel: function (model) {
+        // TODO: Seems to throw a null pointer after setting model to null.
         this.model && this.model.ribsUI && this.model.ribsUI.unbind("all", this.render);
         this.model = model;
         if (this.model) {
@@ -22,6 +23,10 @@ Ribs.ManagedView = Backbone.View.extend({
     },
     modelChanged: function () { },
     render: function () {
+        if (!this.model) {
+            return;
+        }
+        
         if (this.invalidated) {
             this.redraw();
         }

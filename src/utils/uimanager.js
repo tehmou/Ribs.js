@@ -9,8 +9,7 @@ Ribs.createUIManager = function (key, myOptions) {
             hoveringChanged = function (event) {
                 var item = event[0];
                 if (item === viewModel.get("nowHovering") && !item.get("hovering")) {
-                    // TODO: See below.
-                    //viewModel.set({ nowHovering: null });
+                    viewModel.set({ nowHovering: null });
                 } else if (item !== viewModel.get("nowHovering") && item.get("hovering")) {
                     var lastHovering = viewModel.get("nowHovering");
                     viewModel.set({ nowHovering: item });
@@ -20,8 +19,7 @@ Ribs.createUIManager = function (key, myOptions) {
             selectedChanged = function (event) {
                 var item = event[0];
                 if (item === viewModel.get("nowSelected") && !item.get("selected")) {
-                    // TODO: Throws exception when selected item is unselected.
-                    //viewModel.set({ nowSelected: null });
+                    viewModel.set({ nowSelected: null });
                 } else if (item !== viewModel.get("nowSelected") && item.get("selected")) {
                     var lastSelected = viewModel.get("nowSelected");
                     viewModel.set({ nowSelected: item });

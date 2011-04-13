@@ -92,8 +92,9 @@ $(function () {
             Ribs.uiManagers.main.register(fruitsCollection);
             Ribs.uiManagers.main.register(alphabetsCollection);
             Ribs.uiManagers.main.getViewModel().bind("change:nowSelected", function (item) {
-                var nowSelected = item.get("nowSelected");
-                fruitDetailsView.bindToModel(nowSelected ? nowSelected.get("owner") : null);
+                var nowSelected = item && item.get("nowSelected"),
+                    owner = nowSelected ? nowSelected.get("owner") : null;
+                fruitDetailsView.bindToModel(owner);
                 fruitDetailsView.render();
             });
 

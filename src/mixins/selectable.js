@@ -2,7 +2,7 @@ Ribs.mixins.Selectable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
-        InnerClosure = function () {
+        SelectableClosure = function () {
             var that, elementClicked = function () {
                 that.model.ribsUI.set({ selected: !that.model.ribsUI.get("selected") });
             };
@@ -12,7 +12,7 @@ Ribs.mixins.Selectable = function (myOptions) {
                     that = this;
                 },
                 modelChanged: function () {
-                    this.model.ribsUI.set({ selected: false });
+                    this.model && this.model.ribsUI.set({ selected: false });
                 },
                 refresh: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
@@ -24,6 +24,6 @@ Ribs.mixins.Selectable = function (myOptions) {
             };
         };
 
-    return InnerClosure;
+    return SelectableClosure;
 };
 

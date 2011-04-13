@@ -3,7 +3,7 @@ Ribs.mixins.Toggleable = function (myOptions) {
 
     var elementSelector = myOptions.elementSelector,
         usePlusMinus = myOptions.usePlusMinus,
-        InnerClosure = function () {
+        ToggleableClosure = function () {
             var that,
                 toggle = function () {
                     that.model.ribsUI.set({ open: !that.model.ribsUI.get("open") });
@@ -14,7 +14,7 @@ Ribs.mixins.Toggleable = function (myOptions) {
                     that = this;
                 },
                 modelChanged: function () {
-                    this.model.ribsUI.set({ open: false });
+                    this.model && this.model.ribsUI.set({ open: false });
                 },
                 refresh: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
@@ -28,6 +28,6 @@ Ribs.mixins.Toggleable = function (myOptions) {
             };
         };
 
-    return InnerClosure;
+    return ToggleableClosure;
 };
 

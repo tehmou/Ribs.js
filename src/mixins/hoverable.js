@@ -2,7 +2,7 @@ Ribs.mixins.Hoverable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
-        InnerClosure = function () {
+        HoverableClosure = function () {
             var that,
                 mouseOver = function () {
                     that.model.ribsUI.set({ hovering: true });
@@ -30,6 +30,6 @@ Ribs.mixins.Hoverable = function (myOptions) {
             };
         };
 
-    return InnerClosure;
+    return HoverableClosure;
 };
 

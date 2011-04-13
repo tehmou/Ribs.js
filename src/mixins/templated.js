@@ -3,8 +3,13 @@ Ribs.mixins.Templated = function (myOptions) {
 
     var tagClass = myOptions.tagClass,
         templateFunction = myOptions.templateFunction,
-        InnerClosure = function () {
+        TemplatedClosure = function () {
             return {
+                modelChanged: function () {
+                    if (!this.model) {
+                        this.redraw();
+                    }
+                },
                 redraw: function () {
                     var json = this.model ? this.model.toJSON() : {};
                     json.t = function (name) {
@@ -16,6 +21,6 @@ Ribs.mixins.Templated = function (myOptions) {
             };
         };
 
-    return InnerClosure;
+    return TemplatedClosure;
 };
 

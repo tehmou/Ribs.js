@@ -4,8 +4,7 @@ Ribs.mixins.SimpleList = function (myOptions) {
     var elementSelector = myOptions.elementSelector,
         listAttributeName = myOptions.listAttributeName,
         ItemRenderer = myOptions.ItemRenderer,
-        initializeOnlyWhenOpen = myOptions.initiazeOnlyWhenOpen || false,
-        InnerClosure = function () {
+        SimpleListClosure = function () {
             var that, listModel, listViews,
                 addOne = function (item) {
                     if (!listViews.hasOwnProperty(item.cid)) {
@@ -36,11 +35,15 @@ Ribs.mixins.SimpleList = function (myOptions) {
                         listModel.unbind("remove", removeOne);
                         listModel.unbind("refresh", addAll);
                     }
-                    listModel = listAttributeName ? this.model.get(listAttributeName) : this.model;
-                    listModel.bind("add", addOne);
-                    listModel.bind("remove", removeOne);
-                    listModel.bind("refresh", addAll);
-                    addAll();
+                    if (this.model) {
+                        listModel = listAttributeName ? this.model.get(listAttributeName) : this.model;
+                        listModel.bind("add", addOne);
+                        listModel.bind("remove", removeOne);
+                        listModel.bind("refresh", addAll);
+                        addAll();
+                    } else {
+                        this.model = null;
+                    }
                 },
                 redraw: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
@@ -57,6 +60,6 @@ Ribs.mixins.SimpleList = function (myOptions) {
             };
         };
 
-    return InnerClosure;
+    return SimpleListClosure;
 };
 
