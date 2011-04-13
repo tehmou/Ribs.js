@@ -1,6 +1,57 @@
 Ribs.js augments Backbone.js by making it easier to create modular Backbone.View components.
 
 
+------------------------------
+
+
+QUICK INTRO
+
+Create a Backbone.js Model for your data:
+var myModel = new Backbone.Model({ name: "Pekka", age: 23, city: "Helsinki" });
+
+
+Create an Underscore.js html template:
+<script id="person-tmpl" type="text/html">
+<div class="person"><%= name %> (age: <%= age %>, city: <%= city %>)</div>
+</script>
+
+
+Style for the html:
+<style type="text/css">
+.person { padding: 3px 6px; }
+.person.hovering { border: 1px solid #888; }
+.person.selected { background: #aaa; }
+</style>
+
+
+Create view component with Ribs.js
+var Person = Ribs.createMixed({
+   mixinClasses: [
+       Ribs.mixins.Templated({
+           templateFunction: _.template($("#person-tmpl").html())
+       }),
+       Ribs.mixins.Hoverable(),
+       Ribs.mixins.Selectable()
+   ]
+});
+
+
+Instantiate Person:
+var person = new Person({ model: myModel });
+
+
+Add to desired place in DOM:
+$(window).append(person.el);
+
+
+$$$Profit!
+
+
+Ok, now the long explanation.
+
+
+------------------------------
+
 
 PRIMER
 
@@ -18,22 +69,28 @@ PROBLEMS WITH VIEWS
 Normally one would create a Backbone.View by extending it. Perhaps like this:
 
 var FruitItem = Backbone.View.extend({
+    events: {
+        "click": "select",
+        "mouseover": "mouseOver",
+        "mouseout": "mouseOut"
+    },
 	initialize: function () {
+	    _.bindAll(this, "select", "mouseover", "mouseout", "render");
 		this.model.bind("change", this.render);
+	},
+	select: function () {
+        this.model.set({ selected: !this.model.get("selected") });
+	},
+	mouseOver: function () {
+        this.model.set({ hovering: true })
+	},
+	mouseOut: function () {
+        this.model.set({ hovering: false })
 	},
 	render: function () {
 		var json = this.model.toJSON();
-		$(this.el)
-				.html(_.template($("#fruit-item-tmpl").html(), json)
-				.bind("click", function () {
-					this.model.set({ selected: !this.model.get("selected") });
-				})
-				.bind("mouseover", function () {
-					this.model.set({ hovering: true })
-				})
-				.bind("mouseout", function () {
-					this.model.set({ hovering: false })
-				});
+		$(this.el).html(_.template($("#fruit-item-tmpl").html(), json);
+		this.delegateEvents();
 	}
 });
 
@@ -41,11 +98,11 @@ There may be a better way of doing this, but in that case it not being obvious i
 
 This approach has three major problems:
 
-1) Usually the Views always end up having similar functionality, albeit a different mix of it. The code seen above is very hard to reuse--if you try to extend it, you have to be very careful about the rendering order and remembering to call the replaced functions (which in JS is far from trivial.)
+1) Usually the Views always end up having similar functionality, albeit a different mix of it. The code seen above is very hard to reuse--if you try to extend it, you have to be very careful about the rendering order and calling delegateEvents, as it removes all existing listeners.
 
 2) We are using the data model for storing transient information about the state of the UI. Conceptually this does not make any sense, and we might end up sending selected=true to the server.
 
-3) Everytime we render, we have to update everything. This can be expensive, and in practise impossible in the case of hovering.
+3) Every time we render, we have to update everything. This can be expensive, and in practise impossible in the case of hovering. This leads to a components that "reset" when render is called.
 
 
 
