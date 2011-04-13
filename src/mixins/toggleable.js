@@ -30,3 +30,4 @@ Ribs.mixins.Toggleable = function (myOptions) {
 
     return InnerClosure;
 };
+

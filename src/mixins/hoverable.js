@@ -32,3 +32,4 @@ Ribs.mixins.Hoverable = function (myOptions) {
 
     return InnerClosure;
 };
+

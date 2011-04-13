@@ -18,3 +18,4 @@ Ribs.mixins.Templated = function (myOptions) {
 
     return InnerClosure;
 };
+

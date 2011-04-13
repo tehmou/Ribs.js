@@ -59,3 +59,4 @@ Ribs.mixins.SimpleList = function (myOptions) {
 
     return InnerClosure;
 };
+

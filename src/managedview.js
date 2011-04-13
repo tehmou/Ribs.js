@@ -38,3 +38,4 @@ Ribs.ManagedView = Backbone.View.extend({
         $(this.el).remove();
     }
 });
+

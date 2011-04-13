@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ribs.js--Fruit Store Example</title>
+    <link href="css/fruitstore.css" rel="stylesheet"/>
+
+    <script src="lib/jquery-1.5.min.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <script src="lib/ribs.js"></script>
+
+    <script src="json/fruits.json" type="text/javascript"></script>
+    <script src="js/fruitstore.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<div id="alphabet-list"></div>
+<div id="fruit-list"></div>
+<div id="fruit-details"></div>
+
+<script id="alphabet-list-tmpl" type="text/html">
+<h2>alphabetical</h2>
+<div class="list"></div>
+</script>
+
+<script id="plain-list-tmpl" type="text/html">
+<h2>plain</h2>
+<div class="list"></div>
+</script>
+
+<script id="fruit-item-tmpl" type="text/html">
+<%= name %> (<%= available ? "available" : "sold out"%>)
+</script>
+
+<script id="fruit-details-tmpl" type="text/html">
+<h1><%= name ? name : "No fruit selected" %></h1>
+<p><%= t("available") %></p>
+</script>
+
+<script id="alphabet-item-tmpl" type="text/html">
+<div><span class="folder-icon">+</span><div class="item-body"><b><%= alphabet %></b> (<%= fruits.length %> fruits)</div></div>
+<div class="nested-fruit-list"></div>
+</script>
+
+</body>
+</html>

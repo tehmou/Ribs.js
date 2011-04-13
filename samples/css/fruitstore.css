@@ -1,0 +1,64 @@
+body {
+    font-family: "Helvetica Neue", "Helvetica", "Arial";
+    font-size: 9pt;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    margin: 6px 7px;
+}
+
+.folder-icon {
+    display: inline-block;
+    padding: 0;
+    width: 10px;
+    font-size: 11pt;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#fruit-details {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 38.2%;
+}
+
+#fruit-list, #alphabet-list {
+    display: inline-block;
+    vertical-align: top;
+    width: 19.1%;
+    padding-bottom: 3px;
+    padding-left: 3px;
+}
+
+.item-body, .fruit-item {
+    background: #eee;
+    width: 180px;
+    border: 1px solid #ddd;
+    margin: 3px 3px 0 3px;
+    padding: 3px 4px 1px 4px;
+    cursor: pointer;
+    cursor: hand;
+    right: 0;
+}
+
+.item-body {
+    display: inline-block;
+}
+
+#alphabet-list .fruit-item {
+    margin-left: 30px;
+}
+
+.item-body.selected, .fruit-item.selected {
+    background: #444;
+    border: 1px solid #000;
+    color: #fff;
+}
+
+.item-body.hovering, .fruit-item.hovering {
+    border: 1px solid #666;
+}

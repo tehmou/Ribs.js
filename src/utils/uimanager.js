@@ -51,3 +51,4 @@ Ribs.createUIManager = function (key, myOptions) {
         }
     }();       
 };
+

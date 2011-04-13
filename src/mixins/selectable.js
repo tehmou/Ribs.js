@@ -26,3 +26,4 @@ Ribs.mixins.Selectable = function (myOptions) {
 
     return InnerClosure;
 };
+
