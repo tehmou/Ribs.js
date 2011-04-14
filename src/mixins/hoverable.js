@@ -21,10 +21,10 @@ Ribs.mixins.Hoverable = function (myOptions) {
                 refresh: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
                     $elem
-                            .unbind("mouseover", mouseOver)
-                            .unbind("mouseout", mouseOut)
-                            .bind("mouseover", mouseOver)
-                            .bind("mouseout", mouseOut)
+                            .unbind("mouseenter", mouseOver)
+                            .unbind("mouseleave", mouseOut)
+                            .bind("mouseenter", mouseOver)
+                            .bind("mouseleave", mouseOut)
                             .toggleClass("hovering", this.model.ribsUI.get("hovering"));
                 }
             };
