@@ -10,6 +10,26 @@
     Ribs.augmentModelWithUIAttributes = function (model) {
         if (!model.hasOwnProperty("ribsUI")) {
             model.ribsUI = new Backbone.Model();
+            model.ribsUI.safeUnbind = function (ev, callback) {
+                var calls;
+                if (!ev) {
+                    this._callbacks = {};
+                } else if (calls = this._callbacks) {
+                    if (!callback) {
+                        calls[ev] = [];
+                    } else {
+                        var list = calls[ev];
+                        if (!list) return this;
+                        for (var i = 0, l = list.length; i < l; i++) {
+                            if (callback === list[i]) {
+                                list[i] = function () { };
+                                break;
+                            }
+                        }
+                    }
+                }
+                return this;
+            };
             model.ribsUI.set({ owner: model });
             model.ribsUI.bind("all", function (event) {
                 model.trigger("ribsUI:" + event, Array.prototype.slice.call(arguments, 1));

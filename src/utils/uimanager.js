@@ -19,6 +19,7 @@ Ribs.createUIManager = function (key, myOptions) {
             selectedChanged = function (event) {
                 var item = event[0];
                 if (item === viewModel.get("nowSelected") && !item.get("selected")) {
+                    console.log("Setting nowSelected: null");
                     viewModel.set({ nowSelected: null });
                 } else if (item !== viewModel.get("nowSelected") && item.get("selected")) {
                     var lastSelected = viewModel.get("nowSelected");

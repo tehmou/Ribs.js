@@ -94,11 +94,13 @@
       if (!(calls = this._callbacks)) return this;
       if (list = calls[ev]) {
         for (i = 0, l = list.length; i < l; i++) {
+          //console.log(ev + " --applying (" + (i + 1) + "/" + list.length + ")");
           list[i].apply(this, Array.prototype.slice.call(arguments, 1));
         }
       }
       if (list = calls['all']) {
         for (i = 0, l = list.length; i < l; i++) {
+          //console.log(ev + " --applying all (" + (i + 1) + "/" + list.length + ")");
           list[i].apply(this, arguments);
         }
       }

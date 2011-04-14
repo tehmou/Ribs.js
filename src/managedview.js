@@ -11,15 +11,13 @@ Ribs.ManagedView = Backbone.View.extend({
     },
     customInitialize: function () { },
     bindToModel: function (model) {
-        // TODO: Seems to throw a null pointer after setting model to null.
-        this.model && this.model.ribsUI && this.model.ribsUI.unbind("all", this.render);
+        this.model && this.model.ribsUI && this.model.ribsUI.safeUnbind("all", this.render);
         this.model = model;
         if (this.model) {
             Ribs.augmentModelWithUIAttributes(this.model);
             this.model.ribsUI.bind("all", this.render);
         }
         this.modelChanged();
-        this.render();
     },
     modelChanged: function () { },
     render: function () {
