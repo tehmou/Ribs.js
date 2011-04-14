@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Ribs.js--Adding curve to Backbone.js</title>
+    <title>Ribs.js--Adding volume to Backbone.js</title>
 
     <link href="css/readme.css.less" rel="stylesheet/less"/>
 
@@ -10,7 +10,16 @@
     <script src="lib/jquery-1.5.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
-    <script src="lib/ribs.js"></script>
+    <!-- <script src="lib/ribs.js"></script> -->
+    <script src="../src/core.js"></script>
+    <script src="../src/managedview.js"></script>
+    <script src="../src/mixins/hoverable.js"></script>
+    <script src="../src/mixins/selectable.js"></script>
+    <script src="../src/mixins/simplelist.js"></script>
+    <script src="../src/mixins/templated.js"></script>
+    <script src="../src/mixins/toggleable.js"></script>
+    <script src="../src/mixins/toggleableelement.js"></script>
+    <script src="../src/utils/uimanager.js"></script>
 
     <script type="text/javascript">
 
@@ -32,7 +41,8 @@
                     mixinClasses: [
                         new Ribs.mixins.Templated({
                             templateFunction: _.template($("#navi-item-tmpl").html())
-                        })
+                        }),
+                        new Ribs.mixins.Hoverable()
                     ]
                 }),
                 NaviList = Ribs.createMixed({
@@ -43,7 +53,7 @@
                     ]
                 });
 
-            new NaviList({ el: $("#navi"), model: naviData });
+            new NaviList({ el: $("#navi-list"), model: naviData });
         });
 
     </script>
@@ -51,10 +61,12 @@
 <body>
 
 <div id="navi">
+    <h1>Ribs.js</h1>
+    <div id="navi-list"></div>
 </div>
 
 <script id="navi-item-tmpl" type="text/html">
-<div><span><%= label %></span></div>
+<span><%= label %></span>
 </script>
 
 </body>
