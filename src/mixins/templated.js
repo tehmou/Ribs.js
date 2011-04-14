@@ -11,7 +11,7 @@ Ribs.mixins.Templated = function (myOptions) {
                     }
                 },
                 redraw: function () {
-                    var json = this.model ? this.model.toJSON() : {};
+                    var json = this.model ? (this.model.toJSON ? this.model.toJSON() : this.model) : {};
                     json.t = function (name) {
                         return this.hasOwnProperty(name) ? this[name] : "";
                     };

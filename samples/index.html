@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ribs.js--Adding curve to Backbone.js</title>
+
+    <link href="css/readme.css.less" rel="stylesheet/less"/>
+
+    <script src="lib/less-1.0.41.min.js"></script>
+    <script src="lib/jquery-1.5.min.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <script src="lib/ribs.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            var naviData = new Backbone.Collection([
+                    { label: "Quick Start" },
+                    { label: "Dependencies" },
+                    { label: "Overview" },
+                    { label: "Breakdown",
+                        children: [
+                            { label: "ManagedView" },
+                            { label: "Mixins" },
+                            { label: "UI Manager" },
+                        ]
+                    },
+                    { label: "Usage" }
+                ]),
+                NaviItem = Ribs.createMixed({
+                    mixinClasses: [
+                        new Ribs.mixins.Templated({
+                            templateFunction: _.template($("#navi-item-tmpl").html())
+                        })
+                    ]
+                }),
+                NaviList = Ribs.createMixed({
+                    mixinClasses: [
+                        new Ribs.mixins.SimpleList({
+                            ItemRenderer: NaviItem
+                        })
+                    ]
+                });
+
+            new NaviList({ el: $("#navi"), model: naviData });
+        });
+
+    </script>
+</head>
+<body>
+
+<div id="navi">
+</div>
+
+<script id="navi-item-tmpl" type="text/html">
+<div><span><%= label %></span></div>
+</script>
+
+</body>
+</html>
