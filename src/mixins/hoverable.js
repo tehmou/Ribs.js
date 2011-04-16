@@ -6,9 +6,11 @@ Ribs.mixins.Hoverable = function (myOptions) {
             var that,
                 mouseOver = function () {
                     that.model.ribsUI.set({ hovering: true });
+                    that.render();
                 },
                 mouseOut = function () {
                     that.model.ribsUI.set({ hovering: false });
+                    that.render();
                 };
 
             return {
@@ -21,11 +23,11 @@ Ribs.mixins.Hoverable = function (myOptions) {
                 refresh: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
                     $elem
+                            .toggleClass("hovering", this.model.ribsUI.get("hovering"))
                             .unbind("mouseenter", mouseOver)
                             .unbind("mouseleave", mouseOut)
-                            .bind("mouseenter", mouseOver)
-                            .bind("mouseleave", mouseOut)
-                            .toggleClass("hovering", this.model.ribsUI.get("hovering"));
+                            .mouseenter(mouseOver)
+                            .mouseleave(mouseOut);
                 }
             };
         };

@@ -27,6 +27,7 @@ Ribs.ManagedView = Backbone.View.extend({
         
         if (this.invalidated) {
             this.redraw();
+            this.invalidated = false;
         }
         if (!this.refreshOnlyIfVisible || $(this.el).is(":visible")) {
             this.refresh();
