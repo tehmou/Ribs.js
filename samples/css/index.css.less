@@ -1,0 +1,59 @@
+@quiet: #988283;
+@loud: #F0004C;
+@bg: #FFFFFF;
+
+@quiet-dark: darken(@quiet, 30%);
+@quiet-light: lighten(@quiet, 30%);
+
+@loud-dark: darken(@loud, 30%);
+@loud-light: lighten(@loud, 40%);
+
+body {
+    font-family: "Helvetica Neue", "Helvetica", "Arial";
+    font-size: 9pt;
+    padding: 0;
+    margin: 0;
+    background: @bg;
+}
+
+#navi {
+    background: @quiet;
+    position: fixed;
+    width: 20%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-right: 2px solid @quiet-dark;
+    font-size: 18pt;
+    text-align: right;
+
+    h1 {
+        padding: 0 10px;
+        color: @loud-dark;
+    }
+}
+
+#navi-list {
+
+    color: @loud-light;
+    border-top: 1px solid @quiet-light;
+
+    div {
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid @quiet-light;
+        padding: 2px 10px;
+
+        &.hovering {
+            background: @loud-dark;
+            color: @bg;
+        }
+
+        cursor: default;
+    }
+}
+
+#content {
+    position: absolute;
+    left: 20%;
+}

@@ -10,6 +10,7 @@
             padding: 3px 6px;
             cursor: hand;
             cursor: pointer;
+            border: 1px solid transparent;
         }
         .person.hovering { border: 1px solid #888; }
         .person.selected { background: #aaa; }
@@ -23,20 +24,49 @@
     <script type="text/javascript">
         $(function () {
 
-            var samplePerson = new Backbone.Model({ name: "Pekka", age: 23, city: "Helsinki" }),
-                PersonView = Ribs.createMixed({
-                   mixinClasses: [
-                       Ribs.mixins.templated({
-                           templateFunction: _.template($("#person-tmpl").html()),
-                           className: "person"
-                       }),
-                       Ribs.mixins.hoverable(),
-                       Ribs.mixins.selectable()
-                   ]
-                }),
-                personView = new PersonView({ model: samplePerson });
+            var people, PersonView, PeopleView, personView, peopleView, peopleView2;
 
+            // Create some data.
+            people = new Backbone.Collection([
+                { name: "Pekka", age: 23, city: "Helsinki" },
+                { name: "Kaisa", age: 18, city: "Espoo" },
+                { name: "Marja", age: 26, city: "Helsinki" },
+                { name: "Markus", age: 46, city: "Helsinki" }
+            ]);
+
+            // Create a Backbone.View class for one person.
+            PersonView = Ribs.createMixed({
+                mixinClasses: [
+                    Ribs.mixins.templated({
+                        templateFunction: _.template($("#person-tmpl").html()),
+                        className: "person"
+                    }),
+                    Ribs.mixins.hoverable(),
+                    Ribs.mixins.selectable()
+                ]
+            });
+
+            // Create a Backbone.View class for a list of people.
+            PeopleView = Ribs.createMixed({
+                mixinClasses: [
+                    Ribs.mixins.simpleList({
+                        ItemRenderer: PersonView
+                    })
+                ]
+            });
+
+            // Create an instance of PersonView and append to #person-container.
+            personView = new PersonView({ model: people.at(2) }),
             $("#person-container").append(personView.el);
+
+            // Create an instance of PersonView and append to #people-container.
+            peopleView = new PeopleView({ model: people })
+            $("#people-container").append(peopleView.el);
+
+            // Create another instance of PeopleView but give it #people-container-2.
+            // We don't actually need this reference for anything.
+            peopleView2 = new PeopleView({ model: people, el: $("#people-container-2") });
+
 
         });
 
@@ -45,7 +75,14 @@
 </head>
 <body>
 
+<h2>One item:</h2>
 <div id="person-container"></div>
+
+<h2>List containing the first item:</h2>
+<div id="people-container"></div>
+
+<h2>Another list with the same model:</h2>
+<div id="people-container-2"></div>
 
 <script id="person-tmpl" type="text/html">
 <%= name %> (age: <%= age %>, city: <%= city %>)

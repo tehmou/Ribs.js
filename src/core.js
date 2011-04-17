@@ -51,7 +51,7 @@
                             mixin.managedViewMethods[methodName] && mixin.managedViewMethods[methodName].apply(this, arguments);
                         }, this));
                     };
-
+    
                     doIt.apply(this, arguments);
                 }
             },

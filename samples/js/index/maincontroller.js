@@ -1,10 +1,10 @@
 var MainController = Backbone.Controller.extend({
     routes: {
-      "quick-start":          "routeHandler"
+      ":route":          "routeHandler"
     },
 
-    routeHandler: function() {
-
+    routeHandler: function(route) {
+        
     }
 
 });
