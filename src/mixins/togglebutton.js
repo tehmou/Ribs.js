@@ -9,7 +9,7 @@ Ribs.mixins.toggleButton = function (myOptions) {
                     events: {
                         "click": "toggle"
                     },
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },

@@ -8,7 +8,7 @@ Ribs.mixins.selectable = function (myOptions) {
                     events: {
                         "click": "elementClicked"
                     },
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },

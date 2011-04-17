@@ -7,7 +7,7 @@ Ribs.mixins.simpleList = function (myOptions) {
         SimpleListClosure = function () {
             var parent, listModel, listViews,
                 that = {
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },

@@ -48,7 +48,7 @@
                     var doIt = function () {
                         Ribs.ManagedView.prototype[methodName].apply(this, arguments);
                         _.each(this.mixins, _.bind(function (mixin) {
-                            mixin.entryPoints[methodName] && mixin.entryPoints[methodName].apply(mixin, arguments);
+                            mixin.managedViewMethods[methodName] && mixin.managedViewMethods[methodName].apply(mixin, arguments);
                         }, this));
                     };
 
@@ -66,7 +66,7 @@
             this.mixins = [];
             _.each(mixinClasses, _.bind(function (Mixin) {
                 var mixin = new Mixin(this.options);
-                mixin.entryPoints.mixinInitialize.apply(mixin, [this]);
+                mixin.managedViewMethods.mixinInitialize.apply(mixin, [this]);
                 this.mixins.push(mixin);
             }, this));
 
@@ -189,7 +189,7 @@ Ribs.mixins.hoverable = function (myOptions) {
         HoverableClosure = function () {
             var parent,
                 that = {
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },
@@ -230,7 +230,7 @@ Ribs.mixins.selectable = function (myOptions) {
                     events: {
                         "click": "elementClicked"
                     },
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },
@@ -265,7 +265,7 @@ Ribs.mixins.simpleList = function (myOptions) {
         SimpleListClosure = function () {
             var parent, listModel, listViews,
                 that = {
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },
@@ -333,7 +333,7 @@ Ribs.mixins.templated = function (myOptions) {
         TemplatedClosure = function () {
             var parent,
                 that = {
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },
@@ -367,7 +367,7 @@ Ribs.mixins.toggleableElement = function (myOptions) {
                         parent && (parent.invalidated = true);
                     },
 
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },
@@ -399,7 +399,7 @@ Ribs.mixins.toggleButton = function (myOptions) {
                     events: {
                         "click": "toggle"
                     },
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },

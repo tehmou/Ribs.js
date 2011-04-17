@@ -9,7 +9,7 @@ Ribs.mixins.toggleableElement = function (myOptions) {
                         parent && (parent.invalidated = true);
                     },
 
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },

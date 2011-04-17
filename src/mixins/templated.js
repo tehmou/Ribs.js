@@ -7,7 +7,7 @@ Ribs.mixins.templated = function (myOptions) {
         TemplatedClosure = function () {
             var parent,
                 that = {
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },

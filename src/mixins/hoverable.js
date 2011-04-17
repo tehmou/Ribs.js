@@ -5,7 +5,7 @@ Ribs.mixins.hoverable = function (myOptions) {
         HoverableClosure = function () {
             var parent,
                 that = {
-                    entryPoints: {
+                    managedViewMethods: {
                         mixinInitialize: function (value) {
                             parent = value;
                         },
