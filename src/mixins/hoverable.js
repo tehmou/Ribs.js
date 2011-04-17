@@ -5,10 +5,10 @@ Ribs.mixins.hoverable = function (myOptions) {
         HoverableClosure = function () {
             var parent,
                 that = {
+                    mixinInitialize: function (value) {
+                        parent = value;
+                    },
                     managedViewMethods: {
-                        mixinInitialize: function (value) {
-                            parent = value;
-                        },
                         modelChanged: function () {
                             parent.model && parent.model.ribsUI.set({ hovering: false });
                         },

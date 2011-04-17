@@ -7,10 +7,10 @@ Ribs.mixins.templated = function (myOptions) {
         TemplatedClosure = function () {
             var parent,
                 that = {
+                    mixinInitialize: function (value) {
+                        parent = value;
+                    },
                     managedViewMethods: {
-                        mixinInitialize: function (value) {
-                            parent = value;
-                        },
                         redraw: function () {
                             that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
 

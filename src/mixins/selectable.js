@@ -5,13 +5,13 @@ Ribs.mixins.selectable = function (myOptions) {
         SelectableClosure = function () {
             var parent,
                 that = {
+                    mixinInitialize: function (value) {
+                        parent = value;
+                    },
                     events: {
                         "click": "elementClicked"
                     },
                     managedViewMethods: {
-                        mixinInitialize: function (value) {
-                            parent = value;
-                        },
                         modelChanged: function () {
                             parent.model && parent.model.ribsUI.set({ selected: false });
                         },

@@ -6,13 +6,13 @@ Ribs.mixins.toggleButton = function (myOptions) {
         ToggleButtonClosure = function () {
             var parent,
                 that = {
+                    mixinInitialize: function (value) {
+                        parent = value;
+                    },
                     events: {
                         "click": "toggle"
                     },
                     managedViewMethods: {
-                        mixinInitialize: function (value) {
-                            parent = value;
-                        },
                         modelChanged: function () {
                             parent.model && parent.model.ribsUI.set({ open: false });
                         },

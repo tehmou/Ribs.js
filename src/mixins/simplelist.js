@@ -7,10 +7,10 @@ Ribs.mixins.simpleList = function (myOptions) {
         SimpleListClosure = function () {
             var parent, listModel, listViews,
                 that = {
+                    mixinInitialize: function (value) {
+                        parent = value;
+                    },
                     managedViewMethods: {
-                        mixinInitialize: function (value) {
-                            parent = value;
-                        },
                         modelChanged: function () {
                             _.each(listViews, function (view) {
                                 view.dispose();
