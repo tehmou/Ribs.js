@@ -31,8 +31,7 @@ Ribs.ManagedView = Backbone.View.extend({
         }
     },
     redraw: function () { },
-    refresh: function () {
-    },
+    refresh: function () { },
     hide: function () {
         $(this.el).detach();
     },

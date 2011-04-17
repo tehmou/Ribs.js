@@ -1,4 +1,4 @@
-Ribs.mixins.SimpleList = function (myOptions) {
+Ribs.mixins.simpleList = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,

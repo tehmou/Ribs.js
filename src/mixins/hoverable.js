@@ -1,9 +1,10 @@
-Ribs.mixins.Hoverable = function (myOptions) {
+Ribs.mixins.hoverable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         HoverableClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     entryPoints: {
                         mixinInitialize: function (value) {
                             parent = value;

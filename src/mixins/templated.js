@@ -1,11 +1,12 @@
-Ribs.mixins.Templated = function (myOptions) {
+Ribs.mixins.templated = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         templateFunction = myOptions.templateFunction,
         className = myOptions.className,
         TemplatedClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     entryPoints: {
                         mixinInitialize: function (value) {
                             parent = value;

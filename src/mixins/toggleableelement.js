@@ -1,9 +1,10 @@
-Ribs.mixins.ToggleableElement = function (myOptions) {
+Ribs.mixins.toggleableElement = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         ToggleableElementClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     openChanged: function () {
                         parent && (parent.invalidated = true);
                     },

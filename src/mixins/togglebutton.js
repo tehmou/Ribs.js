@@ -1,10 +1,11 @@
-Ribs.mixins.ToggleButton = function (myOptions) {
+Ribs.mixins.toggleButton = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         usePlusMinus = myOptions.usePlusMinus,
         ToggleButtonClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     events: {
                         "click": "toggle"
                     },

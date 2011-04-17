@@ -31,28 +31,28 @@ $(function () {
         initialize = function () {
             var FruitItem = Ribs.createMixed({
                    mixinClasses: [
-                       Ribs.mixins.Templated({
+                       Ribs.mixins.templated({
                            className: "fruit-item",
                            templateFunction: _.template($("#fruit-item-tmpl").html())
                        }),
-                       Ribs.mixins.Hoverable({}),
-                       Ribs.mixins.Selectable({})
+                       Ribs.mixins.hoverable({}),
+                       Ribs.mixins.selectable({})
                    ]
                 }),
                 FruitDetails = Ribs.createMixed({
                     requireModel: false,
                     mixinClasses: [
-                        Ribs.mixins.Templated({
+                        Ribs.mixins.templated({
                             templateFunction: _.template($("#fruit-details-tmpl").html())
                         })
                     ]
                 }),
                 PlainList = Ribs.createMixed({
                     mixinClasses: [
-                        Ribs.mixins.Templated({
+                        Ribs.mixins.templated({
                            templateFunction: _.template($("#plain-list-tmpl").html())
                         }),
-                        Ribs.mixins.SimpleList({
+                        Ribs.mixins.simpleList({
                             elementSelector: ".list",
                             ItemRenderer: FruitItem
                         })
@@ -60,28 +60,28 @@ $(function () {
                 }),
                 AlphabetItem = Ribs.createMixed({
                     mixinClasses: [
-                        Ribs.mixins.Templated({
+                        Ribs.mixins.templated({
                             className: "alphabet-item",
                             templateFunction: _.template($("#alphabet-item-tmpl").html())
                         }),
-                        Ribs.mixins.ToggleableElement({ elementSelector: ".nested-fruit-list:first" }),
-                        Ribs.mixins.SimpleList({
+                        Ribs.mixins.toggleableElement({ elementSelector: ".nested-fruit-list:first" }),
+                        Ribs.mixins.simpleList({
                             elementSelector: ".nested-fruit-list:first",
                             ItemRenderer: FruitItem,
                             listAttributeName: "fruits"
                         }),
-                        Ribs.mixins.Hoverable({ elementSelector: ".item-body:first" }),
-                        Ribs.mixins.Hoverable({ elementSelector: ".folder-icon:first" }),
-                        Ribs.mixins.ToggleButton({ elementSelector: ".item-body:first" }),
-                        Ribs.mixins.ToggleButton({ elementSelector: ".folder-icon:first", usePlusMinus: true })
+                        Ribs.mixins.hoverable({ elementSelector: ".item-body:first" }),
+                        Ribs.mixins.hoverable({ elementSelector: ".folder-icon:first" }),
+                        Ribs.mixins.toggleButton({ elementSelector: ".item-body:first" }),
+                        Ribs.mixins.toggleButton({ elementSelector: ".folder-icon:first", usePlusMinus: true })
                     ]
                 }),
                 AlphabetList = Ribs.createMixed({
                     mixinClasses: [
-                        Ribs.mixins.Templated({
+                        Ribs.mixins.templated({
                             templateFunction: _.template($("#alphabet-list-tmpl").html())
                         }),
-                        Ribs.mixins.SimpleList({
+                        Ribs.mixins.simpleList({
                             elementSelector: ".list",
                             ItemRenderer: AlphabetItem
                         })

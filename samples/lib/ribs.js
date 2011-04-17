@@ -121,8 +121,7 @@ Ribs.ManagedView = Backbone.View.extend({
         }
     },
     redraw: function () { },
-    refresh: function () {
-    },
+    refresh: function () { },
     hide: function () {
         $(this.el).detach();
     },
@@ -183,12 +182,13 @@ Ribs.createUIManager = function (key, myOptions) {
     }();       
 };
 
-Ribs.mixins.Hoverable = function (myOptions) {
+Ribs.mixins.hoverable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         HoverableClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     entryPoints: {
                         mixinInitialize: function (value) {
                             parent = value;
@@ -220,7 +220,7 @@ Ribs.mixins.Hoverable = function (myOptions) {
     return HoverableClosure;
 };
 
-Ribs.mixins.Selectable = function (myOptions) {
+Ribs.mixins.selectable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
@@ -256,7 +256,7 @@ Ribs.mixins.Selectable = function (myOptions) {
     return SelectableClosure;
 };
 
-Ribs.mixins.SimpleList = function (myOptions) {
+Ribs.mixins.simpleList = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
@@ -324,14 +324,15 @@ Ribs.mixins.SimpleList = function (myOptions) {
     return SimpleListClosure;
 };
 
-Ribs.mixins.Templated = function (myOptions) {
+Ribs.mixins.templated = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         templateFunction = myOptions.templateFunction,
         className = myOptions.className,
         TemplatedClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     entryPoints: {
                         mixinInitialize: function (value) {
                             parent = value;
@@ -355,12 +356,13 @@ Ribs.mixins.Templated = function (myOptions) {
     return TemplatedClosure;
 };
 
-Ribs.mixins.ToggleableElement = function (myOptions) {
+Ribs.mixins.toggleableElement = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         ToggleableElementClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     openChanged: function () {
                         parent && (parent.invalidated = true);
                     },
@@ -386,13 +388,14 @@ Ribs.mixins.ToggleableElement = function (myOptions) {
     return ToggleableElementClosure;
 };
 
-Ribs.mixins.ToggleButton = function (myOptions) {
+Ribs.mixins.toggleButton = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
         usePlusMinus = myOptions.usePlusMinus,
         ToggleButtonClosure = function () {
-            var parent, that = {
+            var parent,
+                that = {
                     events: {
                         "click": "toggle"
                     },

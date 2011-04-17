@@ -38,15 +38,15 @@
                 ]),
                 NaviItem = Ribs.createMixed({
                     mixinClasses: [
-                        new Ribs.mixins.Templated({
+                        new Ribs.mixins.templated({
                             templateFunction: _.template($("#navi-item-tmpl").html())
                         }),
-                        new Ribs.mixins.Hoverable()
+                        new Ribs.mixins.hoverable()
                     ]
                 }),
                 NaviList = Ribs.createMixed({
                     mixinClasses: [
-                        new Ribs.mixins.SimpleList({
+                        new Ribs.mixins.simpleList({
                             ItemRenderer: NaviItem
                         })
                     ]

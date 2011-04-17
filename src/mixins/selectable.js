@@ -1,4 +1,4 @@
-Ribs.mixins.Selectable = function (myOptions) {
+Ribs.mixins.selectable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,

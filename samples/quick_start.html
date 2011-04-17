@@ -26,12 +26,12 @@
             var samplePerson = new Backbone.Model({ name: "Pekka", age: 23, city: "Helsinki" }),
                 PersonView = Ribs.createMixed({
                    mixinClasses: [
-                       Ribs.mixins.Templated({
+                       Ribs.mixins.templated({
                            templateFunction: _.template($("#person-tmpl").html()),
                            className: "person"
                        }),
-                       Ribs.mixins.Hoverable(),
-                       Ribs.mixins.Selectable()
+                       Ribs.mixins.hoverable(),
+                       Ribs.mixins.selectable()
                    ]
                 }),
                 personView = new PersonView({ model: samplePerson });
