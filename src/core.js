@@ -50,7 +50,7 @@
                         _.each(this.mixins, _.bind(function (mixin) {
                             mixin[methodName] && mixin[methodName].apply(this, arguments);
                         }, this));
-                    }
+                    };
 
                     doIt.apply(this, arguments);
                 }

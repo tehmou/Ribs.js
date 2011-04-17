@@ -1,4 +1,4 @@
-Ribs.mixins.Toggleable = function (myOptions) {
+Ribs.mixins.ToggleButton = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,

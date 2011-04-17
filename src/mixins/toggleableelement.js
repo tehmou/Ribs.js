@@ -5,7 +5,7 @@ Ribs.mixins.ToggleableElement = function (myOptions) {
         ToggleableElementClosure = function () {
             var that,
                 openChanged = function () {
-                    that.invalidated = true;
+                    that && (that.invalidated = true);
                 };
 
             return {
@@ -13,7 +13,7 @@ Ribs.mixins.ToggleableElement = function (myOptions) {
                     that = this;
                 },
                 modelChanged: function () {
-                    this.model && this.model.bind("ribs:ui:open", openChanged);
+                    this.model && this.model.ribsUI.bind("change:open", openChanged);
                 },
                 redraw: function () {
                     var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);

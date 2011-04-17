@@ -13,11 +13,9 @@ Ribs.ManagedView = Backbone.View.extend({
     bindToModel: function (model) {
         this.model && this.model.ribsUI && this.model.ribsUI.safeUnbind("all", this.render);
         this.model = model;
-        if (this.model) {
-            Ribs.augmentModelWithUIAttributes(this.model);
-            this.model.ribsUI.bind("all", this.render);
-        }
+        this.model && Ribs.augmentModelWithUIAttributes(this.model);
         this.modelChanged();
+        this.model && this.model.ribsUI.bind("all", this.render);
     },
     modelChanged: function () { },
     render: function () {

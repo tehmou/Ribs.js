@@ -72,8 +72,8 @@ $(function () {
                         }),
                         Ribs.mixins.Hoverable({ elementSelector: ".item-body:first" }),
                         Ribs.mixins.Hoverable({ elementSelector: ".folder-icon:first" }),
-                        Ribs.mixins.Toggleable({ elementSelector: ".item-body:first" }),
-                        Ribs.mixins.Toggleable({ elementSelector: ".folder-icon:first", usePlusMinus: true })
+                        Ribs.mixins.ToggleButton({ elementSelector: ".item-body:first" }),
+                        Ribs.mixins.ToggleButton({ elementSelector: ".folder-icon:first", usePlusMinus: true })
                     ]
                 }),
                 AlphabetList = Ribs.createMixed({
