@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ribs.js--Quick Start Example</title>
+
+    <style type="text/css">
+        .person {
+            width: 300px;
+            padding: 3px 6px;
+            cursor: hand;
+            cursor: pointer;
+        }
+        .person.hovering { border: 1px solid #888; }
+        .person.selected { background: #aaa; }
+    </style>
+
+    <script src="lib/jquery-1.5.min.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <script src="lib/ribs.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var samplePerson = new Backbone.Model({ name: "Pekka", age: 23, city: "Helsinki" }),
+                PersonView = Ribs.createMixed({
+                   mixinClasses: [
+                       Ribs.mixins.Templated({
+                           templateFunction: _.template($("#person-tmpl").html()),
+                           tagClass: "person"
+                       }),
+                       Ribs.mixins.Hoverable(),
+                       Ribs.mixins.Selectable()
+                   ]
+                }),
+                personView = new PersonView({ model: samplePerson });
+
+            $("#person-container").append(personView.el);
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+<div id="person-container"></div>
+
+<script id="person-tmpl" type="text/html">
+<%= name %> (age: <%= age %>, city: <%= city %>)
+</script>
+
+</body>
+</html>

@@ -21,11 +21,16 @@
     <script src="../src/mixins/toggleableelement.js"></script>
     <script src="../src/utils/uimanager.js"></script>
 
+    <script src="js/index/maincontroller.js"></script>
     <script type="text/javascript">
 
         $(function () {
             var naviData = new Backbone.Collection([
-                    { label: "Quick Start", id: "quick-start" },
+                    {
+                        label: "Quick Start",
+                        id: "quick-start",
+                        codeFile: "quick_start.html"
+                    },
                     { label: "Dependencies", id: "dependencies" },
                     { label: "ManagedView", id: "managed-view" },
                     { label: "Mixins", id: "mixins" },
@@ -48,6 +53,8 @@
                 });
 
             new NaviList({ el: $("#navi-list"), model: naviData });
+            new MainController;
+            Backbone.history.start();
         });
 
     </script>
@@ -61,8 +68,6 @@
 
 <div id="content">
     <div id="quick-start">
-        <p></p>
-        
     </div>
     <div id="dependencies"></div>
     <div id="managed-view"></div>
