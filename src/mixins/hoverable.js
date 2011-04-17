@@ -3,31 +3,33 @@ Ribs.mixins.Hoverable = function (myOptions) {
 
     var elementSelector = myOptions.elementSelector,
         HoverableClosure = function () {
-            var that,
-                mouseOver = function () {
-                    that.model.ribsUI.set({ hovering: true });
-                },
-                mouseOut = function () {
-                    that.model.ribsUI.set({ hovering: false });
-                };
+            var parent, that = {
+                    entryPoints: {
+                        mixinInitialize: function (value) {
+                            parent = value;
+                        },
+                        modelChanged: function () {
+                            parent.model && parent.model.ribsUI.set({ hovering: false });
+                        },
+                        redraw: function () {
+                            that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
+                        },
+                        refresh: function () {
+                            that.el
+                                    .mouseenter(that.mouseOver)
+                                    .mouseleave(that.mouseOut)
+                                    .toggleClass("hovering", parent.model.ribsUI.get("hovering"));
+                        }
+                    },
 
-            return {
-                customInitialize: function () {
-                    that = this;
-                },
-                modelChanged: function () {
-                    this.model && this.model.ribsUI.set({ hovering: false });
-                },
-                refresh: function () {
-                    var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
-                    $elem
-                            .unbind("mouseenter", mouseOver)
-                            .unbind("mouseleave", mouseOut)
-                            .bind("mouseenter", mouseOver)
-                            .bind("mouseout", mouseOut)
-                            .toggleClass("hovering", this.model.ribsUI.get("hovering"));
-                }
-            };
+                    mouseOver: function () {
+                        parent.model.ribsUI.set({ hovering: true });
+                    },
+                    mouseOut: function () {
+                        parent.model.ribsUI.set({ hovering: false });
+                    }
+                };
+            return that;
         };
 
     return HoverableClosure;

@@ -3,25 +3,32 @@ Ribs.mixins.Selectable = function (myOptions) {
 
     var elementSelector = myOptions.elementSelector,
         SelectableClosure = function () {
-            var that, elementClicked = function () {
-                that.model.ribsUI.set({ selected: !that.model.ribsUI.get("selected") });
-            };
+            var parent,
+                that = {
+                    events: {
+                        "click": "elementClicked"
+                    },
+                    entryPoints: {
+                        mixinInitialize: function (value) {
+                            parent = value;
+                        },
+                        modelChanged: function () {
+                            parent.model && parent.model.ribsUI.set({ selected: false });
+                        },
+                        redraw: function () {
+                            that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
+                        },
+                        refresh: function () {
+                            that.el.toggleClass("selected", parent.model.ribsUI.get("selected"));
+                        }
+                    },
+                    
+                    elementClicked: function () {
+                        parent.model.ribsUI.set({ selected: !parent.model.ribsUI.get("selected") });
+                    }
+                };
 
-            return {
-                customInitialize: function () {
-                    that = this;
-                },
-                modelChanged: function () {
-                    this.model && this.model.ribsUI.set({ selected: false });
-                },
-                refresh: function () {
-                    var $elem = elementSelector ? $(this.el).find(elementSelector) : $(this.el);
-                    $elem
-                            .unbind("click", elementClicked)
-                            .bind("click", elementClicked)
-                            .toggleClass("selected", this.model.ribsUI.get("selected"));
-                }
-            };
+            return that;
         };
 
     return SelectableClosure;

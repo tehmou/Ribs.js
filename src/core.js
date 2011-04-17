@@ -48,7 +48,7 @@
                     var doIt = function () {
                         Ribs.ManagedView.prototype[methodName].apply(this, arguments);
                         _.each(this.mixins, _.bind(function (mixin) {
-                            mixin[methodName] && mixin[methodName].apply(this, arguments);
+                            mixin.entryPoints[methodName] && mixin.entryPoints[methodName].apply(mixin, arguments);
                         }, this));
                     };
 
@@ -65,9 +65,20 @@
             }
             this.mixins = [];
             _.each(mixinClasses, _.bind(function (Mixin) {
-                this.mixins.push(new Mixin(this.options));
+                var mixin = new Mixin(this.options);
+                mixin.entryPoints.mixinInitialize.apply(mixin, [this]);
+                this.mixins.push(mixin);
             }, this));
+
+            
             Ribs.ManagedView.prototype.initialize.apply(this, arguments);
+        };
+
+        Buildee.prototype.delegateEvents = function () {
+            Backbone.View.prototype.delegateEvents.apply(this, arguments);
+            _.each(this.mixins, function (mixin) {
+                Backbone.View.prototype.delegateEvents.apply(mixin);
+            });
         };
 
         delegateToMixins(["customInitialize", "modelChanged", "render", "redraw", "refresh", "hide", "dispose"]);

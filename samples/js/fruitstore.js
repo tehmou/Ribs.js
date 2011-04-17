@@ -32,8 +32,8 @@ $(function () {
             var FruitItem = Ribs.createMixed({
                    mixinClasses: [
                        Ribs.mixins.Templated({
-                           templateFunction: _.template($("#fruit-item-tmpl").html()),
-                           tagClass: "fruit-item"
+                           className: "fruit-item",
+                           templateFunction: _.template($("#fruit-item-tmpl").html())
                        }),
                        Ribs.mixins.Hoverable({}),
                        Ribs.mixins.Selectable({})
@@ -61,8 +61,8 @@ $(function () {
                 AlphabetItem = Ribs.createMixed({
                     mixinClasses: [
                         Ribs.mixins.Templated({
-                            templateFunction: _.template($("#alphabet-item-tmpl").html()),
-                            tagClass: "alphabet-item"
+                            className: "alphabet-item",
+                            templateFunction: _.template($("#alphabet-item-tmpl").html())
                         }),
                         Ribs.mixins.ToggleableElement({ elementSelector: ".nested-fruit-list:first" }),
                         Ribs.mixins.SimpleList({
