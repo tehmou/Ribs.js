@@ -16,13 +16,10 @@ Ribs.ManagedView = Backbone.View.extend({
         this.model && Ribs.augmentModelWithUIAttributes(this.model);
         this.modelChanged();
         this.model && this.model.ribsUI.bind("all", this.render);
+        this.invalidated = true;
     },
     modelChanged: function () { },
     render: function () {
-        if (!this.model) {
-            return;
-        }
-        
         if (this.invalidated) {
             this.redraw();
             this.invalidated = false;

@@ -25,18 +25,11 @@
 
         $(function () {
             var naviData = new Backbone.Collection([
-                    { label: "Quick Start" },
-                    { label: "Dependencies" },
-                    { label: "Overview" },
-                    { label: "ManagedView",
-                        children: [
-                            { label: "" },
-                            { label: "" },
-                            { label: "" }
-                        ]
-                    },
-                    { label: "Mixins" },
-                    { label: "UI Manager" }
+                    { label: "Quick Start", id: "quick-start" },
+                    { label: "Dependencies", id: "dependencies" },
+                    { label: "ManagedView", id: "managed-view" },
+                    { label: "Mixins", id: "mixins" },
+                    { label: "UI Manager", id: "ui-manager" }
                 ]),
                 NaviItem = Ribs.createMixed({
                     mixinClasses: [
@@ -64,6 +57,17 @@
 <div id="navi">
     <h1>Ribs.js</h1>
     <div id="navi-list"></div>
+</div>
+
+<div id="content">
+    <div id="quick-start">
+        <p></p>
+        
+    </div>
+    <div id="dependencies"></div>
+    <div id="managed-view"></div>
+    <div id="mixins"></div>
+    <div id="ui-manager"></div>
 </div>
 
 <script id="navi-item-tmpl" type="text/html">

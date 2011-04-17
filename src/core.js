@@ -11,24 +11,7 @@
         if (!model.hasOwnProperty("ribsUI")) {
             model.ribsUI = new Backbone.Model();
             model.ribsUI.safeUnbind = function (ev, callback) {
-                var calls;
-                if (!ev) {
-                    this._callbacks = {};
-                } else if (calls = this._callbacks) {
-                    if (!callback) {
-                        calls[ev] = [];
-                    } else {
-                        var list = calls[ev];
-                        if (!list) return this;
-                        for (var i = 0, l = list.length; i < l; i++) {
-                            if (callback === list[i]) {
-                                list[i] = function () { };
-                                break;
-                            }
-                        }
-                    }
-                }
-                return this;
+                _.defer(function () { model.ribsUI.unbind(ev, callback) });
             };
             model.ribsUI.set({ owner: model });
             model.ribsUI.bind("all", function (event) {
