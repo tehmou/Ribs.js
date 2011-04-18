@@ -2,12 +2,8 @@ Ribs.mixins.selectable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
-        SelectableClosure = function () {
-            var parent,
-                that = {
-                    mixinInitialize: function (value) {
-                        parent = value;
-                    },
+        Selectable = function (parent) {
+            var mixin = {
                     events: {
                         "click": "elementClicked"
                     },
@@ -16,10 +12,10 @@ Ribs.mixins.selectable = function (myOptions) {
                             parent.model && parent.model.ribsUI.set({ selected: false });
                         },
                         redraw: function () {
-                            that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
+                            mixin.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
                         },
                         refresh: function () {
-                            that.el.toggleClass("selected", parent.model.ribsUI.get("selected"));
+                            mixin.el.toggleClass("selected", parent.model.ribsUI.get("selected"));
                         }
                     },
                     
@@ -28,9 +24,9 @@ Ribs.mixins.selectable = function (myOptions) {
                     }
                 };
 
-            return that;
+            return mixin;
         };
 
-    return SelectableClosure;
+    return Selectable;
 };
 

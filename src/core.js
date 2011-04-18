@@ -65,8 +65,7 @@
             }
             this.mixins = [];
             _.each(mixinClasses, _.bind(function (Mixin) {
-                var mixin = new Mixin(this.options);
-                mixin.mixinInitialize && mixin.mixinInitialize.apply(mixin, [this]);
+                var mixin = new Mixin(this);
                 this.mixins.push(mixin);
             }, this));
 

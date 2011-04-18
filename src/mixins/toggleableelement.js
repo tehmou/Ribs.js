@@ -2,19 +2,15 @@ Ribs.mixins.toggleableElement = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
-        ToggleableElementClosure = function () {
-            var parent,
-                that = {
-                    mixinInitialize: function (value) {
-                        parent = value;
-                    },
+        ToggleableElement = function (parent) {
+            var mixin = {
                     managedViewMethods: {
                         modelChanged: function () {
-                            parent.model && parent.model.ribsUI.bind("change:open", that.openChanged);
+                            parent.model && parent.model.ribsUI.bind("change:open", mixin.openChanged);
                         },
                         redraw: function () {
-                            that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
-                            that.el.toggle(parent.model.ribsUI.get("open"));
+                            mixin.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
+                            mixin.el.toggle(parent.model.ribsUI.get("open"));
                         }
                     },
                     openChanged: function () {
@@ -23,9 +19,9 @@ Ribs.mixins.toggleableElement = function (myOptions) {
                 };
 
 
-            return that;
+            return mixin;
         };
 
-    return ToggleableElementClosure;
+    return ToggleableElement;
 };
 

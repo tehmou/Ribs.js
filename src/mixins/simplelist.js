@@ -4,12 +4,9 @@ Ribs.mixins.simpleList = function (myOptions) {
     var elementSelector = myOptions.elementSelector,
         listAttributeName = myOptions.listAttributeName,
         ItemRenderer = myOptions.ItemRenderer,
-        SimpleListClosure = function () {
-            var parent, listModel, listViews,
-                that = {
-                    mixinInitialize: function (value) {
-                        parent = value;
-                    },
+        SimpleList = function (parent) {
+            var listModel, listViews,
+                mixin = {
                     managedViewMethods: {
                         modelChanged: function () {
                             _.each(listViews, function (view) {
@@ -17,25 +14,25 @@ Ribs.mixins.simpleList = function (myOptions) {
                             });
                             listViews = {};
                             if (listModel) {
-                                listModel.unbind("add", that.addOne);
-                                listModel.unbind("remove", that.removeOne);
-                                listModel.unbind("refresh", that.addAll);
+                                listModel.unbind("add", mixin.addOne);
+                                listModel.unbind("remove", mixin.removeOne);
+                                listModel.unbind("refresh", mixin.addAll);
                             }
                             if (parent.model) {
                                 listModel = listAttributeName ? parent.model.get(listAttributeName) : parent.model;
-                                listModel.bind("add", that.addOne);
-                                listModel.bind("remove", that.removeOne);
-                                listModel.bind("refresh", that.addAll);
-                                that.addAll();
+                                listModel.bind("add", mixin.addOne);
+                                listModel.bind("remove", mixin.removeOne);
+                                listModel.bind("refresh", mixin.addAll);
+                                mixin.addAll();
                             } else {
                                 parent.model = null;
                             }
                         },
                         redraw: function () {
-                            that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
-                            that.el.children().detach();
+                            mixin.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
+                            mixin.el.children().detach();
                             _.each(listViews, function (view) {
-                                that.el.append(view.el);
+                                mixin.el.append(view.el);
                             });
                         },
                         render: function () {
@@ -52,7 +49,7 @@ Ribs.mixins.simpleList = function (myOptions) {
                         }
                     },
                     addAll: function () {
-                        listModel.each(that.addOne);
+                        listModel.each(mixin.addOne);
                     },
                     removeOne: function (item) {
                         delete listViews[item.cid];
@@ -60,9 +57,9 @@ Ribs.mixins.simpleList = function (myOptions) {
                     }
                 };
 
-            return that;
+            return mixin;
         };
 
-    return SimpleListClosure;
+    return SimpleList;
 };
 

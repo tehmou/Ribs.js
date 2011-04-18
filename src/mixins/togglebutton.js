@@ -3,12 +3,8 @@ Ribs.mixins.toggleButton = function (myOptions) {
 
     var elementSelector = myOptions.elementSelector,
         usePlusMinus = myOptions.usePlusMinus,
-        ToggleButtonClosure = function () {
-            var parent,
-                that = {
-                    mixinInitialize: function (value) {
-                        parent = value;
-                    },
+        ToggleButton = function (parent) {
+            var mixin = {
                     events: {
                         "click": "toggle"
                     },
@@ -17,11 +13,11 @@ Ribs.mixins.toggleButton = function (myOptions) {
                             parent.model && parent.model.ribsUI.set({ open: false });
                         },
                         redraw: function () {
-                            that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
+                            mixin.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
                         },
                         refresh: function () {
                             if (usePlusMinus) {
-                                that.el.text(parent.model.ribsUI.get("open") ? "-" : "+");
+                                mixin.el.text(parent.model.ribsUI.get("open") ? "-" : "+");
                             }
                         }
                     },
@@ -30,9 +26,9 @@ Ribs.mixins.toggleButton = function (myOptions) {
                     }
                 };
 
-            return that;
+            return mixin;
         };
 
-    return ToggleButtonClosure;
+    return ToggleButton;
 };
 

@@ -2,23 +2,19 @@ Ribs.mixins.hoverable = function (myOptions) {
     myOptions = myOptions || {};
 
     var elementSelector = myOptions.elementSelector,
-        HoverableClosure = function () {
-            var parent,
-                that = {
-                    mixinInitialize: function (value) {
-                        parent = value;
-                    },
+        Hoverable = function (parent) {
+            var mixin = {
                     managedViewMethods: {
                         modelChanged: function () {
                             parent.model && parent.model.ribsUI.set({ hovering: false });
                         },
                         redraw: function () {
-                            that.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
+                            mixin.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
                         },
                         refresh: function () {
-                            that.el
-                                    .mouseenter(that.mouseOver)
-                                    .mouseleave(that.mouseOut)
+                            mixin.el
+                                    .mouseenter(mixin.mouseOver)
+                                    .mouseleave(mixin.mouseOut)
                                     .toggleClass("hovering", parent.model.ribsUI.get("hovering"));
                         }
                     },
@@ -30,9 +26,9 @@ Ribs.mixins.hoverable = function (myOptions) {
                         parent.model.ribsUI.set({ hovering: false });
                     }
                 };
-            return that;
+            return mixin;
         };
 
-    return HoverableClosure;
+    return Hoverable;
 };
 
