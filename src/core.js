@@ -10,6 +10,9 @@
     Ribs.augmentModelWithUIAttributes = function (model) {
         if (!model.hasOwnProperty("ribsUI")) {
             model.ribsUI = new Backbone.Model();
+
+            // Do this until the next version of Backbone.js:
+            // https://github.com/documentcloud/backbone/issues/309
             model.ribsUI.safeUnbind = function (ev, callback) {
                 var calls;
                 if (!ev) {
@@ -30,6 +33,7 @@
                 }
                 return this;
             };
+            
             model.ribsUI.set({ owner: model });
             model.ribsUI.bind("all", function (event) {
                 model.trigger("ribsUI:" + event, Array.prototype.slice.call(arguments, 1));
