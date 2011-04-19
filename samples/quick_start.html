@@ -16,6 +16,24 @@
         .person.selected { background: #aaa; }
     </style>
 
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0 0 0 10px;
+        }
+        #code-container {
+            position: fixed;
+            overflow: auto;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            padding: 3px 10px;
+            border-left: 3px solid black;
+            background: #f0f0f0;
+        }
+    </style>
+
     <script src="lib/jquery-1.5.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
@@ -24,13 +42,14 @@
     <script type="text/javascript">
         $(function () {
 
-            var people, PersonView, PeopleView, personView, peopleView, peopleView2;
+            var people, PersonView, PeopleView,
+                personView, peopleView, peopleView2;
 
             // Create some data.
             people = new Backbone.Collection([
                 { name: "Pekka", age: 23, city: "Helsinki" },
                 { name: "Kaisa", age: 18, city: "Espoo" },
-                { name: "Marja", age: 26, city: "Helsinki" },
+                { name: "Maiju", age: 26, city: "Helsinki" },
                 { name: "Markus", age: 46, city: "Helsinki" }
             ]);
 
@@ -38,7 +57,9 @@
             PersonView = Ribs.createMixed({
                 mixinClasses: [
                     Ribs.mixins.templated({
-                        templateFunction: _.template($("#person-tmpl").html()),
+                        templateFunction: _.template(
+                            $("#person-tmpl").html()
+                        ),
                         className: "person"
                     }),
                     Ribs.mixins.hoverable(),
@@ -55,22 +76,54 @@
                 ]
             });
 
-            // Create an instance of PersonView and append to #person-container.
-            personView = new PersonView({ model: people.at(2) }),
+            // Create an instance of PersonView.
+            personView = new PersonView({ model: people.at(2) });
             $("#person-container").append(personView.el);
 
-            // Create an instance of PersonView and append to #people-container.
-            peopleView = new PeopleView({ model: people })
+            // Create an instance of PersonView.
+            peopleView = new PeopleView({ model: people });
             $("#people-container").append(peopleView.el);
 
-            // Create another instance of PeopleView but give it #people-container-2.
-            // We don't actually need this reference for anything.
-            peopleView2 = new PeopleView({ model: people, el: $("#people-container-2") });
-
+            // Create another instance of PeopleView via
+            // direct reference to DOM element.
+            peopleView2 = new PeopleView({
+                model: people,
+                el: $("#people-container-2")
+            });
 
         });
 
     </script>
+
+<!-- visualizer -->
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url: "quick_start.html",
+                success: function (data) {
+                    var lines = data.split("\n"),
+                        result = "",
+                        removing = false;
+                    while(lines.length > 0) {
+                        if (lines[0] === "<!-- visualizer -->") {
+                            removing = true;
+                        }
+                        !removing && (result += lines[0] + "\n");
+                        if(lines[0] === "<!-- /visualizer -->") {
+                            removing = false;
+                        }
+                        lines.splice(0, 1);
+                    }
+                    $("#code-text").text(result);
+                },
+                error: function () {
+                    $("#code-text").text("Error occured while loading the code.");
+                }
+            });
+
+        });
+    </script>
+<!-- /visualizer -->
 
 </head>
 <body>
@@ -83,6 +136,12 @@
 
 <h2>Another list with the same model:</h2>
 <div id="people-container-2"></div>
+
+<!-- visualizer -->
+<div id="code-container">
+    <pre id="code-text"></pre>
+</div>
+<!-- /visualizer -->
 
 <script id="person-tmpl" type="text/html">
 <%= name %> (age: <%= age %>, city: <%= city %>)
