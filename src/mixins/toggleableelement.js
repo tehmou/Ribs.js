@@ -1,25 +1,28 @@
 Ribs.mixins.toggleableElement = function (myOptions) {
     myOptions = myOptions || {};
 
-    var elementSelector = myOptions.elementSelector,
-        ToggleableElement = function (parent) {
-            var mixin = {
-                    managedViewMethods: {
-                        modelChanged: function () {
-                            parent.model && parent.model.ribsUI.bind("change:open", mixin.openChanged);
-                        },
-                        redraw: function () {
-                            mixin.el = elementSelector ? $(parent.el).find(elementSelector) : $(parent.el);
-                            mixin.el.toggle(parent.model.ribsUI.get("open"));
-                        }
-                    },
-                    openChanged: function () {
-                        parent && (parent.invalidated = true);
-                    }
-                };
+    var uiAttributeName = myOptions.uiAttributeName || "open",
+        reverse = myOptions.reverse || false,
+        ToggleableElement = function () {
+            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            {
+                modelChanged: function () {
+                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    var ev = "change:" + uiAttributeName;
+                    this.model && this.model.ribsUI.bind(ev, this.attributeChanged);
+                },
+                redraw: function () {
+                    Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                    var value = this.model.ribsUI.get(uiAttributeName);
+                    reverse && (value = !value);
+                    this.el.toggle(value);
+                },
 
 
-            return mixin;
+                attributeChanged: function () {
+                    this.parent && (this.parent.invalidated = true);
+                }
+            });
         };
 
     return ToggleableElement;

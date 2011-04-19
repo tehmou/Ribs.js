@@ -48,7 +48,7 @@
                     var doIt = function () {
                         Ribs.ManagedView.prototype[methodName].apply(this, arguments);
                         _.each(this.mixins, _.bind(function (mixin) {
-                            mixin.managedViewMethods[methodName] && mixin.managedViewMethods[methodName].apply(this, arguments);
+                            mixin[methodName] && mixin[methodName].apply(mixin, arguments);
                         }, this));
                     };
     
@@ -65,7 +65,8 @@
             }
             this.mixins = [];
             _.each(mixinClasses, _.bind(function (Mixin) {
-                var mixin = new Mixin(this);
+                var mixin = new Mixin();
+                mixin.parent = this;
                 this.mixins.push(mixin);
             }, this));
 

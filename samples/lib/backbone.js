@@ -77,7 +77,7 @@
           if (!list) return this;
           for (var i = 0, l = list.length; i < l; i++) {
             if (callback === list[i]) {
-              list.splice(i, 1);
+                  list.splice(i, 1);
               break;
             }
           }
