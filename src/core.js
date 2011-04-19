@@ -36,7 +36,8 @@
             
             model.ribsUI.set({ owner: model });
             model.ribsUI.bind("all", function (event) {
-                model.trigger("ribsUI:" + event, Array.prototype.slice.call(arguments, 1));
+                var ev = "ribsUI:" + event;
+                model.trigger(ev, Array.prototype.slice.call(arguments, 1));
             });
         }
     };
@@ -46,6 +47,7 @@
 
         var requireModel = myOptions.hasOwnProperty("requireModel") ? myOptions.requireModel : true,
             mixinClasses = myOptions.mixinClasses,
+            base = myOptions.base || null,
             Buildee = Ribs.ManagedView.extend(),
             delegateOneToMixins = function (methodName) {
                 Buildee.prototype[methodName] = function () {
@@ -67,6 +69,7 @@
             if (requireModel && !this.model) {
                 throw "No model specified and requireModel==true";
             }
+            var mixinClasses = this.getMixinClasses();
             this.mixins = [];
             _.each(mixinClasses, _.bind(function (Mixin) {
                 var mixin = new Mixin();
@@ -74,7 +77,7 @@
                 this.mixins.push(mixin);
             }, this));
 
-            
+
             Ribs.ManagedView.prototype.initialize.apply(this, arguments);
         };
 
@@ -84,8 +87,15 @@
                 Backbone.View.prototype.delegateEvents.apply(mixin);
             });
         };
-
         delegateToMixins(["customInitialize", "modelChanged", "render", "redraw", "refresh", "hide", "dispose"]);
+
+        Buildee.prototype.getMixinClasses = function () {
+            var oldMixinClasses = [];
+            if (base && base.prototype.getMixinClasses) {
+                oldMixinClasses = base.prototype.getMixinClasses.apply(this, arguments);
+            }
+            return oldMixinClasses.concat(mixinClasses);
+        };
 
         return Buildee;
     };

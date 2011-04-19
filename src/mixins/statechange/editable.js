@@ -4,8 +4,18 @@ Ribs.mixins.editable = function (myOptions) {
                 events: {
                     "click": "edit"
                 },
+                modelChanged: function () {
+                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    if (this.model && !this.model.ribsUI.attributes.hasOwnProperty("editing")) {
+                        this.model.ribsUI.set({ editing: false });
+                    }
+                },
+                refresh: function () {
+                    this.el.toggle(true);
+                },
+
                 edit: function () {
-                    this.parent.model.ribsUI.set({ editing: true });
+                    this.model.ribsUI.set({ editing: true });
                 }
             });
         };
