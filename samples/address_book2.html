@@ -11,12 +11,14 @@
         }
         .person {
             width: 45%;
-            height: 23px;
             padding: 3px 6px;
             cursor: hand;
             cursor: pointer;
             border: 1px solid transparent;
             
+        }
+        .person.editable {
+            height: 23px;
         }
         .person.hovering { border: 1px solid #888; }
         .person.colored {
@@ -30,7 +32,6 @@
             display: inline-block;
             width: 100%;
             margin-right: -60px;
-            padding-top: 4px;
         }
         .edit-item {
             display: inline-block;
@@ -55,10 +56,10 @@
     <script src="lib/jquery-1.5.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
-    <!--<script src="lib/ribs.js"></script>-->
+    <script src="lib/ribs.js"></script>
 
 <!-- visualizer -->
-    <script src="../src/core.js"></script>
+    <!--<script src="../src/core.js"></script>
     <script src="../src/managedview.js"></script>
     <script src="../src/mixins/invalidateonchange.js"></script>
     <script src="../src/mixins/simplelist.js"></script>
@@ -74,7 +75,7 @@
     <script src="../src/mixins/statechange/togglebutton.js"></script>
     <script src="../src/mixins/support/mixinbase.js"></script>
     <script src="../src/mixins/visual/everyotherchild.js"></script>
-    <script src="../src/utils/uimanager.js"></script>
+    <script src="../src/utils/uimanager.js"></script>-->
 <!-- /visualizer -->
 
     <script type="text/javascript">
@@ -170,7 +171,7 @@
                     Ribs.mixins.simpleList({
                         ItemRenderer: PersonEditView,
                         itemTagName: "div",
-                        itemClassName: "person"
+                        itemClassName: "person editable"
                     }),
                     Ribs.mixins.everyOtherChild({
                         childClassName: "colored"
@@ -204,7 +205,7 @@
     <script src="js/visualizer.js"></script>
     <script>
         $(function () {
-            visualize("address_book.html");
+            visualize("address_book2.html");
         });
     </script>
 <!-- /visualizer -->
