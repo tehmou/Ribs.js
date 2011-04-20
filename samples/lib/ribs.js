@@ -374,7 +374,7 @@ Ribs.mixins.textValueEdit = function (myOptions) {
         myOptions.elementSelector = '[name|="' + attributeName + '"]';
     }
 
-    TextValueEdit = function () {
+    var TextValueEdit = function () {
         return _.extend(new Ribs.mixins.MixinBase(myOptions),
         {
             modelChanged: function () {
