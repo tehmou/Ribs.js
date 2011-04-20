@@ -1,5 +1,8 @@
 Ribs.mixins.editable = function (myOptions) {
-    var Editable = function () {
+    myOptions = myOptions || {};
+
+    var forceShow = myOptions.forceShow || false,
+        Editable = function () {
             return _.extend(new Ribs.mixins.MixinBase(myOptions), {
                 events: {
                     "click": "edit"
@@ -11,7 +14,9 @@ Ribs.mixins.editable = function (myOptions) {
                     }
                 },
                 refresh: function () {
-                    this.el.toggle(true);
+                    if (forceShow) {
+                        this.el.toggle(true);                        
+                    }
                 },
 
                 edit: function () {

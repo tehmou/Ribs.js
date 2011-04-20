@@ -11,7 +11,7 @@ Ribs.mixins.MixinBase.prototype.modelChanged = function () {
 };
 
 Ribs.mixins.MixinBase.prototype.redraw = function () {
-    var selector = this.myOptions.elementSelector || this.myOptions.es;
+    var selector = this.myOptions.elementSelector || this.myOptions.es;
     if (selector) {
         this.el = $(this.parent.el).find(selector);
     } else {

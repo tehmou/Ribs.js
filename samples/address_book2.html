@@ -1,62 +1,103 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Ribs.js--Address Book Example</title>
 
     <style type="text/css">
-        .view-item {
-            width: 300px;
+        body {
+            font-family: "Helvetica Neue", "Helvetica", "Arial", sans;
+            font-size: 10pt;
+        }
+        .person {
+            width: 45%;
+            height: 23px;
             padding: 3px 6px;
             cursor: hand;
             cursor: pointer;
             border: 1px solid transparent;
+            
         }
-        .view-item.hovering { border: 1px solid #888; }
-        .view-item.selected { background: #aaa; }
+        .person.hovering { border: 1px solid #888; }
+        .person.colored {
+            background: #f0f0f0;
+        }
+        .person.selected {
+            background: #888;
+            color: #fff;
+        }
+        .view-item {
+            display: inline-block;
+            width: 100%;
+            margin-right: -60px;
+            padding-top: 4px;
+        }
+        .edit-item {
+            display: inline-block;
+            width: 100%;
+            margin-right: -114px;
+        }
+        .button {
+            width: 40px;
+            text-align: center;
+            display: inline-block;
+            color: #101010;
+            background: #e0e0e0;
+            border: 1px solid #909090;
+            border-radius: 4px;
+            padding: 1px 4px;
+        }
+        .button:hover {
+            border-color: #303030;
+        }
     </style>
 
     <script src="lib/jquery-1.5.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
-    <script src="lib/ribs.js"></script>
+    <!--<script src="lib/ribs.js"></script>-->
 
 <!-- visualizer -->
-    <!--<script src="../src/core.js"></script>
-<script src="../src/managedview.js"></script>
-<script src="../src/mixins/invalidateonchange.js"></script>
-<script src="../src/mixins/simplelist.js"></script>
-<script src="../src/mixins/templated.js"></script>
-<script src="../src/mixins/toggleableelement.js"></script>
-<script src="../src/mixins/edit/textvalueedit.js"></script>
-<script src="../src/mixins/statechange/cancelEdit.js"></script>
-<script src="../src/mixins/statechange/commitEdit.js"></script>
-<script src="../src/mixins/statechange/editable.js"></script>
-<script src="../src/mixins/statechange/hoverable.js"></script>
-<script src="../src/mixins/statechange/selectable.js"></script>
-<script src="../src/mixins/statechange/togglebutton.js"></script>
-<script src="../src/mixins/support/mixinbase.js"></script>
-<script src="../src/utils/uimanager.js"></script>-->
+    <script src="../src/core.js"></script>
+    <script src="../src/managedview.js"></script>
+    <script src="../src/mixins/invalidateonchange.js"></script>
+    <script src="../src/mixins/simplelist.js"></script>
+    <script src="../src/mixins/templated.js"></script>
+    <script src="../src/mixins/visual/toggleableelement.js"></script>
+    <script src="../src/mixins/edit/selectedit.js"></script>
+    <script src="../src/mixins/edit/textvalueedit.js"></script>
+    <script src="../src/mixins/statechange/cancelEdit.js"></script>
+    <script src="../src/mixins/statechange/commitEdit.js"></script>
+    <script src="../src/mixins/statechange/editable.js"></script>
+    <script src="../src/mixins/statechange/hoverable.js"></script>
+    <script src="../src/mixins/statechange/selectable.js"></script>
+    <script src="../src/mixins/statechange/togglebutton.js"></script>
+    <script src="../src/mixins/support/mixinbase.js"></script>
+    <script src="../src/mixins/visual/everyotherchild.js"></script>
+    <script src="../src/utils/uimanager.js"></script>
 <!-- /visualizer -->
 
     <script type="text/javascript">
         $(function () {
 
-            var people, PersonView, PersonEditView,
+            var people, PersonViewBase, PersonView, PersonEditView,
                 PeopleView, PeopleEditView,
                 personView, peopleView, peopleView2;
 
             // Create some data.
             people = new Backbone.Collection([
-                { name: "Pekka", age: 23, city: "Helsinki" },
-                { name: "Kaisa", age: 18, city: "Espoo" },
-                { name: "Marja", age: 26, city: "Helsinki" },
-                { name: "Markus", age: 46, city: "Helsinki" }
+                { name: "Pekka", age: 23, gender: "male", city: "Helsinki" },
+                { name: "Kaisa", age: 18, gender: "female", city: "Espoo" },
+                { name: "Maiju", age: 26, gender: "female", city: "Helsinki" },
+                { name: "Markus", age: 46, gender: "male", city: "Helsinki" }
             ]);
+
+            Ribs.createUIManager("peopleManager");
+            Ribs.uiManagers.peopleManager.register(people);
 
 
             // Create a Backbone.View class for one person.
-            PersonView = Ribs.createMixed({
+            PersonViewBase = Ribs.createMixed({
                 mixinClasses: [
                     Ribs.mixins.invalidateOnChange({
                         includedRibsUIAttributes: []
@@ -64,22 +105,36 @@
                     Ribs.mixins.templated({
                         templateFunction: _.template($("#person-tmpl").html())
                     }),
-                    Ribs.mixins.hoverable({ elementSelector: ".view-item" }),
-                    Ribs.mixins.selectable({ elementSelector: ".view-item" })
+                    Ribs.mixins.hoverable(),
                 ]
             });
 
-            PersonEditView = Ribs.createMixed({
-                base: PersonView,
+            PersonView = Ribs.createMixed({
+                base: PersonViewBase,
                 mixinClasses: [
-                    Ribs.mixins.editable({
-                        elementSelector: ".edit-button"
-                    }),
+                    Ribs.mixins.selectable()
+                ]
+            });
+
+
+            PersonEditView = Ribs.createMixed({
+                base: PersonViewBase,
+                mixinClasses: [
+                    Ribs.mixins.editable({ elementSelector: ".view" }),
 
                     Ribs.mixins.textValueEdit({ attributeName: "name" }),
                     Ribs.mixins.textValueEdit({ attributeName: "age" }),
                     Ribs.mixins.textValueEdit({ attributeName: "city" }),
-                        
+
+                    Ribs.mixins.selectEdit({
+                        attributeName: "gender",
+                        options: [
+                            { value: "unknown", text: "unknown" },
+                            { value: "male", text: "male" },
+                            { value: "female", text: "female" }
+                        ]
+                    }),
+
                     Ribs.mixins.commitEdit({
                         elementSelector: ".save-button"
                     }),
@@ -116,6 +171,9 @@
                         ItemRenderer: PersonEditView,
                         itemTagName: "div",
                         itemClassName: "person"
+                    }),
+                    Ribs.mixins.everyOtherChild({
+                        childClassName: "colored"
                     })
                 ]
             });
@@ -157,25 +215,27 @@
 <h2>One item:</h2>
 <div id="person-container"></div>
 
-<h2>List containing the first item:</h2>
+<h2>One selectable:</h2>
 <div id="people-container"></div>
 
-<h2>Another list with the same model:</h2>
+<h2>Click item to edit:</h2>
 <div id="people-container-2"></div>
 
 <script id="person-tmpl" type="text/html">
 <div class="view">
     <span class="view-item"><%= name %>
-        (age: <%= age %>, city: <%= city %>)</span>
-    <a class="edit-button" style="display:none">edit</a>
+        (age: <%= age %>,
+        gender: <%= gender %>,
+        city: <%= city %>)</span>
 </div>
 <div class="edit" style="display:none">
-    <span><input type="text" name="name"/>
-        (age: <input type="text" name="age"/>,
-        city: <input type="text" name="city"/>)
-        <a class="cancel-button">cancel</a>
-        <a class="save-button">save</a>
+    <span class="edit-item"><input type="text" name="name" style="width: 80px"/>
+        (age: <input type="text" name="age" style="width: 20px"/>,
+        gender: <select name="gender"></select>
+        city: <input type="text" name="city" style="width: 60px"/>)
     </span>
+    <div class="cancel-button button">cancel</div>
+    <div class="save-button button">save</div>
 </div>
 </script>
 
