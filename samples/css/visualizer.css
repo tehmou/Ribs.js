@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+#code-container {
+    position: fixed;
+    overflow: auto;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    padding: 3px 10px;
+    border-left: 3px solid black;
+    background: #f0f0f0;
+    font-size: 8pt;
+}

@@ -21,6 +21,7 @@
     <script src="lib/backbone.js"></script>
     <script src="lib/ribs.js"></script>
 
+<!-- visualizer -->
     <!--<script src="../src/core.js"></script>
     <script src="../src/managedview.js"></script>
     <script src="../src/mixins/invalidateonchange.js"></script>
@@ -36,6 +37,7 @@
     <script src="../src/mixins/statechange/togglebutton.js"></script>
     <script src="../src/mixins/support/mixinbase.js"></script>
     <script src="../src/utils/uimanager.js"></script>-->
+<!-- /visualizer -->
 
     <script type="text/javascript">
         $(function () {
@@ -60,8 +62,7 @@
                         includedRibsUIAttributes: []
                     }),
                     Ribs.mixins.templated({
-                        templateFunction: _.template($("#person-tmpl").html()),
-                        className: "person"
+                        templateFunction: _.template($("#person-tmpl").html())
                     }),
                     Ribs.mixins.hoverable({ elementSelector: ".view-item" }),
                     Ribs.mixins.selectable({ elementSelector: ".view-item" })
@@ -71,14 +72,20 @@
             PersonEditView = Ribs.createMixed({
                 base: PersonView,
                 mixinClasses: [
-                    Ribs.mixins.editable({ elementSelector: ".edit-button" }),
+                    Ribs.mixins.editable({
+                        elementSelector: ".edit-button"
+                    }),
 
                     Ribs.mixins.textValueEdit({ attributeName: "name" }),
                     Ribs.mixins.textValueEdit({ attributeName: "age" }),
                     Ribs.mixins.textValueEdit({ attributeName: "city" }),
                         
-                    Ribs.mixins.commitEdit({ elementSelector: ".save-button" }),
-                    Ribs.mixins.cancelEdit({ elementSelector: ".cancel-button" }),
+                    Ribs.mixins.commitEdit({
+                        elementSelector: ".save-button"
+                    }),
+                    Ribs.mixins.cancelEdit({
+                        elementSelector: ".cancel-button"
+                    }),
                     Ribs.mixins.toggleableElement({
                         elementSelector: ".view",
                         uiAttributeName: "editing",
@@ -95,7 +102,9 @@
             PeopleView = Ribs.createMixed({
                 mixinClasses: [
                     Ribs.mixins.simpleList({
-                        ItemRenderer: PersonView
+                        ItemRenderer: PersonView,
+                        itemTagName: "div",
+                        itemClassName: "person"
                     })
                 ]
             });
@@ -104,27 +113,43 @@
             PeopleEditView = Ribs.createMixed({
                 mixinClasses: [
                     Ribs.mixins.simpleList({
-                        ItemRenderer: PersonEditView
+                        ItemRenderer: PersonEditView,
+                        itemTagName: "div",
+                        itemClassName: "person"
                     })
                 ]
             });
 
-            // Create an instance of PersonView and append to #person-container.
+            // Create an instance of PersonView and
+            // append to #person-container
             personView = new PersonView({ model: people.at(2) }),
             $("#person-container").append(personView.el);
 
-            // Create an instance of PersonView and append to #people-container.
+            // Create an instance of PersonView and
+            // append to #people-container
             peopleView = new PeopleView({ model: people })
             $("#people-container").append(peopleView.el);
 
-            // Create another instance of PeopleView but give it #people-container-2.
-            // We don't actually need this reference for anything.
-            peopleView2 = new PeopleEditView({ model: people, el: $("#people-container-2") });
+            // Create another instance of PeopleEditView by
+            // giving it a reference to #people-container-2
+            peopleView2 = new PeopleEditView({
+                model: people, el: $("#people-container-2")
+            });
 
 
         });
 
     </script>
+
+<!-- visualizer -->
+    <link href="css/visualizer.css" rel="stylesheet">
+    <script src="js/visualizer.js"></script>
+    <script>
+        $(function () {
+            visualize("address_book.html");
+        });
+    </script>
+<!-- /visualizer -->
 
 </head>
 <body>
@@ -140,10 +165,17 @@
 
 <script id="person-tmpl" type="text/html">
 <div class="view">
-    <span class="view-item"><%= name %> (age: <%= age %>, city: <%= city %>)</span><a class="edit-button" style="display:none">edit</a>
+    <span class="view-item"><%= name %>
+        (age: <%= age %>, city: <%= city %>)</span>
+    <a class="edit-button" style="display:none">edit</a>
 </div>
 <div class="edit" style="display:none">
-    <span><input type="text" name="name"/> (age: <input type="text" name="age"/>, city: <input type="text" name="city"/>) <a class="cancel-button">cancel</a> <a class="save-button">save</a></span>
+    <span><input type="text" name="name"/>
+        (age: <input type="text" name="age"/>,
+        city: <input type="text" name="city"/>)
+        <a class="cancel-button">cancel</a>
+        <a class="save-button">save</a>
+    </span>
 </div>
 </script>
 

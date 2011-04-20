@@ -16,24 +16,6 @@
         .person.selected { background: #aaa; }
     </style>
 
-    <style type="text/css">
-        body {
-            margin: 0;
-            padding: 0 0 0 10px;
-        }
-        #code-container {
-            position: fixed;
-            overflow: auto;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 50%;
-            padding: 3px 10px;
-            border-left: 3px solid black;
-            background: #f0f0f0;
-        }
-    </style>
-
     <script src="lib/jquery-1.5.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
@@ -95,35 +77,15 @@
 
     </script>
 
-<!-- visualizer -->
-    <script type="text/javascript">
+    <!-- visualizer -->
+    <link href="css/visualizer.css" rel="stylesheet">
+    <script src="js/visualizer.js"></script>
+    <script>
         $(function () {
-            $.ajax({
-                url: "quick_start.html",
-                success: function (data) {
-                    var lines = data.split("\n"),
-                        result = "",
-                        removing = false;
-                    while(lines.length > 0) {
-                        if (lines[0] === "<!-- visualizer -->") {
-                            removing = true;
-                        }
-                        !removing && (result += lines[0] + "\n");
-                        if(lines[0] === "<!-- /visualizer -->") {
-                            removing = false;
-                        }
-                        lines.splice(0, 1);
-                    }
-                    $("#code-text").text(result);
-                },
-                error: function () {
-                    $("#code-text").text("Error occured while loading the code.");
-                }
-            });
-
+            visualize("quick_start.html");
         });
     </script>
-<!-- /visualizer -->
+    <!-- /visualizer -->
 
 </head>
 <body>
@@ -136,12 +98,6 @@
 
 <h2>Another list with the same model:</h2>
 <div id="people-container-2"></div>
-
-<!-- visualizer -->
-<div id="code-container">
-    <pre id="code-text"></pre>
-</div>
-<!-- /visualizer -->
 
 <script id="person-tmpl" type="text/html">
 <%= name %> (age: <%= age %>, city: <%= city %>)

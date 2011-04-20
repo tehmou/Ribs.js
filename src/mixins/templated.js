@@ -14,7 +14,9 @@ Ribs.mixins.templated = function (myOptions) {
                         return this.hasOwnProperty(name) ? this[name] : "";
                     };
                     this.el.html(templateFunction(json));
-                    className && this.el.toggleClass(className, true);
+                    if (className) {
+                        this.el.toggleClass(className, true);
+                    }
                 }
             });
             return mixin;
