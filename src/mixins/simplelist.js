@@ -3,6 +3,8 @@ Ribs.mixins.simpleList = function (myOptions) {
 
     var listAttributeName = myOptions.listAttributeName,
         ItemRenderer = myOptions.ItemRenderer,
+        itemTagName = myOptions.itemTagName || null,
+        itemClassName = myOptions.itemClassName || null,
         SimpleList = function () {
             var listModel, listViews;
             return _.extend(new Ribs.mixins.MixinBase(myOptions),
@@ -44,7 +46,11 @@ Ribs.mixins.simpleList = function (myOptions) {
 
                 addOne: function (item) {
                     if (!listViews.hasOwnProperty(item.cid)) {
-                        var listView = new ItemRenderer({ model: item });
+                        var listView = new ItemRenderer({
+                            model: item,
+                            tagName: itemTagName,
+                            className: itemClassName
+                        });
                         listViews[item.cid] = listView;
                         this.parent.invalidated = true;
                     }
