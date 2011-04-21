@@ -1,5 +1,5 @@
 (function(){
-    var Ribs;
+    var Ribs, resolveMixinClasses;
 
     Ribs = this.Ribs = {};
 
@@ -42,11 +42,28 @@
         }
     };
 
+    resolveMixinClasses = function (myOptions) {
+        var mixins = [],
+            mixinDefinions = myOptions.mixins || [];
+
+        for (var i = 0, l = mixinDefinions.length; i < l; i++) {
+            var def = mixinDefinions[i],
+                mixinFunction = Ribs.mixins[def.name];
+
+            if (!mixinFunction) {
+                throw "Could not find mixin " + def.name;
+            }
+
+            mixins.push(mixinFunction(def));
+        }
+        return mixins;
+    };
+
     Ribs.createMixed = function (myOptions) {
         myOptions = myOptions || {};
 
         var requireModel = myOptions.hasOwnProperty("requireModel") ? myOptions.requireModel : true,
-            mixinClasses = myOptions.mixinClasses,
+            mixinClasses = myOptions.mixinClasses || resolveMixinClasses(myOptions),
             base = myOptions.base || null,
             Buildee = Ribs.ManagedView.extend(),
             delegateOneToMixins = function (methodName) {

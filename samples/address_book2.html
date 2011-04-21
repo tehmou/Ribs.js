@@ -56,10 +56,10 @@
     <script src="lib/jquery-1.5.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
-    <script src="lib/ribs.js"></script>
+    <!--<script src="lib/ribs.js"></script>-->
 
 <!-- visualizer -->
-    <!--<script src="../src/core.js"></script>
+    <script src="../src/core.js"></script>
     <script src="../src/managedview.js"></script>
     <script src="../src/mixins/invalidateonchange.js"></script>
     <script src="../src/mixins/simplelist.js"></script>
@@ -75,7 +75,7 @@
     <script src="../src/mixins/statechange/togglebutton.js"></script>
     <script src="../src/mixins/support/mixinbase.js"></script>
     <script src="../src/mixins/visual/everyotherchild.js"></script>
-    <script src="../src/utils/uimanager.js"></script>-->
+    <script src="../src/utils/uimanager.js"></script>
 <!-- /visualizer -->
 
     <script type="text/javascript">
@@ -99,14 +99,10 @@
 
             // Create a Backbone.View class for one person.
             PersonViewBase = Ribs.createMixed({
-                mixinClasses: [
-                    Ribs.mixins.invalidateOnChange({
-                        includedRibsUIAttributes: []
-                    }),
-                    Ribs.mixins.templated({
-                        templateFunction: _.template($("#person-tmpl").html())
-                    }),
-                    Ribs.mixins.hoverable(),
+                mixins: [
+                    { name: "invalidateOnChange", includedRibsUIAttributes: [] },
+                    { name: "templated", templateFunction: _.template($("#person-tmpl").html()) },
+                    { name: "hoverable" }
                 ]
             });
 
