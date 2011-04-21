@@ -47,14 +47,17 @@
             mixinDefinions = myOptions.mixins || [];
 
         for (var i = 0, l = mixinDefinions.length; i < l; i++) {
-            var def = mixinDefinions[i],
-                mixinFunction = Ribs.mixins[def.name];
 
-            if (!mixinFunction) {
-                throw "Could not find mixin " + def.name;
-            }
+            var def = mixinDefinions[i];
 
-            mixins.push(mixinFunction(def));
+            _.each(def, function (options, name) {
+                var mixinFunction = Ribs.mixins[name]
+                if (!mixinFunction) {
+                    throw "Could not find mixin " + name;
+                }
+
+                mixins.push(mixinFunction(options));
+            });
         }
         return mixins;
     };

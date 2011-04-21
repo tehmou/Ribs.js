@@ -100,78 +100,78 @@
             // Create a Backbone.View class for one person.
             PersonViewBase = Ribs.createMixed({
                 mixins: [
-                    { name: "invalidateOnChange", includedRibsUIAttributes: [] },
-                    { name: "templated", templateFunction: _.template($("#person-tmpl").html()) },
-                    { name: "hoverable" }
+                    { invalidateOnChange: { includedRibsUIAttributes: [] }},
+                    { templated: { templateFunction: _.template($("#person-tmpl").html()) }},
+                    { hoverable: {} }
                 ]
             });
 
             PersonView = Ribs.createMixed({
                 base: PersonViewBase,
-                mixinClasses: [
-                    Ribs.mixins.selectable()
+                mixins: [
+                    { selectable: {} }
                 ]
             });
 
 
             PersonEditView = Ribs.createMixed({
                 base: PersonViewBase,
-                mixinClasses: [
-                    Ribs.mixins.editable({ elementSelector: ".view" }),
+                mixins: [
+                    { editable: { elementSelector: ".view" } },
 
-                    Ribs.mixins.textValueEdit({ attributeName: "name" }),
-                    Ribs.mixins.textValueEdit({ attributeName: "age" }),
-                    Ribs.mixins.textValueEdit({ attributeName: "city" }),
+                    { textValueEdit: { attributeName: "name" }},
+                    { textValueEdit: { attributeName: "age" }},
+                    { textValueEdit: { attributeName: "city" }},
 
-                    Ribs.mixins.selectEdit({
+                    { selectEdit: {
                         attributeName: "gender",
                         options: [
                             { value: "unknown", text: "unknown" },
                             { value: "male", text: "male" },
                             { value: "female", text: "female" }
                         ]
-                    }),
+                    }},
 
-                    Ribs.mixins.commitEdit({
+                    { commitEdit: {
                         elementSelector: ".save-button"
-                    }),
-                    Ribs.mixins.cancelEdit({
+                    }},
+                    { cancelEdit: {
                         elementSelector: ".cancel-button"
-                    }),
-                    Ribs.mixins.toggleableElement({
+                    }},
+                    { toggleableElement: {
                         elementSelector: ".view",
                         uiAttributeName: "editing",
                         inverse: true
-                    }),
-                    Ribs.mixins.toggleableElement({
+                    }},
+                    { toggleableElement: {
                         elementSelector: ".edit",
                         uiAttributeName: "editing"
-                    })
+                    }}
                 ]
             });
 
             // Create a Backbone.View class for a list of people.
             PeopleView = Ribs.createMixed({
-                mixinClasses: [
-                    Ribs.mixins.simpleList({
+                mixins: [
+                    { simpleList: {
                         ItemRenderer: PersonView,
                         itemTagName: "div",
                         itemClassName: "person"
-                    })
+                    }}
                 ]
             });
 
             // Create a Backbone.View class for a list of people.
             PeopleEditView = Ribs.createMixed({
-                mixinClasses: [
-                    Ribs.mixins.simpleList({
+                mixins: [
+                    { simpleList: {
                         ItemRenderer: PersonEditView,
                         itemTagName: "div",
                         itemClassName: "person editable"
-                    }),
-                    Ribs.mixins.everyOtherChild({
+                    }},
+                    { everyOtherChild: {
                         childClassName: "colored"
-                    })
+                    }}
                 ]
             });
 
