@@ -1,16 +1,15 @@
-Ribs.mixins.simpleList = function (myOptions) {
-    myOptions = myOptions || {};
+Ribs.mixins.simpleList = function (classOptions) {
+    classOptions = classOptions || {};
 
-    var listAttributeName = myOptions.listAttributeName,
-        ItemRenderer = myOptions.ItemRenderer,
-        itemTagName = myOptions.itemTagName || null,
-        itemClassName = myOptions.itemClassName || null,
-        SimpleList = function () {
+    var listAttributeName = classOptions.listAttributeName,
+        ItemRenderer = classOptions.ItemRenderer,
+        itemTagName = classOptions.itemTagName || null,
+        itemClassName = classOptions.itemClassName || null,
+        SimpleList = function (instanceOptions) {
             var listModel, listViews;
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
-            {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     _.each(listViews, function (view) {
                         view.dispose();
                     });
@@ -31,7 +30,7 @@ Ribs.mixins.simpleList = function (myOptions) {
                     }
                 },
                 redraw: function () {
-                    Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
                     this.el.children().detach();
                     _.each(listViews, _.bind(function (view) {
                         this.el.append(view.el);

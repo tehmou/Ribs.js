@@ -1,6 +1,6 @@
-Ribs.mixins.cancelEdit = function (myOptions) {
-    var CancelEdit = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions), {
+Ribs.mixins.cancelEdit = function (classOptions) {
+    var CancelEdit = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 events: {
                     "click": "cancel"
                 },

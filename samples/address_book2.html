@@ -11,14 +11,13 @@
         }
         .person {
             width: 45%;
-            padding: 3px 6px;
             cursor: hand;
             cursor: pointer;
             border: 1px solid transparent;
             
         }
         .person.editable {
-            height: 23px;
+            height: 29px;
         }
         .person.hovering { border: 1px solid #888; }
         .person.colored {
@@ -27,6 +26,9 @@
         .person.selected {
             background: #888;
             color: #fff;
+        }
+        .view, .edit {
+            padding: 3px 6px;
         }
         .view-item {
             display: inline-block;
@@ -74,6 +76,7 @@
     <script src="../src/mixins/statechange/selectable.js"></script>
     <script src="../src/mixins/statechange/togglebutton.js"></script>
     <script src="../src/mixins/support/mixinbase.js"></script>
+    <script src="../src/mixins/support/mixincomposite.js"></script>
     <script src="../src/mixins/visual/everyotherchild.js"></script>
     <script src="../src/utils/uimanager.js"></script>
 <!-- /visualizer -->
@@ -100,7 +103,7 @@
             // Create a Backbone.View class for one person.
             PersonViewBase = Ribs.createMixed({
                 mixins: [
-                    { invalidateOnChange: { includedRibsUIAttributes: [] }},
+                    { invalidateOnChange: { includedRibsUIAttributes: ["editing"] }},
                     { templated: { templateFunction: _.template($("#person-tmpl").html()) }},
                     { hoverable: {} }
                 ]
@@ -223,7 +226,8 @@
     <span class="view-item"><%= name %>
         (age: <%= age %>,
         gender: <%= gender %>,
-        city: <%= city %>)</span>
+        city: <%= city %>)
+        <i><%= hasOwnProperty("editing") ? (editing ? "[editing]" : "") : "" %></i></span>
 </div>
 <div class="edit" style="display:none">
     <span class="edit-item"><input type="text" name="name" style="width: 80px"/>

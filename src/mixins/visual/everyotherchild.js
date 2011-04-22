@@ -1,10 +1,9 @@
-Ribs.mixins.everyOtherChild = function (myOptions) {
-    myOptions = myOptions || {};
+Ribs.mixins.everyOtherChild = function (classOptions) {
+    classOptions = classOptions || {};
 
-    var childClassName = myOptions.childClassName || null,
-        EveryOtherChild = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
-            {
+    var childClassName = classOptions.childClassName || null,
+        EveryOtherChild = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 refresh: function () {
                     if (!childClassName) {
                         return;

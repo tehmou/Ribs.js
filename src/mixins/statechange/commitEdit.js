@@ -1,6 +1,6 @@
-Ribs.mixins.commitEdit = function (myOptions) {
-    var CommitEdit = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions), {
+Ribs.mixins.commitEdit = function (classOptions) {
+    var CommitEdit = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 events: {
                     "click": "commit"
                 },

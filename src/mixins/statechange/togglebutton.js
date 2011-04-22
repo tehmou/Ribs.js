@@ -1,15 +1,14 @@
-Ribs.mixins.toggleButton = function (myOptions) {
-    myOptions = myOptions || {};
+Ribs.mixins.toggleButton = function (classOptions) {
+    classOptions = classOptions || {};
 
-    var usePlusMinus = myOptions.usePlusMinus || false,
-        ToggleButton = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
-            {
+    var usePlusMinus = classOptions.usePlusMinus || false,
+        ToggleButton = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 events: {
                     "click": "toggle"
                 },
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     this.model && this.model.ribsUI.set({ open: false });
                 },
                 refresh: function () {

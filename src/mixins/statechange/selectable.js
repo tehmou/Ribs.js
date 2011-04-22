@@ -1,12 +1,11 @@
-Ribs.mixins.selectable = function (myOptions) {
-    var Selectable = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
-            {
+Ribs.mixins.selectable = function (classOptions) {
+    var Selectable = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 events: {
                     "click": "elementClicked"
                 },
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     this.model && this.model.ribsUI.set({ selected: false });
                 },
                 refresh: function () {

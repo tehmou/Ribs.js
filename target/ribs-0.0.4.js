@@ -204,14 +204,14 @@ Ribs.mixins.invalidateOnChange = function (myOptions) {
         excludedRibsUIAttributes = myOptions.excludedRibsUIAttributes || null,
         includedRibsUIAttributes = myOptions.includedRibsUIAttributes || null,
         InvalidateOnChange = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            return _.extend(new Ribs.MixinBase(myOptions),
             {
                 modelChanged: function () {
                     if (this.model) {
                         this.model.unbind("change", this.change);
                         this.model.ribsUI.unbind("change", this.ribsUIChange);
                     }
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     if (this.model) {
                         this.model.bind("change", this.change);
                         this.model.ribsUI.bind("change", this.ribsUIChange);
@@ -248,10 +248,10 @@ Ribs.mixins.simpleList = function (myOptions) {
         ItemRenderer = myOptions.ItemRenderer,
         SimpleList = function () {
             var listModel, listViews;
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            return _.extend(new Ribs.MixinBase(myOptions),
             {
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     _.each(listViews, function (view) {
                         view.dispose();
                     });
@@ -272,7 +272,7 @@ Ribs.mixins.simpleList = function (myOptions) {
                     }
                 },
                 redraw: function () {
-                    Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
                     this.el.children().detach();
                     _.each(listViews, _.bind(function (view) {
                         this.el.append(view.el);
@@ -311,10 +311,10 @@ Ribs.mixins.templated = function (myOptions) {
     var templateFunction = myOptions.templateFunction,
         className = myOptions.className,
         Templated = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            return _.extend(new Ribs.MixinBase(myOptions),
             {
                 redraw: function () {
-                    Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
 
                     var json = this.model ? (this.model.toJSON ? this.model.toJSON() : this.model) : {};
                     json.t = function (name) {
@@ -336,20 +336,20 @@ Ribs.mixins.toggleableElement = function (myOptions) {
     var uiAttributeName = myOptions.uiAttributeName || "open",
         inverse = myOptions.inverse || false,
         ToggleableElement = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            return _.extend(new Ribs.MixinBase(myOptions),
             {
                 modelChanged: function () {
                     var ev = "change:" + uiAttributeName;
                     if (this.model) {
                         this.model.ribsUI.unbind(ev, this.attributeChanged);
                     }
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     if (this.model) {
                         this.model.ribsUI.bind(ev, this.attributeChanged);
                     }
                 },
                 redraw: function () {
-                    Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
                     var value = this.model.ribsUI.get(uiAttributeName);
                     inverse && (value = !value);
                     this.el.toggle(value);
@@ -375,21 +375,21 @@ Ribs.mixins.textValueEdit = function (myOptions) {
     }
 
     var TextValueEdit = function () {
-        return _.extend(new Ribs.mixins.MixinBase(myOptions),
+        return _.extend(new Ribs.MixinBase(myOptions),
         {
             modelChanged: function () {
                 if (this.model) {
                     this.model.unbind("ribsUI:commitEdit", this.commit);
                     this.model.unbind("ribsUI:cancelEdit", this.redraw);
                 }
-                Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                 if (this.model) {
                     this.model.bind("ribsUI:commitEdit", this.commit);
                     this.model.bind("ribsUI:cancelEdit", this.redraw);
                 }
             },
             redraw: function () {
-                Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                Ribs.MixinBase.prototype.redraw.apply(this, arguments);
                 this.el.val(this.model.get(attributeName));
             },
 
@@ -406,7 +406,7 @@ Ribs.mixins.textValueEdit = function (myOptions) {
 
 Ribs.mixins.cancelEdit = function (myOptions) {
     var CancelEdit = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions), {
+            return _.extend(new Ribs.MixinBase(myOptions), {
                 events: {
                     "click": "cancel"
                 },
@@ -422,7 +422,7 @@ Ribs.mixins.cancelEdit = function (myOptions) {
 
 Ribs.mixins.commitEdit = function (myOptions) {
     var CommitEdit = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions), {
+            return _.extend(new Ribs.MixinBase(myOptions), {
                 events: {
                     "click": "commit"
                 },
@@ -438,12 +438,12 @@ Ribs.mixins.commitEdit = function (myOptions) {
 
 Ribs.mixins.editable = function (myOptions) {
     var Editable = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions), {
+            return _.extend(new Ribs.MixinBase(myOptions), {
                 events: {
                     "click": "edit"
                 },
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     if (this.model && !this.model.ribsUI.attributes.hasOwnProperty("editing")) {
                         this.model.ribsUI.set({ editing: false });
                     }
@@ -463,10 +463,10 @@ Ribs.mixins.editable = function (myOptions) {
 
 Ribs.mixins.hoverable = function (myOptions) {
     var Hoverable = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            return _.extend(new Ribs.MixinBase(myOptions),
             {
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     this.model && this.model.ribsUI.set({ hovering: false });
                 },
                 refresh: function () {
@@ -490,13 +490,13 @@ Ribs.mixins.hoverable = function (myOptions) {
 
 Ribs.mixins.selectable = function (myOptions) {
     var Selectable = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            return _.extend(new Ribs.MixinBase(myOptions),
             {
                 events: {
                     "click": "elementClicked"
                 },
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     this.model && this.model.ribsUI.set({ selected: false });
                 },
                 refresh: function () {
@@ -517,13 +517,13 @@ Ribs.mixins.toggleButton = function (myOptions) {
 
     var usePlusMinus = myOptions.usePlusMinus || false,
         ToggleButton = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
+            return _.extend(new Ribs.MixinBase(myOptions),
             {
                 events: {
                     "click": "toggle"
                 },
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     this.model && this.model.ribsUI.set({ open: false });
                 },
                 refresh: function () {
@@ -543,19 +543,19 @@ Ribs.mixins.toggleButton = function (myOptions) {
     return ToggleButton;
 };
 
-Ribs.mixins.MixinBase = function (myOptions) {
+Ribs.MixinBase = function (myOptions) {
     this.myOptions = myOptions || {};
 };
 
-Ribs.mixins.MixinBase.prototype.customInitialize = function () {
+Ribs.MixinBase.prototype.customInitialize = function () {
     _.bindAll(this);
 };
 
-Ribs.mixins.MixinBase.prototype.modelChanged = function () {
+Ribs.MixinBase.prototype.modelChanged = function () {
     this.model = this.parent.model;
 };
 
-Ribs.mixins.MixinBase.prototype.redraw = function () {
+Ribs.MixinBase.prototype.redraw = function () {
     if (this.myOptions.elementSelector) {
         this.el = $(this.parent.el).find(this.myOptions.elementSelector);
     } else {

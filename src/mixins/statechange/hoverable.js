@@ -1,9 +1,8 @@
-Ribs.mixins.hoverable = function (myOptions) {
-    var Hoverable = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
-            {
+Ribs.mixins.hoverable = function (classOptions) {
+    var Hoverable = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     this.model && this.model.ribsUI.set({ hovering: false });
                 },
                 refresh: function () {

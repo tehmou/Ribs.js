@@ -1,23 +1,22 @@
-Ribs.mixins.toggleableElement = function (myOptions) {
-    myOptions = myOptions || {};
+Ribs.mixins.toggleableElement = function (classOptions) {
+    classOptions = classOptions || {};
 
-    var uiAttributeName = myOptions.uiAttributeName || "open",
-        inverse = myOptions.inverse || false,
-        ToggleableElement = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
-            {
+    var uiAttributeName = classOptions.uiAttributeName || "open",
+        inverse = classOptions.inverse || false,
+        ToggleableElement = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 modelChanged: function () {
                     var ev = "change:" + uiAttributeName;
                     if (this.model) {
                         this.model.ribsUI.unbind(ev, this.attributeChanged);
                     }
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     if (this.model) {
                         this.model.ribsUI.bind(ev, this.attributeChanged);
                     }
                 },
                 redraw: function () {
-                    Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
                     var value = this.model.ribsUI.get(uiAttributeName);
                     inverse && (value = !value);
                     this.el.toggle(value);

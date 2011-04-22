@@ -42,30 +42,31 @@
         }
     };
 
-    resolveMixinClasses = function (myOptions) {
-        var mixins = [],
-            mixinDefinions = myOptions.mixins || [];
-
-        for (var i = 0, l = mixinDefinions.length; i < l; i++) {
-
-            var def = mixinDefinions[i];
-
-            _.each(def, function (options, name) {
-                var mixinFunction = Ribs.mixins[name]
-                if (!mixinFunction) {
-                    throw "Could not find mixin " + name;
-                }
-
-                mixins.push(mixinFunction(options));
-            });
-        }
-        return mixins;
-    };
+    Ribs.mixinMethods = ["customInitialize", "modelChanged", "render", "redraw", "refresh", "delegateEvents", "hide", "dispose"];
 
     Ribs.createMixed = function (myOptions) {
         myOptions = myOptions || {};
 
-        var requireModel = myOptions.hasOwnProperty("requireModel") ? myOptions.requireModel : true,
+        var resolveMixinClasses = function (myOptions) {
+                var mixins = [],
+                    mixinDefinions = myOptions.mixins || [];
+
+                for (var i = 0, l = mixinDefinions.length; i < l; i++) {
+
+                    var def = mixinDefinions[i];
+
+                    _.each(def, function (options, name) {
+                        var mixinFunction = Ribs.mixins[name]
+                        if (!mixinFunction) {
+                            throw "Could not find mixin " + name;
+                        }
+
+                        mixins.push(mixinFunction(options));
+                    });
+                }
+                return mixins;
+            },
+            requireModel = myOptions.hasOwnProperty("requireModel") ? myOptions.requireModel : true,
             mixinClasses = myOptions.mixinClasses || resolveMixinClasses(myOptions),
             base = myOptions.base || null,
             Buildee = Ribs.ManagedView.extend(),
@@ -73,41 +74,30 @@
                 Buildee.prototype[methodName] = function () {
                     var doIt = function () {
                         Ribs.ManagedView.prototype[methodName].apply(this, arguments);
-                        _.each(this.mixins, _.bind(function (mixin) {
-                            mixin[methodName] && mixin[methodName].apply(mixin, arguments);
-                        }, this));
+                        if (this.mixin && this.mixin[methodName]) {
+                            this.mixin[methodName].apply(this.mixin, arguments);
+                        }
                     };
     
                     doIt.apply(this, arguments);
                 }
             },
-            delegateToMixins = function (methods) {
+            delegateToMixin = function (methods) {
                 _.each(methods, function (methodName) { delegateOneToMixins(methodName); });
             };
+
+        delegateToMixin(Ribs.mixinMethods);
 
         Buildee.prototype.initialize = function () {
             if (requireModel && !this.model) {
                 throw "No model specified and requireModel==true";
             }
-            var mixinClasses = this.getMixinClasses();
-            this.mixins = [];
-            _.each(mixinClasses, _.bind(function (Mixin) {
-                var mixin = new Mixin();
-                mixin.parent = this;
-                this.mixins.push(mixin);
-            }, this));
+            var mixinClasses = this.getMixinClasses(),
+                MixinComposite = Ribs.mixins.mixinComposite({ mixinClasses: mixinClasses });
 
-
+            this.mixin = new MixinComposite({ parent: this });
             Ribs.ManagedView.prototype.initialize.apply(this, arguments);
         };
-
-        Buildee.prototype.delegateEvents = function () {
-            Backbone.View.prototype.delegateEvents.apply(this, arguments);
-            _.each(this.mixins, function (mixin) {
-                Backbone.View.prototype.delegateEvents.apply(mixin);
-            });
-        };
-        delegateToMixins(["customInitialize", "modelChanged", "render", "redraw", "refresh", "hide", "dispose"]);
 
         Buildee.prototype.getMixinClasses = function () {
             var oldMixinClasses = [];

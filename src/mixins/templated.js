@@ -1,15 +1,17 @@
-Ribs.mixins.templated = function (myOptions) {
-    myOptions = myOptions || {};
+Ribs.mixins.templated = function (classOptions) {
+    classOptions = classOptions || {};
 
-    var templateFunction = myOptions.templateFunction,
-        className = myOptions.className,
-        Templated = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions),
-            {
+    var templateFunction = classOptions.templateFunction,
+        className = classOptions.className,
+        Templated = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 redraw: function () {
-                    Ribs.mixins.MixinBase.prototype.redraw.apply(this, arguments);
+                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
 
-                    var json = this.model ? (this.model.toJSON ? this.model.toJSON() : this.model) : {};
+                    var modelJSON = this.model ? this.model.toJSON() : {},
+                        uiModelJSON = this.model.ribsUI ? this.model.ribsUI.toJSON() : {},
+                        json = _.extend(modelJSON, uiModelJSON);
+
                     json.t = function (name) {
                         return this.hasOwnProperty(name) ? this[name] : "";
                     };

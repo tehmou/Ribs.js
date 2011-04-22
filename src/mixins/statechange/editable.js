@@ -1,14 +1,14 @@
-Ribs.mixins.editable = function (myOptions) {
-    myOptions = myOptions || {};
+Ribs.mixins.editable = function (classOptions) {
+    classOptions = classOptions || {};
 
-    var forceShow = myOptions.forceShow || false,
-        Editable = function () {
-            return _.extend(new Ribs.mixins.MixinBase(myOptions), {
+    var forceShow = classOptions.forceShow || false,
+        Editable = function (instanceOptions) {
+            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
                 events: {
                     "click": "edit"
                 },
                 modelChanged: function () {
-                    Ribs.mixins.MixinBase.prototype.modelChanged.apply(this, arguments);
+                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     if (this.model && !this.model.ribsUI.attributes.hasOwnProperty("editing")) {
                         this.model.ribsUI.set({ editing: false });
                     }
