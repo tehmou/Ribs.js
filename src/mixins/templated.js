@@ -9,7 +9,7 @@ Ribs.mixins.templated = function (classOptions) {
                     Ribs.MixinBase.prototype.redraw.apply(this, arguments);
 
                     var modelJSON = this.model ? this.model.toJSON() : {},
-                        uiModelJSON = this.model.ribsUI ? this.model.ribsUI.toJSON() : {},
+                        uiModelJSON = (this.model && this.model.ribsUI) ? this.model.ribsUI.toJSON() : {},
                         json = _.extend(modelJSON, uiModelJSON);
 
                     json.t = function (name) {

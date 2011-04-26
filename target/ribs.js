@@ -42,7 +42,7 @@
         }
     };
 
-    Ribs.mixinMethods = ["customInitialize", "modelChanged", "render", "redraw", "refresh", "delegateEvents", "hide", "dispose"];
+    Ribs.mixinMethods = ["customInitialize", "modelChanged", "render", "redraw", "refresh", "unbindEvents", "bindEvents", "hide", "dispose"];
 
     Ribs.createMixed = function (myOptions) {
         myOptions = myOptions || {};
@@ -138,11 +138,17 @@ Ribs.ManagedView = Backbone.View.extend({
             this.redraw();
             this.invalidated = false;
         }
-        $(this.el).unbind();
-        this.delegateEvents();
+        this.unbindEvents();
         if (!this.refreshOnlyIfVisible || $(this.el).is(":visible")) {
             this.refresh();
         }
+        this.bindEvents();
+    },
+    unbindEvents: function () {
+        $(this.el).unbind();
+    },
+    bindEvents: function () {
+
     },
     redraw: function () { },
     refresh: function () { },
@@ -480,115 +486,52 @@ Ribs.mixins.commitEdit = function (classOptions) {
     return CommitEdit;
 };
 
-Ribs.mixins.editable = function (classOptions) {
+Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
 
-    var forceShow = classOptions.forceShow || false,
-        Editable = function (instanceOptions) {
+    var uiAttributeName = classOptions.uiAttributeName,
+        onEvent = classOptions.onEvent || "click",
+        offEvent = classOptions.offEvent || "click",
+        attributeDefaultValue = classOptions.attributeDefaultValue || false,
+        toggling = (onEvent === offEvent),
+        ToggleAttribute = function (instanceOptions) {
+            var events = {};
+            events[onEvent] = "toggleOn";
+            if (!toggling) {
+                events[offEvent] = "toggleOff";
+            }
             return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
-                events: {
-                    "click": "edit"
-                },
+                events: events,
                 modelChanged: function () {
                     Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
-                    if (this.model && !this.model.ribsUI.attributes.hasOwnProperty("editing")) {
-                        this.model.ribsUI.set({ editing: false });
+                    if (this.model) {
+                        var values = {};
+                        values[uiAttributeName] = attributeDefaultValue;
+                        this.model.ribsUI.set(values);
                     }
                 },
-                refresh: function () {
-                    if (forceShow) {
-                        this.el.toggle(true);                        
+
+                toggleOn: function () {
+                    var values = {};
+                    values[uiAttributeName] = toggling ? !this.model.ribsUI.get(uiAttributeName) : true;
+                    this.model.ribsUI.set(values);
+                },
+                toggleOff: function () {
+                    if (!toggling) {
+                        var values = {};
+                        values[uiAttributeName] = false;
+                        this.model.ribsUI.set(values);
                     }
-                },
-
-                edit: function () {
-                    this.model.ribsUI.set({ editing: true });
                 }
+
             });
         };
 
-    return Editable;
+    return ToggleAttribute;
 };
 
-Ribs.mixins.hoverable = function (classOptions) {
-    var Hoverable = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
-                modelChanged: function () {
-                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
-                    this.model && this.model.ribsUI.set({ hovering: false });
-                },
-                refresh: function () {
-                    this.el
-                            .mouseenter(this.mouseOver)
-                            .mouseleave(this.mouseOut)
-                            .toggleClass("hovering", this.model.ribsUI.get("hovering"));
-                },
-
-                mouseOver: function () {
-                    this.model.ribsUI.set({ hovering: true });
-                },
-                mouseOut: function () {
-                    this.model.ribsUI.set({ hovering: false });
-                }
-            });
-        };
-
-    return Hoverable;
-};
-
-Ribs.mixins.selectable = function (classOptions) {
-    var Selectable = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
-                events: {
-                    "click": "elementClicked"
-                },
-                modelChanged: function () {
-                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
-                    this.model && this.model.ribsUI.set({ selected: false });
-                },
-                refresh: function () {
-                    this.el.toggleClass("selected", this.model.ribsUI.get("selected"));
-                },
-
-                elementClicked: function () {
-                    this.model.ribsUI.set({ selected: !this.model.ribsUI.get("selected") });
-                }
-            });
-        };
+(function() {
     
-    return Selectable;
-};
-
-Ribs.mixins.toggleButton = function (classOptions) {
-    classOptions = classOptions || {};
-
-    var usePlusMinus = classOptions.usePlusMinus || false,
-        ToggleButton = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
-                events: {
-                    "click": "toggle"
-                },
-                modelChanged: function () {
-                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
-                    this.model && this.model.ribsUI.set({ open: false });
-                },
-                refresh: function () {
-                    if (usePlusMinus) {
-                        this.el.text(this.model.ribsUI.get("open") ? "-" : "+");
-                    }
-                    this.el.toggleClass("open", this.model.ribsUI.get("open"));
-                },
-
-
-                toggle: function () {
-                    this.model.ribsUI.set({ open: !this.model.ribsUI.get("open") });
-                }
-            });
-        };
-
-    return ToggleButton;
-};
-
 Ribs.MixinBase = function (classOptions, instanceOptions) {
     classOptions = classOptions || {};
     instanceOptions = instanceOptions || {};
@@ -617,24 +560,48 @@ Ribs.MixinBase.prototype.redraw = function () {
     }
 };
 
-Ribs.MixinBase.prototype.delegateEvents = function () {
-    Backbone.View.prototype.delegateEvents.apply(this, arguments);
-};Ribs.mixins.mixinComposite = function (classOptions) {
-    classOptions = classOptions || {};
-    mixinClasses = classOptions.mixinClasses;
+Ribs.MixinBase.prototype.unbindEvents = function () {
+    this.el.unbind();
+};
 
-    var mixins = [],
-        MixinComposite = function (instanceOptions) {
-            _.each(mixinClasses, function (MixinClass) {
-                var mixin = new MixinClass(instanceOptions);
-                mixins.push(mixin);
-            });
+var eventSplitter = /^(\w+)\s*(.*)$/;
+Ribs.MixinBase.prototype.bindEvents = function (events) {
+    if (!(events || (events = this.events))) return;
+    for (var key in events) {
+      var methodName = events[key];
+      var match = key.match(eventSplitter);
+      var eventName = match[1], selector = match[2];
+      var method = _.bind(this[methodName], this);
+      if (selector === '') {
+        $(this.el).bind(eventName, method);
+      } else {
+        $(this.el).delegate(selector, eventName, method);
+      }
+    }
+};
+
+})();Ribs.mixins.mixinComposite = function (classOptions) {
+    classOptions = classOptions || {};
+    var mixinClasses = classOptions.mixinClasses || [];
+
+    if (classOptions.mixinClasses) {
+        delete classOptions.mixinClasses;
+    }
+
+    var MixinComposite = function (instanceOptions) {
+            instanceOptions = instanceOptions || {};
+            var mixinOptions = _.extend(classOptions, instanceOptions);
+            this.mixins = [];
+            _.each(mixinClasses, _.bind(function (MixinClass) {
+                var mixin = new MixinClass(mixinOptions);
+                this.mixins.push(mixin);
+            }, this));
         };
 
     _.each(Ribs.mixinMethods, function (methodName) {
         MixinComposite.prototype[methodName] = function () {
             var originalArguments = arguments;
-            _.each(mixins, function (mixin) {
+            _.each(this.mixins, function (mixin) {
                 if (mixin[methodName]) {
                     mixin[methodName].apply(mixin, originalArguments);
                 }
