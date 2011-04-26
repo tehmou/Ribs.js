@@ -42,7 +42,7 @@
         }
     };
 
-    Ribs.mixinMethods = ["customInitialize", "modelChanged", "render", "redraw", "refresh", "delegateEvents", "hide", "dispose"];
+    Ribs.mixinMethods = ["customInitialize", "modelChanged", "render", "redraw", "refresh", "unbindEvents", "bindEvents", "hide", "dispose"];
 
     Ribs.createMixed = function (myOptions) {
         myOptions = myOptions || {};

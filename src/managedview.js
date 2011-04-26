@@ -24,11 +24,17 @@ Ribs.ManagedView = Backbone.View.extend({
             this.redraw();
             this.invalidated = false;
         }
-        $(this.el).unbind();
-        this.delegateEvents();
+        this.unbindEvents();
         if (!this.refreshOnlyIfVisible || $(this.el).is(":visible")) {
             this.refresh();
         }
+        this.bindEvents();
+    },
+    unbindEvents: function () {
+        $(this.el).unbind();
+    },
+    bindEvents: function () {
+
     },
     redraw: function () { },
     refresh: function () { },

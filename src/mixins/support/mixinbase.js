@@ -1,3 +1,5 @@
+(function() {
+    
 Ribs.MixinBase = function (classOptions, instanceOptions) {
     classOptions = classOptions || {};
     instanceOptions = instanceOptions || {};
@@ -26,6 +28,24 @@ Ribs.MixinBase.prototype.redraw = function () {
     }
 };
 
-Ribs.MixinBase.prototype.delegateEvents = function () {
-    Backbone.View.prototype.delegateEvents.apply(this, arguments);
+Ribs.MixinBase.prototype.unbindEvents = function () {
+    this.el.unbind();
 };
+
+var eventSplitter = /^(\w+)\s*(.*)$/;
+Ribs.MixinBase.prototype.bindEvents = function (events) {
+    if (!(events || (events = this.events))) return;
+    for (var key in events) {
+      var methodName = events[key];
+      var match = key.match(eventSplitter);
+      var eventName = match[1], selector = match[2];
+      var method = _.bind(this[methodName], this);
+      if (selector === '') {
+        $(this.el).bind(eventName, method);
+      } else {
+        $(this.el).delegate(selector, eventName, method);
+      }
+    }
+};
+
+})();
