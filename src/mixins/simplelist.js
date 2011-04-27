@@ -5,11 +5,10 @@ Ribs.mixins.simpleList = function (classOptions) {
         ItemRenderer = classOptions.ItemRenderer,
         itemTagName = classOptions.itemTagName || null,
         itemClassName = classOptions.itemClassName || null,
-        SimpleList = function (instanceOptions) {
+        SimpleList = function () {
             var listModel, listViews;
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
+            return {
                 modelChanged: function () {
-                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
                     _.each(listViews, function (view) {
                         view.dispose();
                     });
@@ -30,7 +29,6 @@ Ribs.mixins.simpleList = function (classOptions) {
                     }
                 },
                 redraw: function () {
-                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
                     this.el.children().detach();
                     _.each(listViews, _.bind(function (view) {
                         this.el.append(view.el);
@@ -61,7 +59,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                     delete listViews[item.cid];
                     $(item.el).remove();
                 }
-            });
+            };
         };
 
     return SimpleList;

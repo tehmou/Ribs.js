@@ -5,17 +5,16 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
         includedAttributes = classOptions.includedAttributes || null,
         excludedRibsUIAttributes = classOptions.excludedRibsUIAttributes || null,
         includedRibsUIAttributes = classOptions.includedRibsUIAttributes || null,
-        InvalidateOnChange = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
-                modelChanged: function () {
+        InvalidateOnChange = function () {
+            return {
+                modelChanging: function (newModel) {
                     if (this.model) {
                         this.model.unbind("change", this.change);
                         this.model.ribsUI.unbind("change", this.ribsUIChange);
                     }
-                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
-                    if (this.model) {
-                        this.model.bind("change", this.change);
-                        this.model.ribsUI.bind("change", this.ribsUIChange);
+                    if (newModel) {
+                        newModel.bind("change", this.change);
+                        newModel.ribsUI.bind("change", this.ribsUIChange);
                     }
                 },
                 checkAttribute: function (value, attrName) {
@@ -40,8 +39,7 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                 ribsUIChange: function (ev) {
                     _.each(ev.changedAttributes(), this.checkUIAttribute);
                 }
-            });
-            return mixin;
+            };
         };
 
     return InvalidateOnChange;

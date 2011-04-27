@@ -1,6 +1,6 @@
 Ribs.mixins.commitEdit = function (classOptions) {
-    var CommitEdit = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
+    var CommitEdit = function () {
+            return {
                 events: {
                     "click": "commit"
                 },
@@ -8,7 +8,7 @@ Ribs.mixins.commitEdit = function (classOptions) {
                     this.model.ribsUI.trigger("commitEdit");
                     this.model.ribsUI.set({ editing: false });
                 }
-            });
+            };
         };
 
     return CommitEdit;

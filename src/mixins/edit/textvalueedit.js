@@ -7,21 +7,17 @@ Ribs.mixins.textValueEdit = function (classOptions) {
         classOptions.elementSelector = '[name|="' + attributeName + '"]';
     }
 
-    var TextValueEdit = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
+    var TextValueEdit = function () {
+            return {
+                modelChanging: function () {
+                    this.ribsUI.unbind("ribsUI:commitEdit", this.commit);
+                    this.ribsUI.unbind("ribsUI:cancelEdit", this.redraw);
+                },
                 modelChanged: function () {
-                    if (this.model) {
-                        this.model.unbind("ribsUI:commitEdit", this.commit);
-                        this.model.unbind("ribsUI:cancelEdit", this.redraw);
-                    }
-                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
-                    if (this.model) {
-                        this.model.bind("ribsUI:commitEdit", this.commit);
-                        this.model.bind("ribsUI:cancelEdit", this.redraw);
-                    }
+                    this.ribsUI.bind("ribsUI:commitEdit", this.commit);
+                    this.ribsUI.bind("ribsUI:cancelEdit", this.redraw);
                 },
                 redraw: function () {
-                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
                     this.el.val(this.model.get(attributeName));
                 },
 
@@ -30,7 +26,7 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                     values[attributeName] = value;
                     this.model.set(values);
                 }
-            });
+            };
         };
 
     return TextValueEdit;

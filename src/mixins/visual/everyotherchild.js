@@ -2,8 +2,8 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
     classOptions = classOptions || {};
 
     var childClassName = classOptions.childClassName || null,
-        EveryOtherChild = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
+        EveryOtherChild = function () {
+            return {
                 refresh: function () {
                     if (!childClassName) {
                         return;
@@ -14,7 +14,7 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
                         odd = !odd;
                     });
                 }
-            });
+            };
         };
 
     return EveryOtherChild;

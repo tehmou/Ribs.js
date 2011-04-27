@@ -4,21 +4,22 @@ Ribs.mixins.toggleableClass = function (classOptions) {
     var uiAttributeName = classOptions.uiAttributeName || "selected",
         className = classOptions.className || uiAttributeName,
         inverse = classOptions.inverse || false,
-        ToggleableClass = function (instanceOptions) {
-            return _.extend(new Ribs.MixinBase(classOptions, instanceOptions), {
-                modelChanged: function () {
-                    var ev = "change:" + uiAttributeName;
-                    if (this.model) {
-                        this.model.ribsUI.unbind(ev, this.attributeChanged);
+        uiEventName = "change:" + uiAttributeName,
+    
+        ToggleableClass = function () {
+            return {
+                modelChanging: function () {
+                    if (this.ribsUI) {
+                        this.ribsUI.unbind(uiEventName, this.attributeChanged);
                     }
-                    Ribs.MixinBase.prototype.modelChanged.apply(this, arguments);
-                    if (this.model) {
-                        this.model.ribsUI.bind(ev, this.attributeChanged);
+                },
+                modelChanged: function () {
+                    if (this.ribsUI) {
+                        this.ribsUI.bind(uiEventName, this.attributeChanged);
                     }
                 },
                 redraw: function () {
-                    Ribs.MixinBase.prototype.redraw.apply(this, arguments);
-                    var value = this.model.ribsUI.get(uiAttributeName);
+                    var value = this.ribsUI.get(uiAttributeName);
                     inverse && (value = !value);
                     this.el.toggleClass(className, value);
                 },
@@ -27,7 +28,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
                 attributeChanged: function () {
                     this.parent && (this.parent.invalidated = true);
                 }
-            });
+            };
         };
 
     return ToggleableClass;

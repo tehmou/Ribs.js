@@ -1,29 +1,31 @@
 Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
-    var mixinClasses = classOptions.mixinClasses || [];
 
-    if (classOptions.mixinClasses) {
-        delete classOptions.mixinClasses;
-    }
+    var elementSelector = classOptions.elementSelector,
 
-    var MixinComposite = function (instanceOptions) {
-            instanceOptions = instanceOptions || {};
-            var mixinOptions = _.extend(classOptions, instanceOptions);
+        MixinComposite = function () {
             this.mixins = [];
             _.each(mixinClasses, _.bind(function (MixinClass) {
-                var mixin = new MixinClass(mixinOptions);
+                var mixin = new MixinClass();
+                mixin.ribsUI = new Backbone.Model();
                 this.mixins.push(mixin);
             }, this));
         },
+
+        mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(classOptions.mixins),
+    
         callAllMixins = function (mixins, methodName, originalArguments) {
             _.each(mixins, function (mixin) {
                 if (mixin[methodName]) {
                     mixin[methodName].apply(mixin, originalArguments);
                 }
             });
-        },
-        eventSplitter = /^(\w+)\s*(.*)$/,
-        bindMixinEvents = function (mixin) {
+        };
+
+    MixinComposite.prototype.bindEvents = function () {
+        var eventSplitter = /^(\w+)\s*(.*)$/;
+
+        _.each(this.mixins, function (mixin) {
             if (!mixin || !mixin.events) { return; }
 
             _.each(mixin.events, _.bind(function (methodName, key) {
@@ -36,20 +38,28 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                   $(mixin.el).delegate(selector, eventName, method);
                 }
             }, mixin));
-        };;
-
-    MixinComposite.prototype.bindEvents = function () {
-        callAllMixins(this.mixins, "bindEvents", arguments);
-        var eventSplitter = /^(\w+)\s*(.*)$/;
+        });
 
     };
 
-    MixinComposite.prototype.modelChanged = function () {
-        callAllMixins(this.mixins, "modelChanged", arguments);
+    MixinComposite.prototype.modelChanged = function (newModel) {
+        _.each(this.mixins, function (mixin) {
+            mixin.model = newModel;
+            mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
+            if (mixin.modelChanged) {
+                mixin.modelChanged(newModel);
+            }
+        });
     };
 
-    MixinComposite.prototype.redraw = function () {
-        callAllMixins(this.mixins, "redraw", arguments);
+    MixinComposite.prototype.redraw = function (parentEl) {
+        this.el = elementSelector ? $(parentEl).find(elementSelector) : $(parentEl);
+        _.each(this.mixins, _.bind(function (mixin) {
+            mixin.el = mixin.elementSelector ? this.el.find(mixin.elementSelector) : this.el;
+            if (mixin.redraw) {
+                mixin.redraw(parentEl);
+            }
+        }, this));
     };
 
 
