@@ -39,7 +39,7 @@ Ribs.createMixed = function (myOptions) {
     }
 
     Buildee.prototype.initialize = function () {
-        this.rootMixin = new Buildee.RootMixin({ parent: this });
+        this.rootMixin = new Buildee.RootMixin(this);
         Ribs.ManagedView.prototype.initialize.apply(this, arguments);
     };
 

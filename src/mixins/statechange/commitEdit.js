@@ -5,8 +5,8 @@ Ribs.mixins.commitEdit = function (classOptions) {
                     "click": "commit"
                 },
                 commit: function () {
-                    this.model.ribsUI.trigger("commitEdit");
-                    this.model.ribsUI.set({ editing: false });
+                    this.ribsUI.trigger("commitEdit");
+                    this.ribsUI.set({ editing: false });
                 }
             };
         };

@@ -3,6 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="f375b825-304c-4d3c-bcd1-6faac0679eb5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/address_book2.html" afterPath="$PROJECT_DIR$/samples/address_book2.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core.js" afterPath="$PROJECT_DIR$/src/core.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/edit/textvalueedit.js" afterPath="$PROJECT_DIR$/src/mixins/edit/textvalueedit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/invalidateonchange.js" afterPath="$PROJECT_DIR$/src/mixins/invalidateonchange.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/simplelist.js" afterPath="$PROJECT_DIR$/src/mixins/simplelist.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js" afterPath="$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/statechange/commitEdit.js" afterPath="$PROJECT_DIR$/src/mixins/statechange/commitEdit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/support/mixincomposite.js" afterPath="$PROJECT_DIR$/src/mixins/support/mixincomposite.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/visual/toggleableclass.js" afterPath="$PROJECT_DIR$/src/mixins/visual/toggleableclass.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/visual/toggleableelement.js" afterPath="$PROJECT_DIR$/src/mixins/visual/toggleableelement.js" />
     </list>
     <ignored path="ribs__.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,6 +33,100 @@
   <component name="FavoritesManager">
     <favorites_list name="ribs__" />
   </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="mixincomposite.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mixins/support/mixincomposite.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="0" selection-start="621" selection-end="621" vertical-scroll-proportion="-6.4615383">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="invalidateonchange.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mixins/invalidateonchange.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="24" selection-start="918" selection-end="918" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="address_book2.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samples/address_book2.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="112" column="0" selection-start="4129" selection-end="4129" vertical-scroll-proportion="-7.428571">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="textvalueedit.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/mixins/edit/textvalueedit.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="44" selection-start="389" selection-end="389" vertical-scroll-proportion="0.15306123">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selectable.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mixins/combined/selectable.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="33" selection-start="238" selection-end="252" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="templated.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mixins/templated.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="toggleableclass.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mixins/visual/toggleableclass.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="28" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="toggleattribute.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="36" selection-start="1146" selection-end="1146" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="toggleableelement.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mixins/visual/toggleableelement.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="45" selection-start="1050" selection-end="1050" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
@@ -35,22 +139,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/mixins/statechange/hoverable.js" />
-        <option value="$PROJECT_DIR$/src/mixins/statechange/togglebutton.js" />
-        <option value="$PROJECT_DIR$/src/mixins/visual/everyotherchild.js" />
-        <option value="$PROJECT_DIR$/src/mixins/visual/toggleableclass.js" />
+        <option value="$PROJECT_DIR$/src/managedview.js" />
+        <option value="$PROJECT_DIR$/src/mixins/templated.js" />
+        <option value="$PROJECT_DIR$/src/mixins/combined/hoverable.js" />
+        <option value="$PROJECT_DIR$/src/mixins/support/mixinbase.js" />
+        <option value="$PROJECT_DIR$/src/mixins/edit/selectedit.js" />
+        <option value="$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js" />
+        <option value="$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js" />
+        <option value="$PROJECT_DIR$/src/mixins/statechange/commitEdit.js" />
         <option value="$PROJECT_DIR$/src/mixins/visual/toggleableelement.js" />
         <option value="$PROJECT_DIR$/src/mixins/simplelist.js" />
-        <option value="$PROJECT_DIR$/src/mixins/statechange/selectable.js" />
-        <option value="$PROJECT_DIR$/src/managedview.js" />
-        <option value="$PROJECT_DIR$/src/core.js" />
-        <option value="$PROJECT_DIR$/src/mixins/templated.js" />
         <option value="$PROJECT_DIR$/src/mixins/invalidateonchange.js" />
-        <option value="$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js" />
-        <option value="$PROJECT_DIR$/src/mixins/combined/hoverable.js" />
-        <option value="$PROJECT_DIR$/samples/address_book2.html" />
-        <option value="$PROJECT_DIR$/src/mixins/support/mixinbase.js" />
         <option value="$PROJECT_DIR$/src/mixins/support/mixincomposite.js" />
+        <option value="$PROJECT_DIR$/src/core.js" />
+        <option value="$PROJECT_DIR$/src/mixins/visual/toggleableclass.js" />
+        <option value="$PROJECT_DIR$/samples/address_book2.html" />
+        <option value="$PROJECT_DIR$/src/mixins/edit/textvalueedit.js" />
       </list>
     </option>
   </component>
@@ -80,7 +184,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -89,9 +192,194 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mixins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mixins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="visual" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mixins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="support" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mixins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="statechange" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mixins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="edit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mixins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="combined" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="samples" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Favorites" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -131,21 +419,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="989" extended-state="6" />
-    <editor active="false" />
+    <frame x="45" y="22" width="1235" height="778" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.328654" sideWeight="0.67021275" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -184,59 +472,81 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/mixins/edit/selectedit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="31" selection-start="360" selection-end="360" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="24" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mixins/statechange/commitEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="24" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mixins/visual/everyotherchild.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/mixins/simplelist.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="486" selection-end="486" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/samples/lib/backbone.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="829" column="13" selection-start="29152" selection-end="29161" vertical-scroll-proportion="-26.384615" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/combined/editable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="37" selection-start="938" selection-end="944" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/templated.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="815" selection-end="815" vertical-scroll-proportion="0.0" />
+        <state line="51" column="30" selection-start="2201" selection-end="2207" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="17" selection-start="3177" selection-end="3177" vertical-scroll-proportion="0.0" />
+        <state line="41" column="51" selection-start="1242" selection-end="1242" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/edit/selectedit.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/support/mixinbase.js">
+    <entry file="file://$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="859" selection-end="897" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/support/mixincomposite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="23" selection-start="1538" selection-end="1538" vertical-scroll-proportion="0.51707315" />
+        <state line="29" column="36" selection-start="1146" selection-end="1146" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mixins/invalidateonchange.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="2277" selection-end="2277" vertical-scroll-proportion="0.0" />
+        <state line="19" column="24" selection-start="918" selection-end="918" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/managedview.js">
+    <entry file="file://$PROJECT_DIR$/src/mixins/visual/toggleableelement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="16" selection-start="841" selection-end="853" vertical-scroll-proportion="0.0" />
+        <state line="26" column="45" selection-start="1050" selection-end="1050" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/visual/toggleableclass.js">
+    <entry file="file://$PROJECT_DIR$/src/mixins/templated.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="27" selection-start="12" selection-end="27" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mixins/combined/selectable.js">
@@ -244,24 +554,32 @@
         <state line="4" column="33" selection-start="238" selection-end="252" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/combined/hoverable.js">
+    <entry file="file://$PROJECT_DIR$/src/mixins/support/mixincomposite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="20" selection-start="70" selection-end="70" vertical-scroll-proportion="0.0" />
+        <state line="14" column="0" selection-start="621" selection-end="621" vertical-scroll-proportion="-6.4615383">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js">
+    <entry file="file://$PROJECT_DIR$/src/mixins/visual/toggleableclass.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="44" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0" />
+        <state line="12" column="28" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/samples/address_book2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="25" selection-start="4430" selection-end="4430" vertical-scroll-proportion="0.0" />
+        <state line="112" column="0" selection-start="4129" selection-end="4129" vertical-scroll-proportion="-7.428571">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samples/address_book.html">
+    <entry file="file://$PROJECT_DIR$/src/mixins/edit/textvalueedit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="11" column="44" selection-start="389" selection-end="389" vertical-scroll-proportion="0.15306123">
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

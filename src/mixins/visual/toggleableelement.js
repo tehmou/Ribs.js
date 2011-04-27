@@ -5,7 +5,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
         inverse = classOptions.inverse || false,
         uiEventName = "change:" + uiAttributeName,
 
-        ToggleableElement = function () {
+        ToggleableElement = function (parent) {
             return {
                 modelChanging: function () {
                     if (this.ribsUI) {
@@ -24,7 +24,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                 },
 
                 attributeChanged: function () {
-                    this.parent && (this.parent.invalidated = true);
+                    parent.invalidated = true;
                 }
             };
         };

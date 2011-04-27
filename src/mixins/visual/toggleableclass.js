@@ -6,10 +6,12 @@ Ribs.mixins.toggleableClass = function (classOptions) {
         inverse = classOptions.inverse || false,
         uiEventName = "change:" + uiAttributeName,
     
-        ToggleableClass = function () {
+        ToggleableClass = function (parent) {
             return {
                 modelChanging: function () {
-                    this.ribsUI.unbind(uiEventName, parent.render);
+                    if (this.ribsUI.safeUnbind) {
+                        this.ribsUI.safeUnbind(uiEventName, parent.render);
+                    }
                 },
                 modelChanged: function () {
                     this.ribsUI.bind(uiEventName, parent.render);

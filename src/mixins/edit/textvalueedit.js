@@ -18,7 +18,9 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                     this.ribsUI.bind("ribsUI:cancelEdit", this.redraw);
                 },
                 redraw: function () {
-                    this.el.val(this.model.get(attributeName));
+                    if (this.model) {
+                        this.el.val(this.model.get(attributeName));
+                    }
                 },
 
                 commit: function () {

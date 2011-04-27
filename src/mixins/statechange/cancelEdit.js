@@ -5,8 +5,8 @@ Ribs.mixins.cancelEdit = function (classOptions) {
                     "click": "cancel"
                 },
                 cancel: function () {
-                    this.model.ribsUI.trigger("cancelEdit");
-                    this.model.ribsUI.set({ editing: false });
+                    this.ribsUI.trigger("cancelEdit");
+                    this.ribsUI.set({ editing: false });
                 }
             };
         };

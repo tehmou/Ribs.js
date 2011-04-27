@@ -5,7 +5,7 @@ Ribs.mixins.simpleList = function (classOptions) {
         ItemRenderer = classOptions.ItemRenderer,
         itemTagName = classOptions.itemTagName || null,
         itemClassName = classOptions.itemClassName || null,
-        SimpleList = function () {
+        SimpleList = function (parent) {
             var listModel, listViews;
             return {
                 modelChanged: function () {
@@ -49,7 +49,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                             className: itemClassName
                         });
                         listViews[item.cid] = listView;
-                        this.parent.invalidated = true;
+                        parent.invalidated = true;
                     }
                 },
                 addAll: function () {
