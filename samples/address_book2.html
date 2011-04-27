@@ -105,10 +105,10 @@
             // Create a Backbone.View class for one person.
             PersonViewBase = Ribs.createMixed({
                 mixins: [
-                    { invalidateOnChange: { includedRibsUIAttributes: ["editing"] }},
-                    { templated: { templateFunction: _.template($("#person-tmpl").html()) }},
-                    { hoverable: {} }
-                ]
+                            { invalidateOnChange: { includedRibsUIAttributes: ["editing"] }},
+                            { templated: { templateFunction: _.template($("#person-tmpl").html()) }},
+                            { hoverable: {} }
+                        ]
             });
 
             PersonView = Ribs.createMixed({
@@ -121,38 +121,39 @@
 
             PersonEditView = Ribs.createMixed({
                 base: PersonViewBase,
-                mixins: [
-                    { editable: { elementSelector: ".view" } },
-
-                    { textValueEdit: { attributeName: "name" }},
-                    { textValueEdit: { attributeName: "age" }},
-                    { textValueEdit: { attributeName: "city" }},
-
-                    { selectEdit: {
-                        attributeName: "gender",
-                        options: [
-                            { value: "unknown", text: "unknown" },
-                            { value: "male", text: "male" },
-                            { value: "female", text: "female" }
-                        ]
-                    }},
-
-                    { commitEdit: {
-                        elementSelector: ".save-button"
-                    }},
-                    { cancelEdit: {
-                        elementSelector: ".cancel-button"
-                    }},
-                    { toggleableElement: {
-                        elementSelector: ".view",
-                        uiAttributeName: "editing",
-                        inverse: true
-                    }},
-                    { toggleableElement: {
-                        elementSelector: ".edit",
-                        uiAttributeName: "editing"
-                    }}
-                ]
+                mixins: {
+                    "": [
+                        { textValueEdit: { attributeName: "name" }},
+                        { textValueEdit: { attributeName: "age" }},
+                        { textValueEdit: { attributeName: "city" }},
+                        { selectEdit: {
+                            attributeName: "gender",
+                            options: [
+                                { value: "unknown", text: "unknown" },
+                                { value: "male", text: "male" },
+                                { value: "female", text: "female" }
+                            ]
+                        }}
+                    ],
+                    ".view": [
+                        { editable: { } },
+                        { toggleableElement: {
+                            uiAttributeName: "editing",
+                            inverse: true
+                        }}
+                    ],
+                    ".edit": [
+                        { toggleableElement: {
+                            uiAttributeName: "editing"
+                        }}
+                    ],
+                    ".save-button": [
+                        { commitEdit: {} }
+                    ],
+                    ".cancel-button": [
+                        { cancelEdit: {} }
+                    ]
+                }
             });
 
             // Create a Backbone.View class for a list of people.

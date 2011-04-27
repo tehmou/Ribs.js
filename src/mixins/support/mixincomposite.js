@@ -14,16 +14,50 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 var mixin = new MixinClass(mixinOptions);
                 this.mixins.push(mixin);
             }, this));
-        };
-
-    _.each(Ribs.mixinMethods, function (methodName) {
-        MixinComposite.prototype[methodName] = function () {
-            var originalArguments = arguments;
-            _.each(this.mixins, function (mixin) {
+        },
+        callAllMixins = function (mixins, methodName, originalArguments) {
+            _.each(mixins, function (mixin) {
                 if (mixin[methodName]) {
                     mixin[methodName].apply(mixin, originalArguments);
                 }
             });
+        },
+        eventSplitter = /^(\w+)\s*(.*)$/,
+        bindMixinEvents = function (mixin) {
+            if (!mixin || !mixin.events) { return; }
+
+            _.each(mixin.events, _.bind(function (methodName, key) {
+                var match = key.match(eventSplitter),
+                    eventName = match[1], selector = match[2],
+                    method = _.bind(this[methodName], this);
+                if (selector === '') {
+                  $(mixin.el).bind(eventName, method);
+                } else {
+                  $(mixin.el).delegate(selector, eventName, method);
+                }
+            }, mixin));
+        };;
+
+    MixinComposite.prototype.bindEvents = function () {
+        callAllMixins(this.mixins, "bindEvents", arguments);
+        var eventSplitter = /^(\w+)\s*(.*)$/;
+
+    };
+
+    MixinComposite.prototype.modelChanged = function () {
+        callAllMixins(this.mixins, "modelChanged", arguments);
+    };
+
+    MixinComposite.prototype.redraw = function () {
+        callAllMixins(this.mixins, "redraw", arguments);
+    };
+
+
+    _.each(Ribs.mixinMethods, function (methodName) {
+        if (!MixinComposite.prototype.hasOwnProperty(methodName)) {
+            MixinComposite.prototype[methodName] = function () {
+                callAllMixins(this.mixins, methodName, arguments);
+            }
         }
     });
 
