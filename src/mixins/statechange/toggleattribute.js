@@ -2,10 +2,11 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
 
     var uiAttributeName = classOptions.uiAttributeName,
-        onEvent = classOptions.onEvent || "click",
-        offEvent = classOptions.offEvent || "click",
         attributeDefaultValue = classOptions.attributeDefaultValue || false,
+        onEvent = classOptions.onEvent,
+        offEvent = classOptions.offEvent,
         toggling = (onEvent === offEvent),
+    
         ToggleAttribute = function () {
             var events = {};
             events[onEvent] = "toggleOn";
@@ -22,7 +23,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
 
                 toggleOn: function () {
                     var values = {};
-                    values[uiAttributeName] = toggling ? !this.model.ribsUI.get(uiAttributeName) : true;
+                    values[uiAttributeName] = toggling ? !this.ribsUI.get(uiAttributeName) : true;
                     this.ribsUI.set(values);
                 },
                 toggleOff: function () {

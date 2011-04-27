@@ -103,23 +103,24 @@
 
 
             // Create a Backbone.View class for one person.
-            PersonViewBase = Ribs.createMixed({
+            /*PersonViewBase = Ribs.createMixed({
                 mixins: [
                             { invalidateOnChange: { includedRibsUIAttributes: ["editing"] }},
                             { templated: { templateFunction: _.template($("#person-tmpl").html()) }},
                             { hoverable: {} }
                         ]
-            });
+            });*/
 
             PersonView = Ribs.createMixed({
-                base: PersonViewBase,
                 mixins: [
+                    { invalidateOnChange: { includedRibsUIAttributes: ["editing"] }},
+                    { templated: { templateFunction: _.template($("#person-tmpl").html()) }},
                     { selectable: {} }
                 ]
             });
 
 
-            PersonEditView = Ribs.createMixed({
+            /*PersonEditView = Ribs.createMixed({
                 base: PersonViewBase,
                 mixins: {
                     "": [
@@ -154,7 +155,7 @@
                         { cancelEdit: {} }
                     ]
                 }
-            });
+            });*/
 
             // Create a Backbone.View class for a list of people.
             PeopleView = Ribs.createMixed({
@@ -168,7 +169,7 @@
             });
 
             // Create a Backbone.View class for a list of people.
-            PeopleEditView = Ribs.createMixed({
+            /*PeopleEditView = Ribs.createMixed({
                 mixins: [
                     { simpleList: {
                         ItemRenderer: PersonEditView,
@@ -179,12 +180,12 @@
                         childClassName: "colored"
                     }}
                 ]
-            });
+            });*/
 
             // Create an instance of PersonView and
             // append to #person-container
-            personView = new PersonView({ model: people.at(2) }),
-            $("#person-container").append(personView.el);
+            //personView = new PersonView({ model: people.at(2) }),
+            //$("#person-container").append(personView.el);
 
             // Create an instance of PersonView and
             // append to #people-container
@@ -193,9 +194,9 @@
 
             // Create another instance of PeopleEditView by
             // giving it a reference to #people-container-2
-            peopleView2 = new PeopleEditView({
-                model: people, el: $("#people-container-2")
-            });
+            // peopleView2 = new PeopleEditView({
+            //     model: people, el: $("#people-container-2")
+            //});
 
 
         });

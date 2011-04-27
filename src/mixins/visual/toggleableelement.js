@@ -23,7 +23,6 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                     this.el.toggle(value);
                 },
 
-
                 attributeChanged: function () {
                     this.parent && (this.parent.invalidated = true);
                 }

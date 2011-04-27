@@ -1,19 +1,10 @@
 Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
 
-    var elementSelector = classOptions.elementSelector,
-
-        MixinComposite = function () {
-            this.mixins = [];
-            _.each(mixinClasses, _.bind(function (MixinClass) {
-                var mixin = new MixinClass();
-                mixin.ribsUI = new Backbone.Model();
-                this.mixins.push(mixin);
-            }, this));
-        },
-
+    var parent = classOptions.parent,
+        elementSelector = classOptions.elementSelector,
+        MixinComposite = function () { },
         mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(classOptions.mixins),
-    
         callAllMixins = function (mixins, methodName, originalArguments) {
             _.each(mixins, function (mixin) {
                 if (mixin[methodName]) {
@@ -22,12 +13,24 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             });
         };
 
+    MixinComposite.prototype.customInitialize = function () {
+        this.mixins = [];
+        _.each(mixinClasses, _.bind(function (MixinClass) {
+            var mixin = new MixinClass({ parent: parent });
+            mixin.ribsUI = new Backbone.Model();
+            this.mixins.push(mixin);
+        }, this));        
+        callAllMixins(this.mixins, "customInitialize", arguments);
+    };
+
+    var eventSplitter = /^(\w+)\s*(.*)$/;
     MixinComposite.prototype.bindEvents = function () {
-        var eventSplitter = /^(\w+)\s*(.*)$/;
-
         _.each(this.mixins, function (mixin) {
-            if (!mixin || !mixin.events) { return; }
+            if (!mixin.events && mixin.bindEvents) {
+                mixin.bindEvents();
+            }
 
+            if (!mixin || !mixin.events) { return; }
             _.each(mixin.events, _.bind(function (methodName, key) {
                 var match = key.match(eventSplitter),
                     eventName = match[1], selector = match[2],

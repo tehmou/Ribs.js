@@ -1,7 +1,7 @@
 Ribs.mixins.toggleableClass = function (classOptions) {
     classOptions = classOptions || {};
 
-    var uiAttributeName = classOptions.uiAttributeName || "selected",
+    var uiAttributeName = classOptions.uiAttributeName,
         className = classOptions.className || uiAttributeName,
         inverse = classOptions.inverse || false,
         uiEventName = "change:" + uiAttributeName,
@@ -9,24 +9,15 @@ Ribs.mixins.toggleableClass = function (classOptions) {
         ToggleableClass = function () {
             return {
                 modelChanging: function () {
-                    if (this.ribsUI) {
-                        this.ribsUI.unbind(uiEventName, this.attributeChanged);
-                    }
+                    this.ribsUI.unbind(uiEventName, parent.render);
                 },
                 modelChanged: function () {
-                    if (this.ribsUI) {
-                        this.ribsUI.bind(uiEventName, this.attributeChanged);
-                    }
+                    this.ribsUI.bind(uiEventName, parent.render);
                 },
-                redraw: function () {
+                refresh: function () {
                     var value = this.ribsUI.get(uiAttributeName);
                     inverse && (value = !value);
                     this.el.toggleClass(className, value);
-                },
-
-
-                attributeChanged: function () {
-                    this.parent && (this.parent.invalidated = true);
                 }
             };
         };
