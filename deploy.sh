@@ -1,15 +1,20 @@
+TARGET=target/ribs.js
+
 echo Writing Core and ManagedView..
-cat src/core.js src/managedview.js > target/ribs.js
+echo -e "// Core classes\n" > $TARGET
+cat src/core.js src/managedview.js src/mixincomposite.js >> $TARGET
 
 echo Appending utils..
-cat src/utils/* >> target/ribs.js
+echo -e "\n\n\n// Utilities\n" >> $TARGET
+cat src/utils/* >> $TARGET
 
 echo Appending mixins..
-cat src/mixins/* >> target/ribs.js
-cat src/mixins/edit/* >> target/ribs.js
-cat src/mixins/statechange/* >> target/ribs.js
-cat src/mixins/support/* >> target/ribs.js
-cat src/mixins/visual/* >> target/ribs.js
+echo -e "\n\n\n// Default mixin classes\n" >> $TARGET
+cat src/mixins/* >> $TARGET
+cat src/mixins/combined/* >> $TARGET
+cat src/mixins/edit/* >> $TARGET
+cat src/mixins/statechange/* >> $TARGET
+cat src/mixins/visual/* >> $TARGET
 
 echo Copying to samples/lib..
 cp target/ribs.js samples/lib
