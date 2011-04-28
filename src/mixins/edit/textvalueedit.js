@@ -8,12 +8,12 @@ Ribs.mixins.textValueEdit = function (classOptions) {
             return {
                 elementSelector: elementSelector,
                 modelChanging: function () {
-                    this.ribsUI.unbind("ribsUI:commitEdit", this.commit);
-                    this.ribsUI.unbind("ribsUI:cancelEdit", this.redraw);
+                    this.ribsUI.unbind("commitEdit", this.commit);
+                    this.ribsUI.unbind("cancelEdit", this.redraw);
                 },
                 modelChanged: function () {
-                    this.ribsUI.bind("ribsUI:commitEdit", this.commit);
-                    this.ribsUI.bind("ribsUI:cancelEdit", this.redraw);
+                    this.ribsUI.bind("commitEdit", this.commit);
+                    this.ribsUI.bind("cancelEdit", this.redraw);
                 },
                 redraw: function () {
                     if (this.model) {

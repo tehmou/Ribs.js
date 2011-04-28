@@ -42,8 +42,6 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
 
                 toggleOn: function () {
                     var newValue = sameEvent ? !this.getValue() : true;
-                    Ribs.log("toggle " + uiAttributeName + " = " + newValue);
-
                     this.updateValue(newValue);
                 },
                 toggleOff: function () {

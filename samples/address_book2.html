@@ -119,9 +119,11 @@
             // Create a Backbone.View class for one person.
             PersonViewBase = Ribs.createMixed({
                 mixins: [
-                            { invalidateOnChange: { includedRibsUIAttributes: ["editing", "selected", "hovering"] }},
+                            { invalidateOnChange: {
+                                includedRibsUIAttributes: ["editing", "selected", "hovering"]
+                            }},
                             { templated: { templateFunction: _.template($("#person-tmpl").html()) }},
-                            //{ hoverable: {} }
+                            { hoverable: {} }
                         ]
             });
 

@@ -39,14 +39,26 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 callAllMixins(this.mixins, "customInitialize", arguments);
             };
 
-            this.bindEvents = function () {
-                var el = this.el;
+            this.unbindEvents = function () {
+                if (this.el) {
+                    this.el.unbind();
+                }
                 _.each(this.mixins, function (mixin) {
-                    updateMixinEl(mixin, el);
+                    if (mixin.el) {
+                        mixin.el.unbind();
+                    }
+                    if (mixin.unbindEvents) {
+                        mixin.unbindEvents();
+                    }
+                });
+            };
+
+            this.bindEvents = function () {
+                _.each(this.mixins, function (mixin) {
                     if (!mixin.events && mixin.bindEvents) {
                         mixin.bindEvents();
                     }
-                    if (!mixin || !mixin.events) {
+                    if (!mixin || !mixin.events || !mixin.el) {
                         return;
                     }
                     _.each(mixin.events, _.bind(function (methodName, key) {
@@ -54,9 +66,9 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                             eventName = match[1], selector = match[2],
                             method = _.bind(this[methodName], this);
                         if (selector === '') {
-                          $(mixin.el).bind(eventName, method);
+                          mixin.el.bind(eventName, method);
                         } else {
-                          $(mixin.el).delegate(selector, eventName, method);
+                          mixin.el.delegate(selector, eventName, method);
                         }
                     }, mixin));
                 });
@@ -81,7 +93,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                     updateMixinMyValue(mixin);
                     updateMixinEl(mixin, this.el);
                     if (mixin.redraw) {
-                        mixin.redraw(this.el);
+                        mixin.redraw(mixin.el);
                     }
                 }, this));
             };
