@@ -1,13 +1,14 @@
 Ribs.mixins.simpleList = function (classOptions) {
     classOptions = classOptions || {};
 
-    var listAttributeName = classOptions.listAttributeName,
-        ItemRenderer = classOptions.ItemRenderer,
+    var ItemRenderer = classOptions.ItemRenderer,
         itemTagName = classOptions.itemTagName || null,
         itemClassName = classOptions.itemClassName || null,
         SimpleList = function (parent) {
             var listModel, listViews;
             return {
+                attributeName: classOptions.attributeName,
+                uiAttributeName: classOptions.uiAttributeName,
                 modelChanged: function () {
                     _.each(listViews, function (view) {
                         view.dispose();
@@ -18,15 +19,13 @@ Ribs.mixins.simpleList = function (classOptions) {
                         listModel.unbind("remove", mixin.removeOne);
                         listModel.unbind("refresh", mixin.addAll);
                     }
-                    if (this.model) {
-                        listModel = listAttributeName ? this.model.get(listAttributeName) : this.model;
+                    listModel = this.myValue ? this.myValue : this.model;
+                    if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
                         listModel.bind("refresh", this.addAll);
-                        this.addAll();
-                    } else {
-                        this.model = null;
                     }
+                    this.addAll();
                 },
                 redraw: function () {
                     this.el.children().detach();

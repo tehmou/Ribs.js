@@ -10,6 +10,18 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 }
             });
         },
+        updateMixinEl = function (mixin, el) {
+            mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
+        },
+        updateMixinMyValue = function (mixin) {
+            if (mixin.attributeName && mixin.model) {
+                mixin.myValue = mixin.model.get(mixin.attributeName);
+            } else if (mixin.uiAttributeName) {
+                mixin.myValue = mixin.ribsUI.get(mixin.uiAttributeName);
+            } else {
+                mixin.myValue = null;
+            }
+        },
         eventSplitter = /^(\w+)\s*(.*)$/,
         MixinComposite = function (parentView, model, ribsUI) {
             this.useCustomRibsUI = typeof(ribsUI) != "undefined";
@@ -21,13 +33,16 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                     _.bind(function () { _.bindAll(this); }, mixin)();
                     mixin.model = model;
                     mixin.ribsUI = ribsUI || (model && model.ribsUI) || new Backbone.Model();
+                    updateMixinMyValue(mixin);
                     this.mixins.push(mixin);
                 }, this));
                 callAllMixins(this.mixins, "customInitialize", arguments);
             };
 
             this.bindEvents = function () {
+                var el = this.el;
                 _.each(this.mixins, function (mixin) {
+                    updateMixinEl(mixin, el);
                     if (!mixin.events && mixin.bindEvents) {
                         mixin.bindEvents();
                     }
@@ -53,6 +68,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                     if (!this.useCustomRibsUI) {
                         mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
                     }
+                    updateMixinMyValue(mixin);
                     if (mixin.modelChanged) {
                         mixin.modelChanged(newModel);
                     }
@@ -62,9 +78,19 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             this.redraw = function (parentEl) {
                 this.el = elementSelector ? $(parentEl).find(elementSelector) : $(parentEl);
                 _.each(this.mixins, _.bind(function (mixin) {
-                    mixin.el = mixin.elementSelector ? this.el.find(mixin.elementSelector) : this.el;
+                    updateMixinMyValue(mixin);
+                    updateMixinEl(mixin, this.el);
                     if (mixin.redraw) {
-                        mixin.redraw(parentEl);
+                        mixin.redraw(this.el);
+                    }
+                }, this));
+            };
+
+            this.refresh = function () {
+                _.each(this.mixins, _.bind(function (mixin) {
+                    updateMixinMyValue(mixin);
+                    if (mixin.refresh) {
+                        mixin.refresh();
                     }
                 }, this));
             };

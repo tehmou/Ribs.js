@@ -1,36 +1,54 @@
 Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
 
-    var uiAttributeName = classOptions.uiAttributeName,
+    var attributeName = classOptions.attributeName,
+        uiAttributeName = classOptions.uiAttributeName,
         attributeDefaultValue = classOptions.attributeDefaultValue || false,
-        onEvent = classOptions.onEvent || "click",
-        offEvent = classOptions.offEvent || "click",
-        toggling = (onEvent === offEvent),
+        onEvent = (typeof(classOptions.onEvent) != "undefined") ? classOptions.onEvent : "click",
+        offEvent = classOptions.offEvent,
+        sameEvent = (typeof(classOptions.sameEvent) != "undefined") ? classOptions.sameEvent : (onEvent === offEvent),
     
         ToggleAttribute = function () {
             var events = {};
-            events[onEvent] = "toggleOn";
-            if (!toggling) {
+            if (onEvent) {
+                events[onEvent] = "toggleOn";
+            }
+            if (!sameEvent && offEvent) {
                 events[offEvent] = "toggleOff";
             }
             return {
                 events: events,
-                modelChanged: function () {
+                getValue: function () {
+                    if (attributeName) {
+                        return this.model && this.model.get(attributeName);
+                    } else if (uiAttributeName) {
+                        return this.ribsUI.get(uiAttributeName);
+                    }
+                    return null;
+                },
+                updateValue: function (newValue) {
                     var values = {};
-                    values[uiAttributeName] = attributeDefaultValue;
-                    this.ribsUI.set(values);
+                    if (attributeName) {
+                        values[attributeName] = newValue;
+                        this.model.set(values);
+                    } else if (uiAttributeName) {
+                        values[uiAttributeName] = newValue;
+                        this.ribsUI.set(values);
+                    }
+                },
+                modelChanged: function () {
+                    this.updateValue(attributeDefaultValue);
                 },
 
                 toggleOn: function () {
-                    var values = {};
-                    values[uiAttributeName] = toggling ? !this.ribsUI.get(uiAttributeName) : true;
-                    this.ribsUI.set(values);
+                    var newValue = sameEvent ? !this.getValue() : true;
+                    Ribs.log("toggle " + uiAttributeName + " = " + newValue);
+
+                    this.updateValue(newValue);
                 },
                 toggleOff: function () {
-                    if (!toggling) {
-                        var values = {};
-                        values[uiAttributeName] = false;
-                        this.ribsUI.set(values);
+                    if (!sameEvent) {
+                        this.updateValue(false);
                     }
                 }
 
