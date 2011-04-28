@@ -30,6 +30,20 @@
         .view, .edit {
             padding: 3px 6px;
         }
+
+        .view {
+            display: block;
+        }
+        .editing.view {
+            display: none
+        }
+        .edit {
+            display: none;
+        }
+        .editing.edit {
+            display: block;
+        }
+
         .view-item {
             display: inline-block;
             width: 100%;
@@ -134,21 +148,13 @@
                                 { value: "male", text: "male" },
                                 { value: "female", text: "female" }
                             ]
+                        }},
+                        { toggleableClass: {
+                            uiAttributeName: "editing"
                         }}
                     ],
                     ".view": [
-                        {
-                            toggleableElement: {
-                                uiAttributeName: "editing",
-                                inverse: true
-                            },
-                            toggleAttribute: { uiAttributeName: "editing" }
-                        }
-                    ],
-                    ".edit": [
-                        { toggleableElement: {
-                            uiAttributeName: "editing"
-                        }}
+                        { toggleAttribute: { uiAttributeName: "editing" } }
                     ],
                     ".save-button": [
                         { commitEdit: {} }
@@ -237,7 +243,7 @@
         city: <%= city %>)
         <i><%= hasOwnProperty("editing") ? (editing ? "[editing]" : "") : "" %></i></span>
 </div>
-<div class="edit" style="display:none">
+<div class="edit">
     <span class="edit-item"><input type="text" name="name" style="width: 80px"/>
         (age: <input type="text" name="age" style="width: 20px"/>,
         gender: <select name="gender"></select>
