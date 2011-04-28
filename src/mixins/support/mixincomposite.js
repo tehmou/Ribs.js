@@ -11,13 +11,16 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             });
         },
         eventSplitter = /^(\w+)\s*(.*)$/,
-        MixinComposite = function (parentView) {
+        MixinComposite = function (parentView, model, ribsUI) {
+            this.useCustomRibsUI = typeof(ribsUI) != "undefined";
+
             this.customInitialize = function () {
                 this.mixins = [];
                 _.each(mixinClasses, _.bind(function (MixinClass) {
-                    var mixin = new MixinClass(parentView);
+                    var mixin = new MixinClass(parentView, model, ribsUI);
                     _.bind(function () { _.bindAll(this); }, mixin)();
-                    mixin.ribsUI = new Backbone.Model();
+                    mixin.model = model;
+                    mixin.ribsUI = ribsUI || (model && model.ribsUI) || new Backbone.Model();
                     this.mixins.push(mixin);
                 }, this));
                 callAllMixins(this.mixins, "customInitialize", arguments);
@@ -47,7 +50,9 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             this.modelChanged = function (newModel) {
                 _.each(this.mixins, function (mixin) {
                     mixin.model = newModel;
-                    mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
+                    if (!this.useCustomRibsUI) {
+                        mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
+                    }
                     if (mixin.modelChanged) {
                         mixin.modelChanged(newModel);
                     }

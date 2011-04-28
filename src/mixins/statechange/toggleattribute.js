@@ -3,8 +3,8 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
 
     var uiAttributeName = classOptions.uiAttributeName,
         attributeDefaultValue = classOptions.attributeDefaultValue || false,
-        onEvent = classOptions.onEvent,
-        offEvent = classOptions.offEvent,
+        onEvent = classOptions.onEvent || "click",
+        offEvent = classOptions.offEvent || "click",
         toggling = (onEvent === offEvent),
     
         ToggleAttribute = function () {

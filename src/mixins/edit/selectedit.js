@@ -2,14 +2,12 @@ Ribs.mixins.selectEdit = function (classOptions) {
     classOptions = classOptions || {};
 
     var attributeName = classOptions.attributeName,
-        selectOptions = classOptions.options;
-
-    if (attributeName && !classOptions.elementSelector) {
-        classOptions.elementSelector = '[name|="' + attributeName + '"]';
-    }
+        selectOptions = classOptions.options,
+        elementSelector = attributeName && '[name|="' + attributeName + '"]';
 
     var SelectEdit = function () {
         return {
+            elementSelector: elementSelector,
             modelChanging: function () {
                 this.ribsUI.unbind("commitEdit", this.commit);
                 this.ribsUI.unbind("cancelEdit", this.redraw);

@@ -123,7 +123,7 @@
             PersonEditView = Ribs.createMixed({
                 base: PersonViewBase,
                 mixins: {
-                    "": [
+                    "*": [
                         { textValueEdit: { attributeName: "name" }},
                         { textValueEdit: { attributeName: "age" }},
                         { textValueEdit: { attributeName: "city" }},
@@ -137,11 +137,13 @@
                         }}
                     ],
                     ".view": [
-                        { editable: { } },
-                        { toggleableElement: {
-                            uiAttributeName: "editing",
-                            inverse: true
-                        }}
+                        {
+                            toggleableElement: {
+                                uiAttributeName: "editing",
+                                inverse: true
+                            },
+                            toggleAttribute: { uiAttributeName: "editing" }
+                        }
                     ],
                     ".edit": [
                         { toggleableElement: {
@@ -171,14 +173,16 @@
             // Create a Backbone.View class for a list of people.
             PeopleEditView = Ribs.createMixed({
                 mixins: [
-                    { simpleList: {
-                        ItemRenderer: PersonEditView,
-                        itemTagName: "div",
-                        itemClassName: "person editable"
-                    }},
-                    { everyOtherChild: {
-                        childClassName: "colored"
-                    }}
+                    {
+                        simpleList: {
+                            ItemRenderer: PersonEditView,
+                            itemTagName: "div",
+                            itemClassName: "person editable"
+                        },
+                        everyOtherChild: {
+                            childClassName: "colored"
+                        }
+                    }
                 ]
             });
 
