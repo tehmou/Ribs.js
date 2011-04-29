@@ -3,10 +3,10 @@ Ribs.ManagedView = Backbone.View.extend({
     refreshOnlyIfVisible: false,
 
     initialize: function () {
-        _.bindAll(this, "customInitialize", "bindToModel", "modelChanged", "render", "redraw", "refresh", "hide", "dispose");
+        _.bindAll(this, "customInitialize", "bindToModel", "modelChanged", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
         Backbone.View.prototype.initialize.apply(this, arguments);
-        this.customInitialize();
         this.model && this.bindToModel(this.model);
+        this.customInitialize();
         this.render();
     },
     customInitialize: function () { },
