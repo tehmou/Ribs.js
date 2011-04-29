@@ -2,6 +2,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
 
     var elementSelector = classOptions.elementSelector,
+        elementCreator = classOptions.elementCreator,
         mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(classOptions.mixins),
         callAllMixins = function (mixins, methodName, originalArguments) {
             _.each(mixins, function (mixin) {
@@ -88,7 +89,14 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             };
 
             this.redraw = function (parentEl) {
-                this.el = elementSelector ? $(parentEl).find(elementSelector) : $(parentEl);
+                this.el = $(parentEl).find(elementSelector);
+                if (this.el.length == 0) {
+                    if (elementCreator) {
+                        this.el = $(parentEl).append($(elementCreator));
+                    } else {
+                        this.el = parentEl;
+                    }
+                }
                 _.each(this.mixins, _.bind(function (mixin) {
                     updateMixinMyValue(mixin);
                     updateMixinEl(mixin, this.el);

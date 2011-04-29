@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ribs.js--Trivial Example</title>
+
+    <style type="text/css">
+        body {
+            font-family: "Helvetica Neue", "Helvetica", "Arial", sans;
+            font-size: 10pt;
+        }
+
+        .button {
+            width: 40px;
+            text-align: center;
+            display: inline-block;
+            color: #101010;
+            background: #e0e0e0;
+            border: 1px solid #909090;
+            border-radius: 4px;
+            padding: 1px 4px;
+        }
+        .button:hover {
+            border-color: #303030;
+        }
+    </style>
+
+    <script src="lib/jquery-1.5.min.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <!--<script src="lib/ribs.js"></script>-->
+
+<!-- visualizer -->
+    <script src="../src/core.js"></script>
+    <script src="../src/managedview.js"></script>
+    <script src="../src/mixins/invalidateonchange.js"></script>
+    <script src="../src/mixins/simplelist.js"></script>
+    <script src="../src/mixins/templated.js"></script>
+    <script src="../src/mixins/combined/editable.js"></script>
+    <script src="../src/mixins/combined/editabletext.js"></script>
+    <script src="../src/mixins/combined/hoverable.js"></script>
+    <script src="../src/mixins/combined/selectable.js"></script>
+    <script src="../src/mixins/combined/openable.js"></script>
+    <script src="../src/mixins/edit/selectedit.js"></script>
+    <script src="../src/mixins/edit/textvalueedit.js"></script>
+    <script src="../src/mixins/statechange/cancelEdit.js"></script>
+    <script src="../src/mixins/statechange/commitEdit.js"></script>
+    <script src="../src/mixins/statechange/toggleattribute.js"></script>
+    <script src="../src/mixincomposite.js"></script>
+    <script src="../src/mixins/visual/everyotherchild.js"></script>
+    <script src="../src/mixins/visual/toggleableelement.js"></script>
+    <script src="../src/mixins/visual/toggleableclass.js"></script>
+    <script src="../src/utils/uimanager.js"></script>
+    <script src="../src/utils/uimodelutils.js"></script>
+<!-- /visualizer -->
+
+    <script type="text/javascript">
+        $(function () {
+            var myModel = new Backbone.Model({ name: "Karita", age: 16 }),
+                View = Ribs.createMixed({
+                    mixins: [
+                        { editableText: { attributeName: "name" }}
+                    ]
+                }),
+                view = new View({ model: myModel, el: $("#container ") });
+
+
+        });
+
+    </script>
+
+<!-- visualizer -->
+    <link href="css/visualizer.css" rel="stylesheet">
+    <script src="js/visualizer.js"></script>
+    <script>
+        $(function () {
+            visualize("address_book2.html");
+        });
+    </script>
+<!-- /visualizer -->
+
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
