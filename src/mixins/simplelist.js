@@ -9,6 +9,7 @@ Ribs.mixins.simpleList = function (classOptions) {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
+                elementSelector: classOptions.elementSelector,
                 modelChanged: function () {
                     _.each(listViews, function (view) {
                         view.dispose();
@@ -48,11 +49,20 @@ Ribs.mixins.simpleList = function (classOptions) {
                             className: itemClassName
                         });
                         listViews[item.cid] = listView;
-                        parent.invalidated = true;
+                        if (!this.refreshingList) {
+                            parent.invalidated = true;
+                            parent.render();
+                        }
                     }
                 },
                 addAll: function () {
-                    listModel.each(this.addOne);
+                    this.refreshingList = true;
+                    if (listModel.each) {
+                        listModel.each(this.addOne);
+                    }
+                    parent.invalidated = true;
+                    parent.render();
+                    this.refreshingList = false;
                 },
                 removeOne: function (item) {
                     delete listViews[item.cid];

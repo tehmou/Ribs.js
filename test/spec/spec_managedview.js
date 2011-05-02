@@ -2,7 +2,7 @@ describe("ManagedView", function () {
     var ObservableManagedView, callStack;
 
     beforeEach(function () {
-        var o = backboneSingleViewPrototypeObserver(Ribs.ManagedView);
+        var o = typeCallObserver(Ribs.ManagedView);
         ObservableManagedView = o.ObservableView;
         callStack = o.callStack;
     });

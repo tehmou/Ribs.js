@@ -31,15 +31,38 @@ var CallStack = function () {
             return this;
         };
 
-        this.called = function (method) {
+        this.called = function (methodName, arguments) {
             if (!running) { return; }
+
+            var expectedMethod = _.last(expectedCallStack);
             if (expectedCallStack.length == 0) {
-                throw "Did not expect a function call, but got " + method;
-            } else if (method !== _.last(expectedCallStack)) {
-                throw "Expected call to " + _.last(expectedCallStack) + ", but got " + method;
+                throw "Did not expect a function call, but got " + methodName;
+            } else if (typeof(expectedMethod) == "string") {
+                if (methodName !== expectedMethod) {
+                    throw "Expected call to " + _.last(expectedCallStack) + ", but got " + methodName;
+                }
             } else {
-                expectedCallStack.pop();
+                if (methodName !== expectedMethod.name) {
+                    throw "Expected call to " + _.last(expectedCallStack) + ", but got " + methodName;
+                }
+
+                if (expectedMethod.arguments) {
+                    // Validate arguments.
+                    arguments = _.toArray(arguments);
+                    _.each(expectedMethod.arguments, function (argument) {
+                        var index = arguments.indexOf(argument);
+                        if (index == -1) {
+                            throw "Expected argument " + argument + " for call to " + methodName;
+                        } else {
+                            delete arguments[index];
+                        }
+                    });
+                    if (expectedMethod.arguments.length > 0) {
+                        throw "Expected argument " + expectedMethod.arguments[0] + " for call to " + methodName;
+                    }
+                }
             }
+            expectedCallStack.pop();
         };
     },
     objectCallObserver = function (target) {
@@ -47,22 +70,22 @@ var CallStack = function () {
         _.each(target, function (method, name) {
             if (typeof(method) == "function") {
                 target[name] = function () {
-                    callStack.called(name);
+                    callStack.called(name, arguments);
                     method.apply(target, arguments);
                 };
             }
         });
         return callStack;
     },
-    backboneSingleViewPrototypeObserver = function (View) {
-        var ObservableView = View.extend({}),
+    typeCallObserver = function (Type) {
+        var ObservableView = Type.extend({}),
             callStack = new CallStack();
 
-        _.each(View.prototype, function (method, name) {
+        _.each(Type.prototype, function (method, name) {
             if (typeof(method) == "function") {
-                var oldMethod = View.prototype[name];
+                var oldMethod = Type.prototype[name];
                 ObservableView.prototype[name] = function () {
-                    callStack.called(name);
+                    callStack.called(name, arguments);
                     oldMethod.apply(this, arguments);
                 };
             }
