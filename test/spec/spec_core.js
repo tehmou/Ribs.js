@@ -18,20 +18,41 @@ describe("ManagedView", function () {
             "bindEvents"
         ]);
         callStack.start();
-        var managedView = new ObservableManagedView();
+        new ObservableManagedView();
         callStack.expectFinished();
     });
 
-    it("Should only redraw first time rendering", function () {
-        var managedView = new ObservableManagedView();
-        callStack.expectCalls([
-            "render",
-            "unbindEvents",
-            "refresh",
-            "bindEvents"
-        ]);
-        callStack.start();
-        managedView.render();
-        callStack.expectFinished();
+    describe("Rendering", function () {
+        var managedView;
+
+        beforeEach(function () {
+            managedView = new ObservableManagedView();
+        });
+        
+        it("Should only redraw first time rendering", function () {
+            callStack.expectCalls([
+                "render",
+                "unbindEvents",
+                "refresh",
+                "bindEvents"
+            ]);
+            callStack.start();
+            managedView.render();
+            callStack.expectFinished();
+        });
+
+        it("Should redraw again if invalidated is set to true", function () {
+            managedView.invalidated = true;
+            callStack.expectCalls([
+                "render",
+                "unbindEvents",
+                "redraw",
+                "refresh",
+                "bindEvents"
+            ]);
+            callStack.start();
+            managedView.render();
+            callStack.expectFinished();
+        });
     });
 });

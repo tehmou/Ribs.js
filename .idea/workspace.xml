@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37bc9b10-d032-4dad-94a0-c29b4bfc3eee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/helpers/helpers.js" afterPath="$PROJECT_DIR$/test/helpers/helpers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managedview.js" afterPath="$PROJECT_DIR$/src/managedview.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/spec/spec_core.js" afterPath="$PROJECT_DIR$/test/spec/spec_core.js" />
     </list>
     <ignored path="ribs__.iws" />
@@ -39,7 +38,16 @@
       <file leaf-file-name="spec_core.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/spec/spec_core.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="27" selection-start="470" selection-end="470" vertical-scroll-proportion="0.26709062">
+            <state line="35" column="26" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.6677266">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="managedview.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/managedview.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="52" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -65,6 +73,7 @@
       <list>
         <option value="$PROJECT_DIR$/test/helpers/helpers.js" />
         <option value="$PROJECT_DIR$/test/spec/spec_core.js" />
+        <option value="$PROJECT_DIR$/src/managedview.js" />
       </list>
     </option>
   </component>
@@ -163,6 +172,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Favorites" />
@@ -251,13 +274,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/dev-core-testrunner.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/helpers/helpers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="30" selection-start="447" selection-end="447" vertical-scroll-proportion="0.0">
@@ -265,9 +281,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/managedview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="52" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/dev-core-testrunner.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/spec/spec_core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="27" selection-start="470" selection-end="470" vertical-scroll-proportion="0.26709062">
+        <state line="35" column="26" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.6677266">
           <folding />
         </state>
       </provider>

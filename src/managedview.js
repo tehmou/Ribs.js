@@ -1,11 +1,10 @@
 Ribs.ManagedView = Backbone.View.extend({
     invalidated: true,
-    refreshOnlyIfVisible: false,
 
     initialize: function () {
-        _.bindAll(this, "customInitialize", "bindToModel", "modelChanged", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
+        _.bindAll(this, "customInitialize", "bindToModel", "modelChanging", "modelChanged", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
         Backbone.View.prototype.initialize.apply(this, arguments);
-        this.model && this.bindToModel(this.model);
+        this.model && this.bindToModel(this.model); 
         this.customInitialize();
         this.render();
     },
@@ -27,9 +26,7 @@ Ribs.ManagedView = Backbone.View.extend({
             this.redraw(this.el);
             this.invalidated = false;
         }
-        if (!this.refreshOnlyIfVisible || $(this.el).is(":visible")) {
-            this.refresh();
-        }
+        this.refresh();
         this.bindEvents();
     },
     unbindEvents: function () {
