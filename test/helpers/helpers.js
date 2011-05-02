@@ -1,8 +1,23 @@
 var CallStack = function () {
-        var expectedCallStack = [];
+        var running = false,
+            expectedCallStack = [];
+
+        this.start = function () {
+            running = true;
+        };
+
+        this.pause = function () {
+            running = false;
+        };
 
         this.expectCall = function (methodName) {
             expectedCallStack.splice(0, 0, methodName);
+        };
+
+        this.expectCalls = function (methodNames) {
+            _.each(methodNames, _.bind(function (methodName) {
+                this.expectCall(methodName);
+            }, this));
         };
 
         this.expectFinished = function () {
@@ -12,6 +27,7 @@ var CallStack = function () {
         };
 
         this.called = function (method) {
+            if (!running) { return; }
             if (expectedCallStack.length == 0) {
                 throw "Did not expect a function call, but got " + method;
             } else if (method !== _.last(expectedCallStack)) {
@@ -38,7 +54,7 @@ var CallStack = function () {
             callStack = new CallStack();
 
         _.each(View.prototype, function (method, name) {
-            if (typeof(method) == "method") {
+            if (typeof(method) == "function") {
                 var oldMethod = View.prototype[name];
                 ObservableView.prototype[name] = function () {
                     callStack.called(name);
