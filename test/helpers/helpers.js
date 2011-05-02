@@ -4,26 +4,31 @@ var CallStack = function () {
 
         this.start = function () {
             running = true;
+            return this;
         };
 
         this.pause = function () {
             running = false;
+            return this;
         };
 
         this.expectCall = function (methodName) {
             expectedCallStack.splice(0, 0, methodName);
+            return this;
         };
 
         this.expectCalls = function (methodNames) {
             _.each(methodNames, _.bind(function (methodName) {
                 this.expectCall(methodName);
             }, this));
+            return this;
         };
 
         this.expectFinished = function () {
             if (expectedCallStack.length > 0) {
                 throw "No call to " + _.last(expectedCallStack);
             }
+            return this;
         };
 
         this.called = function (method) {
