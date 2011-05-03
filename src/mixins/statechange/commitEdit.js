@@ -1,6 +1,10 @@
 Ribs.mixins.commitEdit = function (classOptions) {
+    classOptions = classOptions || {};
     var CommitEdit = function () {
             return {
+                attributeName: classOptions.attributeName,
+                uiAttributeName: classOptions.uiAttributeName,
+                elementSelector: classOptions.elementSelector,
                 events: {
                     "click": "commit"
                 },

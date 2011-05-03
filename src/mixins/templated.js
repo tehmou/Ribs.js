@@ -5,6 +5,9 @@ Ribs.mixins.templated = function (classOptions) {
         className = classOptions.className,
         Templated = function () {
             return {
+                attributeName: classOptions.attributeName,
+                uiAttributeName: classOptions.uiAttributeName,
+                elementSelector: classOptions.elementSelector,
                 redraw: function () {
                     var modelJSON = this.model ? this.model.toJSON() : {},
                         uiModelJSON = this.ribsUI.toJSON(),

@@ -6,6 +6,8 @@ Ribs.mixins.textValueEdit = function (classOptions) {
 
     var TextValueEdit = function () {
             return {
+                attributeName: classOptions.attributeName,
+                uiAttributeName: classOptions.uiAttributeName,
                 elementSelector: elementSelector,
                 modelChanging: function () {
                     this.ribsUI.unbind("commitEdit", this.commit);

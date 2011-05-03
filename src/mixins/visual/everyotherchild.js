@@ -4,6 +4,9 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
     var childClassName = classOptions.childClassName || null,
         EveryOtherChild = function () {
             return {
+                attributeName: classOptions.attributeName,
+                uiAttributeName: classOptions.uiAttributeName,
+                elementSelector: classOptions.elementSelector,
                 refresh: function () {
                     if (!childClassName) {
                         return;

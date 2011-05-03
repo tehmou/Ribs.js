@@ -8,6 +8,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
+                elementSelector: classOptions.elementSelector,
                 refresh: function () {
                     var value = this.myValue;
                     if (inverse) {

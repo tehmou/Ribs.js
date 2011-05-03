@@ -24,16 +24,20 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             }
         },
         eventSplitter = /^(\w+)\s*(.*)$/,
-        MixinComposite = function (parentView, model, ribsUI) {
-            this.useCustomRibsUI = typeof(ribsUI) != "undefined";
-
+        MixinComposite = function (parentView, model) {
             this.customInitialize = function () {
                 this.mixins = [];
                 _.each(mixinClasses, _.bind(function (MixinClass) {
-                    var mixin = new MixinClass(parentView, model, ribsUI);
+                    var mixin = new MixinClass(parentView, model);
                     _.bind(function () { _.bindAll(this); }, mixin)();
+                    mixin.ribsUI = model && model.ribsUI;
+                    if (mixin.modelChanging) {
+                        mixin.modelChanging();
+                    }
                     mixin.model = model;
-                    mixin.ribsUI = ribsUI || (model && model.ribsUI) || new Backbone.Model();
+                    if (mixin.modelChanged) {
+                        mixin.modelChanged(mixin.model);
+                    }
                     updateMixinMyValue(mixin);
                     this.mixins.push(mixin);
                 }, this));
@@ -49,7 +53,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                         mixin.el.unbind();
                     }
                     if (mixin.unbindEvents) {
-                        mixin.unbindEvents();
+                        mixin.unbindEvents.apply(mixin);
                     }
                 });
             };
@@ -57,7 +61,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             this.bindEvents = function () {
                 _.each(this.mixins, function (mixin) {
                     if (!mixin.events && mixin.bindEvents) {
-                        mixin.bindEvents();
+                        mixin.bindEvents.apply(mixin);
                     }
                     if (!mixin || !mixin.events || !mixin.el) {
                         return;
@@ -76,16 +80,14 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             };
 
             this.modelChanged = function (newModel) {
-                _.each(this.mixins, function (mixin) {
+                _.each(this.mixins, _.bind(function (mixin) {
                     mixin.model = newModel;
-                    if (!this.useCustomRibsUI) {
-                        mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
-                    }
+                    mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
                     updateMixinMyValue(mixin);
                     if (mixin.modelChanged) {
-                        mixin.modelChanged(newModel);
+                        mixin.modelChanged.apply(mixin, [newModel]);
                     }
-                });
+                }, this));
             };
 
             this.redraw = function (parentEl) {
@@ -94,14 +96,14 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                     if (elementCreator) {
                         this.el = $(parentEl).append($(elementCreator));
                     } else {
-                        this.el = parentEl;
+                        this.el = $(parentEl);
                     }
                 }
                 _.each(this.mixins, _.bind(function (mixin) {
                     updateMixinMyValue(mixin);
                     updateMixinEl(mixin, this.el);
                     if (mixin.redraw) {
-                        mixin.redraw(mixin.el);
+                        mixin.redraw.apply(mixin, [mixin.el]);
                     }
                 }, this));
             };
@@ -110,7 +112,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 _.each(this.mixins, _.bind(function (mixin) {
                     updateMixinMyValue(mixin);
                     if (mixin.refresh) {
-                        mixin.refresh();
+                        mixin.refresh.apply(mixin);
                     }
                 }, this));
             };

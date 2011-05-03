@@ -7,6 +7,9 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
         includedRibsUIAttributes = classOptions.includedRibsUIAttributes || null,
         InvalidateOnChange = function (parent) {
             return {
+                attributeName: classOptions.attributeName,
+                uiAttributeName: classOptions.uiAttributeName,
+                elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
                     if (this.model) {
                         this.model.unbind("change", this.change);

@@ -1,12 +1,13 @@
 Ribs.mixins.selectEdit = function (classOptions) {
     classOptions = classOptions || {};
-
     var attributeName = classOptions.attributeName,
         selectOptions = classOptions.options,
         elementSelector = attributeName && '[name|="' + attributeName + '"]';
 
     var SelectEdit = function () {
         return {
+            attributeName: classOptions.attributeName,
+            uiAttributeName: classOptions.uiAttributeName,
             elementSelector: elementSelector,
             modelChanging: function () {
                 this.ribsUI.unbind("commitEdit", this.commit);

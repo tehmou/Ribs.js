@@ -18,6 +18,9 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
             }
             return {
                 events: events,
+                attributeName: attributeName,
+                uiAttributeName: uiAttributeName,
+                elementSelector: classOptions.elementSelector,
                 getValue: function () {
                     if (attributeName) {
                         return this.model && this.model.get(attributeName);
