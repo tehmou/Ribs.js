@@ -13,21 +13,47 @@ describe("MixinComposite", function () {
     });
 
     it("Should know how to parse element definitions", function () {
-        callStack.expectCalls([
-            { name: "mixinComposite" },
-            { name: "createTestMixin1", optionsArgument: {} },
-            { name: "mixinComposite" },
-            { name: "createTestMixin1", optionsArgument: {} },
-            { name: "createTestMixin2", optionsArgument: {} }
-        ]);
-        Ribs.parseMixinDefinitions({
-            "": [
+        var mixinDefinitions1 = [
                 { createTestMixin1: {} }
             ],
-            ".my-class": [
+            mixinDefinitions2 = [
                 { createTestMixin1: {} },
                 { createTestMixin2: {} }
-            ]
+            ],
+            expectedDef1Calls = [
+                { name: "createTestMixin1", optionsArgument: {} }
+            ],
+            expectedDef2Calls = [
+                { name: "createTestMixin1", optionsArgument: {} },
+                { name: "createTestMixin2", optionsArgument: {} }
+            ];
+
+        callStack
+                .expectCalls([
+                    {
+                        name: "mixinComposite",
+                        optionsArgument: { elementSelector: "", mixins: mixinDefinitions1 }
+                    }
+                ])
+                .expectCalls(expectedDef1Calls)
+                .expectCall({
+                    name: "mixinComposite",
+                    optionsArgument: { elementSelector: ".my-class", mixins: mixinDefinitions2 }
+                })
+                .expectCalls(expectedDef2Calls)
+                .expectCall("mixinComposite")
+                .expectCall({
+                    name: "mixinComposite",
+                    optionsArgument: { elementSelector: ".my-third-class", mixins: mixinDefinitions1 }
+                })
+                .expectCalls(expectedDef1Calls);
+
+        mixins = Ribs.parseMixinDefinitions({
+            "": mixinDefinitions1,
+            ".my-class": mixinDefinitions2,
+            ".my-second-class": {
+                ".my-third-class": mixinDefinitions1
+            }
         });
     });
 });

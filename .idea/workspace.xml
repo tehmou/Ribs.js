@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37bc9b10-d032-4dad-94a0-c29b4bfc3eee" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/mixincomposite-testrunner.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/dev-core-testrunner.html" afterPath="$PROJECT_DIR$/test/dev-core-testrunner.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/helpers/testhelpers.js" afterPath="$PROJECT_DIR$/test/helpers/testhelpers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/spec/spec_mixincomposite.js" afterPath="$PROJECT_DIR$/test/spec/spec_mixincomposite.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js" afterPath="$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js" />
     </list>
     <ignored path="ribs__.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,7 +28,7 @@
       <file leaf-file-name="mixincomposite.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mixins/support/mixincomposite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="26" selection-start="1207" selection-end="1207" vertical-scroll-proportion="0.0">
+            <state line="4" column="98" selection-start="243" selection-end="249" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -69,7 +64,7 @@
       <file leaf-file-name="spec_mixincomposite.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/spec/spec_mixincomposite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="36" selection-start="630" selection-end="630" vertical-scroll-proportion="0.36672327">
+            <state line="57" column="0" selection-start="2047" selection-end="2047" vertical-scroll-proportion="0.8573854">
               <folding />
             </state>
           </provider>
@@ -636,13 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mixins/support/mixincomposite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="26" selection-start="1207" selection-end="1207" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/mixincomposite-testrunner.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="85" selection-start="1324" selection-end="1324" vertical-scroll-proportion="-14.857142">
@@ -657,9 +645,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/mixins/support/mixincomposite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="98" selection-start="243" selection-end="249" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/spec/spec_mixincomposite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="36" selection-start="630" selection-end="630" vertical-scroll-proportion="0.36672327">
+        <state line="57" column="0" selection-start="2047" selection-end="2047" vertical-scroll-proportion="0.8573854">
           <folding />
         </state>
       </provider>
