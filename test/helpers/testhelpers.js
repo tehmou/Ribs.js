@@ -31,12 +31,14 @@ var testlog = function (msg) {
 
         this.expectFinished = function () {
             if (expectedCallStack.length > 0) {
-                throw "No call to " + expectedCallStack[expectedCallStack.length - 1];
+                var missedCall = expectedCallStack[expectedCallStack.length - 1]
+                throw "No call to " + (typeof(missedCall) == "string" ? missedCall : missedCall.name);
             }
             return this;
         };
 
         this.called = function (methodName, arguments) {
+            testlog("Called " + methodName);
             if (!running) { return; }
 
             if (expectedCallStack.length == 0) {
@@ -77,7 +79,6 @@ var testlog = function (msg) {
                         }
                         for (key in expectedOptions) {
                             if (expectedOptions.hasOwnProperty(key)) {
-                                testlog(key);
                                 if (options[key] !== expectedOptions[key]) {
                                     throw "Property " + key + " did not match (" + options[key] + "!==" + expectedOptions[key] + ")";
                                 }

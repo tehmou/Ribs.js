@@ -1,5 +1,5 @@
 describe("parseMixinDefinitions", function () {
-    var callStack;
+    var oldMixins = Ribs.mixins, callStack;
 
     beforeEach(function () {
         Ribs.mixins = {
@@ -10,7 +10,7 @@ describe("parseMixinDefinitions", function () {
     });
 
     afterEach(function () {
-        delete Ribs.mixins;
+        Ribs.mixins = oldMixins;
         callStack.expectFinished();
     });
 
@@ -25,26 +25,38 @@ describe("parseMixinDefinitions", function () {
         ]);
     });
 
-    it("Should throw error on unknown mixin", function () {
-        var exceptionThrown;
-        try {
-            Ribs.parseMixinDefinitions([
-                { nonExistingMixin: {} }
-            ]);
-        } catch (e) {
-            exceptionThrown = true;
-        }
-        expect(exceptionThrown).toBeTruthy();
-    });
-
     it("Should give mixins their creation arguments as options", function () {
         var elementSelector = "div", model = { myModel: true };
-        callStack.expectCalls({
+        callStack.expectCall({
              name: "createTestMixin1",
              optionsArgument: { elementSelector: elementSelector, model: model }
-        });
+        }).start();
         Ribs.parseMixinDefinitions([
             { createTestMixin1: { model: model, elementSelector: elementSelector } }
         ]);
+    });
+
+    describe("Exception throwing", function () {
+        var exceptionThrown;
+
+        beforeEach(function() {
+            exceptionThrown = false;
+        });
+
+        afterEach(function () {
+            if (!exceptionThrown) {
+                throw "No exception was thrown";
+            }
+        });
+
+        it("Should throw error on unknown mixin", function () {
+            try {
+                Ribs.parseMixinDefinitions([
+                    { nonExistingMixin: {} }
+                ]);
+            } catch (e) {
+                exceptionThrown = true;
+            }
+        });
     });
 });
