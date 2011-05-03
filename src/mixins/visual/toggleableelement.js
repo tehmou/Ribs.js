@@ -8,7 +8,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
         ToggleableElement = function (parent) {
             return {
                 attributeName: classOptions.attributeName,
-                uiAttributeName: classOptions.uiAttributeName,
+                uiAttributeName: uiAttributeName,
                 elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
                     if (this.ribsUI) {

@@ -21,14 +21,6 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                 attributeName: attributeName,
                 uiAttributeName: uiAttributeName,
                 elementSelector: classOptions.elementSelector,
-                getValue: function () {
-                    if (attributeName) {
-                        return this.model && this.model.get(attributeName);
-                    } else if (uiAttributeName) {
-                        return this.ribsUI.get(uiAttributeName);
-                    }
-                    return null;
-                },
                 updateValue: function (newValue) {
                     var values = {};
                     if (attributeName) {
@@ -39,12 +31,14 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                         this.ribsUI.set(values);
                     }
                 },
-                modelChanged: function () {
-                    this.updateValue(attributeDefaultValue);
+                modelChanged: function (model) {
+                    if (typeof(this.myValue) == "undefined") {
+                        this.updateValue(attributeDefaultValue);
+                    }
                 },
 
                 toggleOn: function () {
-                    var newValue = sameEvent ? !this.getValue() : true;
+                    var newValue = sameEvent ? !this.myValue : true;
                     this.updateValue(newValue);
                 },
                 toggleOff: function () {

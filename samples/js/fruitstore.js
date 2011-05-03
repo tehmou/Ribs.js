@@ -68,10 +68,10 @@ $(function () {
                         Ribs.mixins.simpleList({
                             elementSelector: ".nested-fruit-list:first",
                             ItemRenderer: FruitItem,
-                            listAttributeName: "fruits"
+                            attributeName: "fruits"
                         }),
-                        Ribs.mixins.hoverable({ elementSelector: ".item-body:first" }),
-                        Ribs.mixins.hoverable({ elementSelector: ".folder-icon:first" }),
+                        //Ribs.mixins.hoverable({ elementSelector: ".item-body:first" }),
+                        //Ribs.mixins.hoverable({ elementSelector: ".folder-icon:first" }),
                         Ribs.mixins.openable({ elementSelector: ".item-body:first" }),
                         Ribs.mixins.openable({ elementSelector: ".folder-icon:first", usePlusMinus: true })
                     ]

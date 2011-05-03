@@ -125,15 +125,15 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 _.each(mixinClasses, _.bind(function (MixinClass) {
                     var mixin = new MixinClass(parentView, model);
                     _.bind(function () { _.bindAll(this); }, mixin)();
-                    mixin.ribsUI = model && model.ribsUI;
+                    mixin.ribsUI = (model && model.ribsUI) || new Backbone.Model();
                     if (mixin.modelChanging) {
                         mixin.modelChanging();
                     }
                     mixin.model = model;
+                    updateMixinMyValue(mixin);
                     if (mixin.modelChanged) {
                         mixin.modelChanged(mixin.model);
                     }
-                    updateMixinMyValue(mixin);
                     this.mixins.push(mixin);
                 }, this));
                 callAllMixins(this.mixins, "customInitialize", arguments);
@@ -158,7 +158,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                     if (!mixin.events && mixin.bindEvents) {
                         mixin.bindEvents.apply(mixin);
                     }
-                    if (!mixin || !mixin.events || !mixin.el) {
+                    if (!mixin || !mixin.events || !mixin.el || !mixin.el.is(":visible")) {
                         return;
                     }
                     _.each(mixin.events, _.bind(function (methodName, key) {
@@ -441,7 +441,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                     }
                 },
                 modelChanged: function () {
-                    listModel = this.model;//this.myValue ? this.myValue : this.model;
+                    listModel = this.myValue ? this.myValue : this.model;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
@@ -460,7 +460,6 @@ Ribs.mixins.simpleList = function (classOptions) {
                         view.render();
                     });
                 },
-
 
                 addOne: function (item) {
                     if (!listViews.hasOwnProperty(item.cid)) {
@@ -779,14 +778,6 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                 attributeName: attributeName,
                 uiAttributeName: uiAttributeName,
                 elementSelector: classOptions.elementSelector,
-                getValue: function () {
-                    if (attributeName) {
-                        return this.model && this.model.get(attributeName);
-                    } else if (uiAttributeName) {
-                        return this.ribsUI.get(uiAttributeName);
-                    }
-                    return null;
-                },
                 updateValue: function (newValue) {
                     var values = {};
                     if (attributeName) {
@@ -797,12 +788,14 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                         this.ribsUI.set(values);
                     }
                 },
-                modelChanged: function () {
-                    this.updateValue(attributeDefaultValue);
+                modelChanged: function (model) {
+                    if (typeof(this.myValue) == "undefined") {
+                        this.updateValue(attributeDefaultValue);
+                    }
                 },
 
                 toggleOn: function () {
-                    var newValue = sameEvent ? !this.getValue() : true;
+                    var newValue = sameEvent ? !this.myValue : true;
                     this.updateValue(newValue);
                 },
                 toggleOff: function () {
@@ -878,7 +871,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
         ToggleableElement = function (parent) {
             return {
                 attributeName: classOptions.attributeName,
-                uiAttributeName: classOptions.uiAttributeName,
+                uiAttributeName: uiAttributeName,
                 elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
                     if (this.ribsUI) {

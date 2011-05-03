@@ -35,10 +35,10 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                         mixin.modelChanging();
                     }
                     mixin.model = model;
+                    updateMixinMyValue(mixin);
                     if (mixin.modelChanged) {
                         mixin.modelChanged(mixin.model);
                     }
-                    updateMixinMyValue(mixin);
                     this.mixins.push(mixin);
                 }, this));
                 callAllMixins(this.mixins, "customInitialize", arguments);
@@ -63,7 +63,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                     if (!mixin.events && mixin.bindEvents) {
                         mixin.bindEvents.apply(mixin);
                     }
-                    if (!mixin || !mixin.events || !mixin.el) {
+                    if (!mixin || !mixin.events || !mixin.el || !mixin.el.is(":visible")) {
                         return;
                     }
                     _.each(mixin.events, _.bind(function (methodName, key) {

@@ -22,7 +22,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                     }
                 },
                 modelChanged: function () {
-                    listModel = this.model;//this.myValue ? this.myValue : this.model;
+                    listModel = this.myValue ? this.myValue : this.model;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
@@ -41,7 +41,6 @@ Ribs.mixins.simpleList = function (classOptions) {
                         view.render();
                     });
                 },
-
 
                 addOne: function (item) {
                     if (!listViews.hasOwnProperty(item.cid)) {
