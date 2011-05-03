@@ -30,7 +30,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 _.each(mixinClasses, _.bind(function (MixinClass) {
                     var mixin = new MixinClass(parentView, model);
                     _.bind(function () { _.bindAll(this); }, mixin)();
-                    mixin.ribsUI = model && model.ribsUI;
+                    mixin.ribsUI = (model && model.ribsUI) || new Backbone.Model();
                     if (mixin.modelChanging) {
                         mixin.modelChanging();
                     }
