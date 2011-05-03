@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37bc9b10-d032-4dad-94a0-c29b4bfc3eee" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/jasmine-1.0.2/jasmine-html.js" afterPath="$PROJECT_DIR$/test/jasmine/jasmine-html.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/jasmine-1.0.2/jasmine.css" afterPath="$PROJECT_DIR$/test/jasmine/jasmine.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/dev-core-testrunner.html" afterPath="$PROJECT_DIR$/test/dev-core-testrunner.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/helpers-testrunner.html" afterPath="$PROJECT_DIR$/test/helpers-testrunner.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/helpers/helpers.js" afterPath="$PROJECT_DIR$/test/helpers/helpers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/helpers/spec_helpers.js" afterPath="$PROJECT_DIR$/test/helpers/spec_helpers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/spec/spec_managedview.js" afterPath="$PROJECT_DIR$/test/spec/spec_managedview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/testrunner.html" afterPath="$PROJECT_DIR$/test/testrunner.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js" afterPath="$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js" />
     </list>
     <ignored path="ribs__.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,7 +30,7 @@
       <file leaf-file-name="dev-core-testrunner.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/dev-core-testrunner.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="75" selection-start="1120" selection-end="1120" vertical-scroll-proportion="-12.571428">
+            <state line="28" column="6" selection-start="1238" selection-end="1238" vertical-scroll-proportion="-16.0">
               <folding />
             </state>
           </provider>
@@ -45,16 +39,16 @@
       <file leaf-file-name="helpers-testrunner.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/helpers-testrunner.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="745" selection-end="817" vertical-scroll-proportion="-13.142858">
+            <state line="27" column="0" selection-start="844" selection-end="844" vertical-scroll-proportion="-15.428572">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spec_helpers.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="spec_helpers.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/helpers/spec_helpers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="164" column="7" selection-start="5474" selection-end="5474" vertical-scroll-proportion="3.231527">
+            <state line="100" column="16" selection-start="3697" selection-end="3697" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -78,10 +72,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spec_parsemixindefinitions.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="spec_parsemixindefinitions.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="725" selection-end="725" vertical-scroll-proportion="0.0">
+            <state line="46" column="30" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.90640396">
               <folding />
             </state>
           </provider>
@@ -90,7 +84,7 @@
       <file leaf-file-name="helpers.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/helpers/helpers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="51" selection-start="3920" selection-end="3920" vertical-scroll-proportion="-16.423077">
+            <state line="39" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="9.692307">
               <folding />
             </state>
           </provider>
@@ -144,12 +138,12 @@
         <option value="$PROJECT_DIR$/test/spec/spec_mixincomposite.js" />
         <option value="$PROJECT_DIR$/test/spec/spec_parsemixins.js" />
         <option value="$PROJECT_DIR$/test/dev-core-testrunner.html" />
-        <option value="$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js" />
         <option value="$PROJECT_DIR$/src/mixins/simplelist.js" />
         <option value="$PROJECT_DIR$/test/jasmine/jasmine-html.js" />
         <option value="$PROJECT_DIR$/test/helpers-testrunner.html" />
-        <option value="$PROJECT_DIR$/test/helpers/spec_helpers.js" />
         <option value="$PROJECT_DIR$/test/helpers/helpers.js" />
+        <option value="$PROJECT_DIR$/test/helpers/spec_helpers.js" />
+        <option value="$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js" />
       </list>
     </option>
   </component>
@@ -473,20 +467,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="725" selection-end="725" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/dev-core-testrunner.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="75" selection-start="1120" selection-end="1120" vertical-scroll-proportion="-12.571428">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/spec/spec_ribsui_model.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="54" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0">
@@ -515,23 +495,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/dev-core-testrunner.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="6" selection-start="1238" selection-end="1238" vertical-scroll-proportion="-16.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/helpers-testrunner.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="745" selection-end="817" vertical-scroll-proportion="-13.142858">
+        <state line="27" column="0" selection-start="844" selection-end="844" vertical-scroll-proportion="-15.428572">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/helpers/helpers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="51" selection-start="3920" selection-end="3920" vertical-scroll-proportion="-16.423077">
+        <state line="39" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="9.692307">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/helpers/spec_helpers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="7" selection-start="5474" selection-end="5474" vertical-scroll-proportion="3.231527">
+        <state line="100" column="16" selection-start="3697" selection-end="3697" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="30" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.90640396">
           <folding />
         </state>
       </provider>

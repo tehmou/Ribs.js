@@ -25,12 +25,17 @@ describe("Testing helpers", function () {
             callStack.expectFinished();
         });
 
-        it("Should check arguments", function () {
+        it("Should check arguments and their order", function () {
             var arg1 = {};
-            callStack.expectCalls([
-                { name: "f", arguments: ["foo", arg1] }
-            ]);
+            callStack.expectCall({ name: "f", arguments: ["foo", arg1] });
             callStack.called("f", ["foo", arg1]);
+            callStack.expectFinished();
+        });
+
+        it("Should check an option argument has all necessary properties", function () {
+            var testArg = {}, options = { first: "foo", second: "bar", third: testArg };
+            callStack.expectCall({ name: "optionalCall", optionsArgument: options });
+            callStack.called("optionalCall", [{ second: "bar", first: "foo", third: testArg }]);
             callStack.expectFinished();
         });
 
@@ -66,15 +71,6 @@ describe("Testing helpers", function () {
                 }
             });
 
-            it("Should throw error if function was called with wrong arguments", function () {
-                callStack.expectCall({ name: "function1", arguments: ["ewrnsu"] });
-                try {
-                    callStack.called("function1", ["autcr"]);
-                } catch (e) {
-                    gotException = true;
-                }
-            });
-
             it("Should throw error if call order is wrong", function () {
                 callStack.expectCalls([
                     "function1",
@@ -85,6 +81,25 @@ describe("Testing helpers", function () {
                     callStack.called("function1");
                     callStack.called("function3");
                     callStack.called("function2");
+                } catch (e) {
+                    gotException = true;
+                }
+            });
+
+            it("Should throw error if function was called with wrong arguments", function () {
+                callStack.expectCall({ name: "function1", arguments: ["ewrnsu"] });
+                try {
+                    callStack.called("function1", ["autcr"]);
+                } catch (e) {
+                    gotException = true;
+                }
+            });
+
+            it("Should throw error if the option argument does not have all necessary properties", function () {
+                var testArg = {}, options = { first: "foo", second: "bar", third: testArg };
+                callStack.expectCall({ name: "optionalCall", optionsArgument: options });
+                try {
+                    callStack.called("optionalCall", [{ second: "bar", third: testArg }]);
                 } catch (e) {
                     gotException = true;
                 }

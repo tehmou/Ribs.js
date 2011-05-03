@@ -36,4 +36,15 @@ describe("parseMixinDefinitions", function () {
         }
         expect(exceptionThrown).toBeTruthy();
     });
+
+    it("Should give mixins their creation arguments as options", function () {
+        var elementSelector = "div", model = { myModel: true };
+        callStack.expectCalls({
+             name: "createTestMixin1",
+             optionsArgument: { elementSelector: elementSelector, model: model }
+        });
+        Ribs.parseMixinDefinitions([
+            { createTestMixin1: { model: model, elementSelector: elementSelector } }
+        ]);
+    });
 });

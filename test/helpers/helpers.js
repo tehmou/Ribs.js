@@ -37,7 +37,6 @@ var testlog = function (msg) {
         };
 
         this.called = function (methodName, arguments) {
-            testlog("called " + methodName);
             if (!running) { return; }
 
             if (expectedCallStack.length == 0) {
@@ -64,6 +63,31 @@ var testlog = function (msg) {
                             if (arguments[i] !== expectedMethodDef.arguments[i]) {
                                 throw "Argument #" + i + " did not match the expected one (" +
                                         arguments[i] + " !== " + expectedMethodDef.arguments[i] + ")";
+                            }
+                        }
+                    }
+
+                    if (expectedMethodDef.optionsArgument) {
+                        // Validate the first argument as options.
+                        var key,
+                            options = arguments ? arguments[0] : null,
+                            expectedOptions = expectedMethodDef.optionsArgument;
+                        if (!options) {
+                            throw "Expected options as the first argument but none were given";
+                        }
+                        for (key in expectedOptions) {
+                            if (expectedOptions.hasOwnProperty(key)) {
+                                testlog(key);
+                                if (options[key] !== expectedOptions[key]) {
+                                    throw "Property " + key + " did not match (" + options[key] + "!==" + expectedOptions[key] + ")";
+                                }
+                            }
+                        }
+                        for (key in options) {
+                            if (options.hasOwnProperty(key)) {
+                                if (options[key] !== expectedOptions[key]) {
+                                    throw "Property " + key + " did not match (" + options[key] + "!==" + expectedOptions[key] + ")";
+                                }
                             }
                         }
                     }
