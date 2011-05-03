@@ -83,7 +83,7 @@ describe("MixinComposite", function () {
         });
 
         it("Should give each mixin the proper el for redrawing", function () {
-            var rootMixin, Mixins = Ribs.createMixed({
+            var view, View = Ribs.createMixed({
                 mixins: {
                     "":  { createTestMixin1: { } },
                     ".special": [
@@ -94,11 +94,21 @@ describe("MixinComposite", function () {
                     ]
                 }
             });
-            rootMixin = new Mixins();
-            rootMixin.redraw(rootEl);
-            //expect(rootMixin.el).toEqual(rootEl);
-            //expect(rootMixin.mixins[0].el).toEqual(classSpecialEl);
-            //expect(rootMixin.mixins[1].el).toEqual(classVerySpecialEl);
+            view = new View({ el: rootEl });
+
+            // Sanity check of Backbone.View
+            expect(view.el.length).toEqual(1);
+            expect(view.el[0]).toEqual(rootEl[0]);
+
+            // Make sure the proper elements were given to mixins
+            expect(view.rootMixin.el[0]).toEqual(rootEl[0]);
+            expect(view.rootMixin.mixins.length).toEqual(3);
+            expect(view.rootMixin.mixins[0].el.length).toEqual(1);
+            expect(view.rootMixin.mixins[0].el[0]).toEqual(rootEl[0]);
+            expect(view.rootMixin.mixins[1].el.length).toEqual(1);
+            expect(view.rootMixin.mixins[1].el[0]).toEqual(classSpecialEl[0]);
+            expect(view.rootMixin.mixins[2].el.length).toEqual(1);
+            expect(view.rootMixin.mixins[2].el[0]).toEqual(classVerySpecialEl[0]);
         });
     });
 });
