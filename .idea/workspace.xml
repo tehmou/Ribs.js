@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37bc9b10-d032-4dad-94a0-c29b4bfc3eee" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/mixins/support/mixincomposite.js" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/samples/address_book2_dev.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/samples/address_book2.html" afterPath="$PROJECT_DIR$/samples/address_book2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managedview.js" afterPath="$PROJECT_DIR$/src/managedview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixincomposite.js" afterPath="$PROJECT_DIR$/src/mixincomposite.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/edit/selectedit.js" afterPath="$PROJECT_DIR$/src/mixins/edit/selectedit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/edit/textvalueedit.js" afterPath="$PROJECT_DIR$/src/mixins/edit/textvalueedit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/invalidateonchange.js" afterPath="$PROJECT_DIR$/src/mixins/invalidateonchange.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/simplelist.js" afterPath="$PROJECT_DIR$/src/mixins/simplelist.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js" afterPath="$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/statechange/commitEdit.js" afterPath="$PROJECT_DIR$/src/mixins/statechange/commitEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js" afterPath="$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/templated.js" afterPath="$PROJECT_DIR$/src/mixins/templated.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/visual/everyotherchild.js" afterPath="$PROJECT_DIR$/src/mixins/visual/everyotherchild.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/visual/toggleableclass.js" afterPath="$PROJECT_DIR$/src/mixins/visual/toggleableclass.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/mixins/visual/toggleableelement.js" afterPath="$PROJECT_DIR$/src/mixins/visual/toggleableelement.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/nonsyncingcollection.js" afterPath="$PROJECT_DIR$/src/utils/nonsyncingcollection.js" />
     </list>
     <ignored path="ribs__.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,10 +27,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mixincomposite.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="mixincomposite.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mixincomposite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="0" selection-start="1706" selection-end="1706" vertical-scroll-proportion="0.5145798">
+            <state line="18" column="69" selection-start="897" selection-end="897" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="address_book2_dev.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samples/address_book2_dev.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="125" column="92" selection-start="4383" selection-end="4383" vertical-scroll-proportion="-14.285714">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="address_book.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/samples/address_book.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -68,19 +72,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="uimodelutils.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/uimodelutils.js">
+      <file leaf-file-name="address_book2.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/samples/address_book2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="101" column="92" selection-start="3040" selection-end="3040" vertical-scroll-proportion="0.3469388">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="address_book2.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/samples/address_book2.html">
+      <file leaf-file-name="ribs.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/target/ribs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="172" column="32" selection-start="6062" selection-end="6072" vertical-scroll-proportion="-40.57143">
+            <state line="883" column="38" selection-start="32307" selection-end="32307" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -90,24 +94,6 @@
         <entry file="file://$PROJECT_DIR$/src/mixins/simplelist.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="16" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/core.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="34" selection-start="128" selection-end="140" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spec_mixincomposite.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/spec/spec_mixincomposite.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -145,8 +131,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/test/spec/spec_mixincomposite.js" />
-        <option value="$PROJECT_DIR$/src/mixins/visual/toggleableclass.js" />
         <option value="$PROJECT_DIR$/src/mixins/visual/toggleableelement.js" />
         <option value="$PROJECT_DIR$/src/mixins/invalidateonchange.js" />
         <option value="$PROJECT_DIR$/src/mixins/templated.js" />
@@ -157,10 +141,12 @@
         <option value="$PROJECT_DIR$/src/utils/nonsyncingcollection.js" />
         <option value="$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js" />
         <option value="$PROJECT_DIR$/src/mixins/statechange/commitEdit.js" />
-        <option value="$PROJECT_DIR$/samples/address_book2.html" />
         <option value="$PROJECT_DIR$/src/mixins/simplelist.js" />
         <option value="$PROJECT_DIR$/src/managedview.js" />
         <option value="$PROJECT_DIR$/src/mixincomposite.js" />
+        <option value="$PROJECT_DIR$/target/ribs.js" />
+        <option value="$PROJECT_DIR$/samples/address_book2_dev.html" />
+        <option value="$PROJECT_DIR$/samples/address_book2.html" />
       </list>
     </option>
   </component>
@@ -273,6 +259,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs__" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ribs_0.0.8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -472,6 +472,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/samples" />
       <recent name="$PROJECT_DIR$/test" />
     </key>
   </component>
@@ -556,27 +557,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utils/nonsyncingcollection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="23" selection-start="296" selection-end="296" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/uimanager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/spec/spec_parsemixindefinitions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mixins/statechange/cancelEdit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="51" selection-end="90" vertical-scroll-proportion="0.0">
@@ -626,13 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samples/address_book2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="172" column="32" selection-start="6062" selection-end="6072" vertical-scroll-proportion="-40.57143">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mixins/statechange/toggleattribute.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="47" selection-start="1755" selection-end="1755" vertical-scroll-proportion="0.0">
@@ -663,7 +636,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mixincomposite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="1706" selection-end="1706" vertical-scroll-proportion="0.5145798">
+        <state line="18" column="69" selection-start="897" selection-end="897" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/address_book.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/ribs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="883" column="38" selection-start="32307" selection-end="32307" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/address_book2_dev.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="92" selection-start="4383" selection-end="4383" vertical-scroll-proportion="-14.285714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/samples/address_book2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="92" selection-start="3040" selection-end="3040" vertical-scroll-proportion="0.3469388">
           <folding />
         </state>
       </provider>
