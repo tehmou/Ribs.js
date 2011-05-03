@@ -1,6 +1,11 @@
-var CallStack = function () {
+var testlog = function (msg) {
+        if (typeof(window.console) != "undefined") {
+            console.log(msg);
+        }
+    },
+    CallStack = function () {
         var running = false,
-            expectedCallStack = [];
+                expectedCallStack = [];
 
         this.start = function () {
             running = true;
@@ -12,53 +17,55 @@ var CallStack = function () {
             return this;
         };
 
-        this.expectCall = function (methodName) {
-            expectedCallStack.splice(0, 0, methodName);
+        this.expectCall = function (methodDef) {
+            expectedCallStack.splice(0, 0, methodDef);
             return this;
         };
 
-        this.expectCalls = function (methodNames) {
-            _.each(methodNames, _.bind(function (methodName) {
-                this.expectCall(methodName);
-            }, this));
+        this.expectCalls = function (methodDefs) {
+            for (var i = 0; i < methodDefs.length; i++) {
+                this.expectCall(methodDefs[i]);
+            }
             return this;
         };
 
         this.expectFinished = function () {
             if (expectedCallStack.length > 0) {
-                throw "No call to " + _.last(expectedCallStack);
+                throw "No call to " + expectedCallStack[expectedCallStack.length - 1];
             }
             return this;
         };
 
         this.called = function (methodName, arguments) {
+            testlog("called " + methodName);
             if (!running) { return; }
 
-            var expectedMethod = _.last(expectedCallStack);
             if (expectedCallStack.length == 0) {
                 throw "Did not expect a function call, but got " + methodName;
-            } else if (typeof(expectedMethod) == "string") {
-                if (methodName !== expectedMethod) {
-                    throw "Expected call to " + _.last(expectedCallStack) + ", but got " + methodName;
-                }
             } else {
-                if (methodName !== expectedMethod.name) {
-                    throw "Expected call to " + _.last(expectedCallStack) + ", but got " + methodName;
-                }
+                var expectedMethodDef = expectedCallStack[expectedCallStack.length - 1];
 
-                if (expectedMethod.arguments) {
-                    // Validate arguments.
-                    arguments = _.toArray(arguments);
-                    _.each(expectedMethod.arguments, function (argument) {
-                        var index = arguments.indexOf(argument);
-                        if (index == -1) {
-                            throw "Expected argument " + argument + " for call to " + methodName;
-                        } else {
-                            delete arguments[index];
+                if (typeof(expectedMethodDef) == "string") {
+                    if (methodName !== expectedMethodDef) {
+                        throw "Expected call to " + expectedMethodDef + ", but got " + methodName;
+                    }
+                } else {
+                    if (methodName !== expectedMethodDef.name) {
+                        throw "Expected call to " + expectedMethodDef.name + ", but got " + methodName;
+                    }
+
+                    if (expectedMethodDef.arguments) {
+                        // Validate arguments.
+                        if (arguments.length != expectedMethodDef.arguments.length) {
+                            throw "Wrong number of arguments when calling " + methodName +
+                                    " (" + arguments.length + "/" + expectedMethodDef.arguments + ")";
                         }
-                    });
-                    if (expectedMethod.arguments.length > 0) {
-                        throw "Expected argument " + expectedMethod.arguments[0] + " for call to " + methodName;
+                        for (var i = 0; i < arguments.length; i++) {
+                            if (arguments[i] !== expectedMethodDef.arguments[i]) {
+                                throw "Argument #" + i + " did not match the expected one (" +
+                                        arguments[i] + " !== " + expectedMethodDef.arguments[i] + ")";
+                            }
+                        }
                     }
                 }
             }
@@ -67,28 +74,35 @@ var CallStack = function () {
     },
     objectCallObserver = function (target) {
         var callStack = new CallStack;
-        _.each(target, function (method, name) {
-            if (typeof(method) == "function") {
-                target[name] = function () {
-                    callStack.called(name, arguments);
-                    method.apply(target, arguments);
-                };
+        for (var name in target) {
+            if (target.hasOwnProperty(name) &&
+                    typeof(target[name]) == "function") {
+                (function () {
+                    var methodName = name, oldMethod = target[methodName];
+                    target[methodName] = function () {
+                        callStack.called(methodName, arguments);
+                        oldMethod.apply(target, arguments);
+                    };
+                })();
             }
-        });
+        }
         return callStack;
     },
     typeCallObserver = function (Type) {
-        var ObservableView = Type.extend({}),
-            callStack = new CallStack();
+        var ObservableType = Type.extend({}),
+                callStack = new CallStack();
 
-        _.each(Type.prototype, function (method, name) {
-            if (typeof(method) == "function") {
-                var oldMethod = Type.prototype[name];
-                ObservableView.prototype[name] = function () {
-                    callStack.called(name, arguments);
-                    oldMethod.apply(this, arguments);
-                };
+        for (var name in Type.prototype) {
+            if (Type.prototype.hasOwnProperty(name) &&
+                    typeof(Type.prototype[name]) == "function") {
+                (function () {
+                    var methodName = name, oldMethod = Type.prototype[methodName];
+                    ObservableType.prototype[methodName] = function () {
+                        callStack.called(methodName, arguments);
+                        oldMethod.apply(this, arguments);
+                    };
+                })();
             }
-        });
-        return { ObservableView: ObservableView, callStack: callStack };
+        }
+        return { ObservableType: ObservableType, callStack: callStack };
     };

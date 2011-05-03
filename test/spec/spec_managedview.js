@@ -3,7 +3,7 @@ describe("ManagedView", function () {
 
     beforeEach(function () {
         var o = typeCallObserver(Ribs.ManagedView);
-        ObservableManagedView = o.ObservableView;
+        ObservableManagedView = o.ObservableType;
         callStack = o.callStack;
     });
 
