@@ -41,7 +41,6 @@ Ribs.parseMixinDefinitions = function (mixinDefinitions) {
         for (var i = 0, l = mixinDefinitions.length; i < l; i++) {
             var mixinDefinitionObject = mixinDefinitions[i];
             _.each(mixinDefinitionObject, function (options, name) {
-                Ribs.log("Creating mixin Ribs.mixins." + name);
                 var mixinFunction = Ribs.mixins[name]
                 if (!mixinFunction) {
                     throw "Could not find mixin " + name;

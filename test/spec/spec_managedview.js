@@ -27,21 +27,21 @@ describe("ManagedView", function () {
         });
 
         it("Should trigger bindToModel if model is provided to constructor", function() {
-            var model = new Backbone.Model();
+            var model = new Backbone.Model(), el = $("div");
             callStack.expectCalls([
                 "initialize",
                 "bindToModel",
                 "modelChanging",
-                "modelChanged",
+                { name: "modelChanged", arguments: [model] },
                 "customInitialize",
                 "render",
                 "unbindEvents",
-                "redraw",
+                { name: "redraw", arguments: [el] },
                 "refresh",
                 "bindEvents"
             ]);
             callStack.start();
-            new ObservableManagedView({ model: model });
+            new ObservableManagedView({ model: model, el: el });
         });
     });
 
@@ -50,6 +50,7 @@ describe("ManagedView", function () {
 
         beforeEach(function () {
             managedView = new ObservableManagedView();
+            callStack.start();
         });
 
         it("Should only redraw first time rendering", function () {
@@ -59,7 +60,6 @@ describe("ManagedView", function () {
                 "refresh",
                 "bindEvents"
             ]);
-            callStack.start();
             managedView.render();
         });
 
@@ -72,25 +72,31 @@ describe("ManagedView", function () {
                 "refresh",
                 "bindEvents"
             ]);
-            callStack.start();
             managedView.render();
         });
 
-        it("Should trigger modelChanging and modelChanged when calling bindToModel", function () {
-            callStack.expectCalls([
-                "bindToModel",
-                "modelChanging",
-                "modelChanged"
-            ]);
-            callStack.start();
-            managedView.bindToModel();
-        });
+        describe("Model", function () {
+            var model;
 
-        it("Should augment the model with ribsUI property", function () {
-            var model = new Backbone.Model();
-            expect(model.hasOwnProperty("ribsUI")).toBeFalsy();
-            managedView.bindToModel(model);
-            expect(model.hasOwnProperty("ribsUI")).toBeTruthy();
+            beforeEach(function () {
+                model = new Backbone.Model();
+            });
+
+            it("Should trigger modelChanging and modelChanged when calling bindToModel", function () {
+                callStack.expectCalls([
+                    "bindToModel",
+                    "modelChanging",
+                    { name: "modelChanged", arguments: [model]}
+                ]);
+                managedView.bindToModel(model);
+            });
+
+            it("Should augment the model with ribsUI property", function () {
+                callStack.pause();
+                expect(model.hasOwnProperty("ribsUI")).toBeFalsy();
+                managedView.bindToModel(model);
+                expect(model.hasOwnProperty("ribsUI")).toBeTruthy();
+            });
         });
     });
 });

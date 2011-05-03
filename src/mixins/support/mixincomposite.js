@@ -29,7 +29,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             this.bindEvents = function () {
                 _.each(this.mixins, function (mixin) {
                     if (!mixin.events && mixin.bindEvents) {
-                        mixin.bindEvents();
+                        mixin.bindEvents.apply(mixin);
                     }
                     if (!mixin || !mixin.events) {
                         return;
@@ -54,7 +54,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                         mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
                     }
                     if (mixin.modelChanged) {
-                        mixin.modelChanged(newModel);
+                        mixin.modelChanged.apply(mixin, [newModel]);
                     }
                 });
             };
@@ -64,7 +64,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 _.each(this.mixins, _.bind(function (mixin) {
                     mixin.el = mixin.elementSelector ? this.el.find(mixin.elementSelector) : this.el;
                     if (mixin.redraw) {
-                        mixin.redraw(parentEl);
+                        mixin.redraw.apply(mixin, [parentEl]);
                     }
                 }, this));
             };

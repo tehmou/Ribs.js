@@ -23,14 +23,16 @@
     <script type="text/javascript" src="spec/spec_parsemixindefinitions.js"></script>
 
     <!-- helpers -->
-    <script type="text/javascript" src="helpers/helpers.js"></script>
+    <script type="text/javascript" src="helpers/testhelpers.js"></script>
 
 </head>
 <body>
 
 <script type="text/javascript">
-  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-  jasmine.getEnv().execute();
+    var reporter = new jasmine.TrivialReporter();
+    reporter.logRunningSpecs = true;
+    jasmine.getEnv().addReporter(reporter);
+    jasmine.getEnv().execute();
 </script>
 
 </body>

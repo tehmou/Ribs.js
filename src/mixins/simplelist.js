@@ -16,9 +16,9 @@ Ribs.mixins.simpleList = function (classOptions) {
                     });
                     listViews = {};
                     if (listModel) {
-                        listModel.unbind("add", mixin.addOne);
-                        listModel.unbind("remove", mixin.removeOne);
-                        listModel.unbind("refresh", mixin.addAll);
+                        listModel.unbind("add", this.addOne);
+                        listModel.unbind("remove", this.removeOne);
+                        listModel.unbind("refresh", this.addAll);
                     }
                     listModel = this.myValue ? this.myValue : this.model;
                     if (listModel) {

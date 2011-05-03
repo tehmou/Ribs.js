@@ -1,5 +1,5 @@
 Ribs.mixins.editableText = function (classOptions) {
-    Ribs.log("Editable");
+    classOptions = classOptions || {};
     var EditableText = Ribs.mixins.mixinComposite(_.extend(classOptions, {
         mixins: [
             { mixinComposite: {

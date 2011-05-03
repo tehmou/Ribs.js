@@ -1,4 +1,5 @@
 Ribs.mixins.hoverable = function (classOptions) {
+    classOptions = classOptions || {};
     var Hoverable = Ribs.mixins.mixinComposite(_.extend(classOptions, {
         mixinClasses: [
             Ribs.mixins.toggleAttribute({
