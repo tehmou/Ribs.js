@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ribs.js Intro</title>
+
+    <style type="text/css">
+        @import "jquery.svg.css";
+
+        #mySvg {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+	<script type="text/javascript" src="jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="jquery.svg.js"></script>
+    <script type="text/javascript" src="jquery.svgdom.js"></script>
+
+	<script type="text/javascript">
+
+        $(function () {
+            var svg = $('#mySvg').svg({
+                    loadURL: "ribs.svg",
+                    onLoad: loadDone,
+                    settings: {addTo: true}
+                }),
+                screens = [];
+
+            // Callback after loading external document
+            function loadDone(svg, error) {
+                console.log(svg.root());
+
+                $("defs rect", svg.root()).each(function (index, value) {
+                    var $value = $(value), screen = {
+                        x: $value.attr("x"), y: $value.attr("y"),
+                        width: $value.attr("width"), height: $value.attr("height"),
+                        sideways: (height > width)
+                    };
+                });
+
+                console.log(screens);
+
+                $("#SVGID_4_, #SVGID_5_, #SVGID_6_", svg.root()).remove();
+            }
+        });
+
+	</script>
+</head>
+<body>
+
+<div id="mySvg"></div>
+
+</body>
+</html>
