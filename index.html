@@ -8,8 +8,9 @@
         @import "jquery.svg.css";
 
         #mySvg {
-            width: 800px;
-            height: 600px;
+            width: 640px;
+            height: 480px;
+            border: 1px solid black;
         }
     </style>
 	<script type="text/javascript" src="jquery-1.4.2.js"></script>
@@ -55,18 +56,20 @@
                 currentSlideIndex = (currentSlideIndex + 1) % slides.length;
                 var currentTransformation = mainGroup.attr("transform"),
                     oldTranslate = currentTransformation.match(/translate\(([-\.0-9]*),([-\.0-9]*)\)/),
-                    oldTranslateX = oldTranslate ? oldTranslate[1] : 0,
-                    oldTranslateY = oldTranslate ? oldTranslate[2] : 0,
+                    oldTranslateX = oldTranslate ? parseFloat(oldTranslate[1]) : 0,
+                    oldTranslateY = oldTranslate ? parseFloat(oldTranslate[2]) : 0,
                     oldScale = currentTransformation.match(/scale\(([-\.0-9]*),([-\.0-9]*)\)/),
-                    oldScaleX = oldScale ? oldScale[1] : 1,
-                    oldScaleY = oldScale ? oldScale[2] : 1,
+                    oldScaleX = oldScale ? parseFloat(oldScale[1]) : 1,
+                    oldScaleY = oldScale ? parseFloat(oldScale[2]) : 1,
                     slide = slides[currentSlideIndex],
-                    translateX = -slide.x + oldTranslateX,
-                    translateY = -slide.y + oldTranslateY,
-                    scaleX = oldScaleX / (800 / slide.width),
-                    scaleY = oldScaleY / (600 / slide.height),
-                    transformString = "scale(" + scaleX + " " + scaleY + ") translate(" + translateX + " " + translateY + ")";
-                console.log(currentTransformation);
+                    scaleX = 1 + $("#mySvg").width() / slide.width,
+                    scaleY = 1 + $("#mySvg").height() / slide.height,
+                    scaleString = "scale(" + scaleX + " " + scaleY + ")",
+                    translateX = -slide.x * scaleX,
+                    translateY = -slide.y * scaleY,
+                    translateString = "translate(" + translateX + " " + translateY + ")",
+                    transformString = translateString + " " + scaleString;
+                console.log(transformString);
                 mainGroup.animate({svgTransform: transformString}, 2000);
             };
 
