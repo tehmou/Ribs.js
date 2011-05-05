@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="jquery-1.4.2.js"></script>
     <script type="text/javascript" src="jquery.svg.js"></script>
     <script type="text/javascript" src="jquery.svgdom.js"></script>
+    <script type="text/javascript" src="jquery.svganim.js"></script>
 
 	<script type="text/javascript">
 
@@ -43,7 +44,7 @@
                 $("#SVGID_4_, #SVGID_5_, #SVGID_6_", svg.root()).remove();
 
                 var mainGroup = $("g:first", svg.root());
-                mainGroup.attr("transform", "translate(350, 100)");
+                mainGroup.animate({svgTransform: "scale(2 2) rotate(90 1000 200) translate(350 100)"}, 2000);
             }
         });
 

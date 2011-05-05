@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37bc9b10-d032-4dad-94a0-c29b4bfc3eee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ribs.ai" afterPath="$PROJECT_DIR$/ribs.ai" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ribs.svg" afterPath="$PROJECT_DIR$/ribs.svg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="ribs__.iws" />
@@ -30,7 +28,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="57" selection-start="1156" selection-end="1156" vertical-scroll-proportion="0.4981685">
+            <state line="35" column="57" selection-start="1225" selection-end="1225" vertical-scroll-proportion="0.51282054">
               <folding />
             </state>
           </provider>
@@ -212,7 +210,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="57" selection-start="1156" selection-end="1156" vertical-scroll-proportion="0.4981685">
+        <state line="35" column="57" selection-start="1225" selection-end="1225" vertical-scroll-proportion="0.51282054">
           <folding />
         </state>
       </provider>
