@@ -28,37 +28,39 @@
 
         $(function () {
             var svg = $('#mySvg').svg({
-                    loadURL: "ribs.svg",
+                    loadURL: "ribs2.svg",
                     onLoad: loadDone,
                     settings: {addTo: true, changeSize: false}
-                }),
-                screens = [];
+                });
 
             // Callback after loading external document
             function loadDone(svg, error) {
                 console.log(svg.root());
 
                 slides = [];
-                $("defs rect", svg.root()).each(function (index, value) {
-                    var $value = $(value), slide = {
-                        x: parseFloat($value.attr("x")), y: parseFloat($value.attr("y")),
-                        width: parseFloat($value.attr("width")), height: parseFloat($value.attr("height")),
-                        sideways: parseFloat($value.attr("height")) > parseFloat($value.attr("width"))
-                    };
-                    slides.push(slide);
+                $("rect", svg.root()).each(function (index, value) {
+                    var $value = $(value),
+                        slideMatch = $value.attr("id").match(/^slide([0-9]*)/);
+                    if (slideMatch) {
+                        var slideIndex = parseInt(slideMatch[1]),
+                            slide = {
+                                x: parseFloat($value.attr("x")), y: parseFloat($value.attr("y")),
+                                width: parseFloat($value.attr("width")), height: parseFloat($value.attr("height")),
+                                sideways: parseFloat($value.attr("height")) > parseFloat($value.attr("width"))
+                            };
+                        $value.remove();
+                        slides[slideIndex-1] = slide;
+                    }
                 });
-
-                console.log(screens);
-
-                $("#SVGID_4_, #SVGID_5_, #SVGID_6_", svg.root()).remove();
+                console.log(slides);
 
                 mainGroup = $("g:first", svg.root());
-                mainGroup.attr("transform", calculateSlideTransformation(slides[2]));
+                mainGroup.attr("transform", calculateSlideTransformation(slides[0]));
             }
         });
 
         var mainGroup, slides = [],
-            currentSlideIndex = -1,
+            currentSlideIndex = 0,
             calculateSlideTransformation = function (slide) {
                 var currentTransformation = mainGroup.attr("transform"),
                     oldTranslate = currentTransformation.match(/translate\(([-\.0-9]*),([-\.0-9]*)\)/),
@@ -78,11 +80,11 @@
                     rotate = slide.sideways ? 90 : 0,
                     rotateString = "rotate(" + rotate + " 0 0)",
 
-                    translateX = slide.sideways ? slide.y * scaleY + canvasWidth: -slide.x * scaleX,
-                    translateY = slide.sideways ? -slide.x * scaleX : -slide.y * scaleY,
+                    translateX = slide.sideways ? slide.y + canvasWidth/scaleX: -slide.x,
+                    translateY = slide.sideways ? -slide.x : -slide.y,
                     translateString = "translate(" + translateX + " " + translateY + ")",
 
-                    transformString = translateString + " " + scaleString + " " + rotateString;
+                    transformString = scaleString + " " + translateString + " " + rotateString;
 
                 return transformString;
             },
