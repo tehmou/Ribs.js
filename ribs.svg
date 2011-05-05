@@ -2,16 +2,16 @@
 <!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <svg version="1.0" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="1552.208px" height="1100px" viewBox="0 0 1552.208 1100" enable-background="new 0 0 1552.208 1100" xml:space="preserve">
+	 width="640px" height="480px" viewBox="0 0 640 480" enable-background="new 0 0 640 480" xml:space="preserve">
 <g>
 	<defs>
-		<rect id="SVGID_1_" x="390.208" y="820" width="473" height="355"/>
+		<rect id="SVGID_1_" x="-66" y="510" width="473" height="355"/>
 	</defs>
 	<defs>
-		<rect id="SVGID_2_" x="292.208" y="522" width="952" height="714"/>
+		<rect id="SVGID_2_" x="-164" y="212" width="952" height="714"/>
 	</defs>
 	<defs>
-		<rect id="SVGID_3_" x="252.208" y="-150" width="714" height="952"/>
+		<rect id="SVGID_3_" x="-183" y="-460" width="714" height="952"/>
 	</defs>
 	<clipPath id="SVGID_4_">
 		<use xlink:href="#SVGID_1_"  overflow="visible"/>
@@ -22,12 +22,11 @@
 	<clipPath id="SVGID_6_" clip-path="url(#SVGID_5_)">
 		<use xlink:href="#SVGID_3_"  overflow="visible"/>
 	</clipPath>
-	<g clip-path="url(#SVGID_6_)">
-		<text transform="matrix(1 0 0 1 425.415 932.207)" font-family="'HelveticaNeue-Bold'" font-size="100">Data</text>
-		<text transform="matrix(1 0 0 1 469.6792 986.3398)"><tspan x="0" y="0" font-family="'Courier'" font-size="36">{</tspan><tspan x="0" y="43.2" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="43.2" font-family="'Courier'" font-size="36">name: &quot;Pekka&quot;,</tspan><tspan x="0" y="86.4" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="86.4" font-family="'Courier'" font-size="36">age: 51</tspan><tspan x="0" y="129.6" font-family="'Courier'" font-size="36">}</tspan></text>
-		<text transform="matrix(1 0 0 1 345.6064 746.1895)" font-family="'HelveticaNeue-Bold'" font-size="240">View</text>
-		
-			<text transform="matrix(4.489659e-11 -1 1 4.489659e-11 746.0942 506.1504)" font-family="'HelveticaNeue-Light'" font-size="500">}</text>
+	<g id="main" clip-path="url(#SVGID_6_)">
+		<text transform="matrix(1 0 0 1 -30.6885 622.2075)" font-family="'HelveticaNeue-Bold'" font-size="100">Data</text>
+		<text transform="matrix(1 0 0 1 13.5752 676.3398)"><tspan x="0" y="0" font-family="'Courier'" font-size="36">{</tspan><tspan x="0" y="43.2" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="43.2" font-family="'Courier'" font-size="36">name: &quot;Pekka&quot;,</tspan><tspan x="0" y="86.4" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="86.4" font-family="'Courier'" font-size="36">age: 51</tspan><tspan x="0" y="129.6" font-family="'Courier'" font-size="36">}</tspan></text>
+		<text transform="matrix(1 0 0 1 -110.4971 436.189)" font-family="'HelveticaNeue-Bold'" font-size="240">View</text>
+		<text transform="matrix(0 -1 1 0 289.9902 196.1504)" font-family="'HelveticaNeue-Light'" font-size="500">}</text>
 	</g>
 </g>
 </svg>

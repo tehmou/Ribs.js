@@ -7,11 +7,17 @@
     <style type="text/css">
         @import "jquery.svg.css";
 
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
         #mySvg {
             width: 640px;
             height: 480px;
             border: 1px solid black;
         }
+
     </style>
 	<script type="text/javascript" src="jquery-1.4.2.js"></script>
     <script type="text/javascript" src="jquery.svg.js"></script>
@@ -24,7 +30,7 @@
             var svg = $('#mySvg').svg({
                     loadURL: "ribs.svg",
                     onLoad: loadDone,
-                    settings: {addTo: true}
+                    settings: {addTo: true, changeSize: false}
                 }),
                 screens = [];
 
@@ -35,9 +41,9 @@
                 slides = [];
                 $("defs rect", svg.root()).each(function (index, value) {
                     var $value = $(value), slide = {
-                        x: $value.attr("x"), y: $value.attr("y"),
-                        width: $value.attr("width"), height: $value.attr("height"),
-                        sideways: ($value.attr("height") > $value.attr("width"))
+                        x: parseFloat($value.attr("x")), y: parseFloat($value.attr("y")),
+                        width: parseFloat($value.attr("width")), height: parseFloat($value.attr("height")),
+                        sideways: parseFloat($value.attr("height")) > parseFloat($value.attr("width"))
                     };
                     slides.push(slide);
                 });
@@ -47,13 +53,13 @@
                 $("#SVGID_4_, #SVGID_5_, #SVGID_6_", svg.root()).remove();
 
                 mainGroup = $("g:first", svg.root());
+                mainGroup.attr("transform", calculateSlideTransformation(slides[2]));
             }
         });
 
         var mainGroup, slides = [],
             currentSlideIndex = -1,
-            showNextSlide = function () {
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            calculateSlideTransformation = function (slide) {
                 var currentTransformation = mainGroup.attr("transform"),
                     oldTranslate = currentTransformation.match(/translate\(([-\.0-9]*),([-\.0-9]*)\)/),
                     oldTranslateX = oldTranslate ? parseFloat(oldTranslate[1]) : 0,
@@ -61,16 +67,30 @@
                     oldScale = currentTransformation.match(/scale\(([-\.0-9]*),([-\.0-9]*)\)/),
                     oldScaleX = oldScale ? parseFloat(oldScale[1]) : 1,
                     oldScaleY = oldScale ? parseFloat(oldScale[2]) : 1,
-                    slide = slides[currentSlideIndex],
-                    scaleX = 1 + $("#mySvg").width() / slide.width,
-                    scaleY = 1 + $("#mySvg").height() / slide.height,
+
+                    canvasWidth = parseFloat($("#mySvg").width()),
+                    canvasHeight = parseFloat($("#mySvg").height()),
+
+                    scaleX = (canvasWidth / (slide.sideways ? slide.height : slide.width)),
+                    scaleY = (canvasHeight / (slide.sideways ? slide.width : slide.height)),
                     scaleString = "scale(" + scaleX + " " + scaleY + ")",
-                    translateX = -slide.x * scaleX,
-                    translateY = -slide.y * scaleY,
+
+                    rotate = slide.sideways ? 90 : 0,
+                    rotateString = "rotate(" + rotate + " 0 0)",
+
+                    translateX = slide.sideways ? slide.y * scaleY + canvasWidth: -slide.x * scaleX,
+                    translateY = slide.sideways ? -slide.x * scaleX : -slide.y * scaleY,
                     translateString = "translate(" + translateX + " " + translateY + ")",
-                    transformString = translateString + " " + scaleString;
-                console.log(transformString);
-                mainGroup.animate({svgTransform: transformString}, 2000);
+
+                    transformString = translateString + " " + scaleString + " " + rotateString;
+
+                return transformString;
+            },
+            showNextSlide = function () {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                var transformationString = calculateSlideTransformation(slides[currentSlideIndex]);
+                console.log(transformationString);
+                mainGroup.animate({svgTransform: transformationString}, 1000);
             };
 
 	</script>
