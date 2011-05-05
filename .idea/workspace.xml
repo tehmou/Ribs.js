@@ -28,7 +28,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="75" selection-start="4195" selection-end="4195" vertical-scroll-proportion="0.68421054">
+            <state line="89" column="14" selection-start="3849" selection-end="3849" vertical-scroll-proportion="0.7236842">
               <folding />
             </state>
           </provider>
@@ -37,7 +37,7 @@
       <file leaf-file-name="ribs2.svg" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ribs2.svg">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1786" column="44" selection-start="183422" selection-end="183422" vertical-scroll-proportion="0.0">
+            <state line="1862" column="44" selection-start="191465" selection-end="191465" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -219,14 +219,14 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/ribs2.svg">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1786" column="44" selection-start="183422" selection-end="183422" vertical-scroll-proportion="0.0">
+        <state line="1862" column="44" selection-start="191465" selection-end="191465" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="75" selection-start="4195" selection-end="4195" vertical-scroll-proportion="0.68421054">
+        <state line="89" column="14" selection-start="3849" selection-end="3849" vertical-scroll-proportion="0.7236842">
           <folding />
         </state>
       </provider>
