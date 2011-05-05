@@ -3,7 +3,7 @@
 
     Ribs = this.Ribs = {};
 
-    Ribs.VERSION = '0.0.1';
+    Ribs.VERSION = '0.0.3';
 
     Ribs.mixins = {};
 

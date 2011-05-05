@@ -1,8 +1,10 @@
 // Core classes
 
+/*global $,_,Backbone,console*/
+
 var Ribs = {};
 
-Ribs.VERSION = '0.0.7';
+Ribs.VERSION = '0.0.82';
 
 Ribs.mixins = {};
 
