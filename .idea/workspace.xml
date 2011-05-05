@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37bc9b10-d032-4dad-94a0-c29b4bfc3eee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ribs2.svg" afterPath="$PROJECT_DIR$/ribs2.svg" />
     </list>
     <ignored path="ribs__.iws" />
@@ -38,7 +37,7 @@
       <file leaf-file-name="ribs2.svg" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ribs2.svg">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="864" column="44" selection-start="89580" selection-end="89580" vertical-scroll-proportion="0.0">
+            <state line="1786" column="44" selection-start="183422" selection-end="183422" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -220,7 +219,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/ribs2.svg">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="864" column="44" selection-start="89580" selection-end="89580" vertical-scroll-proportion="0.0">
+        <state line="1786" column="44" selection-start="183422" selection-end="183422" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
