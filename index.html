@@ -34,13 +34,16 @@
                     var $value = $(value), screen = {
                         x: $value.attr("x"), y: $value.attr("y"),
                         width: $value.attr("width"), height: $value.attr("height"),
-                        sideways: (height > width)
+                        sideways: ($value.attr("height") > $value.attr("width"))
                     };
                 });
 
                 console.log(screens);
 
                 $("#SVGID_4_, #SVGID_5_, #SVGID_6_", svg.root()).remove();
+
+                var mainGroup = $("g:first", svg.root());
+                mainGroup.attr("transform", "translate(350, 100)");
             }
         });
 

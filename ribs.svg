@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Main" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="1938.125px" height="1525.351px" viewBox="0 0 1938.125 1525.351" enable-background="new 0 0 1938.125 1525.351"
-	 xml:space="preserve">
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1552.208px" height="1100px" viewBox="0 0 1552.208 1100" enable-background="new 0 0 1552.208 1100" xml:space="preserve">
 <g>
 	<defs>
-		<rect id="SVGID_1_" x="93" y="171" width="355" height="473"/>
+		<rect id="SVGID_1_" x="116.208" y="185" width="355" height="473"/>
 	</defs>
 	<defs>
-		<rect id="SVGID_2_" x="32" y="73" width="714" height="952"/>
+		<rect id="SVGID_2_" x="55.208" y="87" width="714" height="952"/>
 	</defs>
 	<defs>
-		<rect id="SVGID_3_" x="466" y="33" width="952" height="714"/>
+		<rect id="SVGID_3_" x="489.208" y="47" width="952" height="714"/>
 	</defs>
 	<clipPath id="SVGID_4_">
 		<use xlink:href="#SVGID_1_"  overflow="visible"/>
@@ -24,10 +23,10 @@
 		<use xlink:href="#SVGID_3_"  overflow="visible"/>
 	</clipPath>
 	<g clip-path="url(#SVGID_6_)">
-		<text transform="matrix(0 1 -1 0 335.7925 206.2075)" font-family="'HelveticaNeue-Bold'" font-size="100">Data</text>
-		<text transform="matrix(0 1 -1 0 281.6602 250.4717)"><tspan x="0" y="0" font-family="'Courier'" font-size="36">{</tspan><tspan x="0" y="43.2" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="43.2" font-family="'Courier'" font-size="36">name: &quot;Pekka&quot;,</tspan><tspan x="0" y="86.4" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="86.4" font-family="'Courier'" font-size="36">age: 51</tspan><tspan x="0" y="129.6" font-family="'Courier'" font-size="36">}</tspan></text>
-		<text transform="matrix(0 1 -1 0 521.811 126.3989)" font-family="'HelveticaNeue-Bold'" font-size="240">View</text>
-		<text transform="matrix(1 0 0 1 761.8496 526.8867)" font-family="'HelveticaNeue-Light'" font-size="500">}</text>
+		<text transform="matrix(0 1 -1 0 359 220.2075)" font-family="'HelveticaNeue-Bold'" font-size="100">Data</text>
+		<text transform="matrix(0 1 -1 0 304.8677 264.4717)"><tspan x="0" y="0" font-family="'Courier'" font-size="36">{</tspan><tspan x="0" y="43.2" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="43.2" font-family="'Courier'" font-size="36">name: &quot;Pekka&quot;,</tspan><tspan x="0" y="86.4" font-family="'Courier'" font-size="36" letter-spacing="14">	</tspan><tspan x="36" y="86.4" font-family="'Courier'" font-size="36">age: 51</tspan><tspan x="0" y="129.6" font-family="'Courier'" font-size="36">}</tspan></text>
+		<text transform="matrix(0 1 -1 0 545.0186 140.3989)" font-family="'HelveticaNeue-Bold'" font-size="240">View</text>
+		<text transform="matrix(1 0 0 1 785.0571 540.8867)" font-family="'HelveticaNeue-Light'" font-size="500">}</text>
 	</g>
 </g>
 </svg>
