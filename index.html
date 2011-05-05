@@ -31,26 +31,48 @@
             function loadDone(svg, error) {
                 console.log(svg.root());
 
+                slides = [];
                 $("defs rect", svg.root()).each(function (index, value) {
-                    var $value = $(value), screen = {
+                    var $value = $(value), slide = {
                         x: $value.attr("x"), y: $value.attr("y"),
                         width: $value.attr("width"), height: $value.attr("height"),
                         sideways: ($value.attr("height") > $value.attr("width"))
                     };
+                    slides.push(slide);
                 });
 
                 console.log(screens);
 
                 $("#SVGID_4_, #SVGID_5_, #SVGID_6_", svg.root()).remove();
 
-                var mainGroup = $("g:first", svg.root());
-                mainGroup.animate({svgTransform: "scale(2 2) rotate(90 1000 200) translate(350 100)"}, 2000);
+                mainGroup = $("g:first", svg.root());
             }
         });
 
+        var mainGroup, slides = [],
+            currentSlideIndex = -1,
+            showNextSlide = function () {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                var currentTransformation = mainGroup.attr("transform"),
+                    oldTranslate = currentTransformation.match(/translate\(([-\.0-9]*),([-\.0-9]*)\)/),
+                    oldTranslateX = oldTranslate ? oldTranslate[1] : 0,
+                    oldTranslateY = oldTranslate ? oldTranslate[2] : 0,
+                    oldScale = currentTransformation.match(/scale\(([-\.0-9]*),([-\.0-9]*)\)/),
+                    oldScaleX = oldScale ? oldScale[1] : 1,
+                    oldScaleY = oldScale ? oldScale[2] : 1,
+                    slide = slides[currentSlideIndex],
+                    translateX = -slide.x + oldTranslateX,
+                    translateY = -slide.y + oldTranslateY,
+                    scaleX = oldScaleX / (800 / slide.width),
+                    scaleY = oldScaleY / (600 / slide.height),
+                    transformString = "scale(" + scaleX + " " + scaleY + ") translate(" + translateX + " " + translateY + ")";
+                console.log(currentTransformation);
+                mainGroup.animate({svgTransform: transformString}, 2000);
+            };
+
 	</script>
 </head>
-<body>
+<body onclick="showNextSlide()">
 
 <div id="mySvg"></div>
 
