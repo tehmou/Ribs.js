@@ -22,7 +22,9 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                 },
                 redraw: function () {
                     var value = this.myValue;
-                    inverse && (value = !value);
+                    if (inverse) {
+                        value = !value;
+                    }
                     this.el.toggle(value);
                 },
 

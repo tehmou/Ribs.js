@@ -25,7 +25,7 @@ Ribs.createMixed = function (myOptions) {
                 if (this.rootMixin && this.rootMixin[methodName]) {
                     this.rootMixin[methodName].apply(this.rootMixin, arguments);
                 }
-            }
+            };
         };
 
     _.each(Ribs.mixinMethods, delegateOneToRootMixin);
@@ -45,3 +45,4 @@ Ribs.createMixed = function (myOptions) {
 
     return Buildee;
 };
+

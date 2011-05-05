@@ -92,7 +92,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
 
             this.redraw = function (parentEl) {
                 this.el = $(parentEl).find(elementSelector);
-                if (this.el.length == 0) {
+                if (this.el.length === 0) {
                     if (elementCreator) {
                         this.el = $(parentEl).append($(elementCreator));
                     } else {
@@ -122,7 +122,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
         if (!MixinComposite.prototype.hasOwnProperty(methodName)) {
             MixinComposite.prototype[methodName] = function () {
                 callAllMixins(this.mixins, methodName, arguments);
-            }
+            };
         }
     });
 

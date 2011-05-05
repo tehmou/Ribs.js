@@ -14,7 +14,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
                     if (inverse) {
                         value = !value;
                     }
-                    if (this.el.hasClass(className) != value) {
+                    if (this.el.hasClass(className) !== value) {
                         this.el.toggleClass(className, value);
                     }
                 }

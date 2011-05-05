@@ -5,19 +5,22 @@ Ribs.augmentModelWithUIAttributes = function (model) {
         // Do this until the next version of Backbone.js:
         // https://github.com/documentcloud/backbone/issues/309
         model.ribsUI.safeUnbind = function (ev, callback) {
-            var calls;
+            var calls, i, l, emptyFunction = function () { };
             if (!ev) {
                 this._callbacks = {};
-            } else if (calls = this._callbacks) {
-                if (!callback) {
-                    calls[ev] = [];
-                } else {
-                    var list = calls[ev];
-                    if (!list) return this;
-                    for (var i = 0, l = list.length; i < l; i++) {
-                        if (callback === list[i]) {
-                            list[i] = function () { };
-                            break;
+            } else {
+                calls = this._callbacks;
+                if (calls) {
+                    if (!callback) {
+                        calls[ev] = [];
+                    } else {
+                        var list = calls[ev];
+                        if (!list) { return this; }
+                        for (i = 0, l = list.length; i < l; i++) {
+                            if (callback === list[i]) {
+                                list[i] = emptyFunction;
+                                break;
+                            }
                         }
                     }
                 }
@@ -35,13 +38,13 @@ Ribs.augmentModelWithUIAttributes = function (model) {
 
 Ribs.parseMixinDefinitions = function (mixinDefinitions) {
     mixinDefinitions = mixinDefinitions || [];
-    var mixinClasses = [];
+    var mixinClasses = [], i, l;
 
     if (_.isArray(mixinDefinitions)) {
-        for (var i = 0, l = mixinDefinitions.length; i < l; i++) {
+        for (i = 0, l = mixinDefinitions.length; i < l; i++) {
             var mixinDefinitionObject = mixinDefinitions[i];
             _.each(mixinDefinitionObject, function (options, name) {
-                var mixinFunction = Ribs.mixins[name]
+                var mixinFunction = Ribs.mixins[name];
                 if (!mixinFunction) {
                     throw "Could not find mixin " + name;
                 }
@@ -51,7 +54,7 @@ Ribs.parseMixinDefinitions = function (mixinDefinitions) {
     } else {
         _.each(mixinDefinitions,
             function (nestedMixinDefinitionArray, elementSelector) {
-                MixinComposite = Ribs.mixins.mixinComposite({
+                var MixinComposite = Ribs.mixins.mixinComposite({
                     mixins: nestedMixinDefinitionArray,
                     elementSelector: elementSelector
                 });
@@ -63,7 +66,7 @@ Ribs.parseMixinDefinitions = function (mixinDefinitions) {
 };
 
 Ribs.log = function (msg) {
-    if (typeof(console) != "undefined") {
+    if (typeof(console) !== "undefined") {
         console.log(msg);
     }
 };

@@ -4,9 +4,9 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
     var attributeName = classOptions.attributeName,
         uiAttributeName = classOptions.uiAttributeName,
         attributeDefaultValue = classOptions.attributeDefaultValue || false,
-        onEvent = (typeof(classOptions.onEvent) != "undefined") ? classOptions.onEvent : "click",
+        onEvent = (typeof(classOptions.onEvent) !== "undefined") ? classOptions.onEvent : "click",
         offEvent = classOptions.offEvent,
-        sameEvent = (typeof(classOptions.sameEvent) != "undefined") ? classOptions.sameEvent : (onEvent === offEvent),
+        sameEvent = (typeof(classOptions.sameEvent) !== "undefined") ? classOptions.sameEvent : (onEvent === offEvent),
     
         ToggleAttribute = function () {
             var events = {};
@@ -32,7 +32,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                     }
                 },
                 modelChanged: function (model) {
-                    if (typeof(this.myValue) == "undefined") {
+                    if (typeof(this.myValue) === "undefined") {
                         this.updateValue(attributeDefaultValue);
                     }
                 },

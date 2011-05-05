@@ -28,8 +28,8 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                     _.each(ev.changedAttributes(), this.checkAttribute);
                 },
                 checkAttribute: function (value, attrName) {
-                    var excluded = excludedAttributes && excludedAttributes.indexOf(attrName) != -1,
-                        included = includedAttributes && includedAttributes.indexOf(attrName) != -1;
+                    var excluded = excludedAttributes && excludedAttributes.indexOf(attrName) !== -1,
+                        included = includedAttributes && includedAttributes.indexOf(attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
                         parent.invalidated = true;
                         _.defer(parent.render);
@@ -39,8 +39,8 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                     _.each(ev.changedAttributes(), this.checkUIAttribute);
                 },
                 checkUIAttribute: function (value, attrName) {
-                    var excluded = excludedRibsUIAttributes && excludedRibsUIAttributes.indexOf(attrName) != -1,
-                        included = includedRibsUIAttributes && includedRibsUIAttributes.indexOf(attrName) != -1;
+                    var excluded = excludedRibsUIAttributes && excludedRibsUIAttributes.indexOf(attrName) !== -1,
+                        included = includedRibsUIAttributes && includedRibsUIAttributes.indexOf(attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
                         parent.invalidated = true;
                         _.defer(parent.render);

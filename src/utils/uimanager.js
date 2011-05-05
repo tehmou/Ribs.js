@@ -3,7 +3,7 @@ Ribs.createUIManager = function (key, myOptions) {
 
     Ribs.uiManagers = Ribs.uiManagers || {};
 
-    Ribs.uiManagers[key] = function () {
+    Ribs.uiManagers[key] = (function () {
         var allowMultiselect = myOptions.allowMultiselect,
             viewModel = new Backbone.Model({ nowHovering: null, nowSelected: null }),
             hoveringChanged = function (event) {
@@ -13,7 +13,9 @@ Ribs.createUIManager = function (key, myOptions) {
                 } else if (item !== viewModel.get("nowHovering") && item.get("hovering")) {
                     var lastHovering = viewModel.get("nowHovering");
                     viewModel.set({ nowHovering: item });
-                    lastHovering && lastHovering.set({ hovering: false });
+                    if (lastHovering) {
+                        lastHovering.set({ hovering: false });
+                    }
                 }
             },
             selectedChanged = function (event) {
@@ -23,9 +25,15 @@ Ribs.createUIManager = function (key, myOptions) {
                 } else if (item !== viewModel.get("nowSelected") && item.get("selected")) {
                     var lastSelected = viewModel.get("nowSelected");
                     viewModel.set({ nowSelected: item });
-                    if (!allowMultiselect) {
-                        lastSelected && lastSelected.set({ selected: false });
+                    if (!allowMultiselect && lastSelected) {
+                         lastSelected.set({ selected: false });
                     }
+                }
+            },
+            unregister = function (model) {
+                if (model) {
+                    model.unbind("ribsUI:change:hovering", hoveringChanged);
+                    model.unbind("ribsUI:change:selected", selectedChanged);
                 }
             },
             register = function (model) {
@@ -34,19 +42,13 @@ Ribs.createUIManager = function (key, myOptions) {
                     model.bind("ribsUI:change:hovering", hoveringChanged);
                     model.bind("ribsUI:change:selected", selectedChanged);
                 }
-            },
-            unregister = function (model) {
-                if (model) {
-                    model.unbind("ribsUI:change:hovering", hoveringChanged);
-                    model.unbind("ribsUI:change:selected", selectedChanged);
-                }
             };
 
         return {
             register: register,
             unregister: unregister,
             getViewModel: function () { return viewModel; }
-        }
-    }();       
+        };
+    }());
 };
 

@@ -1,19 +1,20 @@
-Ribs.mixins.dateValueEdit = function (classOptions) {
+Ribs.mixins.functionValueEdit = function (classOptions) {
     classOptions = classOptions || {};
-    var functionName = classOptions.functionName,
-        DateValueEdit = Ribs.mixins.textValueEdit(_.extend(classOptions, {
+    var readFunctionName = classOptions.readFunctionName,
+        writeFunctionName = classOptions.writeFunctionName,
+        FunctionValueEdit = Ribs.mixins.textValueEdit(_.extend(classOptions, {
         readFunction: function (value) {
-            return (value && value.getFullYear) ? value.getFullYear() : value;
+            return (value && value[readFunctionName]) ? value[readFunctionName]() : value;
         },
         writeFunction: function (value, oldValue) {
-            if (oldValue && oldValue.setFullYear) {
-                oldValue.setFullYear(value);
+            if (oldValue && oldValue[writeFunctionName]) {
+                oldValue[writeFunctionName](value);
                 return oldValue;
             }
             return value;
         }
     }));
 
-    return DateValueEdit;
+    return FunctionValueEdit;
 };
 

@@ -29,7 +29,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
                 if (this.model) {
                     var val = this.model.get(attributeName);
                     _.each(selectOptions, _.bind(function (option) {
-                        var optionEl = $('<option></option>')
+                        var optionEl = $('<option></option>');
                         optionEl
                                 .attr("value", option.value)
                                 .text(option.text);

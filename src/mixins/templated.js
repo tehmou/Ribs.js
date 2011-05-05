@@ -2,7 +2,7 @@ Ribs.mixins.templated = function (classOptions) {
     classOptions = classOptions || {};
 
     var templateSelector = classOptions.templateSelector,
-        templateFunction = templateSelector ? _.($(templateSelector).html()) : classOptions.templateFunction,
+        templateFunction = templateSelector ? _.template($(templateSelector).html()) : classOptions.templateFunction,
         className = classOptions.className,
         Templated = function () {
             return {
