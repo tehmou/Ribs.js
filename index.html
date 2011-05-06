@@ -5,7 +5,7 @@
     <title>Ribs.js Intro</title>
 
     <style type="text/css">
-        @import "jquery.svg.css";
+        @import "js/jquery.svg.css";
 
         body {
             margin: 0;
@@ -23,17 +23,27 @@
         }
 
     </style>
-	<script type="text/javascript" src="jquery-1.4.2.js"></script>
-    <script type="text/javascript" src="jquery.svg.js"></script>
-    <script type="text/javascript" src="jquery.svgdom.js"></script>
-    <script type="text/javascript" src="jquery.svganim.js"></script>
+	<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="js/jquery.svg.js"></script>
+    <script type="text/javascript" src="js/jquery.svgdom.js"></script>
+    <script type="text/javascript" src="js/jquery.svganim.js"></script>
 
 	<script type="text/javascript">
 
         var onKeyDown;
         
         $(function () {
-            var loadDone = function (svg, error) {
+            var svgFilename = "presentation.svg",
+                loadDone = function (svg, error) {
+                    if (error) {
+                        alert("File \"" + svgFilename + "\" not found.");
+                        return;
+                    }
+                    
+                    $("#mySvg")
+                            .css("width", svg._width())
+                            .css("height", svg._height());
+
                     slides = [];
                     $("rect", svg.root()).each(function (index, value) {
                         var $value = $(value),
@@ -60,7 +70,7 @@
                     mainGroup.attr("transform", calculateSlideTransformation(slides[0]));
                 },
                 svg = $('#mySvg').svg({
-                    loadURL: "ribs3.svg",
+                    loadURL: svgFilename,
                     onLoad: loadDone,
                     settings: {addTo: true, changeSize: false}
                 }),
@@ -114,8 +124,6 @@
 	</script>
 </head>
 <body onkeydown="onKeyDown(event)">
-
 <div id="mySvg"></div>
-
 </body>
 </html>
