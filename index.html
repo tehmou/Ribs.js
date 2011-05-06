@@ -88,8 +88,14 @@
 
                 return transformString;
             },
+            showPrevSlide = function () {
+                currentSlideIndex = Math.max(0, currentSlideIndex - 1);
+                var transformationString = calculateSlideTransformation(slides[currentSlideIndex]);
+                console.log(transformationString);
+                mainGroup.animate({svgTransform: transformationString}, 1000);
+            },
             showNextSlide = function () {
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                currentSlideIndex = Math.min(slides.length, currentSlideIndex + 1);
                 var transformationString = calculateSlideTransformation(slides[currentSlideIndex]);
                 console.log(transformationString);
                 mainGroup.animate({svgTransform: transformationString}, 1000);
@@ -97,7 +103,7 @@
 
 	</script>
 </head>
-<body onclick="showNextSlide()">
+<body onkeydown="if (event.keyCode === 39) { showNextSlide(); } else if (event.keyCode === 37) { showPrevSlide(); }">
 
 <div id="mySvg"></div>
 
