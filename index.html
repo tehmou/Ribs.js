@@ -10,12 +10,16 @@
         body {
             margin: 0;
             padding: 0;
+            overflow: hidden;
+            background: #000;
         }
-        
+
         #mySvg {
-            width: 640px;
-            height: 480px;
+            margin: auto auto;
+            height: 600px;
+            width: 800px;
             border: 1px solid black;
+            background: #ffffff;
         }
 
     </style>
@@ -26,84 +30,90 @@
 
 	<script type="text/javascript">
 
+        var onKeyDown;
+        
         $(function () {
-            var svg = $('#mySvg').svg({
+            var loadDone = function (svg, error) {
+                    slides = [];
+                    $("rect", svg.root()).each(function (index, value) {
+                        var $value = $(value),
+                            slideMatch = $value.attr("id").match(/^slide([0-9]*)/);
+                        if (slideMatch) {
+                            var slideIndex = parseInt(slideMatch[1]),
+                                slide = {
+                                    x: parseFloat($value.attr("x")), y: parseFloat($value.attr("y")),
+                                    width: parseFloat($value.attr("width")), height: parseFloat($value.attr("height")),
+                                    sideways: parseFloat($value.attr("height")) > parseFloat($value.attr("width"))
+                                };
+                            $value.remove();
+                            slides[slideIndex-1] = slide;
+                        }
+                    });
+
+                    for (var i = 1; i < slides.length; i++) {
+                        if (slides[i - 1].sideways && slides[i].sideways) {
+                            alert("Does not currently support sideways slides")
+                        }
+                    }
+
+                    mainGroup = $("g:first", svg.root());
+                    mainGroup.attr("transform", calculateSlideTransformation(slides[0]));
+                },
+                svg = $('#mySvg').svg({
                     loadURL: "ribs3.svg",
                     onLoad: loadDone,
                     settings: {addTo: true, changeSize: false}
-                });
+                }),
+                mainGroup, slides = [],
+                currentSlideIndex = 0,
+                calculateSlideTransformation = function (slide) {
+                    var canvasWidth = parseFloat($("#mySvg").width()),
+                        canvasHeight = parseFloat($("#mySvg").height()),
 
-            // Callback after loading external document
-            function loadDone(svg, error) {
-                console.log(svg.root());
+                        scaleX = (canvasWidth / (slide.sideways ? slide.height : slide.width)),
+                        scaleY = (canvasHeight / (slide.sideways ? slide.width : slide.height)),
+                        scaleString = "scale(" + scaleX + " " + scaleY + ")",
 
-                slides = [];
-                $("rect", svg.root()).each(function (index, value) {
-                    var $value = $(value),
-                        slideMatch = $value.attr("id").match(/^slide([0-9]*)/);
-                    if (slideMatch) {
-                        var slideIndex = parseInt(slideMatch[1]),
-                            slide = {
-                                x: parseFloat($value.attr("x")), y: parseFloat($value.attr("y")),
-                                width: parseFloat($value.attr("width")), height: parseFloat($value.attr("height")),
-                                sideways: parseFloat($value.attr("height")) > parseFloat($value.attr("width"))
-                            };
-                        $value.remove();
-                        slides[slideIndex-1] = slide;
+                        rotate = slide.sideways ? 90 : 0,
+                        rotateString = "rotate(" + rotate + " 0 0)",
+
+                        translateX = slide.sideways ? slide.y + canvasWidth/scaleX: -slide.x,
+                        translateY = slide.sideways ? -slide.x : -slide.y,
+                        translateString = "translate(" + translateX + " " + translateY + ")",
+
+                        transformString = scaleString + " " + translateString + " " + rotateString;
+
+                    return transformString;
+                },
+                animateWithTransformation = function () {
+                    var transformationString = calculateSlideTransformation(slides[currentSlideIndex]);
+                    mainGroup.animate({svgTransform: transformationString}, 1000);
+                },
+                showPrevSlide = function () {
+                    if (currentSlideIndex > 0) {
+                        currentSlideIndex = currentSlideIndex - 1;
+                        animateWithTransformation();
                     }
-                });
-                console.log(slides);
+                },
+                showNextSlide = function () {
+                    if (currentSlideIndex < slides.length) {
+                        currentSlideIndex = currentSlideIndex + 1;
+                        animateWithTransformation();
+                    }
+                };
 
-                mainGroup = $("g:first", svg.root());
-                mainGroup.attr("transform", calculateSlideTransformation(slides[0]));
-            }
+                onKeyDown = function (event) {
+                    if (event.keyCode === 39) {
+                        showNextSlide();
+                    } else if (event.keyCode === 37) {
+                        showPrevSlide();
+                    }
+                };
         });
-
-        var mainGroup, slides = [],
-            currentSlideIndex = 0,
-            calculateSlideTransformation = function (slide) {
-                var currentTransformation = mainGroup.attr("transform"),
-                    oldTranslate = currentTransformation.match(/translate\(([-\.0-9]*),([-\.0-9]*)\)/),
-                    oldTranslateX = oldTranslate ? parseFloat(oldTranslate[1]) : 0,
-                    oldTranslateY = oldTranslate ? parseFloat(oldTranslate[2]) : 0,
-                    oldScale = currentTransformation.match(/scale\(([-\.0-9]*),([-\.0-9]*)\)/),
-                    oldScaleX = oldScale ? parseFloat(oldScale[1]) : 1,
-                    oldScaleY = oldScale ? parseFloat(oldScale[2]) : 1,
-
-                    canvasWidth = parseFloat($("#mySvg").width()),
-                    canvasHeight = parseFloat($("#mySvg").height()),
-
-                    scaleX = (canvasWidth / (slide.sideways ? slide.height : slide.width)),
-                    scaleY = (canvasHeight / (slide.sideways ? slide.width : slide.height)),
-                    scaleString = "scale(" + scaleX + " " + scaleY + ")",
-
-                    rotate = slide.sideways ? 90 : 0,
-                    rotateString = "rotate(" + rotate + " 0 0)",
-
-                    translateX = slide.sideways ? slide.y + canvasWidth/scaleX: -slide.x,
-                    translateY = slide.sideways ? -slide.x : -slide.y,
-                    translateString = "translate(" + translateX + " " + translateY + ")",
-
-                    transformString = scaleString + " " + translateString + " " + rotateString;
-
-                return transformString;
-            },
-            showPrevSlide = function () {
-                currentSlideIndex = Math.max(0, currentSlideIndex - 1);
-                var transformationString = calculateSlideTransformation(slides[currentSlideIndex]);
-                console.log(transformationString);
-                mainGroup.animate({svgTransform: transformationString}, 1000);
-            },
-            showNextSlide = function () {
-                currentSlideIndex = Math.min(slides.length, currentSlideIndex + 1);
-                var transformationString = calculateSlideTransformation(slides[currentSlideIndex]);
-                console.log(transformationString);
-                mainGroup.animate({svgTransform: transformationString}, 1000);
-            };
 
 	</script>
 </head>
-<body onkeydown="if (event.keyCode === 39) { showNextSlide(); } else if (event.keyCode === 37) { showPrevSlide(); }">
+<body onkeydown="onKeyDown(event)">
 
 <div id="mySvg"></div>
 
