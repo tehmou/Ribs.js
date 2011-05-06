@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: #000;
+            background: #eee;
         }
 
         #mySvg {
@@ -23,23 +23,25 @@
         }
 
     </style>
+    
 	<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
     <script type="text/javascript" src="js/jquery.svg.js"></script>
     <script type="text/javascript" src="js/jquery.svgdom.js"></script>
     <script type="text/javascript" src="js/jquery.svganim.js"></script>
-
 	<script type="text/javascript">
 
         var onKeyDown;
         
         $(function () {
-            var svgFilename = "presentation.svg",
+            var hideFrames = true,
+                svgFilename = "presentation.svg",
+                mainGroup, slides = [],
                 loadDone = function (svg, error) {
                     if (error) {
                         alert("File \"" + svgFilename + "\" not found.");
                         return;
                     }
-                    
+                        
                     $("#mySvg")
                             .css("width", svg._width())
                             .css("height", svg._height());
@@ -47,25 +49,29 @@
                     slides = [];
                     $("rect", svg.root()).each(function (index, value) {
                         var $value = $(value),
-                            slideMatch = $value.attr("id").match(/^slide([0-9]*)/);
+                            slideMatch = $value.attr("id").match(/^slide([0-9]*)(.*)/);
                         if (slideMatch) {
                             var slideIndex = parseInt(slideMatch[1]),
+                                slideOptions = slideMatch[2] || "",
                                 slide = {
                                     x: parseFloat($value.attr("x")), y: parseFloat($value.attr("y")),
                                     width: parseFloat($value.attr("width")), height: parseFloat($value.attr("height")),
                                     sideways: parseFloat($value.attr("height")) > parseFloat($value.attr("width"))
                                 };
-                            $value.remove();
+                            if (hideFrames) {
+                                $value.remove();
+                            }
                             slides[slideIndex-1] = slide;
                         }
                     });
 
                     for (var i = 1; i < slides.length; i++) {
                         if (slides[i - 1].sideways && slides[i].sideways) {
-                            alert("Does not currently support sideways slides")
+                            alert("Does not currently support multiple sideways slides after each other (" + (i - 1) + " and " + i + ")");
                         }
                     }
 
+                    svg.root().setAttribute("viewBox", "0 0 " + svg._width() + " " + svg._height());
                     mainGroup = $("g:first", svg.root());
                     mainGroup.attr("transform", calculateSlideTransformation(slides[0]));
                 },
@@ -74,7 +80,6 @@
                     onLoad: loadDone,
                     settings: {addTo: true, changeSize: false}
                 }),
-                mainGroup, slides = [],
                 currentSlideIndex = 0,
                 calculateSlideTransformation = function (slide) {
                     var canvasWidth = parseFloat($("#mySvg").width()),
@@ -84,16 +89,26 @@
                         scaleY = (canvasHeight / (slide.sideways ? slide.width : slide.height)),
                         scaleString = "scale(" + scaleX + " " + scaleY + ")",
 
-                        rotate = slide.sideways ? 90 : 0,
-                        rotateString = "rotate(" + rotate + " 0 0)",
+                        rotation = slide.sideways ? Math.PI / 2 : 0,
+                        rotateString = "rotate(" + ((rotation / Math.PI) * 180) + " 0 0)",
 
-                        translateX = slide.sideways ? slide.y + canvasWidth/scaleX: -slide.x,
-                        translateY = slide.sideways ? -slide.x : -slide.y,
-                        translateString = "translate(" + translateX + " " + translateY + ")",
+                        translateX, translateY, translateString;
 
-                        transformString = scaleString + " " + translateString + " " + rotateString;
+                    //translateX = -canvasWidth / 2;
+                    //translateY = canvasHeight / 2;
+                    translateX = 0;
+                    translateY = 0;
+                    if (slide.sideways) {
+                        translateX += slide.y + canvasWidth/scaleX;
+                        translateY += -slide.x;
+                    } else {
+                        translateX += -slide.x;
+                        translateY += -slide.y;
+                    }
 
-                    return transformString;
+                    translateString = "translate(" + translateX + " " + translateY + ")";
+
+                    return scaleString + " " + translateString + " " + rotateString;
                 },
                 animateWithTransformation = function () {
                     var transformationString = calculateSlideTransformation(slides[currentSlideIndex]);
