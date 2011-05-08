@@ -1,6 +1,6 @@
 Ribs.mixins.commitEdit = function (classOptions) {
     classOptions = classOptions || {};
-    var CommitEdit = function () {
+    var CommitEditInst = function () {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
@@ -15,6 +15,6 @@ Ribs.mixins.commitEdit = function (classOptions) {
             };
         };
 
-    return CommitEdit;
+    return CommitEditInst;
 };
 

@@ -4,7 +4,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
         selectOptions = classOptions.options,
         elementSelector = attributeName && '[name|="' + attributeName + '"]';
 
-    var SelectEdit = function () {
+    var SelectEditInst = function () {
         return {
             attributeName: classOptions.attributeName,
             uiAttributeName: classOptions.uiAttributeName,
@@ -49,6 +49,6 @@ Ribs.mixins.selectEdit = function (classOptions) {
         };
     };
 
-    return SelectEdit;
+    return SelectEditInst;
 };
 

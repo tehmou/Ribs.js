@@ -4,7 +4,8 @@ Ribs.mixins.templated = function (classOptions) {
     var templateSelector = classOptions.templateSelector,
         templateFunction = templateSelector ? _.template($(templateSelector).html()) : classOptions.templateFunction,
         className = classOptions.className,
-        Templated = function () {
+
+        TemplatedInst = function () {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
@@ -25,6 +26,6 @@ Ribs.mixins.templated = function (classOptions) {
             };
         };
 
-    return Templated;
+    return TemplatedInst;
 };
 

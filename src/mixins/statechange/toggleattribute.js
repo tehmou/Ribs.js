@@ -8,7 +8,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
         offEvent = classOptions.offEvent,
         sameEvent = (typeof(classOptions.sameEvent) !== "undefined") ? classOptions.sameEvent : (onEvent === offEvent),
     
-        ToggleAttribute = function () {
+        ToggleAttributeInst = function () {
             var events = {};
             if (onEvent) {
                 events[onEvent] = "toggleOn";
@@ -50,6 +50,6 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
             };
         };
 
-    return ToggleAttribute;
+    return ToggleAttributeInst;
 };
 

@@ -2,7 +2,8 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
     classOptions = classOptions || {};
 
     var childClassName = classOptions.childClassName || null,
-        EveryOtherChild = function () {
+    
+        EveryOtherChildInst = function () {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
@@ -20,6 +21,6 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
             };
         };
 
-    return EveryOtherChild;
+    return EveryOtherChildInst;
 };
 

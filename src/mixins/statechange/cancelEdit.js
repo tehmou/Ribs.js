@@ -1,6 +1,6 @@
 Ribs.mixins.cancelEdit = function (classOptions) {
     classOptions = classOptions || {};
-    var CancelEdit = function () {
+    var CancelEditInst = function () {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
@@ -15,6 +15,6 @@ Ribs.mixins.cancelEdit = function (classOptions) {
             };
         };
 
-    return CancelEdit;
+    return CancelEditInst;
 };
 

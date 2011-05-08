@@ -5,7 +5,8 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
         includedAttributes = classOptions.includedAttributes || null,
         excludedRibsUIAttributes = classOptions.excludedRibsUIAttributes || null,
         includedRibsUIAttributes = classOptions.includedRibsUIAttributes || null,
-        InvalidateOnChange = function (parent) {
+
+        InvalidateOnChangeInst = function (parent) {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
@@ -49,6 +50,6 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
             };
         };
 
-    return InvalidateOnChange;
+    return InvalidateOnChangeInst;
 };
 

@@ -5,7 +5,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
         uiAttributeName = classOptions.uiAttributeName || "open",
         uiEventName = "change:" + uiAttributeName,
 
-        ToggleableElement = function (parent) {
+        ToggleableElementInst = function (parent) {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: uiAttributeName,
@@ -34,6 +34,6 @@ Ribs.mixins.toggleableElement = function (classOptions) {
             };
         };
 
-    return ToggleableElement;
+    return ToggleableElementInst;
 };
 

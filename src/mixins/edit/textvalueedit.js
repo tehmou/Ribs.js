@@ -1,7 +1,7 @@
 Ribs.mixins.textValueEdit = function (classOptions) {
     classOptions = classOptions || {};
 
-    var TextValueEdit = function () {
+    var TextValueEditInst = function () {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
@@ -41,6 +41,6 @@ Ribs.mixins.textValueEdit = function (classOptions) {
             };
         };
 
-    return TextValueEdit;
+    return TextValueEditInst;
 };
 

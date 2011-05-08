@@ -4,7 +4,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
     var className = classOptions.className || classOptions.attributeName || classOptions.uiAttributeName,
         inverse = classOptions.inverse || false,
     
-        ToggleableClass = function () {
+        ToggleableClassInst = function () {
             return {
                 attributeName: classOptions.attributeName,
                 uiAttributeName: classOptions.uiAttributeName,
@@ -21,6 +21,6 @@ Ribs.mixins.toggleableClass = function (classOptions) {
             };
         };
 
-    return ToggleableClass;
+    return ToggleableClassInst;
 };
 

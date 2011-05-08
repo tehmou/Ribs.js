@@ -1,6 +1,6 @@
 Ribs.mixins.editableText = function (classOptions) {
     classOptions = classOptions || {};
-    var EditableText = Ribs.mixins.mixinComposite(_.extend(classOptions, {
+    var EditableTextInst = Ribs.mixins.mixinComposite(_.extend(classOptions, {
         mixins: [
             { mixinComposite: {
                 elementCreator: "<span>moi</span>",
@@ -21,6 +21,6 @@ Ribs.mixins.editableText = function (classOptions) {
         ]
     }));
 
-    return EditableText;
+    return EditableTextInst;
 };
 

@@ -1,6 +1,6 @@
 Ribs.mixins.editable = function (classOptions) {
     classOptions = classOptions || {};
-    var Editable = Ribs.mixins.mixinComposite(_.extend(classOptions, {
+    var EditableInst = Ribs.mixins.mixinComposite(_.extend(classOptions, {
         mixinClasses: [
             Ribs.mixins.toggleAttribute({
                 onEvent: "click",
@@ -14,6 +14,6 @@ Ribs.mixins.editable = function (classOptions) {
         ]
     }));
 
-    return Editable;
+    return EditableInst;
 };
 

@@ -4,7 +4,8 @@ Ribs.mixins.simpleList = function (classOptions) {
     var ItemRenderer = classOptions.ItemRenderer,
         itemTagName = classOptions.itemTagName || null,
         itemClassName = classOptions.itemClassName || null,
-        SimpleList = function (parent) {
+
+        SimpleListInst = function (parent) {
             var listModel, listViews;
             return {
                 attributeName: classOptions.attributeName,
@@ -72,6 +73,6 @@ Ribs.mixins.simpleList = function (classOptions) {
             };
         };
 
-    return SimpleList;
+    return SimpleListInst;
 };
 
