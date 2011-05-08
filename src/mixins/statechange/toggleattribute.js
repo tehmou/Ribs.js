@@ -23,12 +23,12 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                 elementSelector: classOptions.elementSelector,
                 updateValue: function (newValue) {
                     var values = {};
-                    if (attributeName) {
+                    if (attributeName && this.dataModel) {
                         values[attributeName] = newValue;
-                        this.model.set(values);
+                        this.dataModel.set(values);
                     } else if (uiAttributeName) {
                         values[uiAttributeName] = newValue;
-                        this.ribsUI.set(values);
+                        this.uiModel.set(values);
                     }
                 },
                 modelChanged: function (model) {

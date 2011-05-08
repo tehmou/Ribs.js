@@ -10,12 +10,12 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                 readFunction: classOptions.readFunction,
                 writeFunction: classOptions.writeFunction,
                 modelChanging: function () {
-                    this.ribsUI.unbind("commitEdit", this.commit);
-                    this.ribsUI.unbind("cancelEdit", this.redraw);
+                    this.uiModel.unbind("commitEdit", this.commit);
+                    this.uiModel.unbind("cancelEdit", this.redraw);
                 },
                 modelChanged: function () {
-                    this.ribsUI.bind("commitEdit", this.commit);
-                    this.ribsUI.bind("cancelEdit", this.redraw);
+                    this.uiModel.bind("commitEdit", this.commit);
+                    this.uiModel.bind("cancelEdit", this.redraw);
                 },
                 redraw: function () {
                     var value = this.myValue;
@@ -32,10 +32,10 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                     }
                     if (this.attributeName) {
                         values[this.attributeName] = value;
-                        this.model.set(values);
+                        this.dataModel.set(values);
                     } else if (this.uiAttributeName) {
                         values[this.uiAttributeName] = value;
-                        this.ribsUI.set(values);
+                        this.uiModel.set(values);
                     }
                 }
             };

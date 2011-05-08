@@ -11,13 +11,13 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                 uiAttributeName: uiAttributeName,
                 elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
-                    if (this.ribsUI) {
-                        this.ribsUI.unbind(uiEventName, this.attributeChanged);
+                    if (this.uiModel) {
+                        this.uiModel.unbind(uiEventName, this.attributeChanged);
                     }
                 },
                 modelChanged: function () {
-                    if (this.ribsUI) {
-                        this.ribsUI.bind(uiEventName, this.attributeChanged);
+                    if (this.uiModel) {
+                        this.uiModel.bind(uiEventName, this.attributeChanged);
                     }
                 },
                 redraw: function () {

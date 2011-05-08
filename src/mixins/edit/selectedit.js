@@ -10,12 +10,12 @@ Ribs.mixins.selectEdit = function (classOptions) {
             uiAttributeName: classOptions.uiAttributeName,
             elementSelector: elementSelector,
             modelChanging: function () {
-                this.ribsUI.unbind("commitEdit", this.commit);
-                this.ribsUI.unbind("cancelEdit", this.redraw);
+                this.uiModel.unbind("commitEdit", this.commit);
+                this.uiModel.unbind("cancelEdit", this.redraw);
             },
             modelChanged: function () {
-                this.ribsUI.bind("commitEdit", this.commit);
-                this.ribsUI.bind("cancelEdit", this.redraw);
+                this.uiModel.bind("commitEdit", this.commit);
+                this.uiModel.bind("cancelEdit", this.redraw);
             },
             redraw: function () {
                 if (this.el.is("select")) {
@@ -26,8 +26,8 @@ Ribs.mixins.selectEdit = function (classOptions) {
                     this.el.append(this.selectEl);
                 }
 
-                if (this.model) {
-                    var val = this.model.get(attributeName);
+                if (this.dataModel) {
+                    var val = this.dataModel.get(attributeName);
                     _.each(selectOptions, _.bind(function (option) {
                         var optionEl = $('<option></option>');
                         optionEl
@@ -44,7 +44,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
             commit: function () {
                 var value = this.selectEl.val(), values = {};
                 values[attributeName] = value;
-                this.model.set(values);
+                this.dataModel.set(values);
             }
         };
     };

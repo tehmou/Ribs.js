@@ -12,18 +12,18 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                 uiAttributeName: classOptions.uiAttributeName,
                 elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
-                    if (this.model) {
-                        this.model.unbind("change", this.change);
+                    if (this.dataModel) {
+                        this.dataModel.unbind("change", this.change);
                     }
-                    if (this.ribsUI.safeUnbind) {
-                        this.ribsUI.safeUnbind("change", this.ribsUIChange);
+                    if (this.uiModel.safeUnbind) {
+                        this.uiModel.safeUnbind("change", this.ribsUIChange);
                     }
                 },
                 modelChanged: function () {
-                    if (this.model) {
-                        this.model.bind("change", this.change);
+                    if (this.dataModel) {
+                        this.dataModel.bind("change", this.change);
                     }
-                    this.ribsUI.bind("change", this.ribsUIChange);
+                    this.uiModel.bind("change", this.ribsUIChange);
                 },
                 change: function (ev) {
                     _.each(ev.changedAttributes(), this.checkAttribute);

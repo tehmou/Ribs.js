@@ -15,29 +15,30 @@ Ribs.mixins.mixinComposite = function (classOptions) {
             mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
         },
         updateMixinMyValue = function (mixin) {
-            if (mixin.attributeName && mixin.model) {
-                mixin.myValue = mixin.model.get(mixin.attributeName);
+            if (mixin.attributeName && mixin.dataModel) {
+                mixin.myValue = mixin.dataModel.get(mixin.attributeName);
             } else if (mixin.uiAttributeName) {
-                mixin.myValue = mixin.ribsUI.get(mixin.uiAttributeName);
+                mixin.myValue = mixin.uiModel.get(mixin.uiAttributeName);
             } else {
                 mixin.myValue = null;
             }
         },
         eventSplitter = /^(\w+)\s*(.*)$/,
-        MixinComposite = function (parentView, model) {
+
+        MixinCompositeInst = function (parentView, model) {
             this.customInitialize = function () {
                 this.mixins = [];
                 _.each(mixinClasses, _.bind(function (MixinClass) {
                     var mixin = new MixinClass(parentView, model);
                     _.bind(function () { _.bindAll(this); }, mixin)();
-                    mixin.ribsUI = (model && model.ribsUI) || new Backbone.Model();
+                    mixin.uiModel = (model && model.ribsUI) || new Backbone.Model();
                     if (mixin.modelChanging) {
                         mixin.modelChanging();
                     }
-                    mixin.model = model;
+                    mixin.dataModel = model;
                     updateMixinMyValue(mixin);
                     if (mixin.modelChanged) {
-                        mixin.modelChanged(mixin.model);
+                        mixin.modelChanged(mixin.dataModel);
                     }
                     this.mixins.push(mixin);
                 }, this));
@@ -81,8 +82,8 @@ Ribs.mixins.mixinComposite = function (classOptions) {
 
             this.modelChanged = function (newModel) {
                 _.each(this.mixins, _.bind(function (mixin) {
-                    mixin.model = newModel;
-                    mixin.ribsUI = newModel ? newModel.ribsUI : new Backbone.Model();
+                    mixin.dataModel = newModel;
+                    mixin.uiModel = newModel ? newModel.ribsUI : new Backbone.Model();
                     updateMixinMyValue(mixin);
                     if (mixin.modelChanged) {
                         mixin.modelChanged.apply(mixin, [newModel]);
@@ -119,12 +120,12 @@ Ribs.mixins.mixinComposite = function (classOptions) {
         };
 
     _.each(Ribs.mixinMethods, function (methodName) {
-        if (!MixinComposite.prototype.hasOwnProperty(methodName)) {
-            MixinComposite.prototype[methodName] = function () {
+        if (!MixinCompositeInst.prototype.hasOwnProperty(methodName)) {
+            MixinCompositeInst.prototype[methodName] = function () {
                 callAllMixins(this.mixins, methodName, arguments);
             };
         }
     });
 
-    return MixinComposite;
+    return MixinCompositeInst;
 };

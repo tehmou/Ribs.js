@@ -11,8 +11,8 @@ Ribs.mixins.templated = function (classOptions) {
                 uiAttributeName: classOptions.uiAttributeName,
                 elementSelector: classOptions.elementSelector,
                 redraw: function () {
-                    var modelJSON = this.model ? this.model.toJSON() : {},
-                        uiModelJSON = this.ribsUI.toJSON(),
+                    var modelJSON = this.dataModel ? this.dataModel.toJSON() : {},
+                        uiModelJSON = this.uiModel.toJSON(),
                         json = _.extend(modelJSON, uiModelJSON);
 
                     json.t = function (name) {

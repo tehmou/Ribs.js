@@ -23,7 +23,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                     }
                 },
                 modelChanged: function () {
-                    listModel = this.myValue ? this.myValue : this.model;
+                    listModel = this.myValue ? this.myValue : this.dataModel;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
