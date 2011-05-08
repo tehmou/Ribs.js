@@ -1,5 +1,6 @@
 Ribs.mixins.functionValueEdit = function (classOptions) {
     classOptions = classOptions || {};
+
     var readFunctionName = classOptions.readFunctionName,
         writeFunctionName = classOptions.writeFunctionName,
     
@@ -16,6 +17,7 @@ Ribs.mixins.functionValueEdit = function (classOptions) {
             }
         }));
 
+    Ribs.readMixinOptions(FunctionValueEditInst, classOptions);
     return FunctionValueEditInst;
 };
 

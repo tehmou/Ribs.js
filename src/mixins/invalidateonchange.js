@@ -8,9 +8,6 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
 
         InvalidateOnChangeInst = function (parent) {
             return {
-                attributeName: classOptions.attributeName,
-                uiAttributeName: classOptions.uiAttributeName,
-                elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
                     if (this.dataModel) {
                         this.dataModel.unbind("change", this.change);
@@ -50,6 +47,7 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
             };
         };
 
+    Ribs.readMixinOptions(InvalidateOnChangeInst);
     return InvalidateOnChangeInst;
 };
 

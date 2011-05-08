@@ -1,12 +1,10 @@
 Ribs.mixins.textValueEdit = function (classOptions) {
     classOptions = classOptions || {};
+    classOptions.elementSelector = classOptions.elementSelector ||
+            (classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]');
 
     var TextValueEditInst = function () {
             return {
-                attributeName: classOptions.attributeName,
-                uiAttributeName: classOptions.uiAttributeName,
-                elementSelector: classOptions.elementSelector ||
-                        (classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]'),
                 readFunction: classOptions.readFunction,
                 writeFunction: classOptions.writeFunction,
                 modelChanging: function () {
@@ -41,6 +39,7 @@ Ribs.mixins.textValueEdit = function (classOptions) {
             };
         };
 
+    Ribs.readMixinOptions(TextValueEditInst, classOptions);
     return TextValueEditInst;
 };
 

@@ -7,9 +7,6 @@ Ribs.mixins.templated = function (classOptions) {
 
         TemplatedInst = function () {
             return {
-                attributeName: classOptions.attributeName,
-                uiAttributeName: classOptions.uiAttributeName,
-                elementSelector: classOptions.elementSelector,
                 redraw: function () {
                     var modelJSON = this.dataModel ? this.dataModel.toJSON() : {},
                         uiModelJSON = this.uiModel.toJSON(),
@@ -26,6 +23,7 @@ Ribs.mixins.templated = function (classOptions) {
             };
         };
 
+    Ribs.readMixinOptions(TemplatedInst, classOptions);
     return TemplatedInst;
 };
 

@@ -1,15 +1,12 @@
 Ribs.mixins.toggleableElement = function (classOptions) {
     classOptions = classOptions || {};
+    classOptions.uiAttributeName = classOptions.uiAttributeName || "open";
 
     var inverse = classOptions.inverse || false,
-        uiAttributeName = classOptions.uiAttributeName || "open",
-        uiEventName = "change:" + uiAttributeName,
+        uiEventName = "change:" + classOptions.uiAttributeName,
 
         ToggleableElementInst = function (parent) {
             return {
-                attributeName: classOptions.attributeName,
-                uiAttributeName: uiAttributeName,
-                elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
                     if (this.uiModel) {
                         this.uiModel.unbind(uiEventName, this.attributeChanged);
@@ -34,6 +31,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
             };
         };
 
+    Ribs.readMixinOptions(ToggleableElementInst);
     return ToggleableElementInst;
 };
 

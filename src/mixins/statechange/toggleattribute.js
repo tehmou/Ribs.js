@@ -1,9 +1,7 @@
 Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
 
-    var attributeName = classOptions.attributeName,
-        uiAttributeName = classOptions.uiAttributeName,
-        attributeDefaultValue = classOptions.attributeDefaultValue || false,
+    var attributeDefaultValue = classOptions.attributeDefaultValue || false,
         onEvent = (typeof(classOptions.onEvent) !== "undefined") ? classOptions.onEvent : "click",
         offEvent = classOptions.offEvent,
         sameEvent = (typeof(classOptions.sameEvent) !== "undefined") ? classOptions.sameEvent : (onEvent === offEvent),
@@ -18,16 +16,13 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
             }
             return {
                 events: events,
-                attributeName: attributeName,
-                uiAttributeName: uiAttributeName,
-                elementSelector: classOptions.elementSelector,
                 updateValue: function (newValue) {
                     var values = {};
-                    if (attributeName && this.dataModel) {
-                        values[attributeName] = newValue;
+                    if (this.attributeName && this.dataModel) {
+                        values[this.attributeName] = newValue;
                         this.dataModel.set(values);
-                    } else if (uiAttributeName) {
-                        values[uiAttributeName] = newValue;
+                    } else if (this.uiAttributeName) {
+                        values[this.uiAttributeName] = newValue;
                         this.uiModel.set(values);
                     }
                 },

@@ -1,5 +1,6 @@
 Ribs.mixins.selectable = function (classOptions) {
     classOptions = classOptions || {};
+    
     var SelectableInst = Ribs.mixins.mixinComposite(_.extend(classOptions, {
         mixinClasses: [
             Ribs.mixins.toggleAttribute({
@@ -14,6 +15,7 @@ Ribs.mixins.selectable = function (classOptions) {
         ]
     }));
 
+    Ribs.readMixinOptions(SelectableInst, classOptions);
     return SelectableInst;
 };
 

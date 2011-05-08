@@ -1,5 +1,6 @@
 Ribs.mixins.openable = function (classOptions) {
     classOptions = classOptions || {};
+    
     var OpenableInst = Ribs.mixins.mixinComposite(_.extend(classOptions, {
         mixinClasses: [
             Ribs.mixins.toggleAttribute({
@@ -14,6 +15,7 @@ Ribs.mixins.openable = function (classOptions) {
         ]
     }));
 
+    Ribs.readMixinOptions(OpenableInst, classOptions);
     return OpenableInst;
 };
 

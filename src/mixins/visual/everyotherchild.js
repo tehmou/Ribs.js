@@ -5,9 +5,6 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
     
         EveryOtherChildInst = function () {
             return {
-                attributeName: classOptions.attributeName,
-                uiAttributeName: classOptions.uiAttributeName,
-                elementSelector: classOptions.elementSelector,
                 refresh: function () {
                     if (!childClassName) {
                         return;
@@ -21,6 +18,7 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
             };
         };
 
+    Ribs.readMixinOptions(EveryOtherChildInst, classOptions);
     return EveryOtherChildInst;
 };
 

@@ -8,9 +8,6 @@ Ribs.mixins.simpleList = function (classOptions) {
         SimpleListInst = function (parent) {
             var listModel, listViews;
             return {
-                attributeName: classOptions.attributeName,
-                uiAttributeName: classOptions.uiAttributeName,
-                elementSelector: classOptions.elementSelector,
                 modelChanging: function () {
                     _.each(listViews, function (view) {
                         view.dispose();
@@ -73,6 +70,7 @@ Ribs.mixins.simpleList = function (classOptions) {
             };
         };
 
+    Ribs.readMixinOptions(SimpleListInst);
     return SimpleListInst;
 };
 
