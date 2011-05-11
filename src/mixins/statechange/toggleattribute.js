@@ -1,7 +1,7 @@
 Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
     var ToggleAttributeInst = function () {
-            return _.extend(classOptions, {
+            return _.extend({
                 events: {},
                 attributeDefaultValue: false,
                 onEvent: "click",
