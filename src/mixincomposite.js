@@ -61,7 +61,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
 
             this.bindEvents = function () {
                 _.each(this.mixins, function (mixin) {
-                    if (!mixin.events && mixin.bindEvents) {
+                    if (mixin.bindEvents) {
                         mixin.bindEvents.apply(mixin);
                     }
                     if (!mixin || !mixin.events || !mixin.el || !mixin.el.is(":visible")) {

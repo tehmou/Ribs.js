@@ -1,11 +1,10 @@
 Ribs.mixins.selectEdit = function (classOptions) {
     classOptions = classOptions || {};
-    classOptions.elementSelector = classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]';
+    var SelectEditInst = function () {
+            return _.extend({
+                elementSelector: classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]',
+                selectOptions: [],
 
-    var selectOptions = classOptions.selectOptions,
-
-        SelectEditInst = function () {
-            return {
                 modelChanging: function () {
                     this.uiModel.unbind("commitEdit", this.commit);
                     this.uiModel.unbind("cancelEdit", this.redraw);
@@ -22,10 +21,9 @@ Ribs.mixins.selectEdit = function (classOptions) {
                         this.selectEl = $("<select></select>");
                         this.el.append(this.selectEl);
                     }
-
                     if (this.dataModel) {
                         var val = this.dataModel.get(this.attributeName);
-                        _.each(selectOptions, _.bind(function (option) {
+                        _.each(this.selectOptions, _.bind(function (option) {
                             var optionEl = $('<option></option>');
                             optionEl
                                     .attr("value", option.value)
@@ -39,14 +37,15 @@ Ribs.mixins.selectEdit = function (classOptions) {
                 },
 
                 commit: function () {
-                    var value = this.selectEl.val(), values = {};
-                    values[this.attributeName] = value;
-                    this.dataModel.set(values);
+                    if (this.selectEl) {
+                        var value = this.selectEl.val(), values = {};
+                        values[this.attributeName] = value;
+                        this.dataModel.set(values);
+                    }
                 }
-            };
+            }, classOptions || {});
         };
 
-    Ribs.readMixinOptions(SelectEditInst, classOptions);
     return SelectEditInst;
 };
 

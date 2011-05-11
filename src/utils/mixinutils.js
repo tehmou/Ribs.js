@@ -28,10 +28,3 @@ Ribs.parseMixinDefinitions = function (mixinDefinitions) {
     return mixinClasses;
 };
 
-Ribs.readMixinOptions = function (mixin, options) {
-    options = options || {};
-    mixin.attributeName = options.attributeName;
-    mixin.uiAttributeName = options.uiAttributeName;
-    mixin.elementSelector = options.elementSelector;
-};
-

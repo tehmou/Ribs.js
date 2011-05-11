@@ -1,12 +1,12 @@
+
 Ribs.mixins.textValueEdit = function (classOptions) {
     classOptions = classOptions || {};
-    classOptions.elementSelector = classOptions.elementSelector ||
-            (classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]');
-
     var TextValueEditInst = function () {
-            return {
-                readFunction: classOptions.readFunction,
-                writeFunction: classOptions.writeFunction,
+            return _.extend({
+                elementSelector: classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]',
+                readFunction: null,
+                writeFunction: null,
+
                 modelChanging: function () {
                     this.uiModel.unbind("commitEdit", this.commit);
                     this.uiModel.unbind("cancelEdit", this.redraw);
@@ -24,22 +24,23 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                 },
 
                 commit: function () {
-                    var value = this.el.val(), values = {};
-                    if (this.writeFunction) {
-                        value = this.writeFunction(value, this.myValue);
-                    }
-                    if (this.attributeName) {
-                        values[this.attributeName] = value;
-                        this.dataModel.set(values);
-                    } else if (this.uiAttributeName) {
-                        values[this.uiAttributeName] = value;
-                        this.uiModel.set(values);
+                    if (this.el) {
+                        var value = this.el.val(), values = {};
+                        if (this.writeFunction) {
+                            value = this.writeFunction(value, this.myValue);
+                        }
+                        if (this.attributeName) {
+                            values[this.attributeName] = value;
+                            this.dataModel.set(values);
+                        } else if (this.uiAttributeName) {
+                            values[this.uiAttributeName] = value;
+                            this.uiModel.set(values);
+                        }
                     }
                 }
-            };
+            }, classOptions || {});
         };
 
-    Ribs.readMixinOptions(TextValueEditInst, classOptions);
     return TextValueEditInst;
 };
 

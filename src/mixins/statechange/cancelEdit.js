@@ -1,8 +1,6 @@
 Ribs.mixins.cancelEdit = function (classOptions) {
-    classOptions = classOptions || {};
-
     var CancelEditInst = function () {
-            return {
+            return _.extend({
                 events: {
                     "click": "cancel"
                 },
@@ -10,10 +8,9 @@ Ribs.mixins.cancelEdit = function (classOptions) {
                     this.uiModel.trigger("cancelEdit");
                     this.uiModel.set({ editing: false });
                 }
-            };
+            }, classOptions || {});
         };
 
-    Ribs.readMixinOptions(CancelEditInst, classOptions);
     return CancelEditInst;
 };
 

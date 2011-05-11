@@ -1,21 +1,21 @@
 Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
+    var ToggleAttributeInst = function () {
+            return _.extend(classOptions, {
+                events: {},
+                attributeDefaultValue: false,
+                onEvent: "click",
+                offEvent: null,
 
-    var attributeDefaultValue = classOptions.attributeDefaultValue || false,
-        onEvent = (typeof(classOptions.onEvent) !== "undefined") ? classOptions.onEvent : "click",
-        offEvent = classOptions.offEvent,
-        sameEvent = (typeof(classOptions.sameEvent) !== "undefined") ? classOptions.sameEvent : (onEvent === offEvent),
-    
-        ToggleAttributeInst = function () {
-            var events = {};
-            if (onEvent) {
-                events[onEvent] = "toggleOn";
-            }
-            if (!sameEvent && offEvent) {
-                events[offEvent] = "toggleOff";
-            }
-            return {
-                events: events,
+                bindEvents: function () {
+                    if (this.onEvent) {
+                        this.events[this.onEvent] = "toggleOn";
+                    }
+                    if (this.offEvent && this.offEvent !== this.onEvent) {
+                        this.events[this.offEvent] = "toggleOff";
+                    }
+                },
+
                 updateValue: function (newValue) {
                     var values = {};
                     if (this.attributeName && this.dataModel) {
@@ -28,21 +28,21 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                 },
                 modelChanged: function (model) {
                     if (typeof(this.myValue) === "undefined") {
-                        this.updateValue(attributeDefaultValue);
+                        this.updateValue(this.attributeDefaultValue);
                     }
                 },
 
                 toggleOn: function () {
-                    var newValue = sameEvent ? !this.myValue : true;
+                    var newValue = (this.onEvent === this.offEvent) ? !this.myValue : true;
                     this.updateValue(newValue);
                 },
                 toggleOff: function () {
-                    if (!sameEvent) {
+                    if (this.onEvent !== this.offEvent) {
                         this.updateValue(false);
                     }
                 }
 
-            };
+            }, classOptions || {});
         };
 
     return ToggleAttributeInst;

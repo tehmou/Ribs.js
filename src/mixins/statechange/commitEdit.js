@@ -1,8 +1,6 @@
 Ribs.mixins.commitEdit = function (classOptions) {
-    classOptions = classOptions || {};
-    
     var CommitEditInst = function () {
-            return {
+            return _.extend({
                 events: {
                     "click": "commit"
                 },
@@ -10,10 +8,8 @@ Ribs.mixins.commitEdit = function (classOptions) {
                     this.uiModel.trigger("commitEdit");
                     this.uiModel.set({ editing: false });
                 }
-            };
+            }, classOptions || {});
         };
-
-    Ribs.readMixinOptions(CommitEditInst, classOptions);
     return CommitEditInst;
 };
 

@@ -1,7 +1,5 @@
 Ribs.mixins.hoverable = function (classOptions) {
-    classOptions = classOptions || {};
-    
-    var HoverableInst = Ribs.mixins.mixinComposite(_.extend(classOptions, {
+    var HoverableInst = Ribs.mixins.mixinComposite(_.extend({
         mixinClasses: [
             Ribs.mixins.toggleAttribute({
                 onEvent: "mouseenter",
@@ -13,9 +11,8 @@ Ribs.mixins.hoverable = function (classOptions) {
                 uiAttributeName: "hovering"
             })
         ]
-    }));
+    }, classOptions || {}));
 
-    Ribs.readMixinOptions(HoverableInst, classOptions);
     return HoverableInst;
 };
 

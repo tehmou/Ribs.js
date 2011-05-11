@@ -1,24 +1,20 @@
 Ribs.mixins.everyOtherChild = function (classOptions) {
-    classOptions = classOptions || {};
-
-    var childClassName = classOptions.childClassName || null,
-    
-        EveryOtherChildInst = function () {
-            return {
+    var EveryOtherChildInst = function () {
+            return _.extend({
+                childClassName: null,
                 refresh: function () {
-                    if (!childClassName) {
+                    if (!this.childClassName) {
                         return;
                     }
                     var odd = false;
                     this.el.children().each(function (index, child) {
-                        $(child).toggleClass(childClassName, odd);
+                        $(child).toggleClass(this.childClassName, odd);
                         odd = !odd;
                     });
                 }
-            };
+            }, classOptions || {});
         };
 
-    Ribs.readMixinOptions(EveryOtherChildInst, classOptions);
     return EveryOtherChildInst;
 };
 

@@ -1,13 +1,11 @@
 Ribs.mixins.invalidateOnChange = function (classOptions) {
-    classOptions = classOptions || {};
+    var InvalidateOnChangeInst = function (parent) {
+            return _.extend({
+                excludedAttributes: null,
+                includedAttributes: null,
+                excludedRibsUIAttributes: null,
+                includedRibsUIAttributes: null,
 
-    var excludedAttributes = classOptions.excludedAttributes || null,
-        includedAttributes = classOptions.includedAttributes || null,
-        excludedRibsUIAttributes = classOptions.excludedRibsUIAttributes || null,
-        includedRibsUIAttributes = classOptions.includedRibsUIAttributes || null,
-
-        InvalidateOnChangeInst = function (parent) {
-            return {
                 modelChanging: function () {
                     if (this.dataModel) {
                         this.dataModel.unbind("change", this.change);
@@ -26,8 +24,8 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                     _.each(ev.changedAttributes(), this.checkAttribute);
                 },
                 checkAttribute: function (value, attrName) {
-                    var excluded = excludedAttributes && _.indexOf(excludedAttributes, attrName) !== -1,
-                        included = includedAttributes && _.indexOf(includedAttributes, attrName) !== -1;
+                    var excluded = this.excludedAttributes && _.indexOf(this.excludedAttributes, attrName) !== -1,
+                        included = this.includedAttributes && _.indexOf(this.includedAttributes, attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
                         parent.invalidated = true;
                         _.defer(parent.render);
@@ -37,17 +35,16 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                     _.each(ev.changedAttributes(), this.checkUIAttribute);
                 },
                 checkUIAttribute: function (value, attrName) {
-                    var excluded = excludedRibsUIAttributes && _.indexOf(excludedRibsUIAttributes, attrName) !== -1,
-                        included = includedRibsUIAttributes && _.indexOf(includedRibsUIAttributes, attrName) !== -1;
+                    var excluded = this.excludedRibsUIAttributes && _.indexOf(this.excludedRibsUIAttributes, attrName) !== -1,
+                        included = this.includedRibsUIAttributes && _.indexOf(this.includedRibsUIAttributes, attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
                         parent.invalidated = true;
                         _.defer(parent.render);
                     }
                 }
-            };
+            }, classOptions || {});
         };
 
-    Ribs.readMixinOptions(InvalidateOnChangeInst);
     return InvalidateOnChangeInst;
 };
 

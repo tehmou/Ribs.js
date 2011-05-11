@@ -1,23 +1,20 @@
 Ribs.mixins.functionValueEdit = function (classOptions) {
-    classOptions = classOptions || {};
+    var FunctionValueEditInst = Ribs.mixins.textValueEdit(_.extend({
+            readFunctionName: null,
+            writeFunctionName: null,
 
-    var readFunctionName = classOptions.readFunctionName,
-        writeFunctionName = classOptions.writeFunctionName,
-    
-        FunctionValueEditInst = Ribs.mixins.textValueEdit(_.extend(classOptions, {
             readFunction: function (value) {
-                return (value && value[readFunctionName]) ? value[readFunctionName]() : value;
+                return (value && value[this.readFunctionName]) ? value[this.readFunctionName]() : value;
             },
             writeFunction: function (value, oldValue) {
-                if (oldValue && oldValue[writeFunctionName]) {
-                    oldValue[writeFunctionName](value);
+                if (oldValue && oldValue[this.writeFunctionName]) {
+                    oldValue[this.writeFunctionName](value);
                     return oldValue;
                 }
                 return value;
             }
-        }));
+        }, classOptions || {}));
 
-    Ribs.readMixinOptions(FunctionValueEditInst, classOptions);
     return FunctionValueEditInst;
 };
 

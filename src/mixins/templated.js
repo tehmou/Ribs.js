@@ -1,12 +1,12 @@
 Ribs.mixins.templated = function (classOptions) {
     classOptions = classOptions || {};
-
-    var templateSelector = classOptions.templateSelector,
-        templateFunction = templateSelector ? _.template($(templateSelector).html()) : classOptions.templateFunction,
-        className = classOptions.className,
-
+    var defaultTemplateFunction = classOptions.templateSelector && _.template($(classOptions.templateSelector)),
         TemplatedInst = function () {
-            return {
+            return _.extend({
+                templateSelector: null,
+                templateFunction: defaultTemplateFunction,
+                className: null,
+
                 redraw: function () {
                     var modelJSON = this.dataModel ? this.dataModel.toJSON() : {},
                         uiModelJSON = this.uiModel.toJSON(),
@@ -15,15 +15,14 @@ Ribs.mixins.templated = function (classOptions) {
                     json.t = function (name) {
                         return this.hasOwnProperty(name) ? this[name] : "";
                     };
-                    this.el.html(templateFunction(json));
-                    if (className) {
-                        this.el.toggleClass(className, true);
+                    this.el.html(this.templateFunction(json));
+                    if (this.className) {
+                        this.el.toggleClass(this.className, true);
                     }
                 }
-            };
+            }, classOptions);
         };
 
-    Ribs.readMixinOptions(TemplatedInst, classOptions);
     return TemplatedInst;
 };
 

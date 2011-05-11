@@ -1,13 +1,12 @@
 Ribs.mixins.simpleList = function (classOptions) {
     classOptions = classOptions || {};
-
     var ItemRenderer = classOptions.ItemRenderer,
-        itemTagName = classOptions.itemTagName || null,
-        itemClassName = classOptions.itemClassName || null,
-
         SimpleListInst = function (parent) {
-            var listModel, listViews;
-            return {
+            var listModel, listViews, refreshingList;
+            return _.extend({
+                itemTagName: null,
+                itemClassName: null,
+
                 modelChanging: function () {
                     _.each(listViews, function (view) {
                         view.dispose();
@@ -43,34 +42,33 @@ Ribs.mixins.simpleList = function (classOptions) {
                 addOne: function (item) {
                     if (!listViews.hasOwnProperty(item.cid)) {
                         var listView = new ItemRenderer({
-                            model: item,
-                            tagName: itemTagName,
-                            className: itemClassName
-                        });
+                                model: item,
+                                tagName: this.itemTagName,
+                                className: this.itemClassName
+                            });
                         listViews[item.cid] = listView;
-                        if (!this.refreshingList) {
+                        if (!refreshingList) {
                             parent.invalidated = true;
                             parent.render();
                         }
                     }
                 },
                 addAll: function () {
-                    this.refreshingList = true;
+                    refreshingList = true;
                     if (listModel.each) {
                         listModel.each(this.addOne);
                     }
                     parent.invalidated = true;
                     parent.render();
-                    this.refreshingList = false;
+                    refreshingList = false;
                 },
                 removeOne: function (item) {
                     delete listViews[item.cid];
                     $(item.el).remove();
                 }
-            };
+            }, classOptions || {});
         };
 
-    Ribs.readMixinOptions(SimpleListInst);
     return SimpleListInst;
 };
 
