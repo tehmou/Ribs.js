@@ -43,7 +43,11 @@ Ribs.createMixed = function (myOptions) {
     }
 
     Buildee.prototype.initialize = function () {
-        this.rootMixin = new Buildee.RootMixin(this, this.options.model);
+        if (typeof(Buildee.RootMixin) === "function") {
+            this.rootMixin = new Buildee.RootMixin(this, this.options.model);
+        } else {
+            this.rootMixin = _.extend({}, Buildee.RootMixin);
+        }
         Ribs.ManagedView.prototype.initialize.apply(this, arguments);
     };
 
@@ -106,13 +110,15 @@ Ribs.ManagedView = Backbone.View.extend({
 Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
 
-    if (!classOptions.mixins && !classOptions.mixinClasses) {
+    if (!_.isArray(classOptions) && !classOptions.mixins && !classOptions.mixinClasses) {
         return classOptions;
     }
     
-    var elementSelector = classOptions.elementSelector,
+    var mixinDefinitions = _.isArray(classOptions) ? classOptions : classOptions.mixins,
+        mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(mixinDefinitions),
+
+        elementSelector = classOptions.elementSelector,
         elementCreator = classOptions.elementCreator,
-        mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(classOptions.mixins),
         callAllMixins = function (mixins, methodName, originalArguments) {
             _.each(mixins, function (mixin) {
                 if (mixin[methodName]) {
@@ -242,21 +248,25 @@ Ribs.mixins.mixinComposite = function (classOptions) {
 
 // Utilities
 
+Ribs.parseOneMixinDefinition = function (options, name) {
+    var mixinFunction = Ribs.mixins[name];
+    if (!mixinFunction) {
+        throw "Could not find mixin " + name;
+    }
+    return mixinFunction(options);
+};
+
 Ribs.parseMixinDefinitions = function (mixinDefinitions) {
     mixinDefinitions = mixinDefinitions || [];
-    var mixinClasses = [], i, l,
-        processMixinDefinition = function (options, name) {
-            var mixinFunction = Ribs.mixins[name];
-            if (!mixinFunction) {
-                throw "Could not find mixin " + name;
-            }
-            mixinClasses.push(mixinFunction(options));
-        };
+    var mixinClasses = [], i, l;
 
     if (_.isArray(mixinDefinitions)) {
         for (i = 0, l = mixinDefinitions.length; i < l; i++) {
             var mixinDefinitionObject = mixinDefinitions[i];
-            _.each(mixinDefinitionObject, processMixinDefinition);
+            _.each(mixinDefinitionObject, function () {
+                var mixin = Ribs.parseOneMixinDefinition.apply(this, arguments);
+                mixinClasses.push(mixin);
+            });
         }
     } else {
         _.each(mixinDefinitions,

@@ -1,13 +1,15 @@
 Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
 
-    if (!classOptions.mixins && !classOptions.mixinClasses) {
+    if (!_.isArray(classOptions) && !classOptions.mixins && !classOptions.mixinClasses) {
         return classOptions;
     }
     
-    var elementSelector = classOptions.elementSelector,
+    var mixinDefinitions = _.isArray(classOptions) ? classOptions : classOptions.mixins,
+        mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(mixinDefinitions),
+
+        elementSelector = classOptions.elementSelector,
         elementCreator = classOptions.elementCreator,
-        mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(classOptions.mixins),
         callAllMixins = function (mixins, methodName, originalArguments) {
             _.each(mixins, function (mixin) {
                 if (mixin[methodName]) {
