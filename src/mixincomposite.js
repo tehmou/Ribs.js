@@ -1,6 +1,10 @@
 Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
 
+    if (!classOptions.mixins && !classOptions.mixinClasses) {
+        return classOptions;
+    }
+    
     var elementSelector = classOptions.elementSelector,
         elementCreator = classOptions.elementCreator,
         mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(classOptions.mixins),

@@ -2,7 +2,7 @@
 
 var Ribs = {};
 
-Ribs.VERSION = '0.0.82';
+Ribs.VERSION = '0.0.84';
 
 Ribs.mixins = {};
 

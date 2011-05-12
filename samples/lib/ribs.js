@@ -4,7 +4,7 @@
 
 var Ribs = {};
 
-Ribs.VERSION = '0.0.82';
+Ribs.VERSION = '0.0.84';
 
 Ribs.mixins = {};
 
@@ -106,6 +106,10 @@ Ribs.ManagedView = Backbone.View.extend({
 Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
 
+    if (!classOptions.mixins && !classOptions.mixinClasses) {
+        return classOptions;
+    }
+    
     var elementSelector = classOptions.elementSelector,
         elementCreator = classOptions.elementCreator,
         mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(classOptions.mixins),
