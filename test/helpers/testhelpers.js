@@ -59,7 +59,7 @@ var testlog = function (msg) {
                         // Validate arguments.
                         if (arguments.length != expectedMethodDef.arguments.length) {
                             throw "Wrong number of arguments when calling " + methodName +
-                                    " (" + arguments.length + "/" + expectedMethodDef.arguments + ")";
+                                    " (" + arguments.length + "/" + expectedMethodDef.arguments.length + ")";
                         }
                         for (var i = 0; i < arguments.length; i++) {
                             if (arguments[i] !== expectedMethodDef.arguments[i]) {

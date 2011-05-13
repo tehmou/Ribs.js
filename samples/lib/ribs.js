@@ -115,7 +115,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
     }
     
     var mixinDefinitions = _.isArray(classOptions) ? classOptions : classOptions.mixins,
-        mixinClasses = classOptions.mixinClasses || Ribs.parseMixinDefinitions(mixinDefinitions),
+        mixinClasses = classOptions.mixinClasses || Ribs.createMixinFromDefinitions(mixinDefinitions),
 
         elementSelector = classOptions.elementSelector,
         elementCreator = classOptions.elementCreator,
@@ -256,7 +256,7 @@ Ribs.parseOneMixinDefinition = function (options, name) {
     return mixinFunction(options);
 };
 
-Ribs.parseMixinDefinitions = function (mixinDefinitions) {
+Ribs.createMixinFromDefinitions = function (mixinDefinitions) {
     mixinDefinitions = mixinDefinitions || [];
     var mixinClasses = [], i, l;
 
