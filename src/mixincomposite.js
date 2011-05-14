@@ -29,7 +29,7 @@ Ribs.mixins.mixinComposite = function (classOptions) {
         MixinCompositeInst = function (parentView, model) {
             this.customInitialize = function () {
                 this.mixins = [];
-                _.each(mixinClasses, _.bind(function (MixinClass) {
+                _.each(this.mixinClasses, _.bind(function (MixinClass) {
                     var mixin = new MixinClass(parentView, model);
                     _.bind(function () { _.bindAll(this); }, mixin)();
                     mixin.uiModel = (model && model.ribsUI) || new Backbone.Model();
@@ -119,6 +119,8 @@ Ribs.mixins.mixinComposite = function (classOptions) {
                 }, this));
             };
         };
+
+    MixinCompositeInst.prototype.mixinClasses = mixinClasses;
 
     _.each(Ribs.mixinMethods, function (methodName) {
         if (!MixinCompositeInst.prototype.hasOwnProperty(methodName)) {

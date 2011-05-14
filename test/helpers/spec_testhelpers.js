@@ -112,11 +112,16 @@ describe("Testing helpers", function () {
 
         beforeEach(function () {
             object = {
-                testFunction1: function () { },
+                testFunction1: function () { return "foo"; },
                 testFunction2: function () { }
             };
             callStack = objectCallObserver(object);
             callStack.start();
+        });
+
+        it("Should retain returned values", function () {
+            callStack.expectCall("testFunction1");
+            expect(object.testFunction1()).toEqual("foo");
         });
 
         it("Should observe calls", function () {

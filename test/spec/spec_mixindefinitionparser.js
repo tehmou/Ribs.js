@@ -2,7 +2,7 @@ describe("mixinDefinitionParser", function () {
     var parser;
 
     beforeEach(function () {
-        parser = Ribs.createMixinDefinitionParser(function () { return {}; });
+        parser = Ribs.createMixinDefinitionParser(function () { return function () {}; });
     });
 
     describe("Parsing of definitions", function () {
@@ -26,10 +26,11 @@ describe("mixinDefinitionParser", function () {
                 { name: "parseOne", arguments: [o, "createTestMixin2"] }
             ]);
 
-            parser.createMixinFromDefinitions([
+            var Mixin = parser.createMixinFromDefinitions([
                 { createTestMixin1: o },
                 { createTestMixin2: o }
             ]);
+            expect(Mixin.prototype.mixinClasses.length).toEqual(2);
         });
 
         it("Should know how to parse element definitions", function () {
@@ -66,7 +67,8 @@ describe("mixinDefinitionParser", function () {
                     .expectCall({ name: "createMixinFromDefinitions", arguments: [mixinDefinitions1, ".my-third-class"] })
                     .expectCalls(expectedDef1Calls);
 
-            parser.createMixinFromDefinitions(mixinDefinitions);
+            var Mixin = parser.createMixinFromDefinitions(mixinDefinitions);
+            expect(Mixin.prototype.mixinClasses.length).toEqual(3);
         });
     });
 
@@ -88,7 +90,9 @@ describe("mixinDefinitionParser", function () {
         it("Should give each mixin the proper el for redrawing", function () {
             var mixin,
                 Mixin = parser.createMixinFromDefinitions({
-                    "":  { createTestMixin1: { } },
+                    "":  [
+                        { createTestMixin1: { } }
+                    ],
                     ".special": [
                         { createTestMixin2: { } }
                     ],
@@ -97,6 +101,8 @@ describe("mixinDefinitionParser", function () {
                     ]
                 });
             
+            expect(Mixin.prototype.mixinClasses.length).toEqual(3);
+
             mixin = new Mixin();
             mixin.customInitialize();
             mixin.redraw(rootEl);

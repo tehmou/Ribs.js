@@ -26,9 +26,10 @@ Ribs.createMixinDefinitionParser = function (parseOne) {
             });
         }
         MixinComposite = Ribs.mixins.mixinComposite({
-            mixinsClasses: mixinClasses,
+            mixinClasses: mixinClasses,
             elementSelector: elementSelector
         });
+
         return MixinComposite;
     };
 

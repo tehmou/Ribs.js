@@ -106,7 +106,7 @@ var testlog = function (msg) {
                     var methodName = name, oldMethod = target[methodName];
                     target[methodName] = function () {
                         callStack.called(methodName, arguments);
-                        oldMethod.apply(target, arguments);
+                        return oldMethod.apply(target, arguments);
                     };
                 })();
             }
@@ -124,7 +124,7 @@ var testlog = function (msg) {
                     var methodName = name, oldMethod = Type.prototype[methodName];
                     ObservableType.prototype[methodName] = function () {
                         callStack.called(methodName, arguments);
-                        oldMethod.apply(this, arguments);
+                        return oldMethod.apply(this, arguments);
                     };
                 })();
             }
