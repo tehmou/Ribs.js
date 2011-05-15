@@ -21,26 +21,23 @@ Ribs.mixins.selectEdit = function (classOptions) {
                         this.selectEl = $("<select></select>");
                         this.el.append(this.selectEl);
                     }
-                    if (this.dataModel) {
-                        var val = this.dataModel.get(this.attributeName);
-                        _.each(this.selectOptions, _.bind(function (option) {
-                            var optionEl = $('<option></option>');
-                            optionEl
-                                    .attr("value", option.value)
-                                    .text(option.text);
-                            if (option.value === val) {
-                                optionEl.attr("selected", "selected");
-                            }
-                            this.selectEl.append(optionEl);
-                        }, this));
-                    }
+
+                    var val = this.getMyValue();
+                    _.each(this.selectOptions, _.bind(function (option) {
+                        var optionEl = $('<option></option>');
+                        optionEl
+                                .attr("value", option.value)
+                                .text(option.text);
+                        if (option.value === val) {
+                            optionEl.attr("selected", "selected");
+                        }
+                        this.selectEl.append(optionEl);
+                    }, this));
                 },
 
                 commit: function () {
                     if (this.selectEl) {
-                        var value = this.selectEl.val(), values = {};
-                        values[this.attributeName] = value;
-                        this.dataModel.set(values);
+                        this.setMyValue(this.selectEl.val());
                     }
                 }
             }, classOptions || {});

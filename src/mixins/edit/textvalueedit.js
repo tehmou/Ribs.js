@@ -3,9 +3,10 @@ Ribs.mixins.textValueEdit = function (classOptions) {
     classOptions = classOptions || {};
     var TextValueEditInst = function () {
             return _.extend({
-                elementSelector: classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]',
                 readFunction: null,
                 writeFunction: null,
+                elementSelector: (classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]')
+                                        || (classOptions.uiAttributeName && '[name|="' + classOptions.uiAttributeName + '"]'),
 
                 modelChanging: function () {
                     this.uiModel.unbind("commitEdit", this.commit);
@@ -16,7 +17,7 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                     this.uiModel.bind("cancelEdit", this.redraw);
                 },
                 redraw: function () {
-                    var value = this.myValue;
+                    var value = this.getMyValue();
                     if (this.readFunction) {
                         value = this.readFunction(value);
                     }
@@ -25,17 +26,11 @@ Ribs.mixins.textValueEdit = function (classOptions) {
 
                 commit: function () {
                     if (this.el) {
-                        var value = this.el.val(), values = {};
+                        var value = this.el.val();
                         if (this.writeFunction) {
-                            value = this.writeFunction(value, this.myValue);
+                            value = this.writeFunction(value, this.getMyValue());
                         }
-                        if (this.attributeName) {
-                            values[this.attributeName] = value;
-                            this.dataModel.set(values);
-                        } else if (this.uiAttributeName) {
-                            values[this.uiAttributeName] = value;
-                            this.uiModel.set(values);
-                        }
+                        this.setMyValue(value);
                     }
                 }
             }, classOptions || {});

@@ -27,13 +27,13 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                     }
                 },
                 modelChanged: function (model) {
-                    if (typeof(this.myValue) === "undefined") {
+                    if (typeof(this.getMyValue()) === "undefined") {
                         this.updateValue(this.attributeDefaultValue);
                     }
                 },
 
                 toggleOn: function () {
-                    var newValue = (this.onEvent === this.offEvent) ? !this.myValue : true;
+                    var newValue = (this.onEvent === this.offEvent) ? !this.getMyValue() : true;
                     this.updateValue(newValue);
                 },
                 toggleOff: function () {
