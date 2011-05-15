@@ -3,15 +3,17 @@ Ribs.createMixinDefinitionParser = function (parseOne) {
 
     parser.parseOne = parseOne;
 
-    parser.createMixinFromDefinitions = function (mixinDefinitions, elementSelector) {
+    parser.createMixinFromDefinitions = function (mixinDefinitions, options) {
+        options = options || {};
         mixinDefinitions = mixinDefinitions || [];
         var mixinClasses = [], i, l,
-            _parseOne = function (options, name) {
-                var MixinClass = parser.parseOne.apply(this, [options, name]);
+            _parseOne = function (o, name) {
+                var MixinClass = parser.parseOne.apply(this, [_.extend(options, o), name]);
                 mixinClasses.push(MixinClass);
             },
             _createMixinFromDefinitions = function (nestedMixinDefinitions, elementSelector) {
-                var MixinClass = parser.createMixinFromDefinitions(nestedMixinDefinitions, elementSelector);
+                var MixinClass = parser.createMixinFromDefinitions(
+                        nestedMixinDefinitions, _.extend(options, { elementSelector: elementSelector }));
                 mixinClasses.push(MixinClass);
             };
 
@@ -29,10 +31,7 @@ Ribs.createMixinDefinitionParser = function (parseOne) {
             _.each(mixinDefinitions, _createMixinFromDefinitions);
         }
 
-        return Ribs.mixins.mixinComposite({
-            mixinClasses: mixinClasses,
-            elementSelector: elementSelector
-        });
+        return Ribs.mixins.mixinComposite(_.extend(options, { mixinClasses: mixinClasses }));
     };
 
     return parser;

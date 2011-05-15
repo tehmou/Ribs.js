@@ -1,17 +1,24 @@
 Ribs.mixins.selectEdit = function (classOptions) {
     classOptions = classOptions || {};
     var SelectEditInst = function () {
+            var model;
             return _.extend({
+                modelName: "data",
                 elementSelector: classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]',
                 selectOptions: [],
 
                 modelChanging: function () {
-                    this.uiModel.unbind("commitEdit", this.commit);
-                    this.uiModel.unbind("cancelEdit", this.redraw);
+                    if (model) {
+                        model.unbind("commitEdit", this.commit);
+                        model.unbind("cancelEdit", this.redraw);
+                    }
                 },
                 modelChanged: function () {
-                    this.uiModel.bind("commitEdit", this.commit);
-                    this.uiModel.bind("cancelEdit", this.redraw);
+                    model = this.getMyModel();
+                    if (model) {
+                        model.bind("commitEdit", this.commit);
+                        model.bind("cancelEdit", this.redraw);                        
+                    }
                 },
                 redraw: function () {
                     if (this.el.is("select")) {

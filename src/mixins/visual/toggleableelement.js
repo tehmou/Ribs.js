@@ -1,19 +1,21 @@
 Ribs.mixins.toggleableElement = function (classOptions) {
     var ToggleableElementInst = function (parent) {
-            var uiEventName;
+            var model, uiEventName;
             return _.extend({
-                uiAttributeName: "open",
+                modelName: "dataUI",
+                attributeName: "open",
                 inverse: false,
 
                 modelChanging: function () {
-                    if (this.uiModel && uiEventName) {
-                        this.uiModel.unbind(uiEventName, this.attributeChanged);
+                    if (model && uiEventName) {
+                        model.unbind(uiEventName, this.attributeChanged);
                     }
                 },
                 modelChanged: function () {
-                    if (this.uiModel) {
-                        uiEventName = "change:" + this.uiAttributeName;
-                        this.uiModel.bind(uiEventName, this.attributeChanged);
+                    model = this.getMyModel();
+                    if (model) {
+                        uiEventName = "change:" + this.attributeName;
+                        model.bind(uiEventName, this.attributeChanged);
                     }
                 },
                 redraw: function () {

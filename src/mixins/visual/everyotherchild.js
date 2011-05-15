@@ -2,6 +2,7 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
     var EveryOtherChildInst = function () {
             return _.extend({
                 childClassName: null,
+
                 refresh: function () {
                     if (!this.childClassName) {
                         return;

@@ -4,6 +4,7 @@ Ribs.mixins.simpleList = function (classOptions) {
         SimpleListInst = function (parent) {
             var listModel, listViews, refreshingList;
             return _.extend({
+                modelName: "data",
                 itemTagName: null,
                 itemClassName: null,
 
@@ -19,7 +20,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                     }
                 },
                 modelChanged: function () {
-                    listModel = this.getMyValue() ? this.getMyValue() : this.dataModel;
+                    listModel = this.getMyValue() ? this.getMyValue() : this.getMyModel();
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);

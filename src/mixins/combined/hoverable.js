@@ -1,17 +1,16 @@
 Ribs.mixins.hoverable = function (classOptions) {
-    var HoverableInst = Ribs.mixins.mixinComposite(_.extend({
-        mixinClasses: [
-            Ribs.mixins.toggleAttribute({
+    var HoverableInst = Ribs.mixinParser.createMixinFromDefinitions([
+        { toggleAttribute: {
                 onEvent: "mouseenter",
-                offEvent: "mouseleave",
-                uiAttributeName: "hovering"
-            }),
-            Ribs.mixins.toggleableClass({
-                className: "hovering",
-                uiAttributeName: "hovering"
-            })
-        ]
-    }, classOptions || {}));
+                offEvent: "mouseleave"
+        }},
+        { toggleableClass: {
+                className: "hovering"
+        }}
+    ], _.extend({
+        attributeName: "hovering",
+        modelName: "dataUI"
+    }, classOptions));
 
     return HoverableInst;
 };

@@ -3,6 +3,7 @@ Ribs.ManagedView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll(this, "customInitialize", "bindToModel", "modelChanging", "modelChanged", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
+        this.ribsUIModels = new Backbone.Model();
         Backbone.View.prototype.initialize.apply(this, arguments);
         if (this.model) {
             this.bindToModel(this.model);
@@ -14,14 +15,14 @@ Ribs.ManagedView = Backbone.View.extend({
     customInitialize: function () { },
     bindToModel: function (model) {
         this.modelChanging();
-        if (this.model && this.model.ribsUI) {
-             this.model.ribsUI.safeUnbind("all", this.render);
-        }
         this.model = model;
         if (this.model) {
             Ribs.augmentModelWithUIAttributes(this.model);
-            this.model.ribsUI.bind("all", this.render);
         }
+        this.ribsUIModels.set({
+            data: model,
+            dataUI: model.ribsUI
+        });
         this.invalidated = true;
         this.modelChanged(model);
     },

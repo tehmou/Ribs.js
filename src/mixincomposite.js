@@ -10,26 +10,19 @@
         updateMixinEl = function (mixin, el) {
             mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
         },
+        getMixinModel = function (name) {
+            return this.parent.ribsUIModels.get(name);
+        },
+        getMixinMyModel = function () {
+            return this.getModel(this.modelName);
+        },
         getMixinMyValue = function () {
-            if (this.attributeName && this.dataModel) {
-                return this.dataModel.get(this.attributeName);
-            } else if (this.uiAttributeName) {
-                return this.uiModel.get(this.uiAttributeName);
-            } else {
-                return null;
-            }
+            return this.getMyModel().get(this.attributeName);
         },
         setMixinMyValue = function (value) {
             var newValues = {};
-            if (this.attributeName && this.dataModel) {
-                newValues[this.attributeName] = value;
-                return this.dataModel.set(newValues);
-            } else if (this.uiAttributeName) {
-                newValues[this.uiAttributeName] = value;
-                return this.uiModel.set(newValues);
-            } else {
-                return null;
-            }
+            newValues[this.attributeName] = value;
+            return this.getMyModel().set(newValues);
         },
         eventSplitter = /^(\w+)\s*(.*)$/;
 
@@ -47,14 +40,17 @@
                             var mixin = new MixinClass(parentView, model);
                             mixin.getMyValue = getMixinMyValue;
                             mixin.setMyValue = setMixinMyValue;
+                            mixin.getModel = getMixinModel;
+                            mixin.getMyModel = getMixinMyModel;
                             _.bind(function () { _.bindAll(this); }, mixin)();
-                            mixin.uiModel = (model && model.ribsUI) || new Backbone.Model();
+
+                            mixin.parent = parentView;
+
                             if (mixin.modelChanging) {
                                 mixin.modelChanging();
                             }
-                            mixin.dataModel = model;
                             if (mixin.modelChanged) {
-                                mixin.modelChanged(mixin.dataModel);
+                                mixin.modelChanged();
                             }
                             this.mixins.push(mixin);
                         }, this));
@@ -94,16 +90,6 @@
                                 }
                             }, mixin));
                         });
-                    };
-
-                    this.modelChanged = function (newModel) {
-                        _.each(this.mixins, _.bind(function (mixin) {
-                            mixin.dataModel = newModel;
-                            mixin.uiModel = newModel ? newModel.ribsUI : new Backbone.Model();
-                            if (mixin.modelChanged) {
-                                mixin.modelChanged.apply(mixin, [newModel]);
-                            }
-                        }, this));
                     };
 
                     this.redraw = function (parentEl) {

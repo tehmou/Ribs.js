@@ -2,12 +2,13 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
     var ToggleAttributeInst = function () {
             return _.extend({
-                events: {},
+                modelName: "dataUI",
                 attributeDefaultValue: false,
                 onEvent: "click",
                 offEvent: null,
 
                 bindEvents: function () {
+                    this.events = {};
                     if (this.onEvent) {
                         this.events[this.onEvent] = "toggleOn";
                     }
@@ -15,18 +16,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                         this.events[this.offEvent] = "toggleOff";
                     }
                 },
-
-                updateValue: function (newValue) {
-                    var values = {};
-                    if (this.attributeName && this.dataModel) {
-                        values[this.attributeName] = newValue;
-                        this.dataModel.set(values);
-                    } else if (this.uiAttributeName) {
-                        values[this.uiAttributeName] = newValue;
-                        this.uiModel.set(values);
-                    }
-                },
-                modelChanged: function (model) {
+                modelChanged: function () {
                     if (typeof(this.getMyValue()) === "undefined") {
                         this.updateValue(this.attributeDefaultValue);
                     }
@@ -34,11 +24,11 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
 
                 toggleOn: function () {
                     var newValue = (this.onEvent === this.offEvent) ? !this.getMyValue() : true;
-                    this.updateValue(newValue);
+                    this.setMyValue(newValue);
                 },
                 toggleOff: function () {
                     if (this.onEvent !== this.offEvent) {
-                        this.updateValue(false);
+                        this.setMyValue(false);
                     }
                 }
 
