@@ -8,12 +8,12 @@ Ribs.createMixinDefinitionParser = function (parseOne) {
         mixinDefinitions = mixinDefinitions || [];
         var mixinClasses = [], i, l,
             _parseOne = function (o, name) {
-                var MixinClass = parser.parseOne.apply(this, [_.extend(options, o), name]);
+                var MixinClass = parser.parseOne.apply(this, [o, name]);
                 mixinClasses.push(MixinClass);
             },
             _createMixinFromDefinitions = function (nestedMixinDefinitions, elementSelector) {
                 var MixinClass = parser.createMixinFromDefinitions(
-                        nestedMixinDefinitions, _.extend(options, { elementSelector: elementSelector }));
+                        nestedMixinDefinitions, { elementSelector: elementSelector });
                 mixinClasses.push(MixinClass);
             };
 

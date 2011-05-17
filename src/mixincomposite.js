@@ -45,6 +45,8 @@
                             _.bind(function () { _.bindAll(this); }, mixin)();
 
                             mixin.parent = parentView;
+                            mixin.modelName = mixin.modelName || this.modelName;
+                            mixin.attributeName = mixin.attributeName || this.attributeName;
 
                             if (mixin.modelChanging) {
                                 mixin.modelChanging();
