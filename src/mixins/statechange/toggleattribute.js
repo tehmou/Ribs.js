@@ -20,7 +20,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                 bindToModel: function (model) {
                     this.model = model;
                     if (typeof(this.getMyValue()) === "undefined") {
-                        this.updateValue(this.attributeDefaultValue);
+                        this.setMyValue(this.attributeDefaultValue);
                     }
                 },
 

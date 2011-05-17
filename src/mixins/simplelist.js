@@ -19,7 +19,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                         listModel.unbind("remove", this.removeOne);
                         listModel.unbind("refresh", this.addAll);
                     }
-                    listModel = this.attributeName ? model.get(this.attributeName) : this.model;
+                    listModel = this.attributeName ? model.get(this.attributeName) : model;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
