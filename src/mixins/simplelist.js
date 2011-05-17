@@ -55,6 +55,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                 },
                 addAll: function () {
                     refreshingList = true;
+                    listViews = {};
                     if (listModel.each) {
                         listModel.each(this.addOne);
                     }
@@ -63,8 +64,10 @@ Ribs.mixins.simpleList = function (classOptions) {
                     refreshingList = false;
                 },
                 removeOne: function (item) {
-                    delete listViews[item.cid];
-                    $(item.el).remove();
+                    if (listViews[item.cid]) {
+                        $(listViews[item.cid].el).remove();
+                        delete listViews[item.cid];
+                    }
                 }
             }, classOptions || {});
         };
