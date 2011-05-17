@@ -58,38 +58,56 @@ var testlog = function (msg) {
                     if (expectedMethodDef.arguments) {
                         // Validate arguments.
                         if (arguments.length != expectedMethodDef.arguments.length) {
-                            throw "Wrong number of arguments when calling " + methodName +
+                            throw methodName + ": Wrong number of arguments when calling " + methodName +
                                     " (" + arguments.length + "/" + expectedMethodDef.arguments.length + ")";
                         }
                         for (var i = 0; i < arguments.length; i++) {
-                            if (arguments[i] !== expectedMethodDef.arguments[i]) {
-                                throw "Argument #" + i + " did not match the expected one (" +
+                            if (expectedMethodDef.arguments[i] !== CallStack.DONT_CARE
+                                    && arguments[i] !== expectedMethodDef.arguments[i]) {
+                                throw methodName + ": Argument #" + i + " did not match the expected one (" +
                                         arguments[i] + " !== " + expectedMethodDef.arguments[i] + ")";
                             }
                         }
                     }
 
                     if (expectedMethodDef.optionsArgument) {
-                        // Validate the first argument as options.
-                        var key,
-                            options = arguments ? arguments[0] : null,
-                            expectedOptions = expectedMethodDef.optionsArgument;
-                        if (!options) {
-                            throw "Expected options as the first argument but none were given";
-                        }
-                        for (key in expectedOptions) {
-                            if (expectedOptions.hasOwnProperty(key)) {
-                                if (options[key] !== expectedOptions[key]) {
-                                    throw "Property " + key + " did not match (" + options[key] + "!==" + expectedOptions[key] + ")";
+                        var validateOptions = function (options, expectedOptions) {
+                            if (expectedOptions === CallStack.DONT_CARE) {
+                                return;
+                            }
+                            var key;
+                            if (!options) {
+                                throw methodName + ": Expected options as the first argument but none were given";
+                            }
+                            for (key in expectedOptions) {
+                                if (expectedOptions.hasOwnProperty(key)) {
+                                    if (options[key] !== expectedOptions[key]) {
+                                        throw methodName + ": Property " + key + " did not match (" + options[key] + "!==" + expectedOptions[key] + ")";
+                                    }
                                 }
                             }
-                        }
-                        for (key in options) {
-                            if (options.hasOwnProperty(key)) {
-                                if (options[key] !== expectedOptions[key]) {
-                                    throw "Property " + key + " did not match (" + options[key] + "!==" + expectedOptions[key] + ")";
+                            for (key in options) {
+                                if (options.hasOwnProperty(key)) {
+                                    if (options[key] !== expectedOptions[key]) {
+                                        throw methodName + ": Property " + key + " did not match (" + options[key] + "!==" + expectedOptions[key] + ")";
+                                    }
                                 }
                             }
+                        };
+
+                        if (_.isArray(expectedMethodDef.optionsArgument)) {
+                            for (i = 0; i < expectedMethodDef.optionsArgument.length; i++) {
+                                var def = expectedMethodDef.optionsArgument[i];
+                                if (i < arguments.length) {
+                                    if (def) {
+                                        validateOptions(arguments[i], def);
+                                    }
+                                } else {
+                                    throw "Too few options arguments given (" + arguments.length + "/" + expectedMethodDef.optionsArgument.length + ").";
+                                }
+                            }
+                        } else {
+                            validateOptions(arguments[0], expectedMethodDef.optionsArgument);
                         }
                     }
                 }
@@ -131,3 +149,4 @@ var testlog = function (msg) {
         }
         return { ObservableType: ObservableType, callStack: callStack };
     };
+    CallStack.DONT_CARE = "doNotReallyCare";

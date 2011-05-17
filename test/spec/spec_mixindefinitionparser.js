@@ -59,12 +59,28 @@ describe("mixinDefinitionParser", function () {
 
             callStack
                     .expectCall({ name: "createMixinFromDefinitions", arguments: [mixinDefinitions] })
-                    .expectCall({ name: "createMixinFromDefinitions", arguments: [mixinDefinitions1, ""] })
+                    .expectCall({
+                        name: "createMixinFromDefinitions",
+                        arguments: [mixinDefinitions1, CallStack.DONT_CARE],
+                        optionsArgument: [CallStack.DONT_CARE, { elementSelector: "" }]
+                    })
                     .expectCalls(expectedDef1Calls)
-                    .expectCall({ name: "createMixinFromDefinitions", arguments: [mixinDefinitions2, ".my-class"] })
+                    .expectCall({
+                            name: "createMixinFromDefinitions",
+                            arguments: [mixinDefinitions2, CallStack.DONT_CARE],
+                            optionsArgument: [CallStack.DONT_CARE, { elementSelector: ".my-class" }]
+                    })
                     .expectCalls(expectedDef2Calls)
-                    .expectCall({ name: "createMixinFromDefinitions", arguments: [mixinDefinitions3, ".my-second-class"] })
-                    .expectCall({ name: "createMixinFromDefinitions", arguments: [mixinDefinitions1, ".my-third-class"] })
+                    .expectCall({
+                            name: "createMixinFromDefinitions",
+                            arguments: [mixinDefinitions3, CallStack.DONT_CARE],
+                            optionsArgument: [CallStack.DONT_CARE, { elementSelector: ".my-second-class" }]
+                    })
+                    .expectCall({
+                            name: "createMixinFromDefinitions",
+                            arguments: [mixinDefinitions1, CallStack.DONT_CARE],    
+                            optionsArgument: [CallStack.DONT_CARE, { elementSelector: ".my-third-class" }]
+                    })
                     .expectCalls(expectedDef1Calls);
 
             var Mixin = parser.createMixinFromDefinitions(mixinDefinitions);

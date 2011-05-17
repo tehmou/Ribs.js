@@ -1,13 +1,13 @@
 Ribs.mixins.invalidateOnChange = function (classOptions) {
     var InvalidateOnChangeInst = function (parent) {
+            var model;
             return _.extend({
                 modelName: "dataUI",
                 eventName: "change",
                 excludedAttributes: null,
                 includedAttributes: null,
 
-                modelChanging: function () {
-                    var model = this.getMyModel();
+                bindToModel: function (value) {
                     if (model) {
                         if (typeof(model.safeUnbind) === "function") {
                             model.safeUnbind(this.eventName, this.change);
@@ -15,9 +15,7 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                             model.unbind(this.eventName, this.change);
                         }
                     }
-                },
-                modelChanged: function () {
-                    var model = this.getMyModel();
+                    model = value;
                     if (model) {
                         model.bind(this.eventName, this.change);
                     }

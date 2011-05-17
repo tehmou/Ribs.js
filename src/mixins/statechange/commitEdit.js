@@ -6,7 +6,9 @@ Ribs.mixins.commitEdit = function (classOptions) {
                     "click": "commit"
                 },
                 commit: function () {
-                    this.getMyModel().trigger("ribs:commitEdit");
+                    if (this.model) {
+                        this.model.trigger("ribs:commitEdit");
+                    }
                 }
             }, classOptions || {});
         };

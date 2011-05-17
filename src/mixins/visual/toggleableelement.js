@@ -6,13 +6,11 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                 attributeName: "open",
                 inverse: false,
 
-                modelChanging: function () {
+                bindToModel: function (value) {
                     if (model && uiEventName) {
                         model.unbind(uiEventName, this.attributeChanged);
                     }
-                },
-                modelChanged: function () {
-                    model = this.getMyModel();
+                    model = this.value;
                     if (model) {
                         uiEventName = "change:" + this.attributeName;
                         model.bind(uiEventName, this.attributeChanged);
@@ -29,7 +27,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                 attributeChanged: function () {
                     parent.invalidated = true;
                 }
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return ToggleableElementInst;

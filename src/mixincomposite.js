@@ -10,19 +10,17 @@
         updateMixinEl = function (mixin, el) {
             mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
         },
-        getMixinModel = function (name) {
-            return this.parent.ribsUIModels.get(name);
-        },
-        getMixinMyModel = function () {
-            return this.getModel(this.modelName);
-        },
-        getMixinMyValue = function () {
-            return this.getMyModel().get(this.attributeName);
-        },
-        setMixinMyValue = function (value) {
-            var newValues = {};
-            newValues[this.attributeName] = value;
-            return this.getMyModel().set(newValues);
+        updateMixinModel = function (mixin) {
+            if (this.parent && this.parent.ribsUIModels) {
+                var model = this.parent.ribsUIModels.get(mixin.modelName);
+                if (mixin.model !== model) {
+                    if (typeof(mixin.bindToModel) === "function") {
+                        mixin.bindToModel(model);
+                    } else {
+                        mixin.model = model;
+                    }
+                }
+            }
         },
         eventSplitter = /^(\w+)\s*(.*)$/;
 
@@ -35,28 +33,32 @@
 
                 MixinCompositeInst = function (parentView, model) {
                     this.customInitialize = function () {
+                        if (parentView) {
+                            parentView.bind("change", this.updateMixinModels);
+                        }
                         this.mixins = [];
                         _.each(this.mixinClasses, _.bind(function (MixinClass) {
                             var mixin = new MixinClass(parentView, model);
-                            mixin.getMyValue = getMixinMyValue;
-                            mixin.setMyValue = setMixinMyValue;
-                            mixin.getModel = getMixinModel;
-                            mixin.getMyModel = getMixinMyModel;
+                            updateMixinModel(mixin);
                             _.bind(function () { _.bindAll(this); }, mixin)();
 
                             mixin.parent = parentView;
                             mixin.modelName = mixin.modelName || this.modelName;
                             mixin.attributeName = mixin.attributeName || this.attributeName;
 
-                            if (mixin.modelChanging) {
-                                mixin.modelChanging();
-                            }
-                            if (mixin.modelChanged) {
-                                mixin.modelChanged();
-                            }
                             this.mixins.push(mixin);
                         }, this));
                         callAllMixins(this.mixins, "customInitialize", arguments);
+                    };
+
+                    this.bindToModel = function () {
+                        this.updateMixinModels();
+                    };
+
+                    this.updateMixinModels = function () {
+                        _.each(this.mixins, function (mixin) {
+                            updateMixinModel(mixin);
+                        });
                     };
 
                     this.unbindEvents = function () {

@@ -3,6 +3,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
     var ToggleableClassInst = function () {
             return _.extend({
                 modelName: "dataUI",
+                attributeName: null,
                 className: classOptions.attributeName,
                 inverse: false,
                 
@@ -15,7 +16,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
                         this.el.toggleClass(this.className, value);
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return ToggleableClassInst;

@@ -488,7 +488,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                     }
                 },
                 modelChanged: function () {
-                    listModel = this.getMyValue() ? this.getMyValue() : this.dataModel;
+                    listModel = this.model && this.model.get(this.attributeName) ? this.model && this.model.get(this.attributeName) : this.dataModel;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
@@ -711,7 +711,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
                         this.el.append(this.selectEl);
                     }
 
-                    var val = this.getMyValue();
+                    var val = this.model && this.model.get(this.attributeName);
                     _.each(this.selectOptions, _.bind(function (option) {
                         var optionEl = $('<option></option>');
                         optionEl
@@ -754,7 +754,7 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                     this.uiModel.bind("cancelEdit", this.redraw);
                 },
                 redraw: function () {
-                    var value = this.getMyValue();
+                    var value = this.model && this.model.get(this.attributeName);
                     if (this.readFunction) {
                         value = this.readFunction(value);
                     }
@@ -765,7 +765,7 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                     if (this.el) {
                         var value = this.el.val();
                         if (this.writeFunction) {
-                            value = this.writeFunction(value, this.getMyValue());
+                            value = this.writeFunction(value, this.model && this.model.get(this.attributeName));
                         }
                         this.setMyValue(value);
                     }
@@ -836,13 +836,13 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                     }
                 },
                 modelChanged: function (model) {
-                    if (typeof(this.getMyValue()) === "undefined") {
+                    if (typeof(this.model && this.model.get(this.attributeName)) === "undefined") {
                         this.updateValue(this.attributeDefaultValue);
                     }
                 },
 
                 toggleOn: function () {
-                    var newValue = (this.onEvent === this.offEvent) ? !this.getMyValue() : true;
+                    var newValue = (this.onEvent === this.offEvent) ? !this.model && this.model.get(this.attributeName) : true;
                     this.updateValue(newValue);
                 },
                 toggleOff: function () {
@@ -884,7 +884,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
                 className: classOptions.attributeName || classOptions.uiAttributeName,
                 inverse: false,
                 refresh: function () {
-                    var value = this.getMyValue();
+                    var value = this.model && this.model.get(this.attributeName);
                     if (this.inverse) {
                         value = !value;
                     }
@@ -917,7 +917,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                     }
                 },
                 redraw: function () {
-                    var value = this.getMyValue();
+                    var value = this.model && this.model.get(this.attributeName);
                     if (this.inverse) {
                         value = !value;
                     }

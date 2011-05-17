@@ -8,7 +8,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                 itemTagName: null,
                 itemClassName: null,
 
-                modelChanging: function () {
+                bindToModel: function (model) {
                     _.each(listViews, function (view) {
                         view.dispose();
                     });
@@ -18,9 +18,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                         listModel.unbind("remove", this.removeOne);
                         listModel.unbind("refresh", this.addAll);
                     }
-                },
-                modelChanged: function () {
-                    listModel = this.getMyValue() ? this.getMyValue() : this.getMyModel();
+                    listModel = this.attributeName ? model.get(this.attributeName) : this.model;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);

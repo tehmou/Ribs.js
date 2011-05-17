@@ -3,6 +3,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
     var ToggleAttributeInst = function () {
             return _.extend({
                 modelName: "dataUI",
+                attributeName: null,
                 attributeDefaultValue: false,
                 onEvent: "click",
                 offEvent: null,
@@ -16,7 +17,8 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                         this.events[this.offEvent] = "toggleOff";
                     }
                 },
-                modelChanged: function () {
+                bindToModel: function (model) {
+                    this.model = model;
                     if (typeof(this.getMyValue()) === "undefined") {
                         this.updateValue(this.attributeDefaultValue);
                     }
@@ -32,7 +34,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                     }
                 }
 
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return ToggleAttributeInst;

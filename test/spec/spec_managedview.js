@@ -30,9 +30,7 @@ describe("ManagedView", function () {
             var model = new Backbone.Model(), el = $("div");
             callStack.expectCalls([
                 "initialize",
-                "bindToModel",
-                "modelChanging",
-                { name: "modelChanged", arguments: [model] },
+                { name: "bindToModel", arguments: [model] },
                 "customInitialize",
                 "render",
                 "unbindEvents",
@@ -80,15 +78,6 @@ describe("ManagedView", function () {
 
             beforeEach(function () {
                 model = new Backbone.Model();
-            });
-
-            it("Should trigger modelChanging and modelChanged when calling bindToModel", function () {
-                callStack.expectCalls([
-                    "bindToModel",
-                    "modelChanging",
-                    { name: "modelChanged", arguments: [model]}
-                ]);
-                managedView.bindToModel(model);
             });
 
             it("Should augment the model with ribsUI property", function () {

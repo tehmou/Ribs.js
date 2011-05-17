@@ -2,13 +2,13 @@
 
 var Ribs = {};
 
-Ribs.VERSION = '0.0.84';
+Ribs.VERSION = "0.0.84";
 
 Ribs.mixins = {};
 
 Ribs.mixinMethods = [
     "customInitialize",
-    "modelChanging", "modelChanged",
+    "bindToModel",
     "render", "redraw", "refresh",
     "unbindEvents", "bindEvents",
     "hide", "dispose"

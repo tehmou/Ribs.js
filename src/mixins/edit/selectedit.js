@@ -4,6 +4,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
             var model;
             return _.extend({
                 modelName: "data",
+                attributeName: null,
                 elementSelector: classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]',
                 selectOptions: [],
 
@@ -47,7 +48,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
                         this.setMyValue(this.selectEl.val());
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return SelectEditInst;
