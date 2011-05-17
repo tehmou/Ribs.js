@@ -1,11 +1,12 @@
 Ribs.mixins.hoverable = function (classOptions) {
     var HoverableInst = Ribs.mixinParser.createMixinFromDefinitions([
         { toggleAttribute: {
-                onEvent: "mouseenter",
-                offEvent: "mouseleave"
+            onEvent: "mouseenter",
+            offEvent: "mouseleave"
         }},
         { toggleableClass: {
-                className: "hovering"
+            attributeName: "hovering",
+            className: "hovering"
         }}
     ], _.extend({
         attributeName: "hovering",

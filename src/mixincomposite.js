@@ -27,10 +27,8 @@
     Ribs.mixins.mixinComposite = function (classOptions) {
         classOptions = classOptions || {};
 
-        var elementSelector = classOptions.elementSelector,
-            elementCreator = classOptions.elementCreator,
+        var MixinCompositeInst = function (parentView, model) {
 
-            MixinCompositeInst = function (parentView, model) {
                 this.customInitialize = function () {
                     if (parentView) {
                         parentView.bind("change", this.updateMixinModels);
@@ -79,7 +77,7 @@
                         if (mixin.bindEvents) {
                             mixin.bindEvents.apply(mixin);
                         }
-                        if (!mixin || !mixin.events || !mixin.el || !mixin.el.is(":visible")) {
+                        if (!mixin || !mixin.events || !mixin.el) {
                             return;
                         }
                         _.each(mixin.events, _.bind(function (methodName, key) {
@@ -96,10 +94,10 @@
                 };
 
                 this.redraw = function (parentEl) {
-                    this.el = $(parentEl).find(elementSelector);
+                    this.el = $(parentEl).find(this.elementSelector);
                     if (this.el.length === 0) {
-                        if (elementCreator) {
-                            this.el = $(parentEl).append($(elementCreator));
+                        if (this.elementCreator) {
+                            this.el = $(parentEl).append($(this.elementCreator));
                         } else {
                             this.el = $(parentEl);
                         }
@@ -111,6 +109,8 @@
                         }
                     }, this));
                 };
+
+                _.extend(this, classOptions);
             };
 
         MixinCompositeInst.prototype.mixinClasses = classOptions.mixinClasses;
