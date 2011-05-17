@@ -5,6 +5,7 @@ Ribs.mixins.simpleList = function (classOptions) {
             var listModel, listViews, refreshingList;
             return _.extend({
                 modelName: "data",
+                attributeName: null,
                 itemTagName: null,
                 itemClassName: null,
 

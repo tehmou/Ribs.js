@@ -18,7 +18,7 @@ Ribs.createMixed = function (myOptions) {
     myOptions = myOptions || {};
 
     var Buildee = myOptions.Base ? myOptions.Base.extend() : Ribs.ManagedView.extend(),
-        NewRootMixin = Ribs.createMixinFromDefinitions(myOptions),
+        NewRootMixin = Ribs.mixinParser.createMixinFromDefinitions(myOptions),
         OldRootMixin = myOptions.Base && myOptions.Base.RootMixin,
 
         delegateOneToRootMixin = function (methodName) {

@@ -10,7 +10,7 @@ Ribs.mixins.templated = function (classOptions) {
 
                 redraw: function () {
                     var modelJSON = {};
-                    for (var i = 0; i < this.modelNames.length; i++) {
+                    for (var i = 0; i < this.modelNames.length; i++) {
                         var modelName = this.modelNames[i];
                         if (parent && parent.ribsUIModels && parent.ribsUIModels.get(modelName)) {
                             modelJSON = _.extend(modelJSON, parent.ribsUIModels.get(modelName));

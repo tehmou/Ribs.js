@@ -4,13 +4,13 @@
 
 var Ribs = {};
 
-Ribs.VERSION = '0.0.84';
+Ribs.VERSION = "0.0.84";
 
 Ribs.mixins = {};
 
 Ribs.mixinMethods = [
     "customInitialize",
-    "modelChanging", "modelChanged",
+    "bindToModel",
     "render", "redraw", "refresh",
     "unbindEvents", "bindEvents",
     "hide", "dispose"
@@ -58,7 +58,9 @@ Ribs.ManagedView = Backbone.View.extend({
     invalidated: true,
 
     initialize: function () {
-        _.bindAll(this, "customInitialize", "bindToModel", "modelChanging", "modelChanged", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
+        _.bindAll(this, "customInitialize", "bindToModel", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
+        this.ribsUIModels = new Backbone.Model({ internal: new Backbone.Model() });
+        this.ribsUIModels.set(this.options.ribsUIModels);
         Backbone.View.prototype.initialize.apply(this, arguments);
         if (this.model) {
             this.bindToModel(this.model);
@@ -69,20 +71,16 @@ Ribs.ManagedView = Backbone.View.extend({
     },
     customInitialize: function () { },
     bindToModel: function (model) {
-        this.modelChanging();
-        if (this.model && this.model.ribsUI) {
-             this.model.ribsUI.safeUnbind("all", this.render);
-        }
         this.model = model;
         if (this.model) {
             Ribs.augmentModelWithUIAttributes(this.model);
-            this.model.ribsUI.bind("all", this.render);
         }
+        this.ribsUIModels.set({
+            data: model,
+            dataUI: model.ribsUI
+        });
         this.invalidated = true;
-        this.modelChanged(model);
     },
-    modelChanging: function () { },
-    modelChanged: function (newModel) { },
     render: function () {
         if (!this.initialized) { return; }
         this.unbindEvents();
@@ -119,25 +117,16 @@ Ribs.ManagedView = Backbone.View.extend({
         updateMixinEl = function (mixin, el) {
             mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
         },
-        getMixinMyValue = function () {
-            if (this.attributeName && this.dataModel) {
-                return this.dataModel.get(this.attributeName);
-            } else if (this.uiAttributeName) {
-                return this.uiModel.get(this.uiAttributeName);
-            } else {
-                return null;
-            }
-        },
-        setMixinMyValue = function (value) {
-            var newValues = {};
-            if (this.attributeName && this.dataModel) {
-                newValues[this.attributeName] = value;
-                return this.dataModel.set(newValues);
-            } else if (this.uiAttributeName) {
-                newValues[this.uiAttributeName] = value;
-                return this.uiModel.set(newValues);
-            } else {
-                return null;
+        updateMixinModel = function (mixin) {
+            if (this.parent && this.parent.ribsUIModels) {
+                var model = this.parent.ribsUIModels.get(mixin.modelName);
+                if (mixin.model !== model) {
+                    if (typeof(mixin.bindToModel) === "function") {
+                        mixin.bindToModel(model);
+                    } else {
+                        mixin.model = model;
+                    }
+                }
             }
         },
         eventSplitter = /^(\w+)\s*(.*)$/;
@@ -151,23 +140,32 @@ Ribs.ManagedView = Backbone.View.extend({
 
                 MixinCompositeInst = function (parentView, model) {
                     this.customInitialize = function () {
+                        if (parentView) {
+                            parentView.bind("change", this.updateMixinModels);
+                        }
                         this.mixins = [];
                         _.each(this.mixinClasses, _.bind(function (MixinClass) {
                             var mixin = new MixinClass(parentView, model);
-                            mixin.getMyValue = getMixinMyValue;
-                            mixin.setMyValue = setMixinMyValue;
+                            updateMixinModel(mixin);
                             _.bind(function () { _.bindAll(this); }, mixin)();
-                            mixin.uiModel = (model && model.ribsUI) || new Backbone.Model();
-                            if (mixin.modelChanging) {
-                                mixin.modelChanging();
-                            }
-                            mixin.dataModel = model;
-                            if (mixin.modelChanged) {
-                                mixin.modelChanged(mixin.dataModel);
-                            }
+
+                            mixin.parent = parentView;
+                            mixin.modelName = mixin.modelName || this.modelName;
+                            mixin.attributeName = mixin.attributeName || this.attributeName;
+
                             this.mixins.push(mixin);
                         }, this));
                         callAllMixins(this.mixins, "customInitialize", arguments);
+                    };
+
+                    this.bindToModel = function () {
+                        this.updateMixinModels();
+                    };
+
+                    this.updateMixinModels = function () {
+                        _.each(this.mixins, function (mixin) {
+                            updateMixinModel(mixin);
+                        });
                     };
 
                     this.unbindEvents = function () {
@@ -205,16 +203,6 @@ Ribs.ManagedView = Backbone.View.extend({
                         });
                     };
 
-                    this.modelChanged = function (newModel) {
-                        _.each(this.mixins, _.bind(function (mixin) {
-                            mixin.dataModel = newModel;
-                            mixin.uiModel = newModel ? newModel.ribsUI : new Backbone.Model();
-                            if (mixin.modelChanged) {
-                                mixin.modelChanged.apply(mixin, [newModel]);
-                            }
-                        }, this));
-                    };
-
                     this.redraw = function (parentEl) {
                         this.el = $(parentEl).find(elementSelector);
                         if (this.el.length === 0) {
@@ -248,22 +236,39 @@ Ribs.ManagedView = Backbone.View.extend({
 }());
 
 
+
+
 // Utilities
 
-Ribs.createMixinDefinitionParser = function (parseOne) {
+Ribs.mixinHelpers = {
+    getMyValue: function () {
+        return this.model && this.model.get(this.attributeName);
+    },
+    setMyValue: function (value) {
+        if (this.model && this.attributeName) {
+            var newValues = {};
+            newValues[this.attributeName] = value;
+            this.model.set(newValues);
+            return true;
+        }
+        return false;
+    }
+};Ribs.createMixinDefinitionParser = function (parseOne) {
     var parser = { };
 
     parser.parseOne = parseOne;
 
-    parser.createMixinFromDefinitions = function (mixinDefinitions, elementSelector) {
+    parser.createMixinFromDefinitions = function (mixinDefinitions, options) {
+        options = options || {};
         mixinDefinitions = mixinDefinitions || [];
         var mixinClasses = [], i, l,
-            _parseOne = function (options, name) {
-                var MixinClass = parser.parseOne.apply(this, [options, name]);
+            _parseOne = function (o, name) {
+                var MixinClass = parser.parseOne.apply(this, [o, name]);
                 mixinClasses.push(MixinClass);
             },
             _createMixinFromDefinitions = function (nestedMixinDefinitions, elementSelector) {
-                var MixinClass = parser.createMixinFromDefinitions(nestedMixinDefinitions, elementSelector);
+                var MixinClass = parser.createMixinFromDefinitions(
+                        nestedMixinDefinitions, { elementSelector: elementSelector });
                 mixinClasses.push(MixinClass);
             };
 
@@ -281,10 +286,7 @@ Ribs.createMixinDefinitionParser = function (parseOne) {
             _.each(mixinDefinitions, _createMixinFromDefinitions);
         }
 
-        return Ribs.mixins.mixinComposite({
-            mixinClasses: mixinClasses,
-            elementSelector: elementSelector
-        });
+        return Ribs.mixins.mixinComposite(_.extend(options, { mixinClasses: mixinClasses }));
     };
 
     return parser;
@@ -419,25 +421,25 @@ Ribs.log = function (msg) {
 
 Ribs.mixins.invalidateOnChange = function (classOptions) {
     var InvalidateOnChangeInst = function (parent) {
+            var model;
             return _.extend({
+                modelName: "dataUI",
+                eventName: "change",
                 excludedAttributes: null,
                 includedAttributes: null,
-                excludedRibsUIAttributes: null,
-                includedRibsUIAttributes: null,
 
-                modelChanging: function () {
-                    if (this.dataModel) {
-                        this.dataModel.unbind("change", this.change);
+                bindToModel: function (value) {
+                    if (model) {
+                        if (typeof(model.safeUnbind) === "function") {
+                            model.safeUnbind(this.eventName, this.change);
+                        } else {
+                            model.unbind(this.eventName, this.change);
+                        }
                     }
-                    if (this.uiModel.safeUnbind) {
-                        this.uiModel.safeUnbind("change", this.ribsUIChange);
+                    model = value;
+                    if (model) {
+                        model.bind(this.eventName, this.change);
                     }
-                },
-                modelChanged: function () {
-                    if (this.dataModel) {
-                        this.dataModel.bind("change", this.change);
-                    }
-                    this.uiModel.bind("change", this.ribsUIChange);
                 },
                 change: function (ev) {
                     _.each(ev.changedAttributes(), this.checkAttribute);
@@ -445,17 +447,6 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                 checkAttribute: function (value, attrName) {
                     var excluded = this.excludedAttributes && _.indexOf(this.excludedAttributes, attrName) !== -1,
                         included = this.includedAttributes && _.indexOf(this.includedAttributes, attrName) !== -1;
-                    if (!excluded && included && !parent.invalidated) {
-                        parent.invalidated = true;
-                        _.defer(parent.render);
-                    }
-                },
-                ribsUIChange: function (ev) {
-                    _.each(ev.changedAttributes(), this.checkUIAttribute);
-                },
-                checkUIAttribute: function (value, attrName) {
-                    var excluded = this.excludedRibsUIAttributes && _.indexOf(this.excludedRibsUIAttributes, attrName) !== -1,
-                        included = this.includedRibsUIAttributes && _.indexOf(this.includedRibsUIAttributes, attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
                         parent.invalidated = true;
                         _.defer(parent.render);
@@ -473,10 +464,12 @@ Ribs.mixins.simpleList = function (classOptions) {
         SimpleListInst = function (parent) {
             var listModel, listViews, refreshingList;
             return _.extend({
+                modelName: "data",
+                attributeName: null,
                 itemTagName: null,
                 itemClassName: null,
 
-                modelChanging: function () {
+                bindToModel: function (model) {
                     _.each(listViews, function (view) {
                         view.dispose();
                     });
@@ -486,9 +479,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                         listModel.unbind("remove", this.removeOne);
                         listModel.unbind("refresh", this.addAll);
                     }
-                },
-                modelChanged: function () {
-                    listModel = this.model && this.model.get(this.attributeName) ? this.model && this.model.get(this.attributeName) : this.dataModel;
+                    listModel = this.attributeName ? model.get(this.attributeName) : this.model;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
@@ -524,6 +515,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                 },
                 addAll: function () {
                     refreshingList = true;
+                    listViews = {};
                     if (listModel.each) {
                         listModel.each(this.addOne);
                     }
@@ -532,8 +524,10 @@ Ribs.mixins.simpleList = function (classOptions) {
                     refreshingList = false;
                 },
                 removeOne: function (item) {
-                    delete listViews[item.cid];
-                    $(item.el).remove();
+                    if(listViews.hasOwnProperty(item.cid)) {
+                        $(listViews[item.cid].el).remove();
+                        delete listViews[item.cid];
+                    }
                 }
             }, classOptions || {});
         };
@@ -544,17 +538,21 @@ Ribs.mixins.simpleList = function (classOptions) {
 Ribs.mixins.templated = function (classOptions) {
     classOptions = classOptions || {};
     var defaultTemplateFunction = classOptions.templateSelector && _.template($(classOptions.templateSelector)),
-        TemplatedInst = function () {
+        TemplatedInst = function (parent) {
             return _.extend({
                 templateSelector: null,
                 templateFunction: defaultTemplateFunction,
+                modelNames: ["data", "dataUI"],
                 className: null,
 
                 redraw: function () {
-                    var modelJSON = this.dataModel ? this.dataModel.toJSON() : {},
-                        uiModelJSON = this.uiModel.toJSON(),
-                        json = _.extend(modelJSON, uiModelJSON);
-
+                    var modelJSON = {};
+                    for (var i = 0; i < this.modelNames.length; i++) {
+                        var modelName = this.modelNames[i];
+                        if (parent && parent.ribsUIModels && parent.ribsUIModels.get(modelName)) {
+                            modelJSON = _.extend(modelJSON, parent.ribsUIModels.get(modelName));
+                        }
+                    }
                     json.t = function (name) {
                         return this.hasOwnProperty(name) ? this[name] : "";
                     };
@@ -570,119 +568,89 @@ Ribs.mixins.templated = function (classOptions) {
 };
 
 Ribs.mixins.editable = function (classOptions) {
-    var EditableInst = Ribs.mixins.mixinComposite(_.extend({
-        mixinClasses: [
-            Ribs.mixins.toggleAttribute({
-                onEvent: "click",
-                offEvent: "click",
-                uiAttributeName: "editing"
-            }),
-            Ribs.mixins.toggleableClass({
-                className: "editing",
-                uiAttributeName: "editing"
-            })
-        ]
-    }, classOptions || {}));
+    var EditableInst = Ribs.mixinParser.createMixinFromDefinitions([
+        { toggleAttribute: {
+            onEvent: "click",
+            offEvent: "click"
+        }},
+        { toggleableClass: {
+            className: "editing"
+        }}
+    ], _.extend({
+        attributeName: "editing",
+        modelName: "dataUI"
+    }, classOptions));
 
     return EditableInst;
 };
 
-Ribs.mixins.editableText = function (classOptions) {
-    classOptions = classOptions || {};
-    var EditableTextInst = Ribs.mixins.mixinComposite(_.extend({
-        mixins: [
-            { mixinComposite: {
-                elementCreator: "<span>moi</span>",
-                mixins: [
-                    { toggleableElement: { uiAttributeName: "editing", inverse: true } }
-                ]
-            }},
-            { mixinComposite: {
-                elementCreator: "<input type=\"text\" />",
-                mixins: [
-                    { toggleableElement: { uiAttributeName: "editing" } },
-                    { textValueEdit: {
-                        attributeName: classOptions.attributeName,
-                        uiAttributeName: classOptions.uiAttributeName
-                    }}
-                ]
-            }}
-        ]
-    }, classOptions || {}));
-
-    return EditableTextInst;
-};
-
 Ribs.mixins.hoverable = function (classOptions) {
-    var HoverableInst = Ribs.mixins.mixinComposite(_.extend({
-        mixinClasses: [
-            Ribs.mixins.toggleAttribute({
+    var HoverableInst = Ribs.mixinParser.createMixinFromDefinitions([
+        { toggleAttribute: {
                 onEvent: "mouseenter",
-                offEvent: "mouseleave",
-                uiAttributeName: "hovering"
-            }),
-            Ribs.mixins.toggleableClass({
-                className: "hovering",
-                uiAttributeName: "hovering"
-            })
-        ]
-    }, classOptions || {}));
+                offEvent: "mouseleave"
+        }},
+        { toggleableClass: {
+                className: "hovering"
+        }}
+    ], _.extend({
+        attributeName: "hovering",
+        modelName: "dataUI"
+    }, classOptions));
 
     return HoverableInst;
 };
 
 Ribs.mixins.openable = function (classOptions) {
-    var OpenableInst = Ribs.mixins.mixinComposite(_.extend({
-        mixinClasses: [
-            Ribs.mixins.toggleAttribute({
-                onEvent: "click",
-                offEvent: "click",
-                uiAttributeName: "open"
-            }),
-            Ribs.mixins.toggleableClass({
-                className: "open",
-                uiAttributeName: "open"
-            })
-        ]
-    }, classOptions || {}));
+    var OpenableInst = Ribs.mixinParser.createMixinFromDefinitions([
+        { toggleAttribute: {
+            onEvent: "click",
+            offEvent: "click"
+        }},
+        { toggleableClass: {
+            className: "open"
+        }}
+    ], _.extend({
+        attributeName: "open",
+        modelName: "dataUI"
+    }));
 
     return OpenableInst;
 };
 
 Ribs.mixins.selectable = function (classOptions) {
-    var SelectableInst = Ribs.mixins.mixinComposite(_.extend({
-        mixinClasses: [
-            Ribs.mixins.toggleAttribute({
-                onEvent: "click",
-                offEvent: "click",
-                uiAttributeName: "selected"
-            }),
-            Ribs.mixins.toggleableClass({
-                className: "selected",
-                uiAttributeName: "selected"
-            })
-        ]
-    }, classOptions || {}));
+    var SelectableInst = Ribs.mixinParser.createMixinFromDefinitions([
+        { toggleAttribute: {
+            onEvent: "click",
+            offEvent: "click"
+        }},
+        { toggleableClass: {
+            className: "selected"
+        }}
+    ], _.extend({
+        attributeName: "selected",
+        modelName: "dataUI"
+    }, classOptions));
 
     return SelectableInst;
 };
 
 Ribs.mixins.functionValueEdit = function (classOptions) {
     var FunctionValueEditInst = Ribs.mixins.textValueEdit(_.extend({
-            readFunctionName: null,
-            writeFunctionName: null,
+        readFunctionName: null,
+        writeFunctionName: null,
 
-            readFunction: function (value) {
-                return (value && value[this.readFunctionName]) ? value[this.readFunctionName]() : value;
-            },
-            writeFunction: function (value, oldValue) {
-                if (oldValue && oldValue[this.writeFunctionName]) {
-                    oldValue[this.writeFunctionName](value);
-                    return oldValue;
-                }
-                return value;
+        readFunction: function (value) {
+            return (value && value[this.readFunctionName]) ? value[this.readFunctionName]() : value;
+        },
+        writeFunction: function (value, oldValue) {
+            if (oldValue && oldValue[this.writeFunctionName]) {
+                oldValue[this.writeFunctionName](value);
+                return oldValue;
             }
-        }, classOptions || {}));
+            return value;
+        }
+    }, classOptions || {}));
 
     return FunctionValueEditInst;
 };
@@ -690,17 +658,25 @@ Ribs.mixins.functionValueEdit = function (classOptions) {
 Ribs.mixins.selectEdit = function (classOptions) {
     classOptions = classOptions || {};
     var SelectEditInst = function () {
+            var model;
             return _.extend({
+                modelName: "data",
+                attributeName: null,
                 elementSelector: classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]',
                 selectOptions: [],
 
                 modelChanging: function () {
-                    this.uiModel.unbind("commitEdit", this.commit);
-                    this.uiModel.unbind("cancelEdit", this.redraw);
+                    if (model) {
+                        model.unbind("commitEdit", this.commit);
+                        model.unbind("cancelEdit", this.redraw);
+                    }
                 },
                 modelChanged: function () {
-                    this.uiModel.bind("commitEdit", this.commit);
-                    this.uiModel.bind("cancelEdit", this.redraw);
+                    model = this.getMyModel();
+                    if (model) {
+                        model.bind("commitEdit", this.commit);
+                        model.bind("cancelEdit", this.redraw);                        
+                    }
                 },
                 redraw: function () {
                     if (this.el.is("select")) {
@@ -711,7 +687,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
                         this.el.append(this.selectEl);
                     }
 
-                    var val = this.model && this.model.get(this.attributeName);
+                    var val = this.getMyValue();
                     _.each(this.selectOptions, _.bind(function (option) {
                         var optionEl = $('<option></option>');
                         optionEl
@@ -729,7 +705,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
                         this.setMyValue(this.selectEl.val());
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return SelectEditInst;
@@ -739,22 +715,27 @@ Ribs.mixins.selectEdit = function (classOptions) {
 Ribs.mixins.textValueEdit = function (classOptions) {
     classOptions = classOptions || {};
     var TextValueEditInst = function () {
+            var model;
             return _.extend({
+                modelName: "data",
+                attributeName: null,
                 readFunction: null,
                 writeFunction: null,
-                elementSelector: (classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]')
-                                        || (classOptions.uiAttributeName && '[name|="' + classOptions.uiAttributeName + '"]'),
+                elementSelector: classOptions.attributeName && '[name|="' + classOptions.attributeName + '"]',
 
-                modelChanging: function () {
-                    this.uiModel.unbind("commitEdit", this.commit);
-                    this.uiModel.unbind("cancelEdit", this.redraw);
-                },
-                modelChanged: function () {
-                    this.uiModel.bind("commitEdit", this.commit);
-                    this.uiModel.bind("cancelEdit", this.redraw);
+                bindToModel: function (value) {
+                    if (model) {
+                        model.unbind("commitEdit", this.commit);
+                        model.unbind("cancelEdit", this.redraw);
+                    }
+                    model = value;
+                    if (model) {
+                        model.bind("ribs:commitEdit", this.commit);
+                        model.bind("ribs:cancelEdit", this.redraw);
+                    }
                 },
                 redraw: function () {
-                    var value = this.model && this.model.get(this.attributeName);
+                    var value = this.getMyValue();
                     if (this.readFunction) {
                         value = this.readFunction(value);
                     }
@@ -765,12 +746,12 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                     if (this.el) {
                         var value = this.el.val();
                         if (this.writeFunction) {
-                            value = this.writeFunction(value, this.model && this.model.get(this.attributeName));
+                            value = this.writeFunction(value, this.getMyValue());
                         }
                         this.setMyValue(value);
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return TextValueEditInst;
@@ -779,12 +760,14 @@ Ribs.mixins.textValueEdit = function (classOptions) {
 Ribs.mixins.cancelEdit = function (classOptions) {
     var CancelEditInst = function () {
             return _.extend({
+                modelName: "data",
                 events: {
                     "click": "cancel"
                 },
                 cancel: function () {
-                    this.uiModel.trigger("cancelEdit");
-                    this.uiModel.set({ editing: false });
+                    if (this.model) {
+                        this.model.trigger("ribs:cancelEdit");
+                    }
                 }
             }, classOptions || {});
         };
@@ -795,12 +778,14 @@ Ribs.mixins.cancelEdit = function (classOptions) {
 Ribs.mixins.commitEdit = function (classOptions) {
     var CommitEditInst = function () {
             return _.extend({
+                modelName: "data",
                 events: {
                     "click": "commit"
                 },
                 commit: function () {
-                    this.uiModel.trigger("commitEdit");
-                    this.uiModel.set({ editing: false });
+                    if (this.model) {
+                        this.model.trigger("ribs:commitEdit");
+                    }
                 }
             }, classOptions || {});
         };
@@ -811,12 +796,14 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
     var ToggleAttributeInst = function () {
             return _.extend({
-                events: {},
+                modelName: "dataUI",
+                attributeName: null,
                 attributeDefaultValue: false,
                 onEvent: "click",
                 offEvent: null,
 
                 bindEvents: function () {
+                    this.events = {};
                     if (this.onEvent) {
                         this.events[this.onEvent] = "toggleOn";
                     }
@@ -824,34 +811,24 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                         this.events[this.offEvent] = "toggleOff";
                     }
                 },
-
-                updateValue: function (newValue) {
-                    var values = {};
-                    if (this.attributeName && this.dataModel) {
-                        values[this.attributeName] = newValue;
-                        this.dataModel.set(values);
-                    } else if (this.uiAttributeName) {
-                        values[this.uiAttributeName] = newValue;
-                        this.uiModel.set(values);
-                    }
-                },
-                modelChanged: function (model) {
-                    if (typeof(this.model && this.model.get(this.attributeName)) === "undefined") {
+                bindToModel: function (model) {
+                    this.model = model;
+                    if (typeof(this.getMyValue()) === "undefined") {
                         this.updateValue(this.attributeDefaultValue);
                     }
                 },
 
                 toggleOn: function () {
-                    var newValue = (this.onEvent === this.offEvent) ? !this.model && this.model.get(this.attributeName) : true;
-                    this.updateValue(newValue);
+                    var newValue = (this.onEvent === this.offEvent) ? !this.getMyValue() : true;
+                    this.setMyValue(newValue);
                 },
                 toggleOff: function () {
                     if (this.onEvent !== this.offEvent) {
-                        this.updateValue(false);
+                        this.setMyValue(false);
                     }
                 }
 
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return ToggleAttributeInst;
@@ -861,6 +838,7 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
     var EveryOtherChildInst = function () {
             return _.extend({
                 childClassName: null,
+
                 refresh: function () {
                     if (!this.childClassName) {
                         return;
@@ -881,10 +859,13 @@ Ribs.mixins.toggleableClass = function (classOptions) {
     classOptions = classOptions || {};
     var ToggleableClassInst = function () {
             return _.extend({
-                className: classOptions.attributeName || classOptions.uiAttributeName,
+                modelName: "dataUI",
+                attributeName: null,
+                className: classOptions.attributeName,
                 inverse: false,
+                
                 refresh: function () {
-                    var value = this.model && this.model.get(this.attributeName);
+                    var value = this.getMyValue();
                     if (this.inverse) {
                         value = !value;
                     }
@@ -892,7 +873,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
                         this.el.toggleClass(this.className, value);
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return ToggleableClassInst;
@@ -900,24 +881,24 @@ Ribs.mixins.toggleableClass = function (classOptions) {
 
 Ribs.mixins.toggleableElement = function (classOptions) {
     var ToggleableElementInst = function (parent) {
-            var uiEventName;
+            var model, uiEventName;
             return _.extend({
-                uiAttributeName: "open",
+                modelName: "dataUI",
+                attributeName: "open",
                 inverse: false,
 
-                modelChanging: function () {
-                    if (this.uiModel && uiEventName) {
-                        this.uiModel.unbind(uiEventName, this.attributeChanged);
+                bindToModel: function (value) {
+                    if (model && uiEventName) {
+                        model.unbind(uiEventName, this.attributeChanged);
                     }
-                },
-                modelChanged: function () {
-                    if (this.uiModel) {
-                        uiEventName = "change:" + this.uiAttributeName;
-                        this.uiModel.bind(uiEventName, this.attributeChanged);
+                    model = this.value;
+                    if (model) {
+                        uiEventName = "change:" + this.attributeName;
+                        model.bind(uiEventName, this.attributeChanged);
                     }
                 },
                 redraw: function () {
-                    var value = this.model && this.model.get(this.attributeName);
+                    var value = this.getMyValue();
                     if (this.inverse) {
                         value = !value;
                     }
@@ -927,7 +908,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                 attributeChanged: function () {
                     parent.invalidated = true;
                 }
-            }, classOptions || {});
+            }, Ribs.mixinHelpers, classOptions || {});
         };
 
     return ToggleableElementInst;
