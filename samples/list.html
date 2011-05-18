@@ -99,7 +99,13 @@
             // Create an instance of PersonView and
             // append to #people-container
             $("#people-container").ribs("createView", {
-                view: PeopleView,
+                mixins: [
+                    { simpleList: {
+                        ItemRenderer: PersonView,
+                        itemTagName: "div",
+                        itemClassName: "person"
+                    }}
+                ],
                 options: { model: people }
             });
 

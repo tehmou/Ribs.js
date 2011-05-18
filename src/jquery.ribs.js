@@ -3,10 +3,19 @@
     var methods = {
         createView: function (options) {
             options = options || {};
-            var View = typeof(options.view) === "function" ? options.view : Ribs.createMixed(options.view);
-            if (!View) {
-                $.error("options.view was not defined when calling jQuery.ribs createMixed");
+            var View;
+            if (options.view) {
+                View = typeof(options.view) === "function" ? options.view : Ribs.createMixed(options.view);
+            } else if (options.mixins) {
+                View = Ribs.createMixed({ mixins: options.mixins });                
             }
+
+            if (!View) {
+                if (!View) {
+                    $.error("options.view was not defined when calling jQuery.ribs createMixed");
+                }
+            }
+            
             return this.each(function () {
                 if (this.ribsView) {
                     if (typeof(this.ribsView.dispose) === "function") {
