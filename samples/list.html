@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ribs.js--List Example</title>
+
+    <style type="text/css">
+        body {
+            font-family: "Helvetica Neue", "Helvetica", "Arial", sans;
+            font-size: 10pt;
+        }
+        #wrapper {
+            width: 45%;
+        }
+       .person {
+            cursor: hand;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .person.hovering {
+            border: 1px solid #888;
+        }
+        .person.selected {
+            background: #888;
+            color: #fff;
+        }    </style>
+
+    <script src="../lib/jquery-1.5.min.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <!--<script src="lib/ribs.js"></script>-->
+
+<!-- visualizer -->
+    <script src="../src/core.js"></script>
+    <script src="../src/managedview.js"></script>
+    <script src="../src/mixins/invalidateonchange.js"></script>
+    <script src="../src/mixins/simplelist.js"></script>
+    <script src="../src/mixins/templated.js"></script>
+    <script src="../src/mixins/combined/editable.js"></script>
+    <script src="../src/mixins/combined/hoverable.js"></script>
+    <script src="../src/mixins/combined/selectable.js"></script>
+    <script src="../src/mixins/combined/openable.js"></script>
+    <script src="../src/mixins/edit/functionvalueedit.js"></script>
+    <script src="../src/mixins/edit/selectedit.js"></script>
+    <script src="../src/mixins/edit/textvalueedit.js"></script>
+    <script src="../src/mixins/statechange/cancelEdit.js"></script>
+    <script src="../src/mixins/statechange/commitEdit.js"></script>
+    <script src="../src/mixins/statechange/toggleattribute.js"></script>
+    <script src="../src/mixincomposite.js"></script>
+    <script src="../src/mixins/visual/everyotherchild.js"></script>
+    <script src="../src/mixins/visual/toggleableelement.js"></script>
+    <script src="../src/mixins/visual/toggleableclass.js"></script>
+    <script src="../src/utils/mixinhelpers.js"></script>
+    <script src="../src/utils/mixinparser.js"></script>
+    <script src="../src/utils/uimanager.js"></script>
+    <script src="../src/utils/uimodelutils.js"></script>
+<!-- /visualizer -->
+
+    <script type="text/javascript">
+        $(function () {
+
+            var people, PersonViewBase, PersonView, PersonEditView,
+                PeopleView, PeopleEditView,
+                personView, peopleView, peopleView2;
+
+            // Create some data.
+            people = new Backbone.Collection([
+                { name: "Pekka", gender: "male", birthday: new Date() },
+                { name: "Kaisa", gender: "female", birthday: new Date() },
+                { name: "Maiju", gender: "female", birthday: new Date() },
+                { name: "Markus", gender: "male", birthday: new Date() }
+            ]);
+
+            Ribs.createUIManager("peopleManager");
+            Ribs.uiManagers.peopleManager.register(people);
+
+
+            // Create a Backbone.View class for one person.
+            PersonView = Ribs.createMixed({ mixins: [
+                { invalidateOnChange: {
+                    modelName: "dataUI",
+                    includedAttributes: ["selected", "hovering"]
+                }},
+                { templated: { templateSelector: "#person-tmpl" }},
+                { selectable: {} },
+                { hoverable: {} }
+            ]});
+
+            // Create a Backbone.View class for a list of people.
+            PeopleView = Ribs.createMixed({ mixins: [
+                { simpleList: {
+                    ItemRenderer: PersonView,
+                    itemTagName: "div",
+                    itemClassName: "person"
+                }}
+            ]});
+
+            // Create an instance of PersonView and
+            // append to #people-container
+            peopleView = new PeopleView({ model: people, el: $("#people-container") });
+
+        });
+
+    </script>
+
+<!-- visualizer -->
+    <link href="css/visualizer.css" rel="stylesheet">
+    <script src="js/visualizer.js"></script>
+    <script>
+        $(function () {
+            visualize("list.html");
+        });
+    </script>
+<!-- /visualizer -->
+
+</head>
+<body>
+
+<div id="wrapper">
+
+<h2>One selectable:</h2>
+<div id="people-container"></div>
+
+<script id="person-tmpl" type="text/html">
+<span>
+    <%= name %>
+    (gender: <%= gender %>,
+    year of birth: <%= birthday.getFullYear() %>)
+    <i><%= hasOwnProperty("editing") ? (editing ? "[editing]" : "") : "" %></i>
+</span>
+</script>
+
+</body>
+</html>

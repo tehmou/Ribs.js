@@ -3,7 +3,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
     var ToggleAttributeInst = function () {
             return _.extend({
                 modelName: "dataUI",
-                attributeName: "hei",
+                attributeName: null,
                 attributeDefaultValue: false,
                 onEvent: "click",
                 offEvent: null,

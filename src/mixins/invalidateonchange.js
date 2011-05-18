@@ -27,7 +27,7 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                     var excluded = this.excludedAttributes && _.indexOf(this.excludedAttributes, attrName) !== -1,
                         included = this.includedAttributes && _.indexOf(this.includedAttributes, attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
-                        parent.invalidated = true;
+                        console.log(attrName);
                         _.defer(parent.render);
                     }
                 }
