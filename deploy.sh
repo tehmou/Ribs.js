@@ -2,7 +2,7 @@ TARGET=target/ribs.js
 
 echo Writing Core and ManagedView..
 echo -e "// Core classes\n" > $TARGET
-cat src/core.js src/managedview.js src/mixincomposite.js >> $TARGET
+cat src/jquery.ribs.js src/core.js src/managedview.js src/mixincomposite.js >> $TARGET
 
 echo Appending utils..
 echo -e "\n\n\n// Utilities\n" >> $TARGET

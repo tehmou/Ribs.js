@@ -5,7 +5,6 @@ Ribs.mixins.hoverable = function (classOptions) {
             offEvent: "mouseleave"
         }},
         { toggleableClass: {
-            attributeName: "hovering",
             className: "hovering"
         }}
     ], _.extend({
