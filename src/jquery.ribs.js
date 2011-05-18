@@ -1,7 +1,8 @@
 (function ($) {
 
     var methods = {
-        createMixed: function (options) {
+        createView: function (options) {
+            options = options || {};
             var View = typeof(options.view) === "function" ? options.view : Ribs.createMixed(options.view);
             if (!View) {
                 $.error("options.view was not defined when calling jQuery.ribs createMixed");
@@ -17,13 +18,13 @@
         }
     };
 
-    $.fn.ribs = function (method, options) {
+    $.fn.ribs = function (method) {
         if (methods.hasOwnProperty(method)) {
-            return methods[method].apply(this, Array.prototype.splice(arguments, 1));
+            return methods[method].apply(this, Array.prototype.splice.call(arguments, 1));
         } else {
             $.error("Method " + method + " does not exist on jQuery.ribs");
         }
     };
 
-}());
+}($));
 

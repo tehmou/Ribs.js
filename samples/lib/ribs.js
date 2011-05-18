@@ -1,239 +1,34 @@
-// Core classes
+// jQuery plugin support
 
-/*global $,_,Backbone,console*/
+(function ($) {
 
-var Ribs = {};
-
-Ribs.VERSION = "0.0.84";
-
-Ribs.mixins = {};
-
-Ribs.mixinMethods = [
-    "customInitialize",
-    "bindToModel",
-    "render", "redraw", "refresh",
-    "unbindEvents", "bindEvents",
-    "hide", "dispose"
-];
-
-Ribs.createMixed = function (myOptions) {
-    myOptions = myOptions || {};
-
-    var Buildee = myOptions.Base ? myOptions.Base.extend() : Ribs.ManagedView.extend(),
-        NewRootMixin = Ribs.createMixinFromDefinitions(myOptions),
-        OldRootMixin = myOptions.Base && myOptions.Base.RootMixin,
-
-        delegateOneToRootMixin = function (methodName) {
-            Buildee.prototype[methodName] = function () {
-                Ribs.ManagedView.prototype[methodName].apply(this, arguments);
-                if (this.rootMixin && this.rootMixin[methodName]) {
-                    this.rootMixin[methodName].apply(this.rootMixin, arguments);
-                }
-            };
-        };
-
-    _.each(Ribs.mixinMethods, delegateOneToRootMixin);
-
-    if (OldRootMixin) {
-        Buildee.RootMixin = Ribs.mixins.mixinComposite({
-            mixinClasses: [OldRootMixin, NewRootMixin]
-        });
-    } else {
-        Buildee.RootMixin = NewRootMixin;
-    }
-
-    Buildee.prototype.initialize = function () {
-        if (typeof(Buildee.RootMixin) === "function") {
-            this.rootMixin = new Buildee.RootMixin(this, this.options.model);
-        } else {
-            this.rootMixin = _.extend({}, Buildee.RootMixin);
-        }
-        Ribs.ManagedView.prototype.initialize.apply(this, arguments);
-    };
-
-    return Buildee;
-};
-
-Ribs.ManagedView = Backbone.View.extend({
-    invalidated: true,
-
-    initialize: function () {
-        _.bindAll(this, "customInitialize", "bindToModel", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
-        this.ribsUIModels = new Backbone.Model({ internal: new Backbone.Model() });
-        this.ribsUIModels.set(this.options.ribsUIModels);
-        Backbone.View.prototype.initialize.apply(this, arguments);
-        if (this.model) {
-            this.bindToModel(this.model);
-        }
-        this.customInitialize();
-        this.initialized = true;
-        this.render();
-    },
-    customInitialize: function () { },
-    bindToModel: function (model) {
-        this.model = model;
-        if (this.model) {
-            Ribs.augmentModelWithUIAttributes(this.model);
-        }
-        this.ribsUIModels.set({
-            data: model,
-            dataUI: model.ribsUI
-        });
-        this.invalidated = true;
-    },
-    render: function () {
-        if (!this.initialized) { return; }
-        this.unbindEvents();
-        if (this.invalidated) {
-            this.redraw(this.el);
-            this.invalidated = false;
-        }
-        this.refresh();
-        this.bindEvents();
-    },
-    unbindEvents: function () {
-        $(this.el).unbind();
-    },
-    bindEvents: function () { },
-    redraw: function (el) { },
-    refresh: function () { },
-    hide: function () {
-        $(this.el).detach();
-    },
-    dispose: function () {
-        $(this.el).remove();
-    }
-});
-
-(function () {
-
-    var callAllMixins = function (mixins, methodName, originalArguments) {
-            _.each(mixins, function (mixin) {
-                if (mixin[methodName]) {
-                    mixin[methodName].apply(mixin, originalArguments);
-                }
-            });
-        },
-        updateMixinEl = function (mixin, el) {
-            mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
-        },
-        updateMixinModel = function (mixin) {
-            if (this.parent && this.parent.ribsUIModels) {
-                var model = this.parent.ribsUIModels.get(mixin.modelName);
-                if (mixin.model !== model) {
-                    if (typeof(mixin.bindToModel) === "function") {
-                        mixin.bindToModel(model);
-                    } else {
-                        mixin.model = model;
+    var methods = {
+        createView: function (options) {
+            options = options || {};
+            var View = typeof(options.view) === "function" ? options.view : Ribs.createMixed(options.view);
+            if (!View) {
+                $.error("options.view was not defined when calling jQuery.ribs createMixed");
+            }
+            return this.each(function () {
+                if (this.ribsView) {
+                    if (typeof(this.ribsView.dispose) === "function") {
+                        this.ribsView.dispose();
                     }
                 }
-            }
-        },
-        eventSplitter = /^(\w+)\s*(.*)$/;
-
-    Ribs.mixins.mixinComposite = function (classOptions) {
-        classOptions = classOptions || {};
-
-        var mixinClasses = classOptions.mixinClasses,
-                elementSelector = classOptions.elementSelector,
-                elementCreator = classOptions.elementCreator,
-
-                MixinCompositeInst = function (parentView, model) {
-                    this.customInitialize = function () {
-                        if (parentView) {
-                            parentView.bind("change", this.updateMixinModels);
-                        }
-                        this.mixins = [];
-                        _.each(this.mixinClasses, _.bind(function (MixinClass) {
-                            var mixin = new MixinClass(parentView, model);
-                            updateMixinModel(mixin);
-                            _.bind(function () { _.bindAll(this); }, mixin)();
-
-                            mixin.parent = parentView;
-                            mixin.modelName = mixin.modelName || this.modelName;
-                            mixin.attributeName = mixin.attributeName || this.attributeName;
-
-                            this.mixins.push(mixin);
-                        }, this));
-                        callAllMixins(this.mixins, "customInitialize", arguments);
-                    };
-
-                    this.bindToModel = function () {
-                        this.updateMixinModels();
-                    };
-
-                    this.updateMixinModels = function () {
-                        _.each(this.mixins, function (mixin) {
-                            updateMixinModel(mixin);
-                        });
-                    };
-
-                    this.unbindEvents = function () {
-                        if (this.el) {
-                            this.el.unbind();
-                        }
-                        _.each(this.mixins, function (mixin) {
-                            if (mixin.el) {
-                                mixin.el.unbind();
-                            }
-                            if (mixin.unbindEvents) {
-                                mixin.unbindEvents.apply(mixin);
-                            }
-                        });
-                    };
-
-                    this.bindEvents = function () {
-                        _.each(this.mixins, function (mixin) {
-                            if (mixin.bindEvents) {
-                                mixin.bindEvents.apply(mixin);
-                            }
-                            if (!mixin || !mixin.events || !mixin.el || !mixin.el.is(":visible")) {
-                                return;
-                            }
-                            _.each(mixin.events, _.bind(function (methodName, key) {
-                                var match = key.match(eventSplitter),
-                                        eventName = match[1], selector = match[2],
-                                        method = _.bind(this[methodName], this);
-                                if (selector === '') {
-                                    mixin.el.bind(eventName, method);
-                                } else {
-                                    mixin.el.delegate(selector, eventName, method);
-                                }
-                            }, mixin));
-                        });
-                    };
-
-                    this.redraw = function (parentEl) {
-                        this.el = $(parentEl).find(elementSelector);
-                        if (this.el.length === 0) {
-                            if (elementCreator) {
-                                this.el = $(parentEl).append($(elementCreator));
-                            } else {
-                                this.el = $(parentEl);
-                            }
-                        }
-                        _.each(this.mixins, _.bind(function (mixin) {
-                            updateMixinEl(mixin, this.el);
-                            if (mixin.redraw) {
-                                mixin.redraw.apply(mixin, [mixin.el]);
-                            }
-                        }, this));
-                    };
-                };
-
-        MixinCompositeInst.prototype.mixinClasses = mixinClasses;
-
-        _.each(Ribs.mixinMethods, function (methodName) {
-            if (!MixinCompositeInst.prototype.hasOwnProperty(methodName)) {
-                MixinCompositeInst.prototype[methodName] = function () {
-                    callAllMixins(this.mixins, methodName, arguments);
-                };
-            }
-        });
-
-        return MixinCompositeInst;
+                this.ribsView = new View($.extend(options.options || {}, { el: this }));
+            });
+        }
     };
-}());
+
+    $.fn.ribs = function (method) {
+        if (methods.hasOwnProperty(method)) {
+            return methods[method].apply(this, Array.prototype.splice.call(arguments, 1));
+        } else {
+            $.error("Method " + method + " does not exist on jQuery.ribs");
+        }
+    };
+
+}($));
 
 
 
@@ -448,7 +243,7 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                     var excluded = this.excludedAttributes && _.indexOf(this.excludedAttributes, attrName) !== -1,
                         included = this.includedAttributes && _.indexOf(this.includedAttributes, attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
-                        parent.invalidated = true;
+                        console.log(attrName);
                         _.defer(parent.render);
                     }
                 }
@@ -479,7 +274,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                         listModel.unbind("remove", this.removeOne);
                         listModel.unbind("refresh", this.addAll);
                     }
-                    listModel = this.attributeName ? model.get(this.attributeName) : this.model;
+                    listModel = this.attributeName ? model.get(this.attributeName) : model;
                     if (listModel) {
                         listModel.bind("add", this.addOne);
                         listModel.bind("remove", this.removeOne);
@@ -537,32 +332,32 @@ Ribs.mixins.simpleList = function (classOptions) {
 
 Ribs.mixins.templated = function (classOptions) {
     classOptions = classOptions || {};
-    var defaultTemplateFunction = classOptions.templateSelector && _.template($(classOptions.templateSelector)),
+    var defaultTemplateFunction = classOptions.templateSelector && _.template($(classOptions.templateSelector).html()),
         TemplatedInst = function (parent) {
-            return _.extend({
-                templateSelector: null,
-                templateFunction: defaultTemplateFunction,
-                modelNames: ["data", "dataUI"],
-                className: null,
+                return _.extend({
+                    templateSelector: null,
+                    templateFunction: defaultTemplateFunction,
+                    modelNames: ["data", "dataUI"],
+                    className: null,
 
-                redraw: function () {
-                    var modelJSON = {};
-                    for (var i = 0; i < this.modelNames.length; i++) {
-                        var modelName = this.modelNames[i];
-                        if (parent && parent.ribsUIModels && parent.ribsUIModels.get(modelName)) {
-                            modelJSON = _.extend(modelJSON, parent.ribsUIModels.get(modelName));
+                    redraw: function () {
+                        var modelJSON = {};
+                        for (var i = 0; i < this.modelNames.length; i++) {
+                            var modelName = this.modelNames[i];
+                            if (parent && parent.ribsUIModels && parent.ribsUIModels.get(modelName)) {
+                                modelJSON = _.extend(modelJSON, parent.ribsUIModels.get(modelName).toJSON());
+                            }
+                        }
+                        modelJSON.t = function (name) {
+                            return this.hasOwnProperty(name) ? this[name] : "";
+                        };
+                        this.el.html(this.templateFunction(modelJSON));
+                        if (this.className) {
+                            this.el.toggleClass(this.className, true);
                         }
                     }
-                    json.t = function (name) {
-                        return this.hasOwnProperty(name) ? this[name] : "";
-                    };
-                    this.el.html(this.templateFunction(json));
-                    if (this.className) {
-                        this.el.toggleClass(this.className, true);
-                    }
-                }
-            }, classOptions);
-        };
+                }, classOptions);
+            };
 
     return TemplatedInst;
 };
@@ -587,11 +382,11 @@ Ribs.mixins.editable = function (classOptions) {
 Ribs.mixins.hoverable = function (classOptions) {
     var HoverableInst = Ribs.mixinParser.createMixinFromDefinitions([
         { toggleAttribute: {
-                onEvent: "mouseenter",
-                offEvent: "mouseleave"
+            onEvent: "mouseenter",
+            offEvent: "mouseleave"
         }},
         { toggleableClass: {
-                className: "hovering"
+            className: "hovering"
         }}
     ], _.extend({
         attributeName: "hovering",
@@ -814,7 +609,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                 bindToModel: function (model) {
                     this.model = model;
                     if (typeof(this.getMyValue()) === "undefined") {
-                        this.updateValue(this.attributeDefaultValue);
+                        this.setMyValue(this.attributeDefaultValue);
                     }
                 },
 
