@@ -10,16 +10,7 @@
     <script src="lib/jquery-1.5.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
-    <!-- <script src="lib/ribs.js"></script> -->
-    <script src="src/core.js"></script>
-    <script src="src/managedview.js"></script>
-    <script src="src/mixins/combined/hoverable.js"></script>
-    <script src="src/mixins/combined/selectable.js"></script>
-    <script src="src/mixins/simplelist.js"></script>
-    <script src="src/mixins/templated.js"></script>
-    <script src="src/mixins/visual/toggleableelement.js"></script>
-    <script src="src/mixins/combined/openable.js"></script>
-    <script src="src/utils/uimanager.js"></script>
+    <script src="target/ribs.js"></script>
 
     <script src="samples/js/index/maincontroller.js"></script>
     <script type="text/javascript">
@@ -37,22 +28,26 @@
                     { label: "UI Manager", id: "ui-manager" }
                 ]),
                 NaviItem = Ribs.createMixed({
-                    mixinClasses: [
-                        new Ribs.mixins.templated({
-                            templateFunction: _.template($("#navi-item-tmpl").html())
-                        }),
-                        new Ribs.mixins.hoverable()
+                    mixins: [
+                        { templated: {
+                            templateSelector: "#navi-item-tmpl"
+                        }},
+                        { hoverable: {}}
                     ]
                 }),
                 NaviList = Ribs.createMixed({
-                    mixinClasses: [
-                        new Ribs.mixins.simpleList({
+                    mixins: [
+                        { simpleList: {
                             ItemRenderer: NaviItem
-                        })
+                        }}
                     ]
                 });
 
-            new NaviList({ el: $("#navi-list"), model: naviData });
+            $("#navi-list").ribs("createView", {
+                view: NaviList,
+                options: { model: naviData }
+            });
+
             new MainController;
             Backbone.history.start();
         });
@@ -60,6 +55,9 @@
     </script>
 </head>
 <body>
+
+<div id="background"></div>
+<div id="flower"></div>
 
 <div id="navi">
     <h1>Ribs.js</h1>

@@ -1,3 +1,242 @@
+// Core classes
+
+/*global $,_,Backbone,console*/
+
+var Ribs = {};
+
+Ribs.VERSION = "0.0.84";
+
+Ribs.mixins = {};
+
+Ribs.mixinMethods = [
+    "customInitialize",
+    "bindToModel",
+    "render", "redraw", "refresh",
+    "unbindEvents", "bindEvents",
+    "hide", "dispose"
+];
+
+Ribs.createMixed = function (myOptions) {
+    myOptions = myOptions || {};
+
+    var Buildee = myOptions.base ? myOptions.base.extend() : Ribs.ManagedView.extend(),
+        NewRootMixin = Ribs.mixinParser.createMixinFromDefinitions(myOptions.mixins),
+        OldRootMixin = myOptions.base && myOptions.base.RootMixin,
+
+        delegateOneToRootMixin = function (methodName) {
+            Buildee.prototype[methodName] = function () {
+                Ribs.ManagedView.prototype[methodName].apply(this, arguments);
+                if (this.rootMixin && this.rootMixin[methodName]) {
+                    this.rootMixin[methodName].apply(this.rootMixin, arguments);
+                }
+            };
+        };
+
+    _.each(Ribs.mixinMethods, delegateOneToRootMixin);
+
+    if (OldRootMixin) {
+        Buildee.RootMixin = Ribs.mixins.mixinComposite({
+            mixinClasses: [OldRootMixin, NewRootMixin]
+        });
+    } else {
+        Buildee.RootMixin = NewRootMixin;
+    }
+
+    Buildee.prototype.initialize = function () {
+        if (typeof(Buildee.RootMixin) === "function") {
+            this.rootMixin = new Buildee.RootMixin(this, this.options.model);
+        } else {
+            this.rootMixin = _.extend({}, Buildee.RootMixin);
+        }
+        Ribs.ManagedView.prototype.initialize.apply(this, arguments);
+    };
+
+    return Buildee;
+};
+
+Ribs.ManagedView = Backbone.View.extend({
+    invalidated: true,
+
+    initialize: function () {
+        _.bindAll(this, "customInitialize", "bindToModel", "render", "unbindEvents", "redraw", "refresh", "bindEvents", "hide", "dispose");
+        this.ribsUIModels = new Backbone.Model({ internal: new Backbone.Model() });
+        this.ribsUIModels.set(this.options.ribsUIModels);
+        Backbone.View.prototype.initialize.apply(this, arguments);
+        if (this.model) {
+            this.bindToModel(this.model);
+        }
+        this.customInitialize();
+        this.initialized = true;
+        this.render();
+    },
+    customInitialize: function () { },
+    bindToModel: function (model) {
+        if (this.model && this.model.ribsUI) {
+            this.model.ribsUI.unbind("change", this.render);
+        }
+        this.model = model;
+        if (this.model) {
+            Ribs.augmentModelWithUIAttributes(this.model);
+            this.model.ribsUI.bind("change", this.render);
+        }
+        this.ribsUIModels.set({
+            data: model,
+            dataUI: model.ribsUI
+        });
+        this.invalidated = true;
+    },
+    render: function () {
+        if (!this.initialized) { return; }
+        this.unbindEvents();
+        if (this.invalidated) {
+            this.redraw(this.el);
+            this.invalidated = false;
+        }
+        this.refresh();
+        this.bindEvents();
+    },
+    unbindEvents: function () {
+        $(this.el).unbind();
+    },
+    bindEvents: function () { },
+    redraw: function (el) { },
+    refresh: function () { },
+    hide: function () {
+        $(this.el).detach();
+    },
+    dispose: function () {
+        $(this.el).remove();
+    }
+});
+
+(function () {
+
+    var callAllMixins = function (mixins, methodName, originalArguments) {
+            _.each(mixins, function (mixin) {
+                if (mixin[methodName]) {
+                    mixin[methodName].apply(mixin, originalArguments);
+                }
+            });
+        },
+        updateMixinEl = function (mixin, el) {
+            mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
+        },
+        updateMixinModel = function (mixin) {
+            if (mixin.parent && mixin.parent.ribsUIModels) {
+                var model = mixin.parent.ribsUIModels.get(mixin.modelName);
+                if (mixin.model !== model) {
+                    if (typeof(mixin.bindToModel) === "function") {
+                        mixin.bindToModel(model);
+                    }
+                    mixin.model = model;
+                }
+            }
+        },
+        eventSplitter = /^(\w+)\s*(.*)$/;
+
+    Ribs.mixins.mixinComposite = function (classOptions) {
+        classOptions = classOptions || {};
+
+        var MixinCompositeInst = function (parentView, model) {
+
+                this.customInitialize = function () {
+                    if (parentView) {
+                        parentView.bind("change", this.updateMixinModels);
+                    }
+                    this.mixins = [];
+                    _.each(this.mixinClasses, _.bind(function (MixinClass) {
+                        var mixin = new MixinClass(parentView, model);
+                        _.bind(function () { _.bindAll(this); }, mixin)();
+
+                        mixin.parent = parentView;
+                        mixin.modelName = mixin.modelName || this.modelName;
+                        mixin.attributeName = mixin.attributeName || this.attributeName;
+                        updateMixinModel(mixin);
+
+                        this.mixins.push(mixin);
+                    }, this));
+                    callAllMixins(this.mixins, "customInitialize", arguments);
+                };
+
+                this.bindToModel = function () {
+                    this.updateMixinModels();
+                };
+
+                this.updateMixinModels = function () {
+                    _.each(this.mixins, function (mixin) {
+                        updateMixinModel(mixin);
+                    });
+                };
+
+                this.unbindEvents = function () {
+                    if (this.el) {
+                        this.el.unbind();
+                    }
+                    _.each(this.mixins, function (mixin) {
+                        if (mixin.el) {
+                            mixin.el.unbind();
+                        }
+                        if (mixin.unbindEvents) {
+                            mixin.unbindEvents.apply(mixin);
+                        }
+                    });
+                };
+
+                this.bindEvents = function () {
+                    _.each(this.mixins, function (mixin) {
+                        if (mixin.bindEvents) {
+                            mixin.bindEvents.apply(mixin);
+                        }
+                        if (!mixin || !mixin.events || !mixin.el) {
+                            return;
+                        }
+                        _.each(mixin.events, _.bind(function (methodName, key) {
+                            var match = key.match(eventSplitter),
+                                    eventName = match[1], selector = match[2],
+                                    method = _.bind(this[methodName], this);
+                            if (selector === '') {
+                                mixin.el.bind(eventName, method);
+                            } else {
+                                mixin.el.delegate(selector, eventName, method);
+                            }
+                        }, mixin));
+                    });
+                };
+
+                this.redraw = function (parentEl) {
+                    this.el = $(parentEl).find(this.elementSelector);
+                    if (this.el.length === 0) {
+                        if (this.elementCreator) {
+                            this.el = $(parentEl).append($(this.elementCreator));
+                        } else {
+                            this.el = $(parentEl);
+                        }
+                    }
+                    _.each(this.mixins, _.bind(function (mixin) {
+                        updateMixinEl(mixin, this.el);
+                        if (mixin.redraw) {
+                            mixin.redraw.apply(mixin, [mixin.el]);
+                        }
+                    }, this));
+                };
+
+                _.extend(this, classOptions);
+            };
+
+        MixinCompositeInst.prototype.mixinClasses = classOptions.mixinClasses;
+
+        _.each(Ribs.mixinMethods, function (methodName) {
+            if (!MixinCompositeInst.prototype.hasOwnProperty(methodName)) {
+                MixinCompositeInst.prototype[methodName] = function () {
+                    callAllMixins(this.mixins, methodName, arguments);
+                };
+            }
+        });
+
+        return MixinCompositeInst;
+    };
+}());
+
 // jQuery plugin support
 
 (function ($) {
@@ -252,6 +491,7 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                     var excluded = this.excludedAttributes && _.indexOf(this.excludedAttributes, attrName) !== -1,
                         included = this.includedAttributes && _.indexOf(this.includedAttributes, attrName) !== -1;
                     if (!excluded && included && !parent.invalidated) {
+                        parent.invalidated = true;
                         _.defer(parent.render);
                     }
                 }

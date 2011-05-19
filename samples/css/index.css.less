@@ -1,6 +1,7 @@
 @quiet: #988283;
 @loud: #F0004C;
 @bg: #FFFFFF;
+@text: #000000;
 
 @quiet-dark: darken(@quiet, 30%);
 @quiet-light: lighten(@quiet, 30%);
@@ -13,39 +14,54 @@ body {
     font-size: 9pt;
     padding: 0;
     margin: 0;
-    background: @bg;
+}
+
+#background {
+    border: 1px solid @text;
+    position: fixed;
+    background: url("../images/navibg.png") top left;
+    width: 250px;
+    height: 100%;
+}
+
+#flower {
+    position: fixed;
+    background: url("../images/flower2.png") top left no-repeat;
+    width: 250px;
+    height: 100%;
 }
 
 #navi {
-    background: @quiet;
     position: fixed;
-    width: 20%;
-    top: 0;
-    bottom: 0;
+    width: 250px;
+    bottom: 20px;
     left: 0;
-    border-right: 2px solid @quiet-dark;
     font-size: 18pt;
     text-align: right;
 
     h1 {
+        font-size: 30pt;
         padding: 0 10px;
-        color: @loud-dark;
+        margin: 10px 0;
+        color: @bg;
     }
 }
 
 #navi-list {
 
-    color: @loud-light;
-    border-top: 1px solid @quiet-light;
+    color: @text;
 
     div {
+        background: @bg;
+        opacity: 0.4;
         left: 0;
         right: 0;
-        border-bottom: 1px solid @quiet-light;
+        margin-bottom: 3px;
         padding: 2px 10px;
 
         &.hovering {
             background: @loud-dark;
+            opacity: 0.8;
             color: @bg;
         }
 
@@ -55,5 +71,5 @@ body {
 
 #content {
     position: absolute;
-    left: 20%;
+    left: 252px;
 }

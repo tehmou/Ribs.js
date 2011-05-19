@@ -5,7 +5,7 @@ echo -e "// Core classes\n" > $TARGET
 cat src/core.js src/managedview.js src/mixincomposite.js >> $TARGET
 
 echo jQuery plugin support..
-echo -e "// jQuery plugin support\n" > $TARGET
+echo -e "// jQuery plugin support\n" >> $TARGET
 cat src/jquery.ribs.js >> $TARGET
 
 echo Appending utils..
@@ -20,7 +20,7 @@ cat src/mixins/edit/* >> $TARGET
 cat src/mixins/statechange/* >> $TARGET
 cat src/mixins/visual/* >> $TARGET
 
-echo Copying to samples/lib..
+echo Copying to target & samples/lib..
 cp target/ribs.js samples/lib
 
 echo Completed!
