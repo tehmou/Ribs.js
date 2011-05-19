@@ -32,20 +32,6 @@
         .view, .edit {
             padding: 3px 6px;
         }
-
-        .view {
-            display: block;
-        }
-        .editing.view {
-            display: none
-        }
-        .edit {
-            display: none;
-        }
-        .editing.edit {
-            display: block;
-        }
-
         .view-item {
             display: inline-block;
             width: 100%;
@@ -125,7 +111,8 @@
             PersonViewBase = Ribs.createMixed({
                 mixins: [
                     { invalidateOnChange: {
-                        includedRibsUIAttributes: ["editing", "selected", "hovering"]
+                        modelName: "dataUI",
+                        includedAttributes: ["editing", "selected", "hovering"]
                     }},
                     { templated: { templateSelector: "#person-tmpl" }}
                 ]
@@ -143,7 +130,10 @@
             PersonEditView = Ribs.createMixed({
                 base: PersonViewBase,
                 mixins: {
-                    "*": [
+                    ".edit": [
+                        { toggleableElement: {
+                            attributeName: "editing"
+                        }},
                         { textValueEdit: { attributeName: "name" }},
                         { functionValueEdit: {
                             attributeName: "birthday",
@@ -157,13 +147,16 @@
                                 { value: "male", text: "male" },
                                 { value: "female", text: "female" }
                             ]
-                        }},
-                        { toggleableClass: {
-                            uiAttributeName: "editing"
                         }}
                     ],
                     ".view": [
-                        { toggleAttribute: { uiAttributeName: "editing" } }
+                        { toggleAttribute: {
+                            attributeName: "editing"
+                        }},
+                        { toggleableElement: {
+                            attributeName: "editing",
+                            inverse: true
+                        }}
                     ],
                     ".save-button": [
                         { commitEdit: {} }
@@ -175,35 +168,29 @@
             });
 
             // Create a Backbone.View class for a list of people.
-            PeopleView = Ribs.createMixed({
-                mixins: [
-                    { simpleList: {
-                        ItemRenderer: PersonView,
-                        itemTagName: "div",
-                        itemClassName: "person"
-                    }}
-                ]
-            });
+            PeopleView = Ribs.createMixed({ mixins: [
+                { simpleList: {
+                    ItemRenderer: PersonView,
+                    itemTagName: "div",
+                    itemClassName: "person"
+                }}
+            ]});
 
             // Create a Backbone.View class for a list of people.
-            PeopleEditView = Ribs.createMixed({
-                mixins: [
-                    {
-                        simpleList: {
-                            ItemRenderer: PersonEditView,
-                            itemTagName: "div",
-                            itemClassName: "person editable"
-                        },
-                        everyOtherChild: {
-                            childClassName: "colored"
-                        }
-                    }
-                ]
-            });
+            PeopleEditView = Ribs.createMixed({ mixins: [
+                { simpleList: {
+                        ItemRenderer: PersonEditView,
+                        itemTagName: "div",
+                        itemClassName: "person editable"
+                }},
+                { everyOtherChild: {
+                        childClassName: "colored"
+                }}
+            ]});
 
             // Create an instance of PersonView and
             // append to #person-container
-            personView = new PersonView({ model: people.at(2) }),
+            personView = new PersonViewBase({ model: people.at(2) }),
             $("#person-container").append(personView.el);
 
             // Create an instance of PersonView and
@@ -253,7 +240,7 @@
         year of birth: <%= birthday.getFullYear() %>)
         <i><%= hasOwnProperty("editing") ? (editing ? "[editing]" : "") : "" %></i></span>
 </div>
-<div class="edit">
+<div class="edit" style="display:none">
     <span class="edit-item"><input type="text" name="name" style="width: 80px"/>
         (gender: <select name="gender"></select>
         year of birth: <input type="text" name="birthday-year" style="width: 60px"/>)

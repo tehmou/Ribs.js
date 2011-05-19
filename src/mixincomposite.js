@@ -16,9 +16,8 @@
                 if (mixin.model !== model) {
                     if (typeof(mixin.bindToModel) === "function") {
                         mixin.bindToModel(model);
-                    } else {
-                        mixin.model = model;
                     }
+                    mixin.model = model;
                 }
             }
         },
