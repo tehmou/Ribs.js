@@ -1,0 +1,2 @@
+./document.sh
+./deploy.sh
