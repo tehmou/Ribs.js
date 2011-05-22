@@ -2,6 +2,14 @@
 
 /*global $,_,Backbone,console*/
 
+/**
+ * Ribs.js 0.0.84
+ *     (c) 2011 Timo Tuominen
+ *     Ribs.js may be freely distributed under the MIT license.
+ *     For all details and documentation:
+ *     http://tehmou.github.com/ribs.js
+**/
+
 var Ribs = {};
 
 Ribs.VERSION = "0.0.84";
@@ -16,6 +24,15 @@ Ribs.mixinMethods = [
     "hide", "dispose"
 ];
 
+Ribs.inheritingMixinProperties = [
+    "attributeName", "modelName"
+];
+
+
+/**
+* Creates a Backbone.View that inherits Ribs.ManagedView
+* and contains the mixins defined in myOptions.
+**/
 Ribs.createMixed = function (myOptions) {
     myOptions = myOptions || {};
 
@@ -53,6 +70,20 @@ Ribs.createMixed = function (myOptions) {
 
     return Buildee;
 };
+
+// A more sophisticated Backbone.View that adds
+// support for component lifecycles, as often needed
+// in RIA applications.
+//
+// Ribs.js uses the model ribsUIModels to store
+// an arbitrary number of models that the View renders.
+// The default ones are:
+//
+// data:        The default Backbone property model.
+// dataUI:      A model added to the data model with
+//              Ribs.augmentModelWithUIProperties.
+// internal:    UI model that only this View uses internally.
+//
 
 Ribs.ManagedView = Backbone.View.extend({
     invalidated: true,
@@ -145,12 +176,13 @@ Ribs.ManagedView = Backbone.View.extend({
                     }
                     this.mixins = [];
                     _.each(this.mixinClasses, _.bind(function (MixinClass) {
-                        var mixin = new MixinClass(parentView, model);
+                        var mixin = new MixinClass(parentView, model), that = this;
                         _.bind(function () { _.bindAll(this); }, mixin)();
 
                         mixin.parent = parentView;
-                        mixin.modelName = mixin.modelName || this.modelName;
-                        mixin.attributeName = mixin.attributeName || this.attributeName;
+                        _.each(Ribs.inheritingMixinProperties, function (property) {
+                            mixin[property] = mixin[property] || that[property];
+                        });
                         updateMixinModel(mixin);
 
                         this.mixins.push(mixin);

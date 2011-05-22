@@ -1,4 +1,10 @@
-TARGET=target/ribs.js
+TARGET_DIR=target
+TARGET_FILE=ribs.js
+TARGET=$TARGET_DIR/$TARGET_FILE
+
+echo "Clearing target directory $TARGET_DIR"
+rm -rf $TARGET_DIR
+mkdir $TARGET_DIR
 
 echo Writing Core and ManagedView..
 echo -e "// Core classes\n" > $TARGET
@@ -20,7 +26,7 @@ cat src/mixins/edit/* >> $TARGET
 cat src/mixins/statechange/* >> $TARGET
 cat src/mixins/visual/* >> $TARGET
 
-echo Copying to target & samples/lib..
-cp target/ribs.js samples/lib
+echo Copying to target and samples/lib..
+cp $TARGET samples/lib
 
 echo Completed!

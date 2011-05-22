@@ -34,12 +34,13 @@
                     }
                     this.mixins = [];
                     _.each(this.mixinClasses, _.bind(function (MixinClass) {
-                        var mixin = new MixinClass(parentView, model);
+                        var mixin = new MixinClass(parentView, model), that = this;
                         _.bind(function () { _.bindAll(this); }, mixin)();
 
                         mixin.parent = parentView;
-                        mixin.modelName = mixin.modelName || this.modelName;
-                        mixin.attributeName = mixin.attributeName || this.attributeName;
+                        _.each(Ribs.inheritingMixinProperties, function (property) {
+                            mixin[property] = mixin[property] || that[property];
+                        });
                         updateMixinModel(mixin);
 
                         this.mixins.push(mixin);

@@ -1,3 +1,17 @@
+// A more sophisticated Backbone.View that adds
+// support for component lifecycles, as often needed
+// in RIA applications.
+//
+// Ribs.js uses the model ribsUIModels to store
+// an arbitrary number of models that the View renders.
+// The default ones are:
+//
+// data:        The default Backbone property model.
+// dataUI:      A model added to the data model with
+//              Ribs.augmentModelWithUIProperties.
+// internal:    UI model that only this View uses internally.
+//
+
 Ribs.ManagedView = Backbone.View.extend({
     invalidated: true,
 
