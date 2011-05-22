@@ -8,19 +8,19 @@
 	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/*global $,_,Backbone,console*/</span><span class="WHIT">
 <span class='line'>  2</span> 
 <span class='line'>  3</span> </span><span class="COMM">/**
-<span class='line'>  4</span>  * Ribs.js 0.0.84
+<span class='line'>  4</span>  * @class Ribs.js 0.0.84
 <span class='line'>  5</span>  *     (c) 2011 Timo Tuominen
 <span class='line'>  6</span>  *     Ribs.js may be freely distributed under the MIT license.
 <span class='line'>  7</span>  *     For all details and documentation:
 <span class='line'>  8</span>  *     http://tehmou.github.com/ribs.js
 <span class='line'>  9</span> **/</span><span class="WHIT">
-<span class='line'> 10</span> 
-<span class='line'> 11</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">Ribs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 12</span> 
-<span class='line'> 13</span> </span><span class="NAME">Ribs.VERSION</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"0.0.84"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 14</span> 
-<span class='line'> 15</span> </span><span class="NAME">Ribs.mixins</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 16</span> 
+<span class='line'> 10</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">Ribs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 11</span> 
+<span class='line'> 12</span> </span><span class="NAME">Ribs.VERSION</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"0.0.84"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 13</span> 
+<span class='line'> 14</span> </span><span class="NAME">Ribs.mixins</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> 
+<span class='line'> 16</span> </span><span class="COMM">/** Methods that mixins inherit. */</span><span class="WHIT">
 <span class='line'> 17</span> </span><span class="NAME">Ribs.mixinMethods</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="WHIT">
 <span class='line'> 18</span> </span><span class="WHIT">    </span><span class="STRN">"customInitialize"</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 19</span> </span><span class="WHIT">    </span><span class="STRN">"bindToModel"</span><span class="PUNC">,</span><span class="WHIT">
@@ -37,7 +37,7 @@
 <span class='line'> 30</span> </span><span class="COMM">/**
 <span class='line'> 31</span> * Creates a Backbone.View that inherits Ribs.ManagedView
 <span class='line'> 32</span> * and contains the mixins defined in myOptions.
-<span class='line'> 33</span> **/</span><span class="WHIT">
+<span class='line'> 33</span> */</span><span class="WHIT">
 <span class='line'> 34</span> </span><span class="NAME">Ribs.createMixed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">myOptions</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 35</span> </span><span class="WHIT">    </span><span class="NAME">myOptions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">myOptions</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 36</span> 
