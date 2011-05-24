@@ -20,14 +20,154 @@
 		</div>
 
 		<div id="content">
-			<h1 class="classTitle">Class Index</h1>
-			
 			<for each="thisClass" in="data">
-			<div name="{+thisClass.alias+}">
-				<h2>{+(new Link().toSymbol(thisClass.alias))+}</h2>
-				{+resolveLinks(summarize(thisClass.classDesc))+}
-			</div>
-			<hr />
+                <div name="{+thisClass.alias+}">
+                    <h2>{+thisClass.alias+}</h2>
+    
+                    <p class="description">
+                        <if test="thisClass.version"><br />Version
+                            {+ thisClass.version +}.<br />
+                        </if>
+    
+                        {+resolveLinks(thisClass.classDesc)+}
+    
+                        <if test="!thisClass.isBuiltin()">{# isn't defined in any file #}
+                            <br /><i>Defined in: </i> {+new Link().toSrc(thisClass.srcFile)+}.
+                        </if>
+                    </p>
+    
+    
+<!-- ============================== property details ========================== -->
+                    <if test="thisClass.properties.length">
+                        {! var ownProperties = thisClass.properties.sort(makeSortby("name")); !}
+                        <div class="sectionTitle">
+                            Field Detail
+                        </div>
+                        <for each="member" in="ownProperties">
+                            <a name="{+Link.symbolNameToLinkName(member)+}"> </a>
+                            <div class="fixedFont">{!
+                                if (member.isPrivate) output += "&lt;private&gt; ";
+                                if (member.isInner) output += "&lt;inner&gt; ";
+                                if (member.isStatic) output += "&lt;static&gt; ";
+                                if (member.isConstant) output += "&lt;constant&gt; ";
+                            !}
+
+                            <if test="member.type"><span class="light">{{+new Link().toSymbol(member.type)+}}</span></if>
+                            <if test="member.isStatic && member.memberOf != '_global_'"><span class="light">{+member.memberOf+}.</span></if><b>{+member.name+}</b>
+
+                            </div>
+                            <div class="description">
+                                {+resolveLinks(member.desc)+}
+                                <if test="member.srcFile != thisClass.srcFile">
+                                    <br />
+                                    <i>Defined in: </i> {+new Link().toSrc(member.srcFile)+}.
+                                </if>
+                                <if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
+                            </div>
+
+                            <if test="member.example.length">
+                            <for each="example" in="member.example">
+                            <pre class="code">{+example+}</pre>
+                            </for>
+                            </if>
+
+                                <if test="member.deprecated">
+                                    <dl class="detailList">
+                                    <dt class="heading">Deprecated:</dt>
+                                    <dt>
+                                        {+ resolveLinks(member.deprecated) +}
+                                    </dt>
+                                    </dl>
+                                </if>
+                                <if test="member.since">
+                                    <dl class="detailList">
+                                    <dt class="heading">Since:</dt>
+                                        <dd>{+ member.since +}</dd>
+                                    </dl>
+                                </if>
+                                <if test="member.see.length">
+                                    <dl class="detailList">
+                                    <dt class="heading">See:</dt>
+                                    <for each="item" in="member.see">
+                                    <dd>{+ new Link().toSymbol(item) +}</dd>
+                                    </for>
+                                    </dl>
+                                </if>
+                                <if test="member.defaultValue">
+                                    <dl class="detailList">
+                                    <dt class="heading">Default Value:</dt>
+                                    <dd>
+                                        {+resolveLinks(member.defaultValue)+}
+                                    </dd>
+                                    </dl>
+                                </if>
+
+                            <if test="!$member_last"><hr /></if>
+                        </for>
+                    </if>
+
+<!-- ============================== methods summary ======================== -->
+                    <if test="thisClass.methods.length">
+                        {! var ownMethods = thisClass.methods.filter(function($){return $.memberOf == thisClass.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+                        <if test="ownMethods.length">
+                        <table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class {+thisClass.alias+}.">
+                            <caption>Method Summary</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Method Attributes</th>
+                                    <th scope="col">Method Name and Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <for each="member" in="ownMethods">
+                                <tr>
+                                    <td class="attributes">{!
+                                        if (member.isPrivate) output += "&lt;private&gt; ";
+                                        if (member.isInner) output += "&lt;inner&gt; ";
+                                        if (member.isStatic) output += "&lt;static&gt; ";
+                                    !}&nbsp;</td>
+                                    <td class="nameDescription">
+                                        <div class="fixedFont"><if test="member.isStatic && member.memberOf != '_global_'">{+member.memberOf+}.</if><b>{+new Link().toSymbol(member.alias).withText(member.name.replace(/\^\d+$/, ''))+}</b>{+makeSignature(member.params)+}
+                                        </div>
+                                        <div class="description">{+resolveLinks(summarize(member.desc))+}</div>
+                                    </td>
+                                </tr>
+                            </for>
+                            </tbody>
+                        </table>
+                        </if>
+                        
+                        <if test="thisClass.inheritsFrom.length">
+                        <dl class="inheritsList">
+                        {!
+                            var borrowedMembers = thisClass.methods.filter(function($) {return $.memberOf != thisClass.alias});
+                            var contributers = [];
+                            borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
+                            for (var i = 0, l = contributers.length; i < l; i++) {
+                                output +=
+                                    "<dt>Methods borrowed from class "+new Link().toSymbol(contributers[i])+": </dt>"
+                                    +
+                                    "<dd>" +
+                                    borrowedMembers
+                                    .filter(
+                                        function($) { return $.memberOf == contributers[i] }
+                                    )
+                                    .sort(makeSortby("name"))
+                                    .map(
+                                        function($) { return new Link().toSymbol($.alias).withText($.name) }
+                                    )
+                                    .join(", ")
+                                    +
+                                    "</dd>";
+                            }
+                        
+                        !}
+                        </dl>
+                        </if>
+                    </if>
+                                    
+                </div>
+                <hr />
 			</for>
 			
 		</div>

@@ -13,7 +13,7 @@ Ribs.VERSION = "0.0.84";
 
 Ribs.mixins = {};
 
-/** Methods that mixins inherit. */
+/** @field List of methods that mixins inherit. */
 Ribs.mixinMethods = [
     "customInitialize",
     "bindToModel",
@@ -28,7 +28,7 @@ Ribs.inheritingMixinProperties = [
 
 
 /**
-* Creates a Backbone.View that inherits Ribs.ManagedView
+* @method Creates a Backbone.View that inherits Ribs.ManagedView
 * and contains the mixins defined in myOptions.
 */
 Ribs.createMixed = function (myOptions) {
