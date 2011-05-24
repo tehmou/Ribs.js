@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - Ribs</title>
+		<title>JsDoc Reference - Ribs.ManagedView</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -189,11 +189,11 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	<li><a href="#_global_"><i>_global_</i></a></li>
 	
-	<li><a href="../symbols/Ribs.html">Ribs</a></li>
+	<li><a href="#Ribs">Ribs</a></li>
 	
-	<li><a href="../symbols/Ribs.ManagedView.html">Ribs.ManagedView</a></li>
+	<li><a href="#Ribs.ManagedView">Ribs.ManagedView</a></li>
 	
 </ul>
 <hr />
@@ -204,7 +204,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class Ribs
+				Class Ribs.ManagedView
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -212,20 +212,27 @@ ul.inheritsList
 				
 				
 			
-				Ribs.js 0.0.84
-    (c) 2011 Timo Tuominen
-    Ribs.js may be freely distributed under the MIT license.
-    For all details and documentation:
-    http://tehmou.github.com/ribs.js
+				A more sophisticated Backbone.View that adds
+support for component lifecycles, as often needed
+in RIA applications.
+
+Ribs.js uses the model ribsUIModels to store
+an arbitrary number of models that the View renders.
+The default ones are:
+
+data:        The default Backbone property model.
+dataUI:      A model added to the data model with
+             Ribs.augmentModelWithUIProperties.
+internal:    UI model that only this View uses internally.
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/src_core.js.html">core.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/src_managedview.js.html">managedview.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Ribs.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Ribs.ManagedView.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -238,7 +245,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/Ribs.html#constructor">Ribs</a></b>()
+								<b><a href="../symbols/Ribs.ManagedView.html#constructor">Ribs.ManagedView</a></b>()
 							</div>
 							<div class="description"></div>
 						</td>
@@ -249,64 +256,8 @@ ul.inheritsList
 
 <!-- ============================== properties summary ===================== -->
 			
-				
-				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class Ribs.">
-					<caption>Field Summary</caption>
-					<thead>
-						<tr>
-							<th scope="col">Field Attributes</th>
-							<th scope="col">Field Name and Description</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								Ribs.<b><a href="../symbols/Ribs.html#.mixinMethods">mixinMethods</a></b>
-								</div>
-								<div class="description">Methods that mixins inherit.</div>
-							</td>
-						</tr>
-					
-					</tbody>
-				</table>
-				
-				
-				
-			
 
 <!-- ============================== methods summary ======================== -->
-			
-				
-				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Ribs.">
-					<caption>Method Summary</caption>
-					<thead>
-						<tr>
-							<th scope="col">Method Attributes</th>
-							<th scope="col">Method Name and Description</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">Ribs.<b><a href="../symbols/Ribs.html#.createMixed">createMixed</a></b>(myOptions)
-								</div>
-								<div class="description">Creates a Backbone.View that inherits Ribs.ManagedView
-and contains the mixins defined in myOptions.</div>
-							</td>
-						</tr>
-					
-					</tbody>
-				</table>
-				
-				
-				
 			
 <!-- ============================== events summary ======================== -->
 			
@@ -319,7 +270,7 @@ and contains the mixins defined in myOptions.</div>
 				</div>
 				
 				<div class="fixedFont">
-						<b>Ribs</b>()
+						<b>Ribs.ManagedView</b>()
 				</div>
 				
 				<div class="description">
@@ -343,77 +294,8 @@ and contains the mixins defined in myOptions.</div>
 
 <!-- ============================== field details ========================== -->		
 			
-				<div class="sectionTitle">
-					Field Detail
-				</div>
-				
-					<a name=".mixinMethods"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Ribs.</span><b>mixinMethods</b>
-					
-					</div>
-					<div class="description">
-						Methods that mixins inherit.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					
-				
-			
 
 <!-- ============================== method details ========================= -->		
-			
-				<div class="sectionTitle">
-					Method Detail
-				</div>
-				
-					<a name=".createMixed"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Ribs.</span><b>createMixed</b>(myOptions)
-					
-					</div>
-					<div class="description">
-						Creates a Backbone.View that inherits Ribs.ManagedView
-and contains the mixins defined in myOptions.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>myOptions</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					
-				
 			
 			
 <!-- ============================== event details ========================= -->		
@@ -426,7 +308,7 @@ and contains the mixins defined in myOptions.
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun May 22 2011 20:56:20 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed May 25 2011 00:19:00 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>
