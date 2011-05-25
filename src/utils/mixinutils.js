@@ -1,3 +1,13 @@
+/**
+ * @method
+ * @desc Parses given mixins and returns an array that
+ * contains the initialized mixins. For syntax see samples.
+ *
+ * @param mixinDefinitions An Array or Object that contains
+ * the definitions. An array is assumed to contain a list of
+ * individual objects of { <mixinName>: <options> } and an
+ * Object { <elementSelector>: [ ... ] }.
+ */
 Ribs.parseMixinDefinitions = function (mixinDefinitions) {
     mixinDefinitions = mixinDefinitions || [];
     var mixinClasses = [], i, l,

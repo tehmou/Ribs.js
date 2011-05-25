@@ -1,3 +1,17 @@
+/**
+ * @method
+ * @desc Binds itself to DOM events and toggles a desired
+ * data or UI attribute accordingly.
+ *
+ * @param classOptions
+ * @param classOptions.attributeDefaultValue If the data or UI
+ * model does not have the desired property, initialize it as this.
+ * Default is "false".
+ * @param classOptions.onEvent jQuery DOM event to listen for
+ * setting the attribute to true. Default: "click"
+ * @param classOptions.offEvent jQuery DOM event to listen for
+ * setting the attribute to false. Default: null
+ */
 Ribs.mixins.toggleAttribute = function (classOptions) {
     classOptions = classOptions || {};
     var ToggleAttributeInst = function () {

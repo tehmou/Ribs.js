@@ -1,4 +1,20 @@
-
+/**
+ * @method
+ * @desc Takes an input field as its element (does not create one,
+ * though, use templates) and utilizes it to edit the defined
+ * model attribute. Works for both original data models and the
+ * UI models attached to them. See Ribs.mixins.mixinComposite for
+ * documentation of the generic options for mixins.
+ *
+ * @param classOptions
+ * @param classOptions.elementSelector The default elementSelector is set to
+ * look for elements with the same name as the given attributeName.
+ * @param classOptions.readFunction If set, the attribute value read
+ * from the model field is processed through this function.
+ * @param classOptions.writeFunction If set, the value read from the
+ * input field in DOM is processed through this function before
+ * inserting into the corresponding model.
+ */
 Ribs.mixins.textValueEdit = function (classOptions) {
     classOptions = classOptions || {};
     var TextValueEditInst = function () {

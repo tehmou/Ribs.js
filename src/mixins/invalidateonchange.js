@@ -1,3 +1,21 @@
+/**
+ * @method
+ * @desc Observes attributes of the data and UI models and
+ * sets the invalidated flag of the parent View if they change.
+ *
+ * @param classOptions
+ * @param classOptions.excludedAttributes Array of attribute names
+ * which should not be observed in the original data model (even if
+ * defined in includedAttributes).
+ * @param classOptions.includedAttributes Array of attribute names
+ * which should be observed in the original data model.
+ * @param classOptions.excludedRibsUIAttributes Same as excludedAttributes,
+ * except for observing changes in the UI model that is attached
+ * to the original data model.
+ * @param classOptions.includedRibsUIAttributes Same as excludedAttributes,
+ * except for observing changes in the UI model that is attached
+ * to the original data model.
+ */
 Ribs.mixins.invalidateOnChange = function (classOptions) {
     var InvalidateOnChangeInst = function (parent) {
             return _.extend({

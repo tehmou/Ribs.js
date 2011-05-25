@@ -1,3 +1,23 @@
+/**
+ * @method
+ * @desc Most complicated of the standard mixins, but this could
+ * not be avoided. Creates a list of a defined Backbone.Collection,
+ * binds to changes in it, and updates itself accordingly.<br /><br />
+ *
+ * If item are added dynamically one-by-one, they are inserted at the
+ * bottom of the list. If the order is crucial while adding new ones,
+ * invalidate the parent View to call redraw when rendering.
+ *
+ * @param classOptions
+ * @param classOptions.ItemRenderer Backbone.View class to instantiate
+ * for every item on the list.
+ * @param classOptions.itemTagName Name of the tag of the new list items.
+ * This has to be defined in the list itself because the list items cannot
+ * affect the name of their own element tag after creation. This is
+ * because of the design of Backbone.View.
+ * @param classOptions.itemClassName Same as itemTagName, except that
+ * this one is set as the class of each new list item element.
+ */
 Ribs.mixins.simpleList = function (classOptions) {
     classOptions = classOptions || {};
     var ItemRenderer = classOptions.ItemRenderer,

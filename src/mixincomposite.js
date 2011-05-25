@@ -1,3 +1,23 @@
+/**
+ * @method
+ * @desc Combines a number of mixins and takes care of them.
+ * This includes delegating methods and managing some syntax mixins use.
+ *
+ * @param classOptions Object parameter.
+ * @param classOptions.elementSelector jQuery selector that is
+ * invoked on the DOM element of the View that this mixin belongs to.
+ * @param classOptions.mixinClasses Array of plain preinitialized mixins.
+ * No parsing will occur for these. Overrides classOptions.mixins.
+ * @param classOptions.mixins Array or Object of mixins with the Ribs.js
+ * mixin notation. See samples for how this works.
+ * @param classOptions.attributeName Name of the data attribute associated to this
+ * mixin. It is retrieved from the original data model. If a mixin declares this
+ * property, the value is inserted into "myValue" property of this mixin.
+ * @param classOptions.uiAttributeName Name of the UI attribute that this mixin uses.
+ * The corresponding value is taken from the ribsUI property of the
+ * original model.If a mixin declares this property, the value is inserted
+ * into "myValue" property of this mixin.
+ */
 Ribs.mixins.mixinComposite = function (classOptions) {
     classOptions = classOptions || {};
 

@@ -1,3 +1,14 @@
+/**
+ * Similar to Ribs.mixins.TextValueEdit, but uses a select
+ * element to offer fixed choices in a drop down. Make sure
+ * the elementSelector of this mixins points to a select.
+ *
+ * @param classOptions
+ * @param classOptions.elementSelector The default elementSelector is set to
+ * look for elements with the same name as the given attributeName.
+ * @param classOptions.selectOptions Options that are populated to the
+ * select element. Use an array of { value: <value>, text: <text> } objects.
+ */
 Ribs.mixins.selectEdit = function (classOptions) {
     classOptions = classOptions || {};
     var SelectEditInst = function () {

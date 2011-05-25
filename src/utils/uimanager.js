@@ -1,3 +1,18 @@
+/**
+ * @method
+ * @desc Creates a manager to which Backbone Collections
+ * can be added. The manager will listen to ribsUI:change:selected
+ * and ribsUI:change:hovering events, and make sure only one
+ * item is selected/hovering at a time.<br &><br />
+ *
+ * The selected/hovering item can be accessed through the
+ * viewModel that this manager internally uses to keep track of
+ * what is selected/hovering.
+ *
+ * @param key Identifier for this UI manager. The created
+ * UI manager can be accessed through Ribs.uiManager.<key>.
+ * @param myOptions Do not use for now.
+ */
 Ribs.createUIManager = function (key, myOptions) {
     myOptions = myOptions || {};
 
@@ -45,8 +60,28 @@ Ribs.createUIManager = function (key, myOptions) {
             };
 
         return {
+            /**
+             * @method
+             * @desc Registers the given Backbone Model/Collection to be
+             * managed by this manager.
+             *
+             * @param The Model or Collection wanted to be managed.
+             */
             register: register,
+
+            /**
+             * @method
+             * @desc Stops managing the given Model/Collection.
+             *
+             * @param The Model or Collection wanted to be unregistered.
+             */
             unregister: unregister,
+
+            /**
+             * @method
+             * @desc Returns the viewModel that contains the state of
+             * this manager.
+             */
             getViewModel: function () { return viewModel; }
         };
     }());
