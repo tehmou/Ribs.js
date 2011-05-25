@@ -1,0 +1,23 @@
+<h2>Ribs.js 0.0.831</h2>
+<ul class="classList">
+	<for each="thisClass" in="data">
+
+	<li>{!
+	    output += "<a href=\"#" + thisClass.alias+"\">";
+		if (thisClass.alias != "_global_") {
+			output += thisClass.alias;
+		}
+		output += "</a>";
+	!}</li>
+
+    <if test="thisClass.methods.length">
+
+        {! var ownMethods = thisClass.methods.filter(function($){return $.memberOf == thisClass.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+        <for each="member" in="ownMethods">
+            <li>- {+member.name+}<li>
+        </for>
+
+    </if>
+
+    </for>
+</ul>

@@ -1,0 +1,1147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		
+		<title>Ribs.js 0.0.831 Reference</title>
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<style type="text/css">
+		/* default.css */
+body {
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 3em 0 0 0;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 200px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 250px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+div.summary {
+    margin-left: 10px;
+}
+
+.fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.detailList {
+	line-height: 15px;
+    padding-left: 4px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+	
+	<body>
+		<div id="header">
+</div>
+		
+		<div id="index">
+			<h2>Ribs.js 0.0.831</h2>
+<ul class="classList">
+	
+
+	<li><a href="#_global_"></a></li>
+
+    
+
+    
+
+	<li><a href="#Ribs">Ribs</a></li>
+
+    
+
+        
+        
+            <li>- augmentModelWithUIAttributes<li>
+        
+            <li>- createMixed<li>
+        
+            <li>- createUIManager<li>
+        
+            <li>- log<li>
+        
+            <li>- parseMixinDefinitions<li>
+        
+
+    
+
+    
+
+	<li><a href="#Ribs.ManagedView">Ribs.ManagedView</a></li>
+
+    
+
+        
+        
+            <li>- bindEvents<li>
+        
+            <li>- bindToModel<li>
+        
+            <li>- customInitialize<li>
+        
+            <li>- dispose<li>
+        
+            <li>- hide<li>
+        
+            <li>- initialize<li>
+        
+            <li>- redraw<li>
+        
+            <li>- refresh<li>
+        
+            <li>- render<li>
+        
+            <li>- unbindEvents<li>
+        
+
+    
+
+    
+
+	<li><a href="#Ribs.mixins">Ribs.mixins</a></li>
+
+    
+
+        
+        
+            <li>- hoverable<li>
+        
+            <li>- invalidateOnChange<li>
+        
+            <li>- mixinComposite<li>
+        
+            <li>- selectEdit<li>
+        
+            <li>- simpleList<li>
+        
+            <li>- templated<li>
+        
+            <li>- textValueEdit<li>
+        
+            <li>- toggleableClass<li>
+        
+            <li>- toggleableElement<li>
+        
+            <li>- toggleAttribute<li>
+        
+
+    
+
+    
+</ul>
+		</div>
+
+		<div id="content">
+			
+            
+			
+            
+			    <a name="Ribs"></a>
+                <div>
+                    <h1>Ribs</h1>
+    
+                    <p class="description">
+                        
+    
+                        Ribs.js 0.0.84
+    (c) 2011 Timo Tuominen
+    Ribs.js may be freely distributed under the MIT license.
+    For all details and documentation:
+    <a href="http://tehmou.github.com/ribs.js">http://tehmou.github.com/ribs.js</a>
+    
+                        
+                            <br /><br /><i>Defined in: </i> ../../src/core.js.
+                        
+                    </p>
+    
+    
+<!-- ============================== property details ========================== -->
+                    
+                        
+                        <div class="sectionTitle">
+                            Properties
+                        </div>
+                        <div class="summary">
+                            
+                                <div class="fixedFont">
+
+                                <b>mixinMethods</b>
+
+                                </div>
+                                <div class="description">
+                                    List of ManagedView methods that are delegated to all mixins.
+                                    
+                                </div>
+
+                                
+
+                                    
+                                    
+                                    
+                                    
+
+                                
+                            
+                        </div>
+                    
+
+<!-- ============================== methods summary ======================== -->
+                    
+                        
+                        <div class="sectionTitle">
+                            Methods
+                        </div>
+                        <div class="summary">
+                            
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>augmentModelWithUIAttributes</b>(model)
+                                        </div>
+                                        <div class="description">Takes a Backbone.Model and adds property ribsUI
+to it, which is another Backbone.Model. In this newly-created
+Model that we at this point call ribsUI, we can store
+transient properties that are related to the original Model,
+but which we do not want to be persisted.<br /><br />
+
+For convenience, ribsUI Model bubbles all of its events to
+its owner, with the prefix "ribsUI:".</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>model</b>
+                                                    
+                                                </dt>
+                                                <dd>Target of augmentation.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>createMixed</b>(myOptions)
+                                        </div>
+                                        <div class="description">Creates a Backbone.View that inherits Ribs.ManagedView
+and contains the mixins defined in myOptions.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>myOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>createUIManager</b>(key, myOptions)
+                                        </div>
+                                        <div class="description">Creates a manager to which Backbone Collections
+can be added. The manager will listen to ribsUI:change:selected
+and ribsUI:change:hovering events, and make sure only one
+item is selected/hovering at a time.<br &><br />
+
+The selected/hovering item can be accessed through the
+viewModel that this manager internally uses to keep track of
+what is selected/hovering.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>key</b>
+                                                    
+                                                </dt>
+                                                <dd>Identifier for this UI manager. The created
+UI manager can be accessed through Ribs.uiManager.<key>.</dd>
+                                            
+                                                <dt>
+                                                    <b>myOptions</b>
+                                                    
+                                                </dt>
+                                                <dd>Do not use for now.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>log</b>(msg)
+                                        </div>
+                                        <div class="description">Safe logging into console.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>msg</b>
+                                                    
+                                                </dt>
+                                                <dd>Message or Object to log.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>parseMixinDefinitions</b>(mixinDefinitions)
+                                        </div>
+                                        <div class="description">Parses given mixins and returns an array that
+contains the initialized mixins. For syntax see samples.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>mixinDefinitions</b>
+                                                    
+                                                </dt>
+                                                <dd>An Array or Object that contains
+the definitions. An array is assumed to contain a list of
+individual objects of { <mixinName>: <options> } and an
+Object { <elementSelector>: [ ... ] }.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    
+                                
+                            
+                        </div>
+                    
+                                    
+                </div>
+                <hr />
+            
+			
+            
+			    <a name="Ribs.ManagedView"></a>
+                <div>
+                    <h1>Ribs.ManagedView</h1>
+    
+                    <p class="description">
+                        
+    
+                        A more sophisticated Backbone.View that adds
+support for component lifecycles, as often needed
+in RIA applications.
+    
+                        
+                            <br /><br /><i>Defined in: </i> ../../src/managedview.js.
+                        
+                    </p>
+    
+    
+<!-- ============================== property details ========================== -->
+                    
+                        
+                        <div class="sectionTitle">
+                            Properties
+                        </div>
+                        <div class="summary">
+                            
+                                <div class="fixedFont">
+
+                                <b>initialized</b>
+
+                                </div>
+                                <div class="description">
+                                    Is set when the component has finished initializing
+and is ready to be rendered.
+                                    
+                                </div>
+
+                                
+
+                                    
+                                    
+                                    
+                                    
+
+                                <hr />
+                            
+                                <div class="fixedFont">
+
+                                <b>invalidated</b>
+
+                                </div>
+                                <div class="description">
+                                    When calling render(), if this flag is set,
+a redraw will occur. When redraw is finished, this
+flag is again reset to false.
+                                    
+                                </div>
+
+                                
+
+                                    
+                                    
+                                    
+                                    
+
+                                
+                            
+                        </div>
+                    
+
+<!-- ============================== methods summary ======================== -->
+                    
+                        
+                        <div class="sectionTitle">
+                            Methods
+                        </div>
+                        <div class="summary">
+                            
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>bindEvents</b>()
+                                        </div>
+                                        <div class="description">Set all listeners to DOM events. This is an empty
+function by default.</div>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>bindToModel</b>(model)
+                                        </div>
+                                        <div class="description">Backbone convention for setting/changing the model
+for a View. Here is it is defined explicitly since the View
+life cycle requires it. A possible old model is unbound of
+its change handler, and the new one is in turn bound.<br /><br />
+
+If the new model does not yet augmented with UI attributes,
+Ribs.augmentModelWithUIAttributes does this.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>model</b>
+                                                    
+                                                </dt>
+                                                <dd>The Backbone.Model we want this View to represent.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>customInitialize</b>()
+                                        </div>
+                                        <div class="description">Is called after the "real" initialize is completed,
+apart from setting initialized flag and rendering. Without
+the initialized flag the component will not render.<br /><br />
+
+This is a clean place for generic initialization code.
+A call to this method is not expected of an overriding method.</div>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>dispose</b>()
+                                        </div>
+                                        <div class="description">Destroy the View beyond restoring. $By default,
+$(this.el).remove(); is called.</div>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>hide</b>()
+                                        </div>
+                                        <div class="description">Remove from DOM with the prospect of reattaching.
+Default behavior calls $(this.el).detach();</div>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>initialize</b>()
+                                        </div>
+                                        <div class="description">Override to Backbone.View.initialize; Is called on
+creation, using the "new" operator.</div>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>redraw</b>(el)
+                                        </div>
+                                        <div class="description">Do all expensive DOM operations that could break
+listeners (hiding etc.). This is an empty
+function by default.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>el</b>
+                                                    
+                                                </dt>
+                                                <dd>Receives the el of this View as
+a parameter (needed by mixins).</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>refresh</b>()
+                                        </div>
+                                        <div class="description">Set styles, calculates values, etc. This is called
+each time the View is rendered, so don't do anything expensive
+here. This is an empty function by default.</div>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>render</b>()
+                                        </div>
+                                        <div class="description">Override to Backbone.View.render.<br /><br />
+
+Exits if initialized flag is not set.<br /><br />
+
+Maintains the View life cycle of rendering. First
+unbinds all events, then redraws if invalidated flag
+is set, and after that calls refresh and binds all events.</div>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>unbindEvents</b>()
+                                        </div>
+                                        <div class="description">Clear all listeners to DOM events. The default
+implementation only calls $(this.el).unbind().</div>
+                                        
+                                    </div>
+                                    
+                                
+                            
+                        </div>
+                    
+                                    
+                </div>
+                <hr />
+            
+			
+            
+			    <a name="Ribs.mixins"></a>
+                <div>
+                    <h1>Ribs.mixins</h1>
+    
+                    <p class="description">
+                        
+    
+                        Hash of all mixins visible to the mixin
+parser. Add your custom ones here.
+    
+                        
+                            <br /><br /><i>Defined in: </i> ../../src/core.js.
+                        
+                    </p>
+    
+    
+<!-- ============================== property details ========================== -->
+                    
+
+<!-- ============================== methods summary ======================== -->
+                    
+                        
+                        <div class="sectionTitle">
+                            Methods
+                        </div>
+                        <div class="summary">
+                            
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>hoverable</b>(classOptions)
+                                        </div>
+                                        <div class="description">Binds to mouseenter and mouseleave to know when
+the user is hovering over the element of this mixin.
+Toggles the "hovering" property of the UI model and
+assigns class "hovering" to the element, if the user
+is hovering.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.elementSelector</b>
+                                                    
+                                                </dt>
+                                                <dd>This is the only
+property that has any effect.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>invalidateOnChange</b>(classOptions)
+                                        </div>
+                                        <div class="description">Observes attributes of the data and UI models and
+sets the invalidated flag of the parent View if they change.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.excludedAttributes</b>
+                                                    
+                                                </dt>
+                                                <dd>Array of attribute names
+which should not be observed in the original data model (even if
+defined in includedAttributes).</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.includedAttributes</b>
+                                                    
+                                                </dt>
+                                                <dd>Array of attribute names
+which should be observed in the original data model.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.excludedRibsUIAttributes</b>
+                                                    
+                                                </dt>
+                                                <dd>Same as excludedAttributes,
+except for observing changes in the UI model that is attached
+to the original data model.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.includedRibsUIAttributes</b>
+                                                    
+                                                </dt>
+                                                <dd>Same as excludedAttributes,
+except for observing changes in the UI model that is attached
+to the original data model.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>mixinComposite</b>(classOptions)
+                                        </div>
+                                        <div class="description">Combines a number of mixins and takes care of them.
+This includes delegating methods and managing some syntax mixins use.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd>Object parameter.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.elementSelector</b>
+                                                    
+                                                </dt>
+                                                <dd>jQuery selector that is
+invoked on the DOM element of the View that this mixin belongs to.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.mixinClasses</b>
+                                                    
+                                                </dt>
+                                                <dd>Array of plain preinitialized mixins.
+No parsing will occur for these. Overrides classOptions.mixins.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.mixins</b>
+                                                    
+                                                </dt>
+                                                <dd>Array or Object of mixins with the Ribs.js
+mixin notation. See samples for how this works.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.attributeName</b>
+                                                    
+                                                </dt>
+                                                <dd>Name of the data attribute associated to this
+mixin. It is retrieved from the original data model. If a mixin declares this
+property, the value is inserted into "myValue" property of this mixin.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.uiAttributeName</b>
+                                                    
+                                                </dt>
+                                                <dd>Name of the UI attribute that this mixin uses.
+The corresponding value is taken from the ribsUI property of the
+original model.If a mixin declares this property, the value is inserted
+into "myValue" property of this mixin.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>selectEdit</b>(classOptions)
+                                        </div>
+                                        <div class="description">Similar to Ribs.mixins.TextValueEdit, but uses a select
+element to offer fixed choices in a drop down. Make sure
+the elementSelector of this mixins points to a select.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.elementSelector</b>
+                                                    
+                                                </dt>
+                                                <dd>The default elementSelector is set to
+look for elements with the same name as the given attributeName.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.selectOptions</b>
+                                                    
+                                                </dt>
+                                                <dd>Options that are populated to the
+select element. Use an array of { value: <value>, text: <text> } objects.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>simpleList</b>(classOptions)
+                                        </div>
+                                        <div class="description">Most complicated of the standard mixins, but this could
+not be avoided. Creates a list of a defined Backbone.Collection,
+binds to changes in it, and updates itself accordingly.<br /><br />
+
+If item are added dynamically one-by-one, they are inserted at the
+bottom of the list. If the order is crucial while adding new ones,
+invalidate the parent View to call redraw when rendering.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.ItemRenderer</b>
+                                                    
+                                                </dt>
+                                                <dd>Backbone.View class to instantiate
+for every item on the list.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.itemTagName</b>
+                                                    
+                                                </dt>
+                                                <dd>Name of the tag of the new list items.
+This has to be defined in the list itself because the list items cannot
+affect the name of their own element tag after creation. This is
+because of the design of Backbone.View.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.itemClassName</b>
+                                                    
+                                                </dt>
+                                                <dd>Same as itemTagName, except that
+this one is set as the class of each new list item element.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>templated</b>(classOptions)
+                                        </div>
+                                        <div class="description">Uses a given template to replace the contents
+of its element. Gives the template the data and UI models
+as json, the latter overriding the former.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.templateSelector</b>
+                                                    
+                                                </dt>
+                                                <dd>Selector for the template.
+Plain string that jQuery can handle.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.templateFunction</b>
+                                                    
+                                                </dt>
+                                                <dd>Function that takes json as
+its parameter and returns HTML. Overrides templateSelector if both
+are given.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.className</b>
+                                                    
+                                                </dt>
+                                                <dd>Templates do not affect the root element
+of a Backbone.View, and the same applies to Ribs.js mixins. If you wish
+to have a certain class for the root DOM element, set this property to
+that class and it will be passed to the element.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>textValueEdit</b>(classOptions)
+                                        </div>
+                                        <div class="description">Takes an input field as its element (does not create one,
+though, use templates) and utilizes it to edit the defined
+model attribute. Works for both original data models and the
+UI models attached to them. See Ribs.mixins.mixinComposite for
+documentation of the generic options for mixins.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.elementSelector</b>
+                                                    
+                                                </dt>
+                                                <dd>The default elementSelector is set to
+look for elements with the same name as the given attributeName.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.readFunction</b>
+                                                    
+                                                </dt>
+                                                <dd>If set, the attribute value read
+from the model field is processed through this function.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.writeFunction</b>
+                                                    
+                                                </dt>
+                                                <dd>If set, the value read from the
+input field in DOM is processed through this function before
+inserting into the corresponding model.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>toggleableClass</b>(classOptions)
+                                        </div>
+                                        <div class="description">Toggle a class to the element depending on the boolean
+value of the associated attribute.<br &><br />
+
+Does not observe the changes in the model, so you may have to
+use invalidateonchange mixin.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.className</b>
+                                                    
+                                                </dt>
+                                                <dd>Class to give to the element if
+the attribute is true.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.inverse</b>
+                                                    
+                                                </dt>
+                                                <dd>Give element the class when the
+attribute is false, and remove it when it is true.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>toggleableElement</b>(classOptions)
+                                        </div>
+                                        <div class="description">Mixin that toggles (shows/hides) its element based
+on an attribute in the UI model. The attribute should be
+truthy/falsy for predictable behavior.<br /><br />
+
+DOES NOT SUPPORT OBSERVING THE DATA MODEL.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.uiAttributeName</b>
+                                                    
+                                                </dt>
+                                                <dd>To which UI attribute to
+link the visibility of this element.</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.inverse</b>
+                                                    
+                                                </dt>
+                                                <dd>Make the element appear on false
+and hide on true. The inverse, in other words.</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    <hr />
+                                
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>toggleAttribute</b>(classOptions)
+                                        </div>
+                                        <div class="description">Binds itself to DOM events and toggles a desired
+data or UI attribute accordingly.</div>
+                                        
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            
+                                                <dt>
+                                                    <b>classOptions</b>
+                                                    
+                                                </dt>
+                                                <dd></dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.attributeDefaultValue</b>
+                                                    
+                                                </dt>
+                                                <dd>If the data or UI
+model does not have the desired property, initialize it as this.
+Default is "false".</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.onEvent</b>
+                                                    
+                                                </dt>
+                                                <dd>jQuery DOM event to listen for
+setting the attribute to true. Default: "click"</dd>
+                                            
+                                                <dt>
+                                                    <b>classOptions.offEvent</b>
+                                                    
+                                                </dt>
+                                                <dd>jQuery DOM event to listen for
+setting the attribute to false. Default: null</dd>
+                                            
+                                            </dl>
+                                        
+                                    </div>
+                                    
+                                
+                            
+                        </div>
+                    
+                                    
+                </div>
+                <hr />
+            
+			
+			
+		</div>
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Thu May 26 2011 00:02:18 GMT+0200 (CEST)
+		</div>
+	</body>
+</html>

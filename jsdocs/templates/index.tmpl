@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset={+IO.encoding+}" />
+		
+		<title>Ribs.js 0.0.831 Reference</title>
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<style type="text/css">
+		{+include("static/default.css")+}
+		</style>
+	</head>
+	
+	<body>
+		{+include("static/header.html")+}
+		
+		<div id="index">
+			{+publish.classesIndex+}
+		</div>
+
+		<div id="content">
+			<for each="thisClass" in="data">
+            <if test="thisClass.alias != '_global_'">
+			    <a name="{+thisClass.alias+}"></a>
+                <div>
+                    <h1>{+thisClass.alias+}</h1>
+    
+                    <p class="description">
+                        <if test="thisClass.version"><br />Version
+                            {+ thisClass.version +}.<br />
+                        </if>
+    
+                        {+resolveLinks(thisClass.classDesc)+}
+    
+                        <if test="!thisClass.isBuiltin()">{# isn't defined in any file #}
+                            <br /><br /><i>Defined in: </i> {+thisClass.srcFile+}.
+                        </if>
+                    </p>
+    
+    
+<!-- ============================== property details ========================== -->
+                    <if test="thisClass.properties.length">
+                        {! var ownProperties = thisClass.properties.sort(makeSortby("name")); !}
+                        <div class="sectionTitle">
+                            Properties
+                        </div>
+                        <div class="summary">
+                            <for each="member" in="ownProperties">
+                                <div class="fixedFont">
+
+                                <b>{+member.name+}</b>
+
+                                </div>
+                                <div class="description">
+                                    {+resolveLinks(member.desc)+}
+                                    <if test="member.srcFile != thisClass.srcFile">
+                                        <br />
+                                        <i>Defined in: </i> {+new Link().toSrc(member.srcFile)+}.
+                                    </if>
+                                </div>
+
+                                <if test="member.example.length">
+                                <for each="example" in="member.example">
+                                <pre class="code">{+example+}</pre>
+                                </for>
+                                </if>
+
+                                    <if test="member.deprecated">
+                                        <dl class="detailList">
+                                        <dt class="heading">Deprecated:</dt>
+                                        <dt>
+                                            {+ resolveLinks(member.deprecated) +}
+                                        </dt>
+                                        </dl>
+                                    </if>
+                                    <if test="member.since">
+                                        <dl class="detailList">
+                                        <dt class="heading">Since:</dt>
+                                            <dd>{+ member.since +}</dd>
+                                        </dl>
+                                    </if>
+                                    <if test="member.see.length">
+                                        <dl class="detailList">
+                                        <dt class="heading">See:</dt>
+                                        <for each="item" in="member.see">
+                                        <dd>{+ new Link().toSymbol(item) +}</dd>
+                                        </for>
+                                        </dl>
+                                    </if>
+                                    <if test="member.defaultValue">
+                                        <dl class="detailList">
+                                        <dt class="heading">Default Value:</dt>
+                                        <dd>
+                                            {+resolveLinks(member.defaultValue)+}
+                                        </dd>
+                                        </dl>
+                                    </if>
+
+                                <if test="!$member_last"><hr /></if>
+                            </for>
+                        </div>
+                    </if>
+
+<!-- ============================== methods summary ======================== -->
+                    <if test="thisClass.methods.length">
+                        {! var ownMethods = thisClass.methods.filter(function($){return $.memberOf == thisClass.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+                        <div class="sectionTitle">
+                            Methods
+                        </div>
+                        <div class="summary">
+                            <if test="ownMethods.length">
+                                <for each="member" in="ownMethods">
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>{+member.name.replace(/\^\d+$/, '')+}</b>{+makeSignature(member.params)+}
+                                        </div>
+                                        <div class="description">{+resolveLinks(member.desc)+}</div>
+                                        <if test="member.params.length">
+                                            <dl class="detailList">
+                                            <dt class="heading">Parameters:</dt>
+                                            <for each="item" in="member.params">
+                                                <dt>
+                                                    {+((item.type)?"<span class=\"light fixedFont\">{"+(new Link().toSymbol(item.type))+"}</span> " : "")+}<b>{+item.name+}</b>
+                                                    <if test="item.isOptional"><i>Optional<if test="item.defaultValue">, Default: {+item.defaultValue+}</if></i></if>
+                                                </dt>
+                                                <dd>{+resolveLinks(item.desc)+}</dd>
+                                            </for>
+                                            </dl>
+                                        </if>
+                                    </div>
+                                    <if test="!$member_last"><hr /></if>
+                                </for>
+                            </if>
+                        </div>
+                    </if>
+                                    
+                </div>
+                <hr />
+            </if>
+			</for>
+			
+		</div>
+		<div class="fineprint" style="clear:both">
+			<if test="JSDOC.opt.D.copyright">&copy;{+JSDOC.opt.D.copyright+}<br /></if>
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> {+JSDOC.VERSION+} on {+new Date()+}
+		</div>
+	</body>
+</html>

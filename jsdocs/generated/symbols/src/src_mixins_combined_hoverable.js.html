@@ -1,0 +1,38 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @method
+<span class='line'>  3</span>  * @desc Binds to mouseenter and mouseleave to know when
+<span class='line'>  4</span>  * the user is hovering over the element of this mixin.
+<span class='line'>  5</span>  * Toggles the "hovering" property of the UI model and
+<span class='line'>  6</span>  * assigns class "hovering" to the element, if the user
+<span class='line'>  7</span>  * is hovering.
+<span class='line'>  8</span>  *
+<span class='line'>  9</span>  * @param classOptions
+<span class='line'> 10</span>  * @param classOptions.elementSelector This is the only
+<span class='line'> 11</span>  * property that has any effect.
+<span class='line'> 12</span>  */</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="NAME">Ribs.mixins.hoverable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">classOptions</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">HoverableInst</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Ribs.mixins.mixinComposite</span><span class="PUNC">(</span><span class="NAME">_.extend</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">        </span><span class="NAME">mixinClasses</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">            </span><span class="NAME">Ribs.mixins.toggleAttribute</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">                </span><span class="NAME">onEvent</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"mouseenter"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">                </span><span class="NAME">offEvent</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"mouseleave"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">                </span><span class="NAME">uiAttributeName</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"hovering"</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">            </span><span class="NAME">Ribs.mixins.toggleableClass</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">                </span><span class="NAME">className</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"hovering"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">                </span><span class="NAME">uiAttributeName</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"hovering"</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">        </span><span class="PUNC">]</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">classOptions</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> 
+<span class='line'> 28</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">HoverableInst</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span></pre></body></html>

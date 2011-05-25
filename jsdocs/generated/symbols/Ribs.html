@@ -1,0 +1,697 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - Ribs</title>
+
+		<style type="text/css">
+			/* default.css */
+body {
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 3em 0 0 0;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 200px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 250px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+div.summary {
+    margin-left: 10px;
+}
+
+.fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.detailList {
+	line-height: 15px;
+    padding-left: 4px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<h2>Ribs.js 0.0.831</h2>
+<ul class="classList">
+	
+
+	<li><a href="#_global_"></a></li>
+
+    
+
+    
+
+	<li><a href="#Ribs">Ribs</a></li>
+
+    
+
+        
+        
+            <li>- augmentModelWithUIAttributes<li>
+        
+            <li>- createMixed<li>
+        
+            <li>- createUIManager<li>
+        
+            <li>- log<li>
+        
+            <li>- parseMixinDefinitions<li>
+        
+
+    
+
+    
+
+	<li><a href="#Ribs.ManagedView">Ribs.ManagedView</a></li>
+
+    
+
+        
+        
+            <li>- bindEvents<li>
+        
+            <li>- bindToModel<li>
+        
+            <li>- customInitialize<li>
+        
+            <li>- dispose<li>
+        
+            <li>- hide<li>
+        
+            <li>- initialize<li>
+        
+            <li>- redraw<li>
+        
+            <li>- refresh<li>
+        
+            <li>- render<li>
+        
+            <li>- unbindEvents<li>
+        
+
+    
+
+    
+
+	<li><a href="#Ribs.mixins">Ribs.mixins</a></li>
+
+    
+
+        
+        
+            <li>- hoverable<li>
+        
+            <li>- invalidateOnChange<li>
+        
+            <li>- mixinComposite<li>
+        
+            <li>- selectEdit<li>
+        
+            <li>- simpleList<li>
+        
+            <li>- templated<li>
+        
+            <li>- textValueEdit<li>
+        
+            <li>- toggleableClass<li>
+        
+            <li>- toggleableElement<li>
+        
+            <li>- toggleAttribute<li>
+        
+
+    
+
+    
+</ul>
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Namespace Ribs
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				
+				
+			
+				Ribs.js 0.0.84
+    (c) 2011 Timo Tuominen
+    Ribs.js may be freely distributed under the MIT license.
+    For all details and documentation:
+    <a href="http://tehmou.github.com/ribs.js">http://tehmou.github.com/ribs.js</a>
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/src_core.js.html">core.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Ribs.">
+				<caption>Namespace Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/Ribs.html#constructor">Ribs</a></b>
+							</div>
+							<div class="description"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class Ribs.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Ribs.<b><a href="../symbols/Ribs.html#.mixinMethods">mixinMethods</a></b>
+								</div>
+								<div class="description">List of ManagedView methods that are delegated to all mixins.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Ribs.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.<b><a href="../symbols/Ribs.html#.augmentModelWithUIAttributes">augmentModelWithUIAttributes</a></b>(model)
+								</div>
+								<div class="description">Takes a Backbone.Model and adds property ribsUI
+to it, which is another Backbone.Model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.<b><a href="../symbols/Ribs.html#.createMixed">createMixed</a></b>(myOptions)
+								</div>
+								<div class="description">Creates a Backbone.View that inherits Ribs.ManagedView
+and contains the mixins defined in myOptions.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.<b><a href="../symbols/Ribs.html#.createUIManager">createUIManager</a></b>(key, myOptions)
+								</div>
+								<div class="description">Creates a manager to which Backbone Collections
+can be added.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.<b><a href="../symbols/Ribs.html#.log">log</a></b>(msg)
+								</div>
+								<div class="description">Safe logging into console.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.<b><a href="../symbols/Ribs.html#.parseMixinDefinitions">parseMixinDefinitions</a></b>(mixinDefinitions)
+								</div>
+								<div class="description">Parses given mixins and returns an array that
+contains the initialized mixins.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+<!-- ============================== events summary ======================== -->
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Namespace Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>Ribs</b>
+				</div>
+				
+				<div class="description">
+					
+					
+				</div>
+				
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".mixinMethods"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.</span><b>mixinMethods</b>
+					
+					</div>
+					<div class="description">
+						List of ManagedView methods that are delegated to all mixins.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name=".augmentModelWithUIAttributes"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.</span><b>augmentModelWithUIAttributes</b>(model)
+					
+					</div>
+					<div class="description">
+						Takes a Backbone.Model and adds property ribsUI
+to it, which is another Backbone.Model. In this newly-created
+Model that we at this point call ribsUI, we can store
+transient properties that are related to the original Model,
+but which we do not want to be persisted.<br /><br />
+
+For convenience, ribsUI Model bubbles all of its events to
+its owner, with the prefix "ribsUI:".
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_utils_uimodelutils.js.html">uimodelutils.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>model</b>
+									
+								</dt>
+								<dd>Target of augmentation.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".createMixed"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.</span><b>createMixed</b>(myOptions)
+					
+					</div>
+					<div class="description">
+						Creates a Backbone.View that inherits Ribs.ManagedView
+and contains the mixins defined in myOptions.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>myOptions</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".createUIManager"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.</span><b>createUIManager</b>(key, myOptions)
+					
+					</div>
+					<div class="description">
+						Creates a manager to which Backbone Collections
+can be added. The manager will listen to ribsUI:change:selected
+and ribsUI:change:hovering events, and make sure only one
+item is selected/hovering at a time.<br &><br />
+
+The selected/hovering item can be accessed through the
+viewModel that this manager internally uses to keep track of
+what is selected/hovering.
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_utils_uimanager.js.html">uimanager.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>key</b>
+									
+								</dt>
+								<dd>Identifier for this UI manager. The created
+UI manager can be accessed through Ribs.uiManager.<key>.</dd>
+							
+								<dt>
+									<b>myOptions</b>
+									
+								</dt>
+								<dd>Do not use for now.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".log"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.</span><b>log</b>(msg)
+					
+					</div>
+					<div class="description">
+						Safe logging into console.
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_utils_uimodelutils.js.html">uimodelutils.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>msg</b>
+									
+								</dt>
+								<dd>Message or Object to log.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".parseMixinDefinitions"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.</span><b>parseMixinDefinitions</b>(mixinDefinitions)
+					
+					</div>
+					<div class="description">
+						Parses given mixins and returns an array that
+contains the initialized mixins. For syntax see samples.
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/src_utils_mixinutils.js.html">mixinutils.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>mixinDefinitions</b>
+									
+								</dt>
+								<dd>An Array or Object that contains
+the definitions. An array is assumed to contain a list of
+individual objects of { <mixinName>: <options> } and an
+Object { <elementSelector>: [ ... ] }.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
+			
+			<hr />
+		</div>
+
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Thu May 26 2011 00:02:18 GMT+0200 (CEST)
+		</div>
+	</body>
+</html>
