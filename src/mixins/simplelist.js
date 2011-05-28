@@ -69,7 +69,7 @@ Ribs.mixins.simpleList = function (classOptions) {
                         delete listViews[item.cid];
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinBase.withModel, classOptions || {});
         };
 
     return SimpleListInst;

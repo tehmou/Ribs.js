@@ -13,7 +13,7 @@ Ribs.mixins.functionValueEdit = function (classOptions) {
             }
             return value;
         }
-    }, classOptions || {}));
+    }, Ribs.mixinBase.plain, classOptions || {}));
 
     return FunctionValueEditInst;
 };

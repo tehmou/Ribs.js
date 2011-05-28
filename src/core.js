@@ -24,20 +24,11 @@ Ribs.mixins = {};
  * */
 Ribs.mixinMethods = [
     "customInitialize",
-    "bindToModel",
+    "bindToModel", "updateMixinModel",
     "render", "redraw", "refresh",
     "unbindEvents", "bindEvents",
     "hide", "dispose"
 ];
-
-/**
- * @field
- * @desc List of properties that mixins inherit from their parents.
- * */
-Ribs.inheritingMixinProperties = [
-    "attributeName", "modelName"
-];
-
 
 /**
  * @method

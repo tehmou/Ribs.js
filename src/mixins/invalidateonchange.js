@@ -31,7 +31,7 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                         _.defer(parent.render);
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinBase.withModel, classOptions || {});
         };
 
     return InvalidateOnChangeInst;
