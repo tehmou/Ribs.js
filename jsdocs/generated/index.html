@@ -193,7 +193,8 @@ ul.inheritsList
 
 		<div id="content">
 			
-                <div name="_global_">
+			    <a name="_global_"></a>
+                <div>
                     <h2>_global_</h2>
     
                     <p class="description">
@@ -214,7 +215,8 @@ ul.inheritsList
                 </div>
                 <hr />
 			
-                <div name="Ribs">
+			    <a name="Ribs"></a>
+                <div>
                     <h2>Ribs</h2>
     
                     <p class="description">
@@ -236,19 +238,55 @@ ul.inheritsList
                     
                         
                         <div class="sectionTitle">
-                            Field Detail
+                            Properties
                         </div>
                         
-                            <a name=".mixinMethods"> </a>
-                            <div class="fixedFont">&lt;static&gt; 
+                            <div class="fixedFont">
 
-                            
-                            <span class="light">Ribs.</span><b>mixinMethods</b>
+                            <b>inheritingMixinProperties</b>
 
                             </div>
                             <div class="description">
+                                List of properties that mixins inherit from their parents.
+                                
+                            </div>
+
+                            
+
                                 
                                 
+                                
+                                
+
+                            <hr />
+                        
+                            <div class="fixedFont">
+
+                            <b>mixinMethods</b>
+
+                            </div>
+                            <div class="description">
+                                List of ManagedView methods that are delegated to all mixins.
+                                
+                            </div>
+
+                            
+
+                                
+                                
+                                
+                                
+
+                            <hr />
+                        
+                            <div class="fixedFont">
+
+                            <b>mixins</b>
+
+                            </div>
+                            <div class="description">
+                                Hash of all mixins visible to the mixin
+parser. Add your custom ones here.
                                 
                             </div>
 
@@ -266,37 +304,30 @@ ul.inheritsList
 <!-- ============================== methods summary ======================== -->
                     
                         
+                        <div class="sectionTitle">
+                            Methods
+                        </div>
                         
-                        <table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Ribs.">
-                            <caption>Method Summary</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Method Attributes</th>
-                                    <th scope="col">Method Name and Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                             
-                                <tr>
-                                    <td class="attributes">&lt;static&gt; &nbsp;</td>
-                                    <td class="nameDescription">
-                                        <div class="fixedFont">Ribs.<b><a href="symbols/Ribs.html#.createMixed">createMixed</a></b>(myOptions)
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>createMixed</b>(myOptions)
                                         </div>
-                                        <div class="description"></div>
+                                        <div class="description">Creates a Backbone.View that inherits Ribs.ManagedView
+and contains the mixins defined in myOptions.</div>
                                     </td>
                                 </tr>
                             
-                            </tbody>
                         </table>
-                        
-                        
                         
                     
                                     
                 </div>
                 <hr />
 			
-                <div name="Ribs.ManagedView">
+			    <a name="Ribs.ManagedView"></a>
+                <div>
                     <h2>Ribs.ManagedView</h2>
     
                     <p class="description">
@@ -304,15 +335,15 @@ ul.inheritsList
     
                         A more sophisticated Backbone.View that adds
 support for component lifecycles, as often needed
-in RIA applications.
+in RIA applications.<br /><br />
 
 Ribs.js uses the model ribsUIModels to store
 an arbitrary number of models that the View renders.
-The default ones are:
+The default ones are:<br /><br />
 
-data:        The default Backbone property model.
+data:        The default Backbone property model.<br />
 dataUI:      A model added to the data model with
-             Ribs.augmentModelWithUIProperties.
+             Ribs.augmentModelWithUIProperties.<br />
 internal:    UI model that only this View uses internally.
     
                         
@@ -323,8 +354,182 @@ internal:    UI model that only this View uses internally.
     
 <!-- ============================== property details ========================== -->
                     
+                        
+                        <div class="sectionTitle">
+                            Properties
+                        </div>
+                        
+                            <div class="fixedFont">
+
+                            <b>initialized</b>
+
+                            </div>
+                            <div class="description">
+                                Is set when the component has finished initializing
+and is ready to be rendered.
+                                
+                            </div>
+
+                            
+
+                                
+                                
+                                
+                                
+
+                            <hr />
+                        
+                            <div class="fixedFont">
+
+                            <b>invalidated</b>
+
+                            </div>
+                            <div class="description">
+                                When calling render(), if this flag is set,
+a redraw will occur. When redraw is finished, this
+flag is again reset to false.
+                                
+                            </div>
+
+                            
+
+                                
+                                
+                                
+                                
+
+                            
+                        
+                    
 
 <!-- ============================== methods summary ======================== -->
+                    
+                        
+                        <div class="sectionTitle">
+                            Methods
+                        </div>
+                        
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>bindEvents</b>()
+                                        </div>
+                                        <div class="description">Set all listeners to DOM events. This is an empty
+function by default.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>bindToModel</b>(model)
+                                        </div>
+                                        <div class="description">Backbone convention for setting/changing the model
+for a View. Here is it is defined explicitly since the View
+life cycle requires it. A possible old model is unbound of
+its change handler, and the new one is in turn bound.<br /><br />
+
+If the new model does not yet augmented with UI attributes,
+Ribs.augmentModelWithUIAttributes does this.<br /><br />
+
+The default models "data" and "dataUI" are set to ribsUIModels.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>customInitialize</b>()
+                                        </div>
+                                        <div class="description">Is called after the "real" initialize is completed,
+apart from setting initialized flag and rendering. Without
+the initialized flag the component will not render.<br /><br />
+
+This is a clean place for generic initialization code.
+A call to this method is not expected of an overriding method.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>dispose</b>()
+                                        </div>
+                                        <div class="description">Destroy the View beyond restoring. $By default,
+$(this.el).remove(); is called.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>hide</b>()
+                                        </div>
+                                        <div class="description">Remove from DOM with the prospect of reattaching.
+Default behavior calls $(this.el).detach();</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>initialize</b>()
+                                        </div>
+                                        <div class="description">Override to Backbone.View.initialize; Is called on
+creation, using the "new" operator.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>redraw</b>(el)
+                                        </div>
+                                        <div class="description">Do all expensive DOM operations that could break
+listeners (hiding etc.). This is an empty
+function by default.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>refresh</b>()
+                                        </div>
+                                        <div class="description">Set styles, calculates values, etc. This is called
+each time the View is rendered, so don't do anything expensive
+here. This is an empty function by default.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>render</b>()
+                                        </div>
+                                        <div class="description">Override to Backbone.View.render.<br /><br />
+
+Exits if initialized flag is not set.<br /><br />
+
+Maintains the View life cycle of rendering. First
+unbinds all events, then redraws if invalidated flag
+is set, and after that calls refresh and binds all events.</div>
+                                    </td>
+                                </tr>
+                            
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        &lt;static&gt; <b>unbindEvents</b>()
+                                        </div>
+                                        <div class="description">Clear all listeners to DOM events. The default
+implementation only calls $(this.el).unbind().</div>
+                                    </td>
+                                </tr>
+                            
+                        </table>
+                        
                     
                                     
                 </div>
@@ -334,7 +539,7 @@ internal:    UI model that only this View uses internally.
 		</div>
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Wed May 25 2011 00:54:30 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Wed May 25 2011 20:34:39 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

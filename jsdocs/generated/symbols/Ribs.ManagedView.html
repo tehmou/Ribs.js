@@ -207,19 +207,21 @@ ul.inheritsList
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				
+				<br />Extends
+					Backbone.View.<br />
 				
 			
 				A more sophisticated Backbone.View that adds
 support for component lifecycles, as often needed
-in RIA applications.
+in RIA applications.<br /><br />
 
 Ribs.js uses the model ribsUIModels to store
 an arbitrary number of models that the View renders.
-The default ones are:
+The default ones are:<br /><br />
 
-data:        The default Backbone property model.
+data:        The default Backbone property model.<br />
 dataUI:      A model added to the data model with
-             Ribs.augmentModelWithUIProperties.
+             Ribs.augmentModelWithUIProperties.<br />
 internal:    UI model that only this View uses internally.
 				
 				
@@ -242,7 +244,7 @@ internal:    UI model that only this View uses internally.
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/Ribs.ManagedView.html#constructor">Ribs.ManagedView</a></b>()
+								<b><a href="../symbols/Ribs.ManagedView.html#constructor">Ribs.ManagedView</a></b>(options)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -253,8 +255,160 @@ internal:    UI model that only this View uses internally.
 
 <!-- ============================== properties summary ===================== -->
 			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class Ribs.ManagedView.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.initialized">initialized</a></b>
+								</div>
+								<div class="description">Is set when the component has finished initializing
+and is ready to be rendered.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.invalidated">invalidated</a></b>
+								</div>
+								<div class="description">When calling render(), if this flag is set,
+a redraw will occur.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
 
 <!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Ribs.ManagedView.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.bindEvents">bindEvents</a></b>()
+								</div>
+								<div class="description">Set all listeners to DOM events.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.bindToModel">bindToModel</a></b>(model)
+								</div>
+								<div class="description">Backbone convention for setting/changing the model
+for a View.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.customInitialize">customInitialize</a></b>()
+								</div>
+								<div class="description">Is called after the "real" initialize is completed,
+apart from setting initialized flag and rendering.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.dispose">dispose</a></b>()
+								</div>
+								<div class="description">Destroy the View beyond restoring.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.hide">hide</a></b>()
+								</div>
+								<div class="description">Remove from DOM with the prospect of reattaching.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.initialize">initialize</a></b>()
+								</div>
+								<div class="description">Override to Backbone.View.initialize; Is called on
+creation, using the "new" operator.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.redraw">redraw</a></b>(el)
+								</div>
+								<div class="description">Do all expensive DOM operations that could break
+listeners (hiding etc.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.refresh">refresh</a></b>()
+								</div>
+								<div class="description">Set styles, calculates values, etc.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.render">render</a></b>()
+								</div>
+								<div class="description">Override to Backbone.View.render.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">Ribs.ManagedView.<b><a href="../symbols/Ribs.ManagedView.html#.unbindEvents">unbindEvents</a></b>()
+								</div>
+								<div class="description">Clear all listeners to DOM events.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
 			
 <!-- ============================== events summary ======================== -->
 			
@@ -267,7 +421,7 @@ internal:    UI model that only this View uses internally.
 				</div>
 				
 				<div class="fixedFont">
-						<b>Ribs.ManagedView</b>()
+						<b>Ribs.ManagedView</b>(options)
 				</div>
 				
 				<div class="description">
@@ -278,6 +432,17 @@ internal:    UI model that only this View uses internally.
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								 <b>options</b>
+								
+							</dt>
+								<dd>Options for this View.</dd>
+						
+						</dl>
 					
 					
 					
@@ -291,8 +456,365 @@ internal:    UI model that only this View uses internally.
 
 <!-- ============================== field details ========================== -->		
 			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".initialized"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>initialized</b>
+					
+					</div>
+					<div class="description">
+						Is set when the component has finished initializing
+and is ready to be rendered.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".invalidated"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>invalidated</b>
+					
+					</div>
+					<div class="description">
+						When calling render(), if this flag is set,
+a redraw will occur. When redraw is finished, this
+flag is again reset to false.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
 
 <!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name=".bindEvents"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>bindEvents</b>()
+					
+					</div>
+					<div class="description">
+						Set all listeners to DOM events. This is an empty
+function by default.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".bindToModel"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>bindToModel</b>(model)
+					
+					</div>
+					<div class="description">
+						Backbone convention for setting/changing the model
+for a View. Here is it is defined explicitly since the View
+life cycle requires it. A possible old model is unbound of
+its change handler, and the new one is in turn bound.<br /><br />
+
+If the new model does not yet augmented with UI attributes,
+Ribs.augmentModelWithUIAttributes does this.<br /><br />
+
+The default models "data" and "dataUI" are set to ribsUIModels.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>model</b>
+									
+								</dt>
+								<dd>The Backbone.Model we want this View to represent.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".customInitialize"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>customInitialize</b>()
+					
+					</div>
+					<div class="description">
+						Is called after the "real" initialize is completed,
+apart from setting initialized flag and rendering. Without
+the initialized flag the component will not render.<br /><br />
+
+This is a clean place for generic initialization code.
+A call to this method is not expected of an overriding method.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".dispose"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>dispose</b>()
+					
+					</div>
+					<div class="description">
+						Destroy the View beyond restoring. $By default,
+$(this.el).remove(); is called.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".hide"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>hide</b>()
+					
+					</div>
+					<div class="description">
+						Remove from DOM with the prospect of reattaching.
+Default behavior calls $(this.el).detach();
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".initialize"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>initialize</b>()
+					
+					</div>
+					<div class="description">
+						Override to Backbone.View.initialize; Is called on
+creation, using the "new" operator.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".redraw"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>redraw</b>(el)
+					
+					</div>
+					<div class="description">
+						Do all expensive DOM operations that could break
+listeners (hiding etc.). This is an empty
+function by default.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>el</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".refresh"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>refresh</b>()
+					
+					</div>
+					<div class="description">
+						Set styles, calculates values, etc. This is called
+each time the View is rendered, so don't do anything expensive
+here. This is an empty function by default.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".render"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>render</b>()
+					
+					</div>
+					<div class="description">
+						Override to Backbone.View.render.<br /><br />
+
+Exits if initialized flag is not set.<br /><br />
+
+Maintains the View life cycle of rendering. First
+unbinds all events, then redraws if invalidated flag
+is set, and after that calls refresh and binds all events.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".unbindEvents"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">Ribs.ManagedView.</span><b>unbindEvents</b>()
+					
+					</div>
+					<div class="description">
+						Clear all listeners to DOM events. The default
+implementation only calls $(this.el).unbind().
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
 			
 			
 <!-- ============================== event details ========================= -->		
@@ -305,7 +827,7 @@ internal:    UI model that only this View uses internally.
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed May 25 2011 00:54:30 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed May 25 2011 20:34:39 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

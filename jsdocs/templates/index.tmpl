@@ -21,7 +21,8 @@
 
 		<div id="content">
 			<for each="thisClass" in="data">
-                <div name="{+thisClass.alias+}">
+			    <a name="{+thisClass.alias+}"></a>
+                <div>
                     <h2>{+thisClass.alias+}</h2>
     
                     <p class="description">
@@ -41,19 +42,12 @@
                     <if test="thisClass.properties.length">
                         {! var ownProperties = thisClass.properties.sort(makeSortby("name")); !}
                         <div class="sectionTitle">
-                            Field Detail
+                            Properties
                         </div>
                         <for each="member" in="ownProperties">
-                            <a name="{+Link.symbolNameToLinkName(member)+}"> </a>
-                            <div class="fixedFont">{!
-                                if (member.isPrivate) output += "&lt;private&gt; ";
-                                if (member.isInner) output += "&lt;inner&gt; ";
-                                if (member.isStatic) output += "&lt;static&gt; ";
-                                if (member.isConstant) output += "&lt;constant&gt; ";
-                            !}
+                            <div class="fixedFont">
 
-                            <if test="member.type"><span class="light">{{+new Link().toSymbol(member.type)+}}</span></if>
-                            <if test="member.isStatic && member.memberOf != '_global_'"><span class="light">{+member.memberOf+}.</span></if><b>{+member.name+}</b>
+                            <b>{+member.name+}</b>
 
                             </div>
                             <div class="description">
@@ -62,7 +56,6 @@
                                     <br />
                                     <i>Defined in: </i> {+new Link().toSrc(member.srcFile)+}.
                                 </if>
-                                <if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
                             </div>
 
                             <if test="member.example.length">
@@ -109,60 +102,21 @@
 <!-- ============================== methods summary ======================== -->
                     <if test="thisClass.methods.length">
                         {! var ownMethods = thisClass.methods.filter(function($){return $.memberOf == thisClass.alias  && !$.isNamespace}).sort(makeSortby("name")); !}
+                        <div class="sectionTitle">
+                            Methods
+                        </div>
                         <if test="ownMethods.length">
-                        <table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class {+thisClass.alias+}.">
-                            <caption>Method Summary</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Method Attributes</th>
-                                    <th scope="col">Method Name and Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                             <for each="member" in="ownMethods">
-                                <tr>
-                                    <td class="attributes">{!
-                                        if (member.isPrivate) output += "&lt;private&gt; ";
-                                        if (member.isInner) output += "&lt;inner&gt; ";
-                                        if (member.isStatic) output += "&lt;static&gt; ";
-                                    !}&nbsp;</td>
-                                    <td class="nameDescription">
-                                        <div class="fixedFont"><if test="member.isStatic && member.memberOf != '_global_'">{+member.memberOf+}.</if><b>{+new Link().toSymbol(member.alias).withText(member.name.replace(/\^\d+$/, ''))+}</b>{+makeSignature(member.params)+}
+                                <div>
+                                    <div class="nameDescription">
+                                        <div class="fixedFont">
+                                        <b>{+member.name.replace(/\^\d+$/, '')+}</b>{+makeSignature(member.params)+}
                                         </div>
-                                        <div class="description">{+resolveLinks(summarize(member.desc))+}</div>
+                                        <div class="description">{+resolveLinks(member.desc)+}</div>
                                     </td>
                                 </tr>
                             </for>
-                            </tbody>
                         </table>
-                        </if>
-                        
-                        <if test="thisClass.inheritsFrom.length">
-                        <dl class="inheritsList">
-                        {!
-                            var borrowedMembers = thisClass.methods.filter(function($) {return $.memberOf != thisClass.alias});
-                            var contributers = [];
-                            borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
-                            for (var i = 0, l = contributers.length; i < l; i++) {
-                                output +=
-                                    "<dt>Methods borrowed from class "+new Link().toSymbol(contributers[i])+": </dt>"
-                                    +
-                                    "<dd>" +
-                                    borrowedMembers
-                                    .filter(
-                                        function($) { return $.memberOf == contributers[i] }
-                                    )
-                                    .sort(makeSortby("name"))
-                                    .map(
-                                        function($) { return new Link().toSymbol($.alias).withText($.name) }
-                                    )
-                                    .join(", ")
-                                    +
-                                    "</dd>";
-                            }
-                        
-                        !}
-                        </dl>
                         </if>
                     </if>
                                     

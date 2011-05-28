@@ -1,7 +1,7 @@
 /*global $,_,Backbone,console*/
 
 /**
- * @class Ribs.js 0.0.84
+ * @namespace Ribs.js 0.0.84
  *     (c) 2011 Timo Tuominen
  *     Ribs.js may be freely distributed under the MIT license.
  *     For all details and documentation:
@@ -11,9 +11,17 @@ var Ribs = {};
 
 Ribs.VERSION = "0.0.84";
 
+/**
+ * @field
+ * @desc Hash of all mixins visible to the mixin
+ * parser. Add your custom ones here.
+ * */
 Ribs.mixins = {};
 
-/** @field List of methods that mixins inherit. */
+/**
+ * @field
+ * @desc List of ManagedView methods that are delegated to all mixins.
+ * */
 Ribs.mixinMethods = [
     "customInitialize",
     "bindToModel",
@@ -22,14 +30,19 @@ Ribs.mixinMethods = [
     "hide", "dispose"
 ];
 
+/**
+ * @field
+ * @desc List of properties that mixins inherit from their parents.
+ * */
 Ribs.inheritingMixinProperties = [
     "attributeName", "modelName"
 ];
 
 
 /**
-* @method Creates a Backbone.View that inherits Ribs.ManagedView
-* and contains the mixins defined in myOptions.
+ * @method
+ * @desc Creates a Backbone.View that inherits Ribs.ManagedView
+ * and contains the mixins defined in myOptions.
 */
 Ribs.createMixed = function (myOptions) {
     myOptions = myOptions || {};
