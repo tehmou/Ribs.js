@@ -10,7 +10,7 @@ Ribs.mixins.commitEdit = function (classOptions) {
                         this.model.trigger("ribs:commitEdit");
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinBase.withModel, classOptions || {});
         };
     return CommitEditInst;
 };

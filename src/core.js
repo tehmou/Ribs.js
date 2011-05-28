@@ -16,16 +16,11 @@ Ribs.mixins = {};
 /** @field List of methods that mixins inherit. */
 Ribs.mixinMethods = [
     "customInitialize",
-    "bindToModel",
+    "bindToModel", "updateMixinModel",
     "render", "redraw", "refresh",
     "unbindEvents", "bindEvents",
     "hide", "dispose"
 ];
-
-Ribs.inheritingMixinProperties = [
-    "attributeName", "modelName"
-];
-
 
 /**
 * @method Creates a Backbone.View that inherits Ribs.ManagedView

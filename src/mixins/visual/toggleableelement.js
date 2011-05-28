@@ -27,7 +27,7 @@ Ribs.mixins.toggleableElement = function (classOptions) {
                 attributeChanged: function () {
                     parent.invalidated = true;
                 }
-            }, Ribs.mixinHelpers, classOptions || {});
+            }, Ribs.mixinBase.withModel, classOptions || {});
         };
 
     return ToggleableElementInst;

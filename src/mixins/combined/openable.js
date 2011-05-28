@@ -1,16 +1,17 @@
 Ribs.mixins.openable = function (classOptions) {
     var OpenableInst = Ribs.mixinParser.createMixinFromDefinitions([
         { toggleAttribute: {
+            attributeName: "open",
+            modelName: "dataUI",
             onEvent: "click",
             offEvent: "click"
         }},
         { toggleableClass: {
+            attributeName: "open",
+            modelName: "dataUI",
             className: "open"
         }}
-    ], _.extend({
-        attributeName: "open",
-        modelName: "dataUI"
-    }));
+    ], classOptions);
 
     return OpenableInst;
 };

@@ -10,7 +10,7 @@ Ribs.mixins.cancelEdit = function (classOptions) {
                         this.model.trigger("ribs:cancelEdit");
                     }
                 }
-            }, classOptions || {});
+            }, Ribs.mixinBase.withModel, classOptions || {});
         };
 
     return CancelEditInst;

@@ -38,7 +38,7 @@ Ribs.mixins.textValueEdit = function (classOptions) {
                         this.setMyValue(value);
                     }
                 }
-            }, Ribs.mixinHelpers, classOptions || {});
+            }, Ribs.mixinBase.withModel, classOptions || {});
         };
 
     return TextValueEditInst;
