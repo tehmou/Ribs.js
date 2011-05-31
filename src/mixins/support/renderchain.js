@@ -17,6 +17,8 @@ Ribs.mixinBase.renderChain = {
         "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"
     ],
 
+    mixinInitialize: function () { },
+    
     /**
      * @method
      * @desc Override to Backbone.View.render.<br /><br />

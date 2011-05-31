@@ -58,7 +58,7 @@
             // Create a Backbone.View class for one person.
             PersonView = Ribs.createMixed({
                 mixinClasses: [
-                    Ribs.mixins.invalidateOnChange({
+                    Ribs.mixins.invalidateOnBackboneModelChange({
                         includedRibsUIAttributes: []
                     }),
                     Ribs.mixins.templated({

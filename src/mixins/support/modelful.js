@@ -2,7 +2,7 @@
 
     Ribs.mixinBase = {};
 
-    Ribs.mixinBase.modelBinding = {
+    Ribs.mixinBase.modelful = {
         getMyValue: function () {
             return this.model && this.model.get(this.attributeName);
         },

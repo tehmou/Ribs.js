@@ -34,7 +34,7 @@
     <script src="../src/jquery.ribs.js"></script>
     <script src="../src/core.js"></script>
     <script src="../src/managedview.js"></script>
-    <script src="../src/mixins/invalidateonchange.js"></script>
+    <script src="../src/mixins/invalidateonbackbonemodelchange.js"></script>
     <script src="../src/mixins/invalidating/simplelist.js"></script>
     <script src="../src/mixins/invalidating/templated.js"></script>
     <script src="../src/mixins/invalidating/combined/editable.js"></script>
@@ -78,7 +78,7 @@
 
             // Create a Backbone.View class for one person.
             PersonView = Ribs.createMixed({ mixins: [
-                { invalidateOnChange: {
+                { invalidateOnBackboneModelChange: {
                     modelName: "dataUI",
                     includedAttributes: ["selected", "hovering"]
                 }},

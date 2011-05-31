@@ -14,7 +14,7 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
         if (_.isArray(mixinDefinitions)) {
             var parseOne = function (value, key) {
                 if (!mixinLibrary[key]) {
-                    throw "Could not find mixin by type " + key;
+                    Ribs.throwError("mixinTypeNotFound", key);
                 }
                 mixinClasses.push(_.extend({}, mixinLibrary[key], value));
             };

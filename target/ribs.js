@@ -494,7 +494,7 @@ Ribs.log = function (msg) {
 
 // Default mixin classes
 
-Ribs.mixins.invalidateOnChange = function (classOptions) {
+Ribs.mixins.invalidateOnBackboneModelChange = function (classOptions) {
     var InvalidateOnChangeInst = function (parent) {
             var model;
             return _.extend({

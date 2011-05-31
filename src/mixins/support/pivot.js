@@ -4,6 +4,9 @@ Ribs.mixinBase.pivot = {
     invalidated: false,
     models: {},
 
+    renderingHash: {},
+    invalidatingHash: {},
+    
     /**
      * @method
      * @desc Create "el" if it does not already exist.
@@ -11,11 +14,7 @@ Ribs.mixinBase.pivot = {
     initialize: function () {
         this.el = this.el || document.createElement(this.tagName || "div");
         this.pivot = this;
-        Ribs.mixinBase.parsing.mixinInitialize.apply(this, arguments);
-        Ribs.mixinBase.composite.mixinInitialize.apply(this, arguments);
     },
-
-    render: function () { },
 
     /**
      * @method

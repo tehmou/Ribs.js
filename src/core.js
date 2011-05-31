@@ -1,7 +1,7 @@
 /*global $,_,Backbone,console*/
 
 /**
- * @namespace Ribs.js 0.0.84
+ * @namespace Ribs.js 0.0.90
  *     (c) 2011 Timo Tuominen
  *     Ribs.js may be freely distributed under the MIT license.
  *     For all details and documentation:
@@ -18,3 +18,15 @@ Ribs.VERSION = "0.0.90";
 **/
 Ribs.mixins = {};
 
+Ribs.enableThrowError = {
+    multipleViewsForEl: true,
+    modelNotFound: true,
+    attributeNotFound: true,
+    mixinTypeNotFound: true
+};
+
+Ribs.throwError = function (errorType, msg) {
+    if (!Ribs.enableThrowError.hasOwnProperty(errorType) || Ribs.enableThrowError[errorType]) {
+        throw errorType + (typeof(msg) !== "undefined" ? ": " + msg : "");
+    }
+};
