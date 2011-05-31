@@ -6,7 +6,6 @@ Ribs.mixins.invalidateOnChange = function (classOptions) {
                 eventName: "change",
                 excludedAttributes: null,
                 includedAttributes: null,
-
                 bindToModel: function (value) {
                     if (model) {
                         if (typeof(model.safeUnbind) === "function") {

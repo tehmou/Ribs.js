@@ -1,28 +1,18 @@
 (function ($) {
 
-    var methods = {
-        createView: function (options) {
-            options = options || {};
-            var View;
-            if (options.view) {
-                View = typeof(options.view) === "function" ? options.view : Ribs.createMixed(options.view);
-            } else if (options.mixins) {
-                View = Ribs.createMixed({ mixins: options.mixins });                
-            }
+    Ribs.allowMultipleViewForEl = false;
 
-            if (!View) {
-                if (!View) {
-                    $.error("options.view was not defined when calling jQuery.ribs createMixed");
-                }
-            }
-            
+    var methods = {
+        createBackbone: function (options) {
+            options = options || {};
+
+            var view = _.extend({}, Ribs.mixins.backbonePivot, options.options);
+
             return this.each(function () {
-                if (this.ribsView) {
-                    if (typeof(this.ribsView.dispose) === "function") {
-                        this.ribsView.dispose();
-                    }
+                if (!Ribs.allowMultipleViewForEl && this.ribsView) {
+                    throw "Tried to initialize another ribs for this el";
                 }
-                this.ribsView = new View($.extend(options.options || {}, { el: this }));
+                this.ribsView = _.extend({ el: this }, view);
             });
         }
     };
