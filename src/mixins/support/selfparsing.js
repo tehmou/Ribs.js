@@ -1,4 +1,4 @@
-Ribs.mixinBase.parsing = {
+Ribs.mixinBase.selfparsing = {
     mixinDefinitions: [],
     mixinInitialize: function () {
         Ribs.mixinParser.createMixinFromDefinitions({

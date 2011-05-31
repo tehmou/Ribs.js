@@ -1,4 +1,4 @@
-/*global $,_,Backbone,console*/
+/*global $,_,console*/
 
 /**
  * @namespace Ribs.js 0.0.90

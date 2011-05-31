@@ -1,0 +1,3 @@
+/*global Backbone*/
+
+Ribs.backbone = {};

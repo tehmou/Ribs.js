@@ -1,9 +1,9 @@
-Ribs.createUIManager = function (key, myOptions) {
+Ribs.backbone.createUIManager = function (key, myOptions) {
     myOptions = myOptions || {};
 
-    Ribs.uiManagers = Ribs.uiManagers || {};
+    Ribs.backbone.uiManagers = Ribs.backbone.uiManagers || {};
 
-    Ribs.uiManagers[key] = (function () {
+    Ribs.backbone.uiManagers[key] = (function () {
         var allowMultiselect = myOptions.allowMultiselect,
             viewModel = new Backbone.Model({ nowHovering: null, nowSelected: null }),
             hoveringChanged = function (event) {
