@@ -1,30 +1,28 @@
-(function () {
-
-    Ribs.mixinBase = {};
-
-    Ribs.mixinBase.modelful = {
-        getMyValue: function () {
-            return this.model && this.model.get(this.attributeName);
-        },
-        setMyValue: function (value) {
-            if (this.model && this.attributeName) {
-                var newValues = {};
-                newValues[this.attributeName] = value;
-                this.model.set(newValues);
-                return true;
+Ribs.mixinBase.modelful = {
+    getMyValue: function () {
+        if (this.modelName) {
+            if (this.attributeName) {
+                return this.getValue(this.modelName, this.attributeName);
+            } else {
+                Ribs.throwError("attributeNameNotDefined", "modelName=" + this.modelName);
             }
-            return false;
-        },
-        updateModel: function () {
-            if (this.parent && this.parent.ribsUIModels) {
-                var model = this.parent.ribsUIModels.get(this.modelName);
-                if (this.model !== model) {
-                    if (typeof(this.bindToModel) === "function") {
-                        this.bindToModel(model);
-                    }
-                    this.model = model;
-                }
-            }
+        } else {
+            Ribs.throwError("modelNameNotDefined");
         }
-    };
-}());
+        return null;
+    },
+    setMyValue: function (value) {
+        if (this.modelName) {
+            if (this.attributeName) {
+                this.setValue(this.modelName, this.attributeName, value)
+                return true;
+            } else {
+                Ribs.throwError("attributeNameNotDefined", "modelName=" + this.modelName);
+            }
+        } else {
+            Ribs.throwError("modelNameNotDefined");
+        }
+        return false;
+    }
+};
+

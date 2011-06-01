@@ -2,11 +2,7 @@ Ribs.mixinBase.pivot = {
     tagName: "div",
     el: null,
     invalidated: false,
-    models: {},
 
-    renderingHash: {},
-    invalidatingHash: {},
-    
     /**
      * @method
      * @desc Create "el" if it does not already exist.
@@ -33,3 +29,4 @@ Ribs.mixinBase.pivot = {
     }
 
 };
+

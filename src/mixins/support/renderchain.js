@@ -13,11 +13,11 @@ Ribs.mixinBase.renderChain = {
      */
     invalidated: true,
 
-    inheritingMethods: [
-        "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"
-    ],
-
-    mixinInitialize: function () { },
+    mixinInitialize: function () {
+        this.inheritingMethods = this.inheritingMethods.concat([
+            "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"
+        ]);
+    },
     
     /**
      * @method

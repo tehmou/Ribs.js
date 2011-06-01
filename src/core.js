@@ -18,11 +18,20 @@ Ribs.VERSION = "0.0.90";
 **/
 Ribs.mixins = {};
 
+/**
+ * @field
+ * @desc Hash of support mixins to use in creation
+ * of other mixins.
+ */
+Ribs.mixinBase = {};
+
 Ribs.enableThrowError = {
     multipleViewsForEl: true,
     modelNotFound: true,
     attributeNotFound: true,
-    mixinTypeNotFound: true
+    mixinTypeNotFound: true,
+    attributeNameNotDefined: true,
+    modelNameNotDefined: true
 };
 
 Ribs.throwError = function (errorType, msg) {
