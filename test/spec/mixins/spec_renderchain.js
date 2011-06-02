@@ -3,6 +3,7 @@ describe("Ribs.mixinBase.renderChain", function () {
 
     beforeEach(function () {
         renderChain = _.clone(Ribs.mixinBase.renderChain);
+        renderChain.pivot = { initialized: true }
     });
 
     if("Should add inheritingMethods", function () {
@@ -17,7 +18,6 @@ describe("Ribs.mixinBase.renderChain", function () {
         var callStack, renderWithRedrawCallStack, renderWithoutRedrawCallStack;
 
         beforeEach(function () {
-            renderChain.initialized = true;
             callStack = objectCallObserver(renderChain);
             renderWithRedrawCallStack = [
                 "render",
@@ -40,7 +40,7 @@ describe("Ribs.mixinBase.renderChain", function () {
 
         it("Should not render at all if initialized is false", function () {
             callStack.expectCall("render");
-            renderChain.initialized = false;
+            renderChain.pivot.initialized = false;
             callStack.start();
             renderChain.render();
         });

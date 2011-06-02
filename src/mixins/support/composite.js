@@ -1,16 +1,12 @@
 Ribs.mixinBase.composite = {
     inheritingMethods: null,
-    mixinClasses: [],
+    mixinClasses: null,
     mixinInitialize: function () {
         this.inheritingMethods = this.inheritingMethods || [];
+        this.mixinClasses = this.mixinClasses || [];
         this.mixins = [];
         _.each(this.mixinClasses, _.bind(function (mixinType) {
-            if (typeof(mixinType === "function")) {
-                mixin = mixinType();
-            } else {
-                mixin = _.clone(mixinType);
-            }
-            _.extend(mixin, {
+            var mixin = _.extend({}, mixinType, {
                 inheritingMethods: this.inheritingMethods,
                 pivot: this.pivot
             });

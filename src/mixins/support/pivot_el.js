@@ -1,13 +1,13 @@
-Ribs.mixinBase.pivot = {
+Ribs.mixinBase.pivotEl = {
     tagName: "div",
     el: null,
-    invalidated: false,
+    initialized: false,
 
     /**
      * @method
      * @desc Create "el" if it does not already exist.
      */
-    initialize: function () {
+    mixinInitialize: function () {
         this.el = this.el || document.createElement(this.tagName || "div");
         this.pivot = this;
     },

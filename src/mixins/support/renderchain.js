@@ -30,7 +30,7 @@ Ribs.mixinBase.renderChain = {
      * is set, and after that calls refresh and binds all events.
      */
     render: function () {
-        if (!this.initialized) { return; }
+        if (!this.pivot || !this.pivot.initialized) { return; }
         this.unbindEvents();
         if (this.invalidated) {
             this.redraw();
@@ -84,3 +84,4 @@ Ribs.mixinBase.renderChain = {
      */
     dispose: function () { }
 };
+
