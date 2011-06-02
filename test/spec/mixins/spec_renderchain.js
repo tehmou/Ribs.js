@@ -1,4 +1,4 @@
-define("Ribs.mixinBase.renderChain", function () {
+describe("Ribs.mixinBase.renderChain", function () {
     var renderChain;
 
     beforeEach(function () {
@@ -19,7 +19,6 @@ define("Ribs.mixinBase.renderChain", function () {
         beforeEach(function () {
             renderChain.initialized = true;
             callStack = objectCallObserver(renderChain);
-            callStack.start();
             renderWithRedrawCallStack = [
                 "render",
                 "unbindEvents",
@@ -40,25 +39,30 @@ define("Ribs.mixinBase.renderChain", function () {
         });
 
         it("Should not render at all if initialized is false", function () {
+            callStack.expectCall("render");
             renderChain.initialized = false;
+            callStack.start();
             renderChain.render();
         });
 
         it("Should redraw on first render()", function () {
-            callObserver.expectCalls(renderWithRedrawCallStack);
+            callStack.expectCalls(renderWithRedrawCallStack);
+            callStack.start();
             renderChain.render();
         });
 
         it("Should not redraw on the second time rendering", function () {
             renderChain.render();
-            callObserver.expectCalls(renderWithoutRedrawCallStack);
+            callStack.expectCalls(renderWithoutRedrawCallStack);
+            callStack.start();
             renderChain.render();
         });
 
         it("Should redraw if invalidated is set to true", function () {
             renderChain.render();
             renderChain.invalidated = true;
-            callObserver.expectCalls(renderWithRedrawCallStack);
+            callStack.expectCalls(renderWithRedrawCallStack);
+            callStack.start();
             renderChain.render();
         });
     });        
