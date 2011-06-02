@@ -37,7 +37,7 @@ Ribs.createMixed = function (myOptions) {
     myOptions = myOptions || {};
 
     var Buildee = myOptions.base ? myOptions.base.extend() : Ribs.ManagedView.extend(),
-        NewRootMixin = Ribs.mixinParser.createMixinFromDefinitions(myOptions.mixins),
+        NewRootMixin = Ribs.mixinParser.createCompositeFromDefinitions(myOptions.mixins),
         OldRootMixin = myOptions.base && myOptions.base.RootMixin,
 
         delegateOneToRootMixin = function (methodName) {
@@ -333,7 +333,7 @@ Ribs.mixinHelpers = {
 
     parser.parseOne = parseOne;
 
-    parser.createMixinFromDefinitions = function (mixinDefinitions, options) {
+    parser.createCompositeFromDefinitions = function (mixinDefinitions, options) {
         options = options || {};
         mixinDefinitions = mixinDefinitions || [];
         var mixinClasses = [], i, l,
@@ -342,7 +342,7 @@ Ribs.mixinHelpers = {
                 mixinClasses.push(MixinClass);
             },
             _createMixinFromDefinitions = function (nestedMixinDefinitions, elementSelector) {
-                var MixinClass = parser.createMixinFromDefinitions(
+                var MixinClass = parser.createCompositeFromDefinitions(
                         nestedMixinDefinitions, { elementSelector: elementSelector });
                 mixinClasses.push(MixinClass);
             };
@@ -643,7 +643,7 @@ Ribs.mixins.templated = function (classOptions) {
 };
 
 Ribs.mixins.editable = function (classOptions) {
-    var EditableInst = Ribs.mixinParser.createMixinFromDefinitions([
+    var EditableInst = Ribs.mixinParser.createCompositeFromDefinitions([
         { toggleAttribute: {
             onEvent: "click",
             offEvent: "click"
@@ -660,7 +660,7 @@ Ribs.mixins.editable = function (classOptions) {
 };
 
 Ribs.mixins.hoverable = function (classOptions) {
-    var HoverableInst = Ribs.mixinParser.createMixinFromDefinitions([
+    var HoverableInst = Ribs.mixinParser.createCompositeFromDefinitions([
         { toggleAttribute: {
             onEvent: "mouseenter",
             offEvent: "mouseleave"
@@ -677,7 +677,7 @@ Ribs.mixins.hoverable = function (classOptions) {
 };
 
 Ribs.mixins.openable = function (classOptions) {
-    var OpenableInst = Ribs.mixinParser.createMixinFromDefinitions([
+    var OpenableInst = Ribs.mixinParser.createCompositeFromDefinitions([
         { toggleAttribute: {
             onEvent: "click",
             offEvent: "click"
@@ -694,7 +694,7 @@ Ribs.mixins.openable = function (classOptions) {
 };
 
 Ribs.mixins.selectable = function (classOptions) {
-    var SelectableInst = Ribs.mixinParser.createMixinFromDefinitions([
+    var SelectableInst = Ribs.mixinParser.createCompositeFromDefinitions([
         { toggleAttribute: {
             onEvent: "click",
             offEvent: "click"

@@ -1,5 +1,5 @@
 Ribs.mixins.editable = function (classOptions) {
-    var EditableInst = Ribs.mixinParser.createMixinFromDefinitions([
+    var EditableInst = Ribs.mixinParser.createCompositeFromDefinitions([
         { toggleAttribute: {
             attributeName: "editing",
             modelName: "dataUI",

@@ -26,7 +26,7 @@ describe("mixinDefinitionParser", function () {
                 { name: "parseOne", arguments: [o, "createTestMixin2"] }
             ]);
 
-            var Mixin = parser.createMixinFromDefinitions([
+            var Mixin = parser.createCompositeFromDefinitions([
                 { createTestMixin1: o },
                 { createTestMixin2: o }
             ]);
@@ -83,7 +83,7 @@ describe("mixinDefinitionParser", function () {
                     })
                     .expectCalls(expectedDef1Calls);
 
-            var Mixin = parser.createMixinFromDefinitions(mixinDefinitions);
+            var Mixin = parser.createCompositeFromDefinitions(mixinDefinitions);
             expect(Mixin.prototype.mixinClasses.length).toEqual(3);
         });
     });
@@ -105,7 +105,7 @@ describe("mixinDefinitionParser", function () {
 
         it("Should give each mixin the proper el for redrawing", function () {
             var mixin,
-                Mixin = parser.createMixinFromDefinitions({
+                Mixin = parser.createCompositeFromDefinitions({
                     "":  [
                         { createTestMixin1: { } }
                     ],

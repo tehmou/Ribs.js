@@ -1,5 +1,5 @@
 Ribs.mixins.hoverable = function (classOptions) {
-    var HoverableInst = Ribs.mixinParser.createMixinFromDefinitions([
+    var HoverableInst = Ribs.mixinParser.createCompositeFromDefinitions([
         { toggleAttribute: {
             attributeName: "hovering",
             modelName: "dataUI",

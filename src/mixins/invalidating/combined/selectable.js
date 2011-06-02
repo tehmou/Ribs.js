@@ -1,5 +1,5 @@
 Ribs.mixins.selectable = function (classOptions) {
-    var SelectableInst = Ribs.mixinParser.createMixinFromDefinitions([
+    var SelectableInst = Ribs.mixinParser.createCompositeFromDefinitions([
         { toggleAttribute: {
             attributeName: "selected",
             modelName: "dataUI",

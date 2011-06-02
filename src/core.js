@@ -31,7 +31,8 @@ Ribs.enableThrowError = {
     attributeNotFound: true,
     mixinTypeNotFound: true,
     attributeNameNotDefined: true,
-    modelNameNotDefined: true
+    modelNameNotDefined: true,
+    noCompositeMixinFoundForParsing: true
 };
 
 Ribs.throwError = function (errorType, msg) {

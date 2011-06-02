@@ -4,10 +4,14 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
     var parser = { },
         mixinLibrary = parserOptions.mixinLibrary || {};
 
-    parser.createMixinFromDefinitions = function (options) {
+    parser.createCompositeFromDefinitions = function (options) {
         options = options || {};
 
-        var composite = options.composite || _.clone(Ribs.mixins.composite),
+        if (!mixinLibrary.hasOwnProperty("composite")) {
+            Ribs.throwError("noCompositeMixinFoundForParsing");
+        }
+
+        var composite = options.composite || _.clone(mixinLibrary.composite),
             mixinDefinitions = options.mixinDefinitions || [];
             mixinClasses = options.mixinClasses || [];
 
@@ -23,7 +27,7 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
             }
         } else {
             var _createMixinFromDefinitions = function (nestedMixinDefinitions, elementSelector) {
-                mixinClasses.push(parser.createMixinFromDefinitions({
+                mixinClasses.push(parser.createCompositeFromDefinitions({
                     mixinDefinitions: nestedMixinDefinitions,
                     elementSelector: elementSelector
                 }));
