@@ -12,8 +12,10 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
         }
 
         var composite = options.composite || _.clone(mixinLibrary.composite),
-            mixinDefinitions = options.mixinDefinitions || [];
+            mixinDefinitions = options.mixinDefinitions || [],
             mixinClasses = options.mixinClasses || [];
+
+        composite.elementSelector = options.elementSelector;
 
         if (_.isArray(mixinDefinitions)) {
             var parseOne = function (value, key) {
@@ -27,14 +29,14 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
             }
         } else {
             var _createMixinFromDefinitions = function (nestedMixinDefinitions, elementSelector) {
-                mixinClasses.push(parser.createCompositeFromDefinitions({
+                var mixin = parser.createCompositeFromDefinitions({
                     mixinDefinitions: nestedMixinDefinitions,
                     elementSelector: elementSelector
-                }));
+                });
+                mixinClasses.push(mixin);
             };
             _.each(mixinDefinitions, _createMixinFromDefinitions);
         }
-
         composite.mixinClasses = mixinClasses;
         return composite;
     };

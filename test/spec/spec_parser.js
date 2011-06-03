@@ -24,18 +24,17 @@ describe("Ribs.mixinBase.selfParsing", function () {
                 "elementOne": [],
                 "myEl": []
             },
-            composite = parser.createCompositeFromDefinitions(def);
-
+            composite = parser.createCompositeFromDefinitions({ mixinDefinitions: def });
         var numExpectedMixins = 0;
         _.each(def, function (defValue, defKey) {
             var found = false;
-            _.each(composite, function (realValue) {
+            _.each(composite.mixinClasses, function (realValue) {
                 if (realValue.elementSelector === defKey) {
                     found = true;
                 }
             });
             if (!found) {
-                throw "Could not find a mixin with the selector " + defKey;
+                throw "Could not find a mixin with the selector '" + defKey + "'";
             }
             numExpectedMixins++;
         });
