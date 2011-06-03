@@ -19,3 +19,4 @@ jasmine.Matchers.prototype.toContainOneMixinWithElementSelector = function (expe
         throw "Could not find a mixin with the selector '" + expected + "'";
     }
 };
+

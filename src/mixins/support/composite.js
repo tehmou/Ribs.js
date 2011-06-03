@@ -25,14 +25,22 @@ Ribs.mixinBase.composite = {
     },
     initializeInheritingMethods: function () {
         _.each(this.inheritingMethods, function (methodName) {
-            var oldMethod = this.prototype[methodName];
-            this.prototype[methodName] = function () {
+            var oldMethod = this[methodName];
+            this[methodName] = function () {
                 if (typeof(oldMethod) === "function") {
                     oldMethod.apply(this, arguments);
                 }
                 this.callAllMixins(this.mixins, methodName, arguments);
             };
         });
+    },
+    findMixinWithElementSelector: function (elementSelector) {
+        for (var i = 0; i < this.mixinClasses.length; i++) {
+            if (this.mixinClasses[i].elementSelector === elementSelector) {
+                return this.mixinClasses[i];
+            }
+        }
+        return null;
     }
 };
 
