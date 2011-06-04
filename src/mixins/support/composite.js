@@ -13,7 +13,7 @@ Ribs.mixinBase.composite = {
             _.bind(function () { _.bindAll(this); }, mixin)();
             this.mixins.push(mixin);
         }, this));
-        this.callAllMixins(this.mixins, "mixinInitialize", arguments);
+        this.callAllMixins("mixinInitialize", arguments);
         this.initializeInheritingMethods(this);
     },
     callAllMixins: function (methodName, originalArguments) {
@@ -24,15 +24,15 @@ Ribs.mixinBase.composite = {
         });
     },
     initializeInheritingMethods: function () {
-        _.each(this.inheritingMethods, function (methodName) {
+        _.each(this.inheritingMethods, _.bind(function (methodName) {
             var oldMethod = this[methodName];
             this[methodName] = function () {
                 if (typeof(oldMethod) === "function") {
                     oldMethod.apply(this, arguments);
                 }
-                this.callAllMixins(this.mixins, methodName, arguments);
+                this.callAllMixins(methodName, arguments);
             };
-        });
+        }, this));
     },
     findMixinWithElementSelector: function (elementSelector) {
         for (var i = 0; i < this.mixinClasses.length; i++) {

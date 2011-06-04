@@ -4,13 +4,17 @@ describe("Ribs.mixinBase.composite", function () {
     beforeEach(function () {
         pivot = {};
         inheritingMethods = [ "call1", "call2" ];
-        mixin1 = { elementSelector: "mixinSelector" };
+        mixin1 = {
+            elementSelector: "mixinSelector",
+            call1: function () { }, call2: function () { }
+        };
         mixin2 = { myParam: "myValue" };
 
         composite = _.extend({}, Ribs.mixinBase.composite, {
             pivot: pivot,
             inheritingMethods: inheritingMethods,
-            mixinClasses: [ mixin1, mixin2 ]
+            mixinClasses: [ mixin1, mixin2 ],
+            testMethod: function () { }
         });
     });
 
@@ -33,7 +37,19 @@ describe("Ribs.mixinBase.composite", function () {
     });
 
     it("Should delegate all calls defined inheritingMethods to the created mixins", function () {
+        composite.mixinInitialize();
 
+        var mixin = composite.mixins[0],
+            callStack = objectCallObserver(mixin);
+
+        callStack.expectCalls(["call1", "call2"]);
+        callStack.start();
+
+        composite.call1();
+        composite.testMethod();
+        composite.call2();
+
+        callStack.expectFinished();
     });
 
     it("Should pass inheritingMethods and pivot to created mixins", function () {
