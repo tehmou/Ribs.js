@@ -25,19 +25,20 @@ Ribs.mixinBase.renderChain = {
      *
      * Exits if initialized flag is not set.<br /><br />
      *
-     * Maintains the View life cycle of rendering. First
-     * unbinds all events, then redraws if invalidated flag
-     * is set, and after that calls refresh and binds all events.
+     * Maintains the View life cycle of rendering. If invalidated
+     * flag is set, unbinds all DOM events, calls redraw, and then
+     * binds the events. After this comes always refresh,
+     * regardless of the invalidated flag.
      */
     render: function () {
         if (!this.pivot || !this.pivot.initialized) { return; }
-        this.unbindEvents();
         if (this.invalidated) {
+            this.unbindEvents();
             this.redraw();
+            this.bindEvents();
             this.invalidated = false;
         }
         this.refresh();
-        this.bindEvents();
     },
 
     /**
