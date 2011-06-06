@@ -10,3 +10,4 @@ Ribs.backbone.NonSyncingCollection = Backbone.Collection.extend({
         item.collection = oldCollection;
     }
 });
+

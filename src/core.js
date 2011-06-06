@@ -40,3 +40,5 @@ Ribs.throwError = function (errorType, msg) {
         throw errorType + (typeof(msg) !== "undefined" ? ": " + msg : "");
     }
 };
+
+
