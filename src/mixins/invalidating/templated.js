@@ -1,7 +1,21 @@
 Ribs.mixins.templated = {
-    templateFunction: function () { return ""; },
+    templateSelector: null,
+    templateFunction: null,
+
+    mixinInitialize: function () {
+        if (!this.templateFunction && this.templateSelector) {
+            this.templateFunction = _.template($(this.templateSelector).html());
+        }
+
+        if (!this.el && this.templateFunction) {
+            this.el = $(this.templateFunction({}));
+            this.templateFunction = _.template($(this.el.children()).html());
+        }
+    },
     redraw: function () {
-        this.el.html(this.templateFunction({}));
+        if (this.templateFunction) {
+            this.el.html(this.templateFunction({}));
+        }
     }
 };
 
