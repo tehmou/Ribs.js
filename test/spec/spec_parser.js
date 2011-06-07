@@ -6,7 +6,7 @@ describe("Ribs.mixinBase.selfParsing", function () {
         parser = Ribs.createMixinDefinitionParser({
             mixinLibrary: {
                 plain: { param1: "foo"},
-                composite: Ribs.mixinBase.composite
+                composite: Ribs.mixins.composite
             }
         });
     });

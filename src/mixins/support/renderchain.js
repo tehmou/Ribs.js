@@ -14,7 +14,7 @@ Ribs.mixinBase.renderChain = {
     invalidated: true,
 
     mixinInitialize: function () {
-        this.inheritingMethods = this.inheritingMethods.concat([
+        this.inheritingMethods = (this.inheritingMethods || []).concat([
             "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"
         ]);
     },
@@ -47,7 +47,9 @@ Ribs.mixinBase.renderChain = {
      * implementation only calls $(this.el).unbind().
      */
     unbindEvents: function () {
-        $(this.el).unbind();
+        if (this.el) {
+            $(this.el).unbind();
+        }
     },
 
     /**

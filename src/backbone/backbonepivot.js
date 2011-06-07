@@ -75,20 +75,15 @@ Ribs.backbone.modelSupport = {
 };
 
 Ribs.backbone.backbonePivot = _.extend(
-    Ribs.mixinBase.selfParsing,
-    Ribs.mixinBase.composite,
-    Ribs.mixinBase.renderChain,
-    Ribs.mixinBase.pivotEl,
+    {},
+    Ribs.mixins.plainPivot,
     Ribs.backbone.modelSupport,
     Ribs.backbone.invalidating,
     {
         mixinInitialize: function () {
-            Ribs.mixinBase.renderChain.mixinInitialize.apply(this, arguments);
-            Ribs.mixinBase.pivotEl.mixinInitialize.apply(this, arguments);
-            Ribs.mixinBase.composite.mixinInitialize.apply(this, arguments);
+            Ribs.mixins.plainPivot.mixinInitialize.apply(this, arguments);
             Ribs.backbone.modelSupport.mixinInitialize.apply(this, arguments);
             Ribs.backbone.invalidating.mixinInitialize.apply(this, arguments);
-            Ribs.mixinBase.selfParsing.mixinInitialize.apply(this, arguments);
             this.initialized = true;
         },
 

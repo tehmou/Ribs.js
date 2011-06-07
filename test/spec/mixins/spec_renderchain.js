@@ -23,14 +23,12 @@ describe("Ribs.mixinBase.renderChain", function () {
                 "render",
                 "unbindEvents",
                 "redraw",
-                "refresh",
-                "bindEvents"
+                "bindEvents",
+                "refresh"
             ];
             renderWithoutRedrawCallStack = [
                 "render",
-                "unbindEvents",
                 "refresh",
-                "bindEvents"
             ];
         });
 

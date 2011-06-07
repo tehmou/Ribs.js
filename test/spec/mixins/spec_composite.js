@@ -1,4 +1,4 @@
-describe("Ribs.mixinBase.composite", function () {
+describe("Ribs.mixins.composite", function () {
     var composite, pivot, inheritingMethods, mixin1, mixin2;
 
     beforeEach(function () {
@@ -10,7 +10,7 @@ describe("Ribs.mixinBase.composite", function () {
         };
         mixin2 = { myParam: "myValue" };
 
-        composite = _.extend({}, Ribs.mixinBase.composite, {
+        composite = _.extend({}, Ribs.mixins.composite, {
             pivot: pivot,
             inheritingMethods: inheritingMethods,
             mixinClasses: [ mixin1, mixin2 ],

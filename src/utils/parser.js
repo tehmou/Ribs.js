@@ -44,5 +44,5 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
     return parser;
 };
 
-Ribs.mixinParser = Ribs.createMixinDefinitionParser(Ribs.mixins);
+Ribs.mixinParser = Ribs.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
 

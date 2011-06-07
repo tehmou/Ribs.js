@@ -153,7 +153,7 @@ Ribs.mixinBase.childMixinElementResolver = {
     }
 };
 
-Ribs.mixinBase.composite = {
+Ribs.mixins.composite = {
     inheritingMethods: null,
     mixinClasses: null,
     mixinInitialize: function () {
@@ -391,7 +391,7 @@ Ribs.mixinBase.selfParsing = {
 
 Ribs.mixins.plainWithModel = _.extend(Ribs.mixinBase.modelful, Ribs.mixinBase.eventful);
 Ribs.mixins.plain = Ribs.mixinBase.eventful;
-Ribs.mixins.composite = _.extend(Ribs.mixinBase.composite, Ribs.mixinBase.childMixinElementResolver);
+Ribs.mixins.composite = _.extend(Ribs.mixins.composite, Ribs.mixinBase.childMixinElementResolver);
 
 
 // Default mixin classes
@@ -488,7 +488,7 @@ Ribs.backbone.modelSupport = {
 
 Ribs.backbone.backbonePivot = _.extend(
     Ribs.mixinBase.selfParsing,
-    Ribs.mixinBase.composite,
+    Ribs.mixins.composite,
     Ribs.mixinBase.renderChain,
     Ribs.mixinBase.pivotEl,
     Ribs.backbone.modelSupport,
@@ -497,7 +497,7 @@ Ribs.backbone.backbonePivot = _.extend(
         mixinInitialize: function () {
             Ribs.mixinBase.renderChain.mixinInitialize.apply(this, arguments);
             Ribs.mixinBase.pivotEl.mixinInitialize.apply(this, arguments);
-            Ribs.mixinBase.composite.mixinInitialize.apply(this, arguments);
+            Ribs.mixins.composite.mixinInitialize.apply(this, arguments);
             Ribs.backbone.modelSupport.mixinInitialize.apply(this, arguments);
             Ribs.backbone.invalidating.mixinInitialize.apply(this, arguments);
             Ribs.mixinBase.selfParsing.mixinInitialize.apply(this, arguments);
