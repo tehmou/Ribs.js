@@ -87,6 +87,16 @@ Ribs.backbone.backbonePivot = _.extend(
             this.initialized = true;
         },
 
+        getModelJSON: function (options) {
+            var modelName = options.modelName;
+
+            if (!this.models.hasOwnProperty(modelName)) {
+                Ribs.throwError("modelNotFound", modelName);
+                return;
+            }
+            return this.models[modelName].toJSON();
+        },
+
         getValue: function (options) {
             var modelName = options.modelName,
                 attributeName = options.attributeName;
@@ -112,7 +122,6 @@ Ribs.backbone.backbonePivot = _.extend(
                 Ribs.throwError("modelNotFound", modelName);
                 return;
             }
-            
             newValues = {};
             newValues[attributeName] = value;
             this.models[modelName].set(newValues);

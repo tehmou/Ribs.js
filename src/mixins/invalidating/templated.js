@@ -13,8 +13,12 @@ Ribs.mixins.templated = {
         }
     },
     redraw: function () {
+        var json = {};
+        if (_.isFunction(this.getMyModelJSON)) {
+            json = this.getMyModelJSON() || json;
+        }
         if (this.templateFunction) {
-            this.el.html(this.templateFunction({}));
+            this.el.html(this.templateFunction(json || {}));
         }
     }
 };

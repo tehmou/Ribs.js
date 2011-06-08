@@ -1,19 +1,20 @@
-Ribs.mixins.plainWithModel = _.extend({}, Ribs.mixinBase.modelful, Ribs.mixinBase.eventful);
 Ribs.mixins.plain = Ribs.mixinBase.eventful;
-Ribs.mixins.plainPivot = _.extend({},
-        Ribs.mixins.templated,
-        Ribs.mixins.composite,
-        Ribs.mixinBase.renderChain,
-        Ribs.mixinBase.pivotEl,
-        Ribs.mixinBase.selfParsing,
+Ribs.mixins.plainWithModel = _.extend({},
+        Ribs.mixins.plain,
+        Ribs.mixinBase.modelful,
         {
             mixinInitialize: function () {
-                Ribs.mixins.templated.mixinInitialize.apply(this, arguments);
-                Ribs.mixinBase.renderChain.mixinInitialize.apply(this, arguments);
-                Ribs.mixinBase.selfParsing.mixinInitialize.apply(this, arguments);
-                Ribs.mixins.composite.mixinInitialize.apply(this, arguments);
-                Ribs.mixinBase.pivotEl.mixinInitialize.apply(this, arguments);
+                Ribs.mixins.plain.mixinInitialize.apply(this, arguments);
+                Ribs.mixinBase.modelful.mixinInitialize.apply(this, arguments);
             }
-        }
-    );
-Ribs.mixins.composite = _.extend({}, Ribs.mixins.composite, Ribs.mixinBase.childMixinElementResolver);
+        });
+Ribs.mixins.composite = _.extend({},
+        Ribs.mixinBase.compositeBase,
+        Ribs.mixinBase.childMixinElementResolver,
+        {
+            mixinInitialize: function () {
+                Ribs.mixinBase.compositeBase.mixinInitialize.apply(this, arguments);
+                Ribs.mixinBase.childMixinElementResolver.mixinInitialize(this, arguments);
+            }
+        });
+

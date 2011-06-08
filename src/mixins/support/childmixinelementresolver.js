@@ -1,4 +1,7 @@
 Ribs.mixinBase.childMixinElementResolver = {
+    mixinInitialize: function () {
+        this.redraw();
+    },
     redraw: function () {
         if (this.mixins) {
             var el = $(this.el).find(this.elementSelector);
