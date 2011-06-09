@@ -36,6 +36,7 @@ echo $VERSION_STRING > $TARGET
 
 echo "// Core classes\n" >> $TARGET
 cat src/core.js >> $TARGET
+echo "Ribs.VERSION = \"$VERSION_NUMBER\";\n\n" >> $TARGET
 
 echo --jQuery plugin support..
 echo "// jQuery plugin support\n" >> $TARGET
@@ -66,9 +67,9 @@ echo Writing $TARGET
 echo $VERSION_STRING > $TARGET
 
 echo "\n\n\n// Backbone integrations\n" >> $TARGET
-cat src/backbone/ribs.backbone.js src/backbone/backbonepivot.js >> $TARGET
+cat src/backbone/ribs.backbone.js src/backbone/modelsupport.js src/backbone/pivot.js >> $TARGET
 
 echo Copying to target and samples/lib..
-cp $TARGET_DIR/* samples/lib
+cp $TARGET_DIR/* samples/lib/
 
 echo Completed!

@@ -1,17 +1,17 @@
-// Core classes
-
 /*global $,_,console*/
 
-/**
- * @namespace Ribs.js 0.0.90
- *     (c) 2011 Timo Tuominen
- *     Ribs.js may be freely distributed under the MIT license.
- *     For all details and documentation:
- *     http://tehmou.github.com/ribs.js
-**/
-var Ribs = {};
+ /**
+  * @namespace Ribs.js 0.0.90b
+  * 
+  * (c) 2011 Timo Tuominen
+  * Ribs.js may be freely distributed under the MIT license.
+  * For all details and documentation:
+  * http://tehmou.github.com/ribs.js
+ **/ 
 
-Ribs.VERSION = "0.0.90";
+// Core classes
+
+var Ribs = {};
 
 /**
  * @field
@@ -42,6 +42,9 @@ Ribs.throwError = function (errorType, msg) {
         throw errorType + (typeof(msg) !== "undefined" ? ": " + msg : "");
     }
 };
+
+
+Ribs.VERSION = "0.0.90b";
 
 
 // jQuery plugin support
@@ -125,7 +128,7 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
     return parser;
 };
 
-Ribs.mixinParser = Ribs.createMixinDefinitionParser(Ribs.mixins);
+Ribs.mixinParser = Ribs.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
 
 Ribs.log = function (msg) {
     if (typeof(console) !== "undefined") {
@@ -137,6 +140,9 @@ Ribs.log = function (msg) {
 // Support mixins
 
 Ribs.mixinBase.childMixinElementResolver = {
+    mixinInitialize: function () {
+        this.redraw();
+    },
     redraw: function () {
         if (this.mixins) {
             var el = $(this.el).find(this.elementSelector);
@@ -153,7 +159,7 @@ Ribs.mixinBase.childMixinElementResolver = {
     }
 };
 
-Ribs.mixins.composite = {
+Ribs.mixinBase.compositeBase = {
     inheritingMethods: null,
     mixinClasses: null,
     mixinInitialize: function () {
@@ -226,10 +232,22 @@ Ribs.mixins.composite = {
 }());
 
 Ribs.mixinBase.modelful = {
+    getMyModelJSON: function () {
+        if (this.modelName) {
+            return this.getModelJSON({
+                modelName: this.modelName
+            });
+        } else {
+            Ribs.throwError("modelNameNotDefined");
+        }
+    },
     getMyValue: function () {
         if (this.modelName) {
             if (this.attributeName) {
-                return this.getValue(this.modelName, this.attributeName);
+                return this.getValue({
+                    modelName: this.modelName,
+                    attributeName: this.attributeName
+                });
             } else {
                 Ribs.throwError("attributeNameNotDefined", "modelName=" + this.modelName);
             }
@@ -241,7 +259,11 @@ Ribs.mixinBase.modelful = {
     setMyValue: function (value) {
         if (this.modelName) {
             if (this.attributeName) {
-                this.setValue(this.modelName, this.attributeName, value)
+                this.setValue({
+                    modelName: this.modelName,
+                    attributeName: this.attributeName,
+                    value: value
+                });
                 return true;
             } else {
                 Ribs.throwError("attributeNameNotDefined", "modelName=" + this.modelName);
@@ -301,7 +323,7 @@ Ribs.mixinBase.renderChain = {
     invalidated: true,
 
     mixinInitialize: function () {
-        this.inheritingMethods = this.inheritingMethods.concat([
+        this.inheritingMethods = (this.inheritingMethods || []).concat([
             "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"
         ]);
     },
@@ -334,7 +356,9 @@ Ribs.mixinBase.renderChain = {
      * implementation only calls $(this.el).unbind().
      */
     unbindEvents: function () {
-        $(this.el).unbind();
+        if (this.el) {
+            $(this.el).unbind();
+        }
     },
 
     /**
@@ -389,151 +413,23 @@ Ribs.mixinBase.selfParsing = {
 
 // Basic mixin classes
 
-Ribs.mixins.plainWithModel = _.extend(Ribs.mixinBase.modelful, Ribs.mixinBase.eventful);
 Ribs.mixins.plain = Ribs.mixinBase.eventful;
-Ribs.mixins.composite = _.extend(Ribs.mixins.composite, Ribs.mixinBase.childMixinElementResolver);
-
-
-// Default mixin classes
-
-Ribs.mixins.templating = {
-    templateFunction: function () { return ""; },
-    redraw: function () {
-        this.el.html(this.templateFunction({}));
-    }
-};
-
-
-// Backbone integrations
-
-/*global Backbone*/
-
-Ribs.backbone = {};
-
-Ribs.backbone.augmentModelWithUIAttributes = function (model) {
-    if (!model.hasOwnProperty("ribsUI")) {
-        model.ribsUI = new Backbone.Model();
-        model.ribsUI.set({ owner: model });
-        model.ribsUI.bind("all", function (event) {
-            var ev = "ribsUI:" + event;
-            model.trigger(ev, Array.prototype.slice.call(arguments, 1));
-        });
-    }
-};
-
-Ribs.backbone.invalidating = {
-    mixinInitialize: function () {
-        var that = this;
-
-        this.renderingHash = this.renderingHash || {};
-        this.invalidatingHash = this.invalidatingHash || {};
-
-        // Set up model change listeners for rendering only.
-        _.each(this.renderingHash, function (attributeName, modelName) {
-            that.models[modelName].bind("change:" + attributeName, this.render);
-        });
-
-        // Set model change listeners for invalidate+render.
-        _.each(this.invalidatingHash, function (attributeName, modelName) {
-            that.models[modelName].bind("change:" + attributeName, function () {
-                that.invalidated = true;
-                that.render();
-            });
-        });
-    }
-};
-
-Ribs.backbone.modelSupport = {
-    backboneModels: null,
-
-    mixinInitialize: function () {
-        this.inheritingMethods = this.inheritingMethods.concat(["modelRemoved", "modelAdded"]);
-
-        var backboneModels = _.extend({
-            internal: new Backbone.Model()
-        }, this.backboneModels || {});
-
-        if (this.models) {
-            this.models.set(backboneModels);
-        } else {
-            this.models = new Backbone.Model(backboneModels);
-        }
-
-        this.models.bind("change", this.modelChangeHandler);
-
-        if (typeof(this.models.get("data")) !== "undefined") {
-            Ribs.backbone.augmentModelWithUIAttributes(this.models.get("data"));
-            this.models.dataUI = this.models.get("data").ribsUI;
-        }
-    },
-
-    modelChangeHandler: function () {
-        var changedAttributes = this.models.changedAttributes(),
-            broadcastChange = function (value, key) {
-                if (this.models.previous(key)) {
-                    this.modelRemoved(key, this.models.previous(key));
-                }
-                if (this.models.get(key)) {
-                    this.modelAdded(key, this.models.get(key));                    
-                }
-            };
-
-        if (changedAttributes) {
-            _.each(changedAttributes, broadcastChange);
-        }
-    },
-    modelRemoved: function (name, oldModel) { },
-    modelAdded: function (name, newModel) { }
-};
-
-Ribs.backbone.backbonePivot = _.extend(
-    Ribs.mixinBase.selfParsing,
-    Ribs.mixins.composite,
-    Ribs.mixinBase.renderChain,
-    Ribs.mixinBase.pivotEl,
-    Ribs.backbone.modelSupport,
-    Ribs.backbone.invalidating,
-    {
-        mixinInitialize: function () {
-            Ribs.mixinBase.renderChain.mixinInitialize.apply(this, arguments);
-            Ribs.mixinBase.pivotEl.mixinInitialize.apply(this, arguments);
-            Ribs.mixins.composite.mixinInitialize.apply(this, arguments);
-            Ribs.backbone.modelSupport.mixinInitialize.apply(this, arguments);
-            Ribs.backbone.invalidating.mixinInitialize.apply(this, arguments);
-            Ribs.mixinBase.selfParsing.mixinInitialize.apply(this, arguments);
-            this.initialized = true;
-        },
-
-        getValue: function (options) {
-            var modelName = options.modelName,
-                attributeName = options.attributeName;
-
-            if (!this.models.hasOwnProperty(modelName)) {
-                Ribs.throwError("modelNotFound", modelName);
-                return;
+Ribs.mixins.plainWithModel = _.extend({},
+        Ribs.mixins.plain,
+        Ribs.mixinBase.modelful,
+        {
+            mixinInitialize: function () {
+                Ribs.mixins.plain.mixinInitialize.apply(this, arguments);
+                Ribs.mixinBase.modelful.mixinInitialize.apply(this, arguments);
             }
-            if (!this.models[modelName].attributes.hasOwnProperty(attributeName)) {
-                Ribs.throwError("attributeNotFound", "model=" + modelName + ", attribute=" + attributeName);
-                return;
+        });
+Ribs.mixins.composite = _.extend({},
+        Ribs.mixinBase.compositeBase,
+        Ribs.mixinBase.childMixinElementResolver,
+        {
+            mixinInitialize: function () {
+                Ribs.mixinBase.compositeBase.mixinInitialize.apply(this, arguments);
+                Ribs.mixinBase.childMixinElementResolver.mixinInitialize(this, arguments);
             }
-            return this.models[modelName].get(attributeName);
-        },
-
-        setValue: function (options) {
-            var modelName = options.modelName,
-                attributeName = options.attributeName,
-                value = options.value,
-                newValues;
-
-            if (!this.models.hasOwnProperty(modelName)) {
-                Ribs.throwError("modelNotFound", modelName);
-                return;
-            }
-            
-            newValues = {};
-            newValues[attributeName] = value;
-            this.models[modelName].set(newValues);
-        }
-    }
-);
+        });
 
