@@ -14,11 +14,11 @@ describe("Ribs.backbone.modelSupport", function () {
     });
 
     it("Should create model internal automatically", function () {
-        expect(mixin.getModelJSON({ modelName: "internal" })).toBeDefined();
+        expect(mixin.getModelJSON("internal")).toBeDefined();
     });
 
     it("Should have the given model", function () {
-        expect(mixin.getModelJSON({ modelName: "myModel" })).toBeDefined();
+        expect(mixin.getModelJSON("myModel")).toBeDefined();
     });
 
     describe("Changing models", function () {
@@ -57,5 +57,13 @@ describe("Ribs.backbone.modelSupport", function () {
             ]);
             models.unset("myModel");
         });
+    });
+
+    it("Should support multiple models", function () {
+        models.set({ newModel: new Backbone.Model({ val: "text", test: "test" }) });
+        var json = mixin.getModelJSON(["newModel", "myModel"]);
+        expect(json.val).toEqual("text");
+        expect(json.test).toEqual("foo");
+        expect(json.myAttr).toEqual("1234");
     });
 });

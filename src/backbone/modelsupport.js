@@ -54,14 +54,21 @@ Ribs.backbone.modelSupport = {
 
     modelAdded: function (name, newModel) { },
 
-    getModelJSON: function (options) {
-        var modelName = options.modelName;
-
-        if (!this.models.attributes.hasOwnProperty(modelName)) {
-            Ribs.throwError("modelNotFound", modelName);
-            return;
+    getModelJSON: function (modelName) {
+        var json;
+        if (_.isArray(modelName)) {
+            json = {};
+            for (var i = 0; i < modelName.length; i++) {
+                _.extend(json, this.getModelJSON(modelName[i]));
+            }
+        } else {
+            if (!this.models.attributes.hasOwnProperty(modelName)) {
+                Ribs.throwError("modelNotFound", modelName);
+                return;
+            }
+            json = this.models.get(modelName).toJSON();
         }
-        return this.models.get(modelName).toJSON();
+        return json;
     },
 
     getValue: function (options) {
