@@ -13,14 +13,10 @@ Ribs.addingExtend = function (obj) {
                         var oldProp = obj[prop],
                             newProp = source[prop];
                         obj[prop] = function () {
-                            oldProp.apply(obj, arguments);
-                            newProp.apply(obj, arguments);
+                            oldProp.apply(this, arguments);
+                            newProp.apply(this, arguments);
                         };
                     }());
-                    var f = function () {
-                        obj[prop].apply(this, arguments);
-                        source[prop].apply(this, arguments);
-                    };
                 } else {
                     throw "Tried to override a function with non-function";
                 }

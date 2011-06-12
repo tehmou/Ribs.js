@@ -9,16 +9,12 @@ Ribs.backbone.augmentModelWithUIAttributes = function (model) {
     }
 };
 
-Ribs.backbone.backbonePivot = _.extend(
-    {},
+Ribs.backbone.backbonePivot = Ribs.addingExtend({},
     Ribs.mixins.plainPivot,
     Ribs.backbone.modelSupport,
     Ribs.backbone.invalidating,
     {
         mixinInitialize: function () {
-            Ribs.mixins.plainPivot.mixinInitialize.apply(this, arguments);
-            Ribs.backbone.modelSupport.mixinInitialize.apply(this, arguments);
-            Ribs.backbone.invalidating.mixinInitialize.apply(this, arguments);
             this.initialized = true;
         }
     }

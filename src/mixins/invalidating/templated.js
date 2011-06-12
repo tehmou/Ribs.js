@@ -9,7 +9,7 @@ Ribs.mixins.templated = {
         }
         if (!this.el && this.templateFunction) {
             this.el = $(this.templateFunction({}));
-            this.templateFunction = _.template($(this.el.children()).html());
+            this.templateFunction = _.template(this.el.html());
         }
     },
     redraw: function () {

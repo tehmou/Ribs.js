@@ -3,7 +3,7 @@ Ribs.mixinBase.childMixinElementResolver = {
         this.redraw();
     },
     redraw: function () {
-        if (this.mixins) {
+        if (this.mixins && this.el) {
             var el = $(this.el).find(this.elementSelector);
             if (el.length === 0) {
                 el = this.el;
