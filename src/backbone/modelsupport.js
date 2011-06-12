@@ -54,16 +54,18 @@ Ribs.backbone.modelSupport = {
 
     modelAdded: function (name, newModel) { },
 
-    getModelJSON: function (modelName) {
-        var json;
+    getModelJSON: function (options) {
+        var json,
+            modelName = options.modelName;
+        
         if (_.isArray(modelName)) {
             json = {};
             for (var i = 0; i < modelName.length; i++) {
-                _.extend(json, this.getModelJSON(modelName[i]));
+                _.extend(json, this.getModelJSON({ modelName: modelName[i] }));
             }
         } else {
             if (!this.models.attributes.hasOwnProperty(modelName)) {
-                Ribs.throwError("modelNotFound", modelName);
+                Ribs.throwError("modelNotFound", "" + modelName);
                 return;
             }
             json = this.models.get(modelName).toJSON();
@@ -76,7 +78,7 @@ Ribs.backbone.modelSupport = {
             attributeName = options.attributeName;
 
         if (!this.models.attributes.hasOwnProperty(modelName)) {
-            Ribs.throwError("modelNotFound", modelName);
+            Ribs.throwError("modelNotFound", "" + modelName);
             return;
         }
         if (!this.models.get(modelName).attributes.hasOwnProperty(attributeName)) {

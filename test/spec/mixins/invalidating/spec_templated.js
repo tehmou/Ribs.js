@@ -10,7 +10,10 @@ describe("Ribs.mixins.templated", function () {
         var mixin;
 
         beforeEach(function () {
-            mixin = _.extend({}, Ribs.mixins.templated, { templateFunction: templateFunction, el: $("<div></div>") });
+            mixin = _.extend({}, Ribs.mixins.templated, {
+                templateFunction: templateFunction,
+                el: $("<div></div>")
+            });
             mixin.mixinInitialize();
             mixin.redraw();
         });
@@ -19,6 +22,13 @@ describe("Ribs.mixins.templated", function () {
             expect(mixin.el.attr("id")).toEqual("");
             expect($(mixin.el.children()[0]).attr("id")).toEqual("hello");
             expect($(mixin.el.children()[0]).html()).toEqual("<span>My Text</span>");
+        });
+
+        it("Should use json property as the values for the template", function () {
+            mixin.json = { qwert: "yuio" };
+            mixin.templateFunction = _.template("<span><%= qwert %></span>")
+            mixin.redraw();
+            expect($(mixin.el).text()).toEqual("yuio");
         });
     });
 
@@ -41,7 +51,6 @@ describe("Ribs.mixins.templated", function () {
             pivot.redraw();
             expect(pivot.el.attr("id")).toEqual("hello");
             expect($(pivot.el).html()).toEqual("<span>My Text</span>");
-            console.log(pivot.el);
         });
     });
 });
