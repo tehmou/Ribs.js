@@ -2,7 +2,7 @@
 
     var methods = {
         createBackbone: function (options) {
-            var view = Ribs.addingExtend({}, Ribs.backbone.backbonePivot, options);
+            var view = Ribs.utils.addingExtend({}, Ribs.backbone.backbonePivot, options);
 
             return this.each(function () {
                 if (this.ribsView) {

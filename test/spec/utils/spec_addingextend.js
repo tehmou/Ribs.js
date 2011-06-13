@@ -1,4 +1,4 @@
-describe("Ribs.addingExtend", function () {
+describe("Ribs.utils.addingExtend", function () {
     var obj;
 
     beforeEach(function () {
@@ -6,7 +6,7 @@ describe("Ribs.addingExtend", function () {
     });
 
     it("Should replace properties from additional sources", function () {
-        Ribs.addingExtend(obj, { a: "5", d: "2" });
+        Ribs.utils.addingExtend(obj, { a: "5", d: "2" });
         expect(obj.a).toEqual("5");
         expect(obj.b).toEqual("2");
         expect(obj.c).toEqual("3");
@@ -17,7 +17,7 @@ describe("Ribs.addingExtend", function () {
         var errorThrown = false;
         obj.f = function () { };
         try {
-            Ribs.addingExtend(obj, { f: null });
+            Ribs.utils.addingExtend(obj, { f: null });
         } catch(e) {
             errorThrown = e === "Tried to override a function with non-function";
         }
@@ -42,9 +42,10 @@ describe("Ribs.addingExtend", function () {
         };
         
         obj.f = f1;
-        Ribs.addingExtend(obj, { f: f2 });
+        Ribs.utils.addingExtend(obj, { f: f2 });
         obj.f();
         expect(f1Called).toBeTruthy();
         expect(f2Called).toBeTruthy();
     });
 });
+

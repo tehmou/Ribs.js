@@ -18,7 +18,7 @@
 
 Ribs.backbone = {};
 
-Ribs.backbone.modelSupport = {
+Ribs.mixins.backbone = Ribs.backbone.mixins = {};Ribs.backbone.modelSupport = {
     backboneModels: null,
     createInternalModel: true,
 
@@ -171,7 +171,7 @@ Ribs.backbone.augmentModelWithUIAttributes = function (model) {
     }
 };
 
-Ribs.backbone.backbonePivot = Ribs.addingExtend({},
+Ribs.backbone.backbonePivot = Ribs.utils.addingExtend({},
     Ribs.mixins.plainPivot,
     Ribs.backbone.modelSupport,
     Ribs.backbone.invalidating,

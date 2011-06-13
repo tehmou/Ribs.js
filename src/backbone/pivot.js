@@ -9,7 +9,7 @@ Ribs.backbone.augmentModelWithUIAttributes = function (model) {
     }
 };
 
-Ribs.backbone.backbonePivot = Ribs.addingExtend({},
+Ribs.backbone.backbonePivot = Ribs.utils.addingExtend({},
     Ribs.mixins.plainPivot,
     Ribs.backbone.modelSupport,
     Ribs.backbone.invalidating,

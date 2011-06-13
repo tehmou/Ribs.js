@@ -10,15 +10,3 @@ Ribs.support.functions.resolveJSON = function () {
     }
 };
 
-Ribs.support.functions.myModelAddedInvoker = function (name, model) {
-    if (name === this.myModelName && _.isFunction(this.myModelAdded)) {
-        this.myModelAdded(name, model);
-    }
-};
-
-Ribs.support.functions.myModelRemovedInvoker = function (name, model) {
-    if (name === this.myModelName && _.isFunction(this.myModelRemoved)) {
-        this.myModelRemoved(name, model);
-    }
-};
-

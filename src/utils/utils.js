@@ -4,7 +4,7 @@ Ribs.log = function (msg) {
     }
 };
 
-Ribs.addingExtend = function (obj) {
+Ribs.utils.addingExtend = function (obj) {
     _.each(Array.prototype.slice.call(arguments, 1), function(source) {
         for (var prop in source) {
             if (_.isFunction(obj[prop])) {
@@ -27,3 +27,16 @@ Ribs.addingExtend = function (obj) {
     });
     return obj;
 };
+
+Ribs.utils.findObject = function (obj, path) {
+    var splitPath = path.split(".");
+    _.each(splitPath, function (elem) {
+        if (obj.hasOwnProperty(elem)) {
+            obj = obj[elem];
+        } else {
+            Ribs.throwError("invalidObjectPath", path);
+        }
+    });
+    return obj;
+};
+

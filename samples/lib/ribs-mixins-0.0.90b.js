@@ -14,7 +14,7 @@
 
 // Default mixin classes
 
-Ribs.mixins.plainPivot = Ribs.addingExtend({},
+Ribs.mixins.plainPivot = Ribs.utils.addingExtend({},
         Ribs.mixins.templated,
         Ribs.support.mixins.renderChain,
         Ribs.support.mixins.selfParsing,
@@ -22,8 +22,3 @@ Ribs.mixins.plainPivot = Ribs.addingExtend({},
         Ribs.support.mixins.pivotEl
     );
 
-Ribs.mixins.simpleList = {
-    redraw: function () {
-
-    }
-};

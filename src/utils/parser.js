@@ -1,4 +1,4 @@
-Ribs.createMixinDefinitionParser = function (parserOptions) {
+Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
     parserOptions = parserOptions || {};
 
     var parser = { },
@@ -19,10 +19,12 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
 
         if (_.isArray(mixinDefinitions)) {
             var parseOne = function (value, key) {
-                if (!mixinLibrary[key]) {
+                try {
+                    var mixin = Ribs.utils.findObject(mixinLibrary, key);
+                } catch (e) {
                     Ribs.throwError("mixinTypeNotFound", key);
                 }
-                mixinClasses.push(_.extend({}, mixinLibrary[key], value));
+                mixinClasses.push(_.extend({}, mixin, value));
             };
             for (var i = 0; i < mixinDefinitions.length; i++) {
                 _.each(mixinDefinitions[i], parseOne);
@@ -44,5 +46,5 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
     return parser;
 };
 
-Ribs.mixinParser = Ribs.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
+Ribs.mixinParser = Ribs.utils.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
 

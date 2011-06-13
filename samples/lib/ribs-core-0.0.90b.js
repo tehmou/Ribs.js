@@ -20,6 +20,10 @@ var Ribs = {};
 **/
 Ribs.mixins = {};
 
+Ribs.support = {};
+
+Ribs.utils = {};
+
 Ribs.enableThrowError = {
     multipleViewsForEl: true,
     modelNotFound: true,
@@ -27,7 +31,8 @@ Ribs.enableThrowError = {
     mixinTypeNotFound: true,
     attributeNameNotDefined: true,
     modelNameNotDefined: true,
-    noCompositeMixinFoundForParsing: true
+    noCompositeMixinFoundForParsing: true,
+    invalidObjectPath: true
 };
 
 Ribs.throwError = function (errorType, msg) {
@@ -46,7 +51,7 @@ Ribs.VERSION = "0.0.90b";
 
     var methods = {
         createBackbone: function (options) {
-            var view = Ribs.addingExtend({}, Ribs.backbone.backbonePivot, options);
+            var view = Ribs.utils.addingExtend({}, Ribs.backbone.backbonePivot, options);
 
             return this.each(function () {
                 if (this.ribsView) {
@@ -74,7 +79,7 @@ Ribs.VERSION = "0.0.90b";
 
 // Utilities
 
-Ribs.createMixinDefinitionParser = function (parserOptions) {
+Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
     parserOptions = parserOptions || {};
 
     var parser = { },
@@ -95,10 +100,12 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
 
         if (_.isArray(mixinDefinitions)) {
             var parseOne = function (value, key) {
-                if (!mixinLibrary[key]) {
+                try {
+                    var mixin = Ribs.utils.findObject(mixinLibrary, key);
+                } catch (e) {
                     Ribs.throwError("mixinTypeNotFound", key);
                 }
-                mixinClasses.push(_.extend({}, mixinLibrary[key], value));
+                mixinClasses.push(_.extend({}, mixin, value));
             };
             for (var i = 0; i < mixinDefinitions.length; i++) {
                 _.each(mixinDefinitions[i], parseOne);
@@ -120,7 +127,7 @@ Ribs.createMixinDefinitionParser = function (parserOptions) {
     return parser;
 };
 
-Ribs.mixinParser = Ribs.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
+Ribs.mixinParser = Ribs.utils.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
 
 Ribs.log = function (msg) {
     if (typeof(console) !== "undefined") {
@@ -128,7 +135,7 @@ Ribs.log = function (msg) {
     }
 };
 
-Ribs.addingExtend = function (obj) {
+Ribs.utils.addingExtend = function (obj) {
     _.each(Array.prototype.slice.call(arguments, 1), function(source) {
         for (var prop in source) {
             if (_.isFunction(obj[prop])) {
@@ -152,13 +159,27 @@ Ribs.addingExtend = function (obj) {
     return obj;
 };
 
+Ribs.utils.findObject = function (obj, path) {
+    var splitPath = path.split(".");
+    _.each(splitPath, function (elem) {
+        if (obj.hasOwnProperty(elem)) {
+            obj = obj[elem];
+        } else {
+            Ribs.throwError("invalidObjectPath", path);
+        }
+    });
+    return obj;
+};
+
+
+
 
 // Support blocks
 
-Ribs.support = {
-    functions: {},
-    mixins: {}
-};Ribs.support.functions.resolveValue = function () {
+Ribs.support.functions = { };
+Ribs.support.mixins = {};
+
+Ribs.support.functions.resolveValue = function () {
     if (this.pivot && _.isFunction(this.pivot.getValue)) {
         this.value = this.pivot.getValue(this);
     }
@@ -167,18 +188,6 @@ Ribs.support = {
 Ribs.support.functions.resolveJSON = function () {
     if (this.pivot && _.isFunction(this.pivot.getModelJSON)) {
         this.json = this.pivot.getModelJSON(this);
-    }
-};
-
-Ribs.support.functions.myModelAddedInvoker = function (name, model) {
-    if (name === this.myModelName && _.isFunction(this.myModelAdded)) {
-        this.myModelAdded(name, model);
-    }
-};
-
-Ribs.support.functions.myModelRemovedInvoker = function (name, model) {
-    if (name === this.myModelName && _.isFunction(this.myModelRemoved)) {
-        this.myModelRemoved(name, model);
     }
 };
 
@@ -273,6 +282,26 @@ Ribs.support.mixins.compositeBase = {
         }
     };
 }());
+
+Ribs.support.mixins.myModel = {
+    myModelName: null,
+    modelAdded: function (name, model) {
+        if (name !== undefined && name === this.myModelName) {
+            this.myModel = model;
+            if (_.isFunction(this.myModelAdded)) {
+                this.myModelAdded(model);
+            }
+        }
+    },
+    modelRemoved: function (name, model) {
+        if (name !== undefined && name === this.myModelName) {
+            this.myModel = null;
+            if (_.isFunction(this.myModelRemoved)) {
+                this.myModelRemoved(model);                
+            }
+        }
+    }
+};
 
 Ribs.support.mixins.pivotEl = {
     tagName: "div",
@@ -434,21 +463,21 @@ Ribs.support.mixins.templated = {
 // Core mixins
 
 Ribs.mixins.plain = Ribs.support.mixins.eventful;
-Ribs.mixins.plainWithModel = Ribs.addingExtend({},
+Ribs.mixins.plainWithModel = Ribs.utils.addingExtend({},
         Ribs.mixins.plain,
         Ribs.support.mixins.modelful
     );
-Ribs.mixins.composite = Ribs.addingExtend({},
+Ribs.mixins.composite = Ribs.utils.addingExtend({},
         Ribs.support.mixins.compositeBase,
         Ribs.support.mixins.childMixinElementResolver
     );
-Ribs.mixins.templated = Ribs.addingExtend({},
+Ribs.mixins.templated = Ribs.utils.addingExtend({},
         { redraw: Ribs.support.functions.resolveJSON },
         { redraw: Ribs.support.functions.resolveValue },
         Ribs.support.mixins.templated
     );
 
-Ribs.mixins.plainPivot = Ribs.addingExtend({},
+Ribs.mixins.plainPivot = Ribs.utils.addingExtend({},
         Ribs.mixins.templated,
         Ribs.support.mixins.renderChain,
         Ribs.support.mixins.selfParsing,

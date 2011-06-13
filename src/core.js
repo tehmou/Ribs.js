@@ -7,6 +7,10 @@ var Ribs = {};
 **/
 Ribs.mixins = {};
 
+Ribs.support = {};
+
+Ribs.utils = {};
+
 Ribs.enableThrowError = {
     multipleViewsForEl: true,
     modelNotFound: true,
@@ -14,7 +18,8 @@ Ribs.enableThrowError = {
     mixinTypeNotFound: true,
     attributeNameNotDefined: true,
     modelNameNotDefined: true,
-    noCompositeMixinFoundForParsing: true
+    noCompositeMixinFoundForParsing: true,
+    invalidObjectPath: true
 };
 
 Ribs.throwError = function (errorType, msg) {

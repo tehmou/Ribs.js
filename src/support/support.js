@@ -1,4 +1,3 @@
-Ribs.support = {
-    functions: {},
-    mixins: {}
-};
+Ribs.support.functions = { };
+Ribs.support.mixins = {};
+

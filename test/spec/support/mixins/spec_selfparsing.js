@@ -1,12 +1,16 @@
 describe("Ribs.support.mixins.selfParsing", function () {
-    var mixin, parser, def, composite;
+    var mixin, parser, def, composite, customMixin;
 
     beforeEach(function () {
         mixin = _.clone(Ribs.support.mixins.selfParsing);
-        parser = Ribs.createMixinDefinitionParser({
+        customMixin = {};
+        parser = Ribs.utils.createMixinDefinitionParser({
             mixinLibrary: {
                 plain: { param1: "foo"},
-                composite: Ribs.mixins.composite
+                composite: Ribs.mixins.composite,
+                customNameSpace: {
+                    actualMixin: customMixin
+                }
             }
         });
     });
@@ -51,6 +55,17 @@ describe("Ribs.support.mixins.selfParsing", function () {
             expect(composite).toContainOneMixinWithElementSelector("elementOne");
             expect(composite).toContainOneMixinWithElementSelector("myEl");
             expect(composite).toHaveNumberOfMixinClasses(3);
+        });
+    });
+
+    describe("Parsing an object with nested namespace", function () {
+        beforeEach(function () {
+            def = [{"customNameSpace.actualMixin": {}}];
+            composite = parser.createCompositeFromDefinitions({ mixinDefinitions: def });
+        });
+
+        it("Should find the nested mixins", function () {
+            expect(composite.mixinClasses[0]).toEqual(customMixin);
         });
     });
 });
