@@ -1,5 +1,6 @@
 Ribs.support.mixins.myModel = {
     myModelName: null,
+
     modelAdded: function (name, model) {
         if (name !== undefined && name === this.myModelName) {
             this.myModel = model;

@@ -1,9 +1,9 @@
-Ribs.backbone.modelSupport = {
+Ribs.backbone.support.modelSupport = {
     backboneModels: null,
     createInternalModel: true,
+    inheritingMethods: ["modelRemoved", "modelAdded"],
 
     mixinInitialize: function () {
-        this.inheritingMethods = (this.inheritingMethods || []).concat(["modelRemoved", "modelAdded"]);
         var backboneModels = this.backboneModels || {};
 
         if (this.createInternalModel) {
@@ -11,7 +11,7 @@ Ribs.backbone.modelSupport = {
                 internal: new Backbone.Model()
             });
         }
-
+        
         if (this.models) {
             this.models.set(backboneModels);
         } else {
@@ -21,9 +21,13 @@ Ribs.backbone.modelSupport = {
         this.models.bind("change", _.bind(function () { this.modelChangeHandler(); }, this));
 
         if (typeof(this.models.get("data")) !== "undefined") {
-            Ribs.backbone.augmentModelWithUIAttributes(this.models.get("data"));
+            Ribs.backbone.utils.augmentModelWithUIAttributes(this.models.get("data"));
             this.models.dataUI = this.models.get("data").ribsUI;
         }
+
+        _.each(this.models.attributes, _.bind(function (model, name) {
+            this.modelAdded(name, model);
+        }, this));
     },
 
     modelChangeHandler: function () {
@@ -115,28 +119,4 @@ Ribs.backbone.modelSupport = {
         this.models.get(modelName).set(newValues);
     }
 };
-
-
-Ribs.backbone.invalidating = {
-    mixinInitialize: function () {
-        var that = this;
-
-        this.renderingHash = this.renderingHash || {};
-        this.invalidatingHash = this.invalidatingHash || {};
-
-        // Set up model change listeners for rendering only.
-        _.each(this.renderingHash, function (attributeName, modelName) {
-            that.models[modelName].bind("change:" + attributeName, this.render);
-        });
-
-        // Set model change listeners for invalidate+render.
-        _.each(this.invalidatingHash, function (attributeName, modelName) {
-            that.models[modelName].bind("change:" + attributeName, function () {
-                that.invalidated = true;
-                that.render();
-            });
-        });
-    }
-};
-
 

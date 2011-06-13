@@ -436,7 +436,30 @@ Ribs.support.mixins.selfParsing = {
     }
 };
 
-Ribs.support.mixins.templated = {
+Ribs.support.mixins.smartRender = {
+    _renderPending: false,
+
+    requestRender: function () {
+        if (!this._renderPending) {
+            this._renderPending = true;
+            _.defer(this.flushRequests);
+        }
+    },
+
+    requestInvalidate: function () {
+        this.invalidated = true;
+        this.requestRender();
+    },
+
+    flushRequests: function () {
+        if (this._renderPending) {
+            if (_.isFunction(this.render)) {
+                this.render();                
+            }
+            this._renderPending = false;
+        }
+    }
+};Ribs.support.mixins.templated = {
     templateSelector: null,
     templateFunction: null,
     models: null,
@@ -480,6 +503,7 @@ Ribs.mixins.templated = Ribs.utils.addingExtend({},
 Ribs.mixins.plainPivot = Ribs.utils.addingExtend({},
         Ribs.mixins.templated,
         Ribs.support.mixins.renderChain,
+        Ribs.support.mixins.smartRender,
         Ribs.support.mixins.selfParsing,
         Ribs.mixins.composite,
         Ribs.support.mixins.pivotEl

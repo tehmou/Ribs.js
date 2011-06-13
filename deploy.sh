@@ -70,7 +70,14 @@ echo Writing $TARGET
 echo $VERSION_STRING > $TARGET
 
 echo "\n\n\n// Backbone integrations\n" >> $TARGET
-cat src/backbone/ribs.backbone.js src/backbone/modelsupport.js src/backbone/pivot.js >> $TARGET
+cat src/backbone/* src/backbone/utils/* >> $TARGET
+
+echo "\n\n\n// Support blocks\n" >> $TARGET
+cat src/backbone/support/* src/backbone/support/functions/* src/backbone/support/mixins/* >> $TARGET
+
+echo "\n\n\n// Mixins\n" >> $TARGET
+cat src/backbone/mixins/* >> $TARGET
+
 
 echo Copying to target and samples/lib..
 cp $TARGET_DIR/* samples/lib/

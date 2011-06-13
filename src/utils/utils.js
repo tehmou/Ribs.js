@@ -18,7 +18,13 @@ Ribs.utils.addingExtend = function (obj) {
                         };
                     }());
                 } else {
-                    throw "Tried to override a function with non-function";
+                    Ribs.throwError("addingExtendFunctionWithNonFunction");
+                }
+            } else if (_.isArray(obj[prop])) {
+                if (_.isArray(source[prop])) {
+                    obj[prop] = obj[prop].concat(source[prop]);
+                } else {
+                    Ribs.throwError("addingExtendArrayWithNonArray");
                 }
             } else {
                 obj[prop] = source[prop];

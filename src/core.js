@@ -19,7 +19,9 @@ Ribs.enableThrowError = {
     attributeNameNotDefined: true,
     modelNameNotDefined: true,
     noCompositeMixinFoundForParsing: true,
-    invalidObjectPath: true
+    invalidObjectPath: true,
+    addingExtendFunctionWithNonFunction: true,
+    addingExtendArrayWithNonArray: true
 };
 
 Ribs.throwError = function (errorType, msg) {

@@ -1,4 +1,4 @@
-Ribs.backbone.createUIManager = function (key, myOptions) {
+Ribs.backbone.utils.createUIManager = function (key, myOptions) {
     myOptions = myOptions || {};
 
     Ribs.backbone.uiManagers = Ribs.backbone.uiManagers || {};

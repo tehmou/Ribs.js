@@ -28,18 +28,61 @@
     <script src="../lib/jquery-1.5.min.js"></script>
     <script src="../lib/underscore.js"></script>
     <script src="../lib/backbone.js"></script>
-    <script src="lib/ribs-core-0.0.90b.js"></script>
+    <!--<script src="lib/ribs-core-0.0.90b.js"></script>
     <script src="lib/ribs-mixins-0.0.90b.js"></script>
-    <script src="lib/ribs-backbone-0.0.90b.js"></script>
+    <script src="lib/ribs-backbone-0.0.90b.js"></script>-->
+
+    <!-- include source files here... -->
+    <script src="../src/core.js"></script>
+    <script src="../src/jquery.ribs.js"></script>
+    <script src="../src/utils/parser.js"></script>
+    <script src="../src/utils/utils.js"></script>
+    <script src="../src/support/support.js"></script>
+    <script src="../src/support/mixins/childmixinelementresolver.js"></script>
+    <script src="../src/support/mixins/compositebase.js"></script>
+    <script src="../src/support/functions/model.js"></script>
+    <script src="../src/support/mixins/pivot_el.js"></script>
+    <script src="../src/support/mixins/renderchain.js"></script>
+    <script src="../src/support/mixins/selfparsing.js"></script>
+    <script src="../src/support/mixins/smartrender.js"></script>
+    <script src="../src/support/mixins/templated.js"></script>
+    <script src="../src/mixins/basic.js"></script>
+    <script src="../src/mixins/plainpivot.js"></script>
+
+    <script src="../src/backbone/ribs.backbone.js"></script>
+    <script src="../src/backbone/support/mixins/modelsupport.js"></script>
+    <script src="../src/backbone/support/mixins/pivot.js"></script>
+    <script src="../src/backbone/utils/utils.js"></script>
+    <script src="../src/backbone/mixins/simplelist.js"></script>
+
 
     <script type="text/javascript">
         $(function () {
-            var myModel = new Backbone.Model({ name: "Karita", age: 16 });
+            var myModel = new Backbone.Model({ name: "Karita", age: 16 }),
+                myCollection = new Backbone.Collection({ models: [
+                    { name: "Petteri" },
+                    { name: "Pekka" },
+                    { name: "Kaisa" }
+                ]});
 
             $("#container").ribs("createBackbone", {
                 templateFunction: _.template($("#my-template").html()),
                 backboneModels: { data: myModel },
                 jsonModelName: "data"
+            });
+
+            $("#list-container").ribs("createBackbone", {
+                backboneModels: { data: myCollection },
+                myModelName: "data",
+                mixinDefinitions: [
+                    { "backbone.simpleList": {
+                        itemRenderer: _.extend({},
+                            Ribs.backbone.backbonePivot,
+                            {
+                                templateFunction: _.template($("#my-template").html())
+                            })
+                    }}
+                ]
             });
         });
 
@@ -48,6 +91,7 @@
 </head>
 <body>
     <div id="container"></div>
+    <div id="list-container"></div>
 
     <script id="my-template" type="text/html">
         <h1>Welcome <%= name %></h1>

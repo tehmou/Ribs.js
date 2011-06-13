@@ -13,12 +13,8 @@ Ribs.support.mixins.renderChain = {
      */
     invalidated: true,
 
-    mixinInitialize: function () {
-        this.inheritingMethods = (this.inheritingMethods || []).concat([
-            "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"
-        ]);
-    },
-    
+    inheritingMethods: [ "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose" ],
+
     /**
      * @method
      * @desc Override to Backbone.View.render.<br /><br />

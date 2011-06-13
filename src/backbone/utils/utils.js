@@ -1,4 +1,4 @@
-Ribs.backbone.augmentModelWithUIAttributes = function (model) {
+Ribs.backbone.utils.augmentModelWithUIAttributes = function (model) {
     if (!model.hasOwnProperty("ribsUI")) {
         model.ribsUI = new Backbone.Model();
         model.ribsUI.set({ owner: model });
@@ -8,15 +8,4 @@ Ribs.backbone.augmentModelWithUIAttributes = function (model) {
         });
     }
 };
-
-Ribs.backbone.backbonePivot = Ribs.utils.addingExtend({},
-    Ribs.mixins.plainPivot,
-    Ribs.backbone.modelSupport,
-    Ribs.backbone.invalidating,
-    {
-        mixinInitialize: function () {
-            this.initialized = true;
-        }
-    }
-);
 

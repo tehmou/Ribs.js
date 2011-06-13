@@ -1,8 +1,7 @@
 Ribs.support.mixins.compositeBase = {
-    inheritingMethods: null,
+    inheritingMethods: [],
     mixinClasses: null,
     mixinInitialize: function () {
-        this.inheritingMethods = this.inheritingMethods || [];
         this.mixinClasses = this.mixinClasses || [];
         this.mixins = [];
         _.each(this.mixinClasses, _.bind(function (mixinType) {

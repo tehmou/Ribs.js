@@ -1,4 +1,4 @@
-describe("Ribs.backbone.modelSupport", function () {
+describe("Ribs.backbone.support.modelSupport", function () {
     var models, model, mixin;
 
     beforeEach(function () {
@@ -7,7 +7,7 @@ describe("Ribs.backbone.modelSupport", function () {
             test: "foo",
             myAttr: "1234"
         });
-        mixin = _.extend({}, Ribs.backbone.modelSupport);
+        mixin = _.extend({}, Ribs.backbone.support.modelSupport);
         mixin.pivot = mixin;
         mixin.models = models;
         mixin.backboneModels = { myModel: model };

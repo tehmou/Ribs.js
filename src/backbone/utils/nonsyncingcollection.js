@@ -1,4 +1,4 @@
-Ribs.backbone.NonSyncingCollection = Backbone.Collection.extend({
+Ribs.backbone.utils.NonSyncingCollection = Backbone.Collection.extend({
     add: function (item) {
         var oldCollection = item.collection;
         Backbone.Collection.prototype.add.apply(this, arguments);
