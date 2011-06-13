@@ -7,11 +7,11 @@ Ribs.backbone.support.modelSupport = {
         var backboneModels = this.backboneModels || {};
 
         if (this.createInternalModel) {
-            _.extend(backboneModels, {
+            backboneModels = _.extend({
                 internal: new Backbone.Model()
-            });
+            }, backboneModels);
         }
-        
+
         if (this.models) {
             this.models.set(backboneModels);
         } else {
@@ -19,11 +19,6 @@ Ribs.backbone.support.modelSupport = {
         }
 
         this.models.bind("change", _.bind(function () { this.modelChangeHandler(); }, this));
-
-        if (typeof(this.models.get("data")) !== "undefined") {
-            Ribs.backbone.utils.augmentModelWithUIAttributes(this.models.get("data"));
-            this.models.dataUI = this.models.get("data").ribsUI;
-        }
 
         _.each(this.models.attributes, _.bind(function (model, name) {
             this.modelAdded(name, model);
@@ -62,7 +57,7 @@ Ribs.backbone.support.modelSupport = {
         var json,
             modelName = options.jsonModelName;
 
-        if (!modelName) {
+        if (!modelName || !this.models) {
             return;
         }
 
@@ -85,7 +80,7 @@ Ribs.backbone.support.modelSupport = {
         var modelName = options.valueModelName,
             attributeName = options.valueAttributeName;
 
-        if (!modelName || !attributeName) {
+        if (!modelName || !attributeName || !this.models) {
             return;
         }
 

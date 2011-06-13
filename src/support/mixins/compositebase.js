@@ -13,7 +13,7 @@ Ribs.support.mixins.compositeBase = {
             this.mixins.push(mixin);
         }, this));
         this.callAllMixins("mixinInitialize", arguments);
-        this.initializeInheritingMethods(this);
+        this.inheritMethods(this);
     },
     callAllMixins: function (methodName, originalArguments) {
         _.each(this.mixins, function (mixin) {
@@ -22,7 +22,7 @@ Ribs.support.mixins.compositeBase = {
             }
         });
     },
-    initializeInheritingMethods: function () {
+    inheritMethods: function () {
         _.each(this.inheritingMethods, _.bind(function (methodName) {
             var oldMethod = this[methodName];
             this[methodName] = function () {

@@ -7,6 +7,12 @@ Ribs.backbone.mixins.simpleList = Ribs.utils.addingExtend({},
             $(this.el).html("");
             _.each(this._listViews, _.bind(function (view) {
                 $(this.el).append(view.el);
+                view.requestInvalidate();
+            }, this));
+        },
+        refresh: function () {
+            _.each(this._listViews, _.bind(function (view) {
+                view.requestRender();
             }, this));
         },
         myModelAdded: function (model) {

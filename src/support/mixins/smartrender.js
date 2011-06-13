@@ -4,7 +4,7 @@ Ribs.support.mixins.smartRender = {
     requestRender: function () {
         if (!this._renderPending) {
             this._renderPending = true;
-            _.defer(this.flushRequests);
+            _.defer(_.bind(this.flushRequests, this));
         }
     },
 

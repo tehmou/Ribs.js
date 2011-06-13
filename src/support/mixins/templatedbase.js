@@ -10,10 +10,12 @@ Ribs.support.mixins.templated = {
         if (!this.el && this.templateFunction) {
             this.el = $(this.templateFunction({}));
             this.templateFunction = _.template(this.el.html());
+            Ribs.log(this.el.html());
         }
     },
     redraw: function () {
         if (this.templateFunction) {
+            Ribs.log(this.json);
             $(this.el).html(this.templateFunction(this.json || {}));
         }
     }
