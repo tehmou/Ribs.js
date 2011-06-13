@@ -3,7 +3,6 @@ describe("Ribs.mixins.templated", function () {
 
     beforeEach(function () {
         templateString = "<div id=\"hello\"><span>My Text</span></div>";
-        templateFunction = _.template(templateString);
     });
 
     describe("as a mixin", function () {
@@ -11,7 +10,7 @@ describe("Ribs.mixins.templated", function () {
 
         beforeEach(function () {
             mixin = _.extend({}, Ribs.mixins.templated, {
-                templateFunction: templateFunction,
+                templateString: templateString,
                 el: $("<div></div>")
             });
             mixin.mixinInitialize();
@@ -35,7 +34,7 @@ describe("Ribs.mixins.templated", function () {
     describe("redrawing with templates", function () {
         it("Should redraw using the nested templates", function () {
             var mixin = _.extend({}, Ribs.mixins.templated, {
-                templateFunction: _.template("<div><span><%= qwert %></span></div>")
+                templateString: "<div><span><%= qwert %></span></div>"
             });
             mixin.mixinInitialize();
             mixin.el.html("");
@@ -50,7 +49,7 @@ describe("Ribs.mixins.templated", function () {
 
         beforeEach(function () {
             pivot = _.extend({}, Ribs.mixins.plainPivot);
-            pivot.templateFunction = templateFunction;
+            pivot.templateString = templateString;
             pivot.mixinInitialize();
         });
 
