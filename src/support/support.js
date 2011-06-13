@@ -1,0 +1,4 @@
+Ribs.support = {
+    functions: {},
+    mixins: {}
+};

@@ -20,13 +20,6 @@ var Ribs = {};
 **/
 Ribs.mixins = {};
 
-/**
- * @field
- * @desc Hash of support mixins to use in creation
- * of other mixins.
- */
-Ribs.mixinBase = {};
-
 Ribs.enableThrowError = {
     multipleViewsForEl: true,
     modelNotFound: true,
@@ -160,9 +153,36 @@ Ribs.addingExtend = function (obj) {
 };
 
 
-// Support mixins
+// Support blocks
 
-Ribs.mixinBase.childMixinElementResolver = {
+Ribs.support = {
+    functions: {},
+    mixins: {}
+};Ribs.support.functions.resolveValue = function () {
+    if (this.pivot && _.isFunction(this.pivot.getValue)) {
+        this.value = this.pivot.getValue(this);
+    }
+};
+
+Ribs.support.functions.resolveJSON = function () {
+    if (this.pivot && _.isFunction(this.pivot.getModelJSON)) {
+        this.json = this.pivot.getModelJSON(this);
+    }
+};
+
+Ribs.support.functions.myModelAddedInvoker = function (name, model) {
+    if (name === this.myModelName && _.isFunction(this.myModelAdded)) {
+        this.myModelAdded(name, model);
+    }
+};
+
+Ribs.support.functions.myModelRemovedInvoker = function (name, model) {
+    if (name === this.myModelName && _.isFunction(this.myModelRemoved)) {
+        this.myModelRemoved(name, model);
+    }
+};
+
+Ribs.support.mixins.childMixinElementResolver = {
     mixinInitialize: function () {
         this.redraw();
     },
@@ -182,7 +202,7 @@ Ribs.mixinBase.childMixinElementResolver = {
     }
 };
 
-Ribs.mixinBase.compositeBase = {
+Ribs.support.mixins.compositeBase = {
     inheritingMethods: null,
     mixinClasses: null,
     mixinInitialize: function () {
@@ -230,7 +250,7 @@ Ribs.mixinBase.compositeBase = {
 
 (function () {
     var eventSplitter = /^(\w+)\s*(.*)$/;
-    Ribs.mixinBase.eventful = {
+    Ribs.support.mixins.eventful = {
         unbindEvents: function () {
             if (this.el) {
                 this.el.unbind();
@@ -254,19 +274,7 @@ Ribs.mixinBase.compositeBase = {
     };
 }());
 
-Ribs.mixinBase.resolveValue = function () {
-    if (this.pivot && _.isFunction(this.pivot.getValue)) {
-        this.value = this.pivot.getValue(this);
-    }
-};
-
-Ribs.mixinBase.resolveJSON = function () {
-    if (this.pivot && _.isFunction(this.pivot.getModelJSON)) {
-        this.json = this.pivot.getModelJSON(this);
-    }
-};
-
-Ribs.mixinBase.pivotEl = {
+Ribs.support.mixins.pivotEl = {
     tagName: "div",
     el: null,
     initialized: false,
@@ -304,7 +312,7 @@ Ribs.mixinBase.pivotEl = {
  *
  * Ribs.js uses this mixin internally to create views.
 **/
-Ribs.mixinBase.renderChain = {
+Ribs.support.mixins.renderChain = {
     /**
      * @field
      * @desc When calling render(), if this flag is set,
@@ -388,7 +396,7 @@ Ribs.mixinBase.renderChain = {
     dispose: function () { }
 };
 
-Ribs.mixinBase.selfParsing = {
+Ribs.support.mixins.selfParsing = {
     mixinDefinitions: null,
     mixinInitialize: function () {
         this.mixinDefinitions = this.mixinDefinitions || [];
@@ -399,7 +407,7 @@ Ribs.mixinBase.selfParsing = {
     }
 };
 
-Ribs.mixinBase.templated = {
+Ribs.support.mixins.templated = {
     templateSelector: null,
     templateFunction: null,
     models: null,
@@ -423,20 +431,28 @@ Ribs.mixinBase.templated = {
 
 
 
-// Basic mixin classes
+// Core mixins
 
-Ribs.mixins.plain = Ribs.mixinBase.eventful;
+Ribs.mixins.plain = Ribs.support.mixins.eventful;
 Ribs.mixins.plainWithModel = Ribs.addingExtend({},
         Ribs.mixins.plain,
-        Ribs.mixinBase.modelful
+        Ribs.support.mixins.modelful
     );
 Ribs.mixins.composite = Ribs.addingExtend({},
-        Ribs.mixinBase.compositeBase,
-        Ribs.mixinBase.childMixinElementResolver
+        Ribs.support.mixins.compositeBase,
+        Ribs.support.mixins.childMixinElementResolver
     );
 Ribs.mixins.templated = Ribs.addingExtend({},
-        { redraw: Ribs.mixinBase.resolveJSON },
-        { redraw: Ribs.mixinBase.resolveValue },
-        Ribs.mixinBase.templated    
+        { redraw: Ribs.support.functions.resolveJSON },
+        { redraw: Ribs.support.functions.resolveValue },
+        Ribs.support.mixins.templated
+    );
+
+Ribs.mixins.plainPivot = Ribs.addingExtend({},
+        Ribs.mixins.templated,
+        Ribs.support.mixins.renderChain,
+        Ribs.support.mixins.selfParsing,
+        Ribs.mixins.composite,
+        Ribs.support.mixins.pivotEl
     );
 

@@ -1,4 +1,4 @@
-Ribs.mixinBase.compositeBase = {
+Ribs.support.mixins.compositeBase = {
     inheritingMethods: null,
     mixinClasses: null,
     mixinInitialize: function () {

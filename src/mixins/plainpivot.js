@@ -1,8 +1,8 @@
 Ribs.mixins.plainPivot = Ribs.addingExtend({},
         Ribs.mixins.templated,
-        Ribs.mixinBase.renderChain,
-        Ribs.mixinBase.selfParsing,
+        Ribs.support.mixins.renderChain,
+        Ribs.support.mixins.selfParsing,
         Ribs.mixins.composite,
-        Ribs.mixinBase.pivotEl
+        Ribs.support.mixins.pivotEl
     );
 

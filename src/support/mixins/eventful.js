@@ -1,6 +1,6 @@
 (function () {
     var eventSplitter = /^(\w+)\s*(.*)$/;
-    Ribs.mixinBase.eventful = {
+    Ribs.support.mixins.eventful = {
         unbindEvents: function () {
             if (this.el) {
                 this.el.unbind();

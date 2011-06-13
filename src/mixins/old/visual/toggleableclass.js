@@ -16,7 +16,7 @@ Ribs.mixins.toggleableClass = function (classOptions) {
                         this.el.toggleClass(this.className, value);
                     }
                 }
-            }, Ribs.mixinBase.withModel, classOptions || {});
+            }, Ribs.support.mixins.withModel, classOptions || {});
         };
 
     return ToggleableClassInst;

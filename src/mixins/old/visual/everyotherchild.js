@@ -13,7 +13,7 @@ Ribs.mixins.everyOtherChild = function (classOptions) {
                         odd = !odd;
                     });
                 }
-            }, Ribs.mixinBase.plain, classOptions || {});
+            }, Ribs.support.mixins.plain, classOptions || {});
         };
 
     return EveryOtherChildInst;

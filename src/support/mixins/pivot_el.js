@@ -1,4 +1,4 @@
-Ribs.mixinBase.pivotEl = {
+Ribs.support.mixins.pivotEl = {
     tagName: "div",
     el: null,
     initialized: false,

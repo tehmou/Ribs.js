@@ -48,7 +48,7 @@ Ribs.mixins.selectEdit = function (classOptions) {
                         this.setMyValue(this.selectEl.val());
                     }
                 }
-            }, Ribs.mixinBase.withModel, classOptions || {});
+            }, Ribs.support.mixins.withModel, classOptions || {});
         };
 
     return SelectEditInst;

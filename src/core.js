@@ -7,13 +7,6 @@ var Ribs = {};
 **/
 Ribs.mixins = {};
 
-/**
- * @field
- * @desc Hash of support mixins to use in creation
- * of other mixins.
- */
-Ribs.mixinBase = {};
-
 Ribs.enableThrowError = {
     multipleViewsForEl: true,
     modelNotFound: true,

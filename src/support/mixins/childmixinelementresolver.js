@@ -1,4 +1,4 @@
-Ribs.mixinBase.childMixinElementResolver = {
+Ribs.support.mixins.childMixinElementResolver = {
     mixinInitialize: function () {
         this.redraw();
     },

@@ -4,7 +4,7 @@
  *
  * Ribs.js uses this mixin internally to create views.
 **/
-Ribs.mixinBase.renderChain = {
+Ribs.support.mixins.renderChain = {
     /**
      * @field
      * @desc When calling render(), if this flag is set,

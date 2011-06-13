@@ -1,8 +1,8 @@
-describe("Ribs.mixinBase.renderChain", function () {
+describe("Ribs.support.mixins.renderChain", function () {
     var renderChain;
 
     beforeEach(function () {
-        renderChain = _.clone(Ribs.mixinBase.renderChain);
+        renderChain = _.clone(Ribs.support.mixins.renderChain);
         renderChain.pivot = { initialized: true }
     });
 

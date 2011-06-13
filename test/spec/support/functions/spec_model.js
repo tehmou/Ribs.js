@@ -1,4 +1,4 @@
-describe("Ribs.mixinBase.modelful", function () {
+describe("Ribs.support.mixins.modelful", function () {
     var mixin, json;
 
     beforeEach(function () {
@@ -28,12 +28,12 @@ describe("Ribs.mixinBase.modelful", function () {
     });
 
     it("Should resolve value from the given model/attribute name", function () {
-        Ribs.mixinBase.resolveValue.apply(mixin);
+        Ribs.support.functions.resolveValue.apply(mixin);
         expect(mixin.value).toEqual("returnValue");
     });
 
     it("Should resolve json from the given model/attribute name", function () {
-        Ribs.mixinBase.resolveJSON.apply(mixin);
+        Ribs.support.functions.resolveJSON.apply(mixin);
         expect(mixin.json).toEqual(json);
     });
 });

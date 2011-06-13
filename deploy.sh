@@ -46,20 +46,23 @@ echo --Utils..
 echo "\n\n\n// Utilities\n" >> $TARGET
 cat src/utils/* >> $TARGET
 
-echo --Core mixins..
-echo "\n\n\n// Support mixins\n" >> $TARGET
-cat src/mixins/support/* >> $TARGET
-echo "\n\n\n// Basic mixin classes\n" >> $TARGET
-cat src/mixins/basic.js >> $TARGET
+echo --Support blocks..
+echo "\n\n\n// Support blocks\n" >> $TARGET
+cat src/support/* >> $TARGET
+cat src/support/functions/* >> $TARGET
+cat src/support/mixins/* >> $TARGET
 
+echo --Core mixins..
+echo "\n\n\n// Core mixins\n" >> $TARGET
+cat src/mixins/* >> $TARGET
 
 TARGET=$TARGET_DIR/$TARGET_FILE_MIXINS
 echo Writing $TARGET
 echo $VERSION_STRING > $TARGET
 
 echo "\n\n\n// Default mixin classes\n" >> $TARGET
-cat src/mixins/invalidating/* >> $TARGET
 cat src/mixins/plainpivot.js >> $TARGET
+cat src/mixins/visual/* >> $TARGET
 
 
 TARGET=$TARGET_DIR/$TARGET_FILE_BACKBONE

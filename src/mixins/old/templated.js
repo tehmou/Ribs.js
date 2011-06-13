@@ -24,7 +24,7 @@ Ribs.mixins.templated = function (classOptions) {
                             this.el.toggleClass(this.className, true);
                         }
                     }
-                }, Ribs.mixinBase.plain, classOptions);
+                }, Ribs.support.mixins.plain, classOptions);
             };
 
     return TemplatedInst;

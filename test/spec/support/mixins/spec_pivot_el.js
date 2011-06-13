@@ -1,8 +1,8 @@
-describe("Ribs.mixinBase.pivotEl", function () {
+describe("Ribs.support.mixins.pivotEl", function () {
     var pivotEl;
 
     beforeEach(function () {
-        pivotEl = _.clone(Ribs.mixinBase.pivotEl);
+        pivotEl = _.clone(Ribs.support.mixins.pivotEl);
     });
 
     it("Should be uninitialized by default", function () {

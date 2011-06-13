@@ -34,7 +34,7 @@ Ribs.mixins.toggleAttribute = function (classOptions) {
                     }
                 }
 
-            }, Ribs.mixinBase.withModel, classOptions || {});
+            }, Ribs.support.mixins.withModel, classOptions || {});
         };
 
     return ToggleAttributeInst;

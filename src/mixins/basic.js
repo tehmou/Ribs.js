@@ -1,15 +1,15 @@
-Ribs.mixins.plain = Ribs.mixinBase.eventful;
+Ribs.mixins.plain = Ribs.support.mixins.eventful;
 Ribs.mixins.plainWithModel = Ribs.addingExtend({},
         Ribs.mixins.plain,
-        Ribs.mixinBase.modelful
+        Ribs.support.mixins.modelful
     );
 Ribs.mixins.composite = Ribs.addingExtend({},
-        Ribs.mixinBase.compositeBase,
-        Ribs.mixinBase.childMixinElementResolver
+        Ribs.support.mixins.compositeBase,
+        Ribs.support.mixins.childMixinElementResolver
     );
 Ribs.mixins.templated = Ribs.addingExtend({},
-        { redraw: Ribs.mixinBase.resolveJSON },
-        { redraw: Ribs.mixinBase.resolveValue },
-        Ribs.mixinBase.templated    
+        { redraw: Ribs.support.functions.resolveJSON },
+        { redraw: Ribs.support.functions.resolveValue },
+        Ribs.support.mixins.templated
     );
 

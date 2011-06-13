@@ -1,4 +1,4 @@
-Ribs.mixinBase.templated = {
+Ribs.support.mixins.templated = {
     templateSelector: null,
     templateFunction: null,
     models: null,
