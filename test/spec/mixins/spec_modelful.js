@@ -4,8 +4,9 @@ describe("Ribs.mixinBase.modelful", function () {
     beforeEach(function () {
         json = {};
         mixin = _.extend({
-            attributeName: "test",
-            modelName: "dataModel",
+            valueAttributeName: "test",
+            valueModelName: "dataModel",
+            jsonModelName: "dataModel",
             pivot: {
                 getValue: function (options) {
                     if (options.modelName !== "dataModel") {

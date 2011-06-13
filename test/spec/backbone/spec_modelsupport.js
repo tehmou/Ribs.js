@@ -15,11 +15,11 @@ describe("Ribs.backbone.modelSupport", function () {
     });
 
     it("Should create model internal automatically", function () {
-        expect(mixin.getModelJSON({ modelName: "internal" })).toBeDefined();
+        expect(mixin.getModelJSON({ jsonModelName: "internal" })).toBeDefined();
     });
 
     it("Should have the given model", function () {
-        expect(mixin.getModelJSON({ modelName: "myModel" })).toBeDefined();
+        expect(mixin.getModelJSON({ jsonModelName: "myModel" })).toBeDefined();
     });
 
     describe("Changing models", function () {
@@ -62,7 +62,7 @@ describe("Ribs.backbone.modelSupport", function () {
 
     it("Should support multiple models", function () {
         models.set({ newModel: new Backbone.Model({ val: "text", test: "test" }) });
-        mixin.modelName = ["newModel", "myModel"];
+        mixin.jsonModelName = ["newModel", "myModel"];
         Ribs.mixinBase.resolveJSON.apply(mixin);
         expect(mixin.json.val).toEqual("text");
         expect(mixin.json.test).toEqual("foo");

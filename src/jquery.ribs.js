@@ -2,16 +2,15 @@
 
     var methods = {
         createBackbone: function (options) {
-            options = options || {};
-
-            var view = _.extend({}, Ribs.mixins.backbonePivot, options.options);
+            var view = Ribs.addingExtend({}, Ribs.backbone.backbonePivot, options);
 
             return this.each(function () {
                 if (this.ribsView) {
                     Ribs.throwError("multipleViewsForEl");
                 }
-
-                this.ribsView = _.extend({ el: this }, view);
+                this.ribsView = _.extend({}, view, { el: this });
+                this.ribsView.mixinInitialize();
+                this.ribsView.render();
             });
         }
     };

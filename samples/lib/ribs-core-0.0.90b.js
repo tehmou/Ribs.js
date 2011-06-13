@@ -53,16 +53,15 @@ Ribs.VERSION = "0.0.90b";
 
     var methods = {
         createBackbone: function (options) {
-            options = options || {};
-
-            var view = _.extend({}, Ribs.mixins.backbonePivot, options.options);
+            var view = Ribs.addingExtend({}, Ribs.backbone.backbonePivot, options);
 
             return this.each(function () {
                 if (this.ribsView) {
                     Ribs.throwError("multipleViewsForEl");
                 }
-
-                this.ribsView = _.extend({ el: this }, view);
+                this.ribsView = _.extend({}, view, { el: this });
+                this.ribsView.mixinInitialize();
+                this.ribsView.render();
             });
         }
     };
@@ -136,6 +135,30 @@ Ribs.log = function (msg) {
     }
 };
 
+Ribs.addingExtend = function (obj) {
+    _.each(Array.prototype.slice.call(arguments, 1), function(source) {
+        for (var prop in source) {
+            if (_.isFunction(obj[prop])) {
+                if (_.isFunction(source[prop])) {
+                    (function () {
+                        var oldProp = obj[prop],
+                            newProp = source[prop];
+                        obj[prop] = function () {
+                            oldProp.apply(this, arguments);
+                            newProp.apply(this, arguments);
+                        };
+                    }());
+                } else {
+                    throw "Tried to override a function with non-function";
+                }
+            } else {
+                obj[prop] = source[prop];
+            }
+        }
+    });
+    return obj;
+};
+
 
 // Support mixins
 
@@ -144,7 +167,7 @@ Ribs.mixinBase.childMixinElementResolver = {
         this.redraw();
     },
     redraw: function () {
-        if (this.mixins) {
+        if (this.mixins && this.el) {
             var el = $(this.el).find(this.elementSelector);
             if (el.length === 0) {
                 el = this.el;
@@ -231,47 +254,15 @@ Ribs.mixinBase.compositeBase = {
     };
 }());
 
-Ribs.mixinBase.modelful = {
-    getMyModelJSON: function () {
-        if (this.modelName) {
-            return this.getModelJSON({
-                modelName: this.modelName
-            });
-        } else {
-            Ribs.throwError("modelNameNotDefined");
-        }
-    },
-    getMyValue: function () {
-        if (this.modelName) {
-            if (this.attributeName) {
-                return this.getValue({
-                    modelName: this.modelName,
-                    attributeName: this.attributeName
-                });
-            } else {
-                Ribs.throwError("attributeNameNotDefined", "modelName=" + this.modelName);
-            }
-        } else {
-            Ribs.throwError("modelNameNotDefined");
-        }
-        return null;
-    },
-    setMyValue: function (value) {
-        if (this.modelName) {
-            if (this.attributeName) {
-                this.setValue({
-                    modelName: this.modelName,
-                    attributeName: this.attributeName,
-                    value: value
-                });
-                return true;
-            } else {
-                Ribs.throwError("attributeNameNotDefined", "modelName=" + this.modelName);
-            }
-        } else {
-            Ribs.throwError("modelNameNotDefined");
-        }
-        return false;
+Ribs.mixinBase.resolveValue = function () {
+    if (this.pivot && _.isFunction(this.pivot.getValue)) {
+        this.value = this.pivot.getValue(this);
+    }
+};
+
+Ribs.mixinBase.resolveJSON = function () {
+    if (this.pivot && _.isFunction(this.pivot.getModelJSON)) {
+        this.json = this.pivot.getModelJSON(this);
     }
 };
 
@@ -408,28 +399,44 @@ Ribs.mixinBase.selfParsing = {
     }
 };
 
+Ribs.mixinBase.templated = {
+    templateSelector: null,
+    templateFunction: null,
+    models: null,
+
+    mixinInitialize: function () {
+        if (!this.templateFunction && this.templateSelector) {
+            this.templateFunction = _.template($(this.templateSelector).html());
+        }
+        if (!this.el && this.templateFunction) {
+            this.el = $(this.templateFunction({}));
+            this.templateFunction = _.template(this.el.html());
+        }
+    },
+    redraw: function () {
+        if (this.templateFunction) {
+            $(this.el).html(this.templateFunction(this.json || {}));
+        }
+    }
+};
+
 
 
 
 // Basic mixin classes
 
 Ribs.mixins.plain = Ribs.mixinBase.eventful;
-Ribs.mixins.plainWithModel = _.extend({},
+Ribs.mixins.plainWithModel = Ribs.addingExtend({},
         Ribs.mixins.plain,
-        Ribs.mixinBase.modelful,
-        {
-            mixinInitialize: function () {
-                Ribs.mixins.plain.mixinInitialize.apply(this, arguments);
-                Ribs.mixinBase.modelful.mixinInitialize.apply(this, arguments);
-            }
-        });
-Ribs.mixins.composite = _.extend({},
+        Ribs.mixinBase.modelful
+    );
+Ribs.mixins.composite = Ribs.addingExtend({},
         Ribs.mixinBase.compositeBase,
-        Ribs.mixinBase.childMixinElementResolver,
-        {
-            mixinInitialize: function () {
-                Ribs.mixinBase.compositeBase.mixinInitialize.apply(this, arguments);
-                Ribs.mixinBase.childMixinElementResolver.mixinInitialize(this, arguments);
-            }
-        });
+        Ribs.mixinBase.childMixinElementResolver
+    );
+Ribs.mixins.templated = Ribs.addingExtend({},
+        { redraw: Ribs.mixinBase.resolveJSON },
+        { redraw: Ribs.mixinBase.resolveValue },
+        Ribs.mixinBase.templated    
+    );
 

@@ -7,4 +7,9 @@ Ribs.mixins.composite = Ribs.addingExtend({},
         Ribs.mixinBase.compositeBase,
         Ribs.mixinBase.childMixinElementResolver
     );
+Ribs.mixins.templated = Ribs.addingExtend({},
+        { redraw: Ribs.mixinBase.resolveJSON },
+        { redraw: Ribs.mixinBase.resolveValue },
+        Ribs.mixinBase.templated    
+    );
 

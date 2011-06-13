@@ -56,12 +56,16 @@ Ribs.backbone.modelSupport = {
 
     getModelJSON: function (options) {
         var json,
-            modelName = options.modelName;
-        
+            modelName = options.jsonModelName;
+
+        if (!modelName) {
+            return;
+        }
+
         if (_.isArray(modelName)) {
             json = {};
             for (var i = 0; i < modelName.length; i++) {
-                _.extend(json, this.getModelJSON({ modelName: modelName[i] }));
+                _.extend(json, this.getModelJSON({ jsonModelName: modelName[i] }));
             }
         } else {
             if (!this.models.attributes.hasOwnProperty(modelName)) {
@@ -74,8 +78,12 @@ Ribs.backbone.modelSupport = {
     },
 
     getValue: function (options) {
-        var modelName = options.modelName,
-            attributeName = options.attributeName;
+        var modelName = options.valueModelName,
+            attributeName = options.valueAttributeName;
+
+        if (!modelName || !attributeName) {
+            return;
+        }
 
         if (!this.models.attributes.hasOwnProperty(modelName)) {
             Ribs.throwError("modelNotFound", "" + modelName);
@@ -89,10 +97,14 @@ Ribs.backbone.modelSupport = {
     },
 
     setValue: function (options) {
-        var modelName = options.modelName,
-            attributeName = options.attributeName,
+        var modelName = options.valueModelName,
+            attributeName = options.valueAttributeName,
             value = options.value,
             newValues;
+
+        if (!modelName || !attributeName) {
+            return;
+        }
 
         if (!this.models.attributes.hasOwnProperty(modelName)) {
             Ribs.throwError("modelNotFound", modelName);

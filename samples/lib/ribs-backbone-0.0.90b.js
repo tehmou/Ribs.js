@@ -75,21 +75,38 @@ Ribs.backbone.modelSupport = {
     modelAdded: function (name, newModel) { },
 
     getModelJSON: function (options) {
-        var modelName = options.modelName;
+        var json,
+            modelName = options.jsonModelName;
 
-        if (!this.models.attributes.hasOwnProperty(modelName)) {
-            Ribs.throwError("modelNotFound", modelName);
+        if (!modelName) {
             return;
         }
-        return this.models.get(modelName).toJSON();
+
+        if (_.isArray(modelName)) {
+            json = {};
+            for (var i = 0; i < modelName.length; i++) {
+                _.extend(json, this.getModelJSON({ modelName: modelName[i] }));
+            }
+        } else {
+            if (!this.models.attributes.hasOwnProperty(modelName)) {
+                Ribs.throwError("modelNotFound", "" + modelName);
+                return;
+            }
+            json = this.models.get(modelName).toJSON();
+        }
+        return json;
     },
 
     getValue: function (options) {
-        var modelName = options.modelName,
-            attributeName = options.attributeName;
+        var modelName = options.valueModelName,
+            attributeName = options.valueAttributeName;
+
+        if (!modelName || !attributeName) {
+            return;
+        }
 
         if (!this.models.attributes.hasOwnProperty(modelName)) {
-            Ribs.throwError("modelNotFound", modelName);
+            Ribs.throwError("modelNotFound", "" + modelName);
             return;
         }
         if (!this.models.get(modelName).attributes.hasOwnProperty(attributeName)) {
@@ -100,10 +117,14 @@ Ribs.backbone.modelSupport = {
     },
 
     setValue: function (options) {
-        var modelName = options.modelName,
-            attributeName = options.attributeName,
+        var modelName = options.valueModelName,
+            attributeName = options.valueAttributeName,
             value = options.value,
             newValues;
+
+        if (!modelName || !attributeName) {
+            return;
+        }
 
         if (!this.models.attributes.hasOwnProperty(modelName)) {
             Ribs.throwError("modelNotFound", modelName);
@@ -150,16 +171,12 @@ Ribs.backbone.augmentModelWithUIAttributes = function (model) {
     }
 };
 
-Ribs.backbone.backbonePivot = _.extend(
-    {},
+Ribs.backbone.backbonePivot = Ribs.addingExtend({},
     Ribs.mixins.plainPivot,
     Ribs.backbone.modelSupport,
     Ribs.backbone.invalidating,
     {
         mixinInitialize: function () {
-            Ribs.mixins.plainPivot.mixinInitialize.apply(this, arguments);
-            Ribs.backbone.modelSupport.mixinInitialize.apply(this, arguments);
-            Ribs.backbone.invalidating.mixinInitialize.apply(this, arguments);
             this.initialized = true;
         }
     }

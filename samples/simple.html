@@ -28,14 +28,19 @@
     <script src="../lib/jquery-1.5.min.js"></script>
     <script src="../lib/underscore.js"></script>
     <script src="../lib/backbone.js"></script>
-    <script src="lib/ribs.js"></script>
+    <script src="lib/ribs-core-0.0.90b.js"></script>
+    <script src="lib/ribs-mixins-0.0.90b.js"></script>
+    <script src="lib/ribs-backbone-0.0.90b.js"></script>
 
     <script type="text/javascript">
         $(function () {
-            var myModel = new Backbone.Model({ name: "Karita", age: 16 }),
-                view = [
-                    { templating: { templateFunction: _.template($("#my-template").html()) }}
-                ];
+            var myModel = new Backbone.Model({ name: "Karita", age: 16 });
+
+            $("#container").ribs("createBackbone", {
+                templateFunction: _.template($("#my-template").html()),
+                backboneModels: { data: myModel },
+                jsonModelName: "data"
+            });
         });
 
     </script>
@@ -44,8 +49,8 @@
 <body>
     <div id="container"></div>
 
-    <script id="my-template">
-        <h1>Template</h1>
+    <script id="my-template" type="text/html">
+        <h1>Welcome <%= name %></h1>
     </script>
 </body>
 </html>

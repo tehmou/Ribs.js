@@ -1,4 +1,4 @@
-Ribs.mixins.templated = {
+Ribs.mixinBase.templated = {
     templateSelector: null,
     templateFunction: null,
     models: null,
@@ -14,7 +14,7 @@ Ribs.mixins.templated = {
     },
     redraw: function () {
         if (this.templateFunction) {
-            this.el.html(this.templateFunction(this.json || {}));
+            $(this.el).html(this.templateFunction(this.json || {}));
         }
     }
 };
