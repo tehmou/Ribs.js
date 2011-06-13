@@ -32,6 +32,19 @@ describe("Ribs.mixins.templated", function () {
         });
     });
 
+    describe("redrawing with templates", function () {
+        it("Should redraw using the nested templates", function () {
+            var mixin = _.extend({}, Ribs.mixins.templated, {
+                templateFunction: _.template("<div><span><%= qwert %></span></div>")
+            });
+            mixin.mixinInitialize();
+            mixin.el.html("");
+            mixin.json = { qwert: "yuio" };
+            mixin.redraw();
+            expect($(mixin.el.children()[0]).text()).toEqual("yuio");
+        });
+    });
+
     describe("as a pivot", function () {
         var pivot;
 
