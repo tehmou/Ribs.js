@@ -1,9 +1,7 @@
 (function ($) {
 
     var methods = {
-        createBackbone: function (options) {
-            var view = Ribs.utils.addingExtend({}, Ribs.backbone.backbonePivot, options);
-
+        createView: function (view) {
             return this.each(function () {
                 if (this.ribsView) {
                     Ribs.throwError("multipleViewsForEl");
