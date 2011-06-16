@@ -25,7 +25,7 @@
         }
     </style>
 
-    <script src="../lib/jquery-1.5.min.js"></script>
+    <script src="../lib/jquery-1.6.1.js"></script>
     <script src="../lib/underscore.js"></script>
     <script src="../lib/backbone.js"></script>
     <!--<script src="lib/ribs-core-0.0.90b.js"></script>
@@ -58,45 +58,45 @@
 
 
     <script type="text/javascript">
-        $(function () {
-            var myModel = new Backbone.Model({ name: "Karita", age: 16 }),
-                myCollection = new Backbone.Collection([
-                    //{ name: "Petteri" },
-                    //{ name: "Pekka" },
+        var init = function () {
+            var myCollection = new Backbone.Collection();
+
+            for (var i = 0; i < 1000; i++) {
+                myCollection.add([
+                    { name: "Petteri" },
+                    { name: "Pekka" },
                     { name: "Kaisa" }
                 ]);
+            }
 
-            /*$("#container").ribs("createBackbone", {
-                templateFunction: _.template($("#my-template").html()),
-                backboneModels: { data: myModel },
-                jsonModelName: "data"
-            });*/
-
-            $("#list-container").ribs("createBackbone", {
-                backboneModels: { data: myCollection },
-                mixinDefinitions: [
-                    { "backbone.simpleList": {
-                        itemRenderer: Ribs.utils.addingExtend({},
-                            Ribs.backbone.backbonePivot,
-                            {
-                                templateFunction: _.template($("#my-template").html())
-                            }
-                        ),
-                        myModelName: "data"
-                    }}
-                ]
-            });
-        });
+            $("#list-container").ribs("createView",
+                Ribs.backbone({
+                    backboneModels: { data: myCollection },
+                    mixinDefinitions: [
+                        { "backbone.simpleList": {
+                            myModelName: "data",
+                            itemRenderer: Ribs.backbone(
+                                Ribs.mixins.templated,
+                                {
+                                    overwriteEl: true,
+                                    templateSelector: "#my-template"
+                                }
+                            )
+                        }}
+                    ]
+                })
+            );
+        };
 
     </script>
 
 </head>
-<body>
+<body onclick="init()">
     <div id="container"></div>
     <div id="list-container"></div>
 
     <script id="my-template" type="text/html">
-        <div><span>Moi</span><h1>Welcome <%= name %></h1></div>
+        <h1>Welcome <%= name %></h1>
     </script>
 </body>
 </html>

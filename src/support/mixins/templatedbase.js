@@ -1,26 +1,28 @@
 Ribs.support.mixins.templated = {
     templateSelector: null,
     templateString: null,
+    templateFunction: null,
+    overwriteEl: false,
     models: null,
+    
 
     mixinInitialize: function () {
-        if (!this.templateString && this.templateSelector) {
-            this.templateString = $(this.templateSelector).html();
+        if (!this.templateFunction) {
+            if (this.templateSelector && !this.templateString) {
+                this.templateString = $(this.templateSelector).html();
+            }
+            if (this.templateString) {
+                this.templateFunction = _.template(this.templateString);
+            }
         }
-
-        if (!this.el && this.templateString) {
-            this.el = $(this.templateString);
-            console.log(this.templateString);
-            this.templateString = $(this.templateString).html();
-            console.log(this.templateString);
-            this.templateFunction = this.templateString ? _.template(this.templateString) : null;
-        }
-
-        this.templateFunction = this.templateString ? _.template(this.templateString) : null;
     },
     redraw: function () {
         if (this.templateFunction) {
-            $(this.el).html(this.templateFunction(this.json || {}));
+            if (this.overwriteEl) {
+                this.el = $(this.templateFunction(this.json || {}));
+            } else {
+                $(this.el).html(this.templateFunction(this.json || {}));
+            }
         }
     }
 };
