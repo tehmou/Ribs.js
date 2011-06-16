@@ -3,8 +3,7 @@ Ribs.support.mixins.templated = {
     templateString: null,
     templateFunction: null,
     overwriteEl: false,
-    models: null,
-    
+    json: null,
 
     mixinInitialize: function () {
         if (!this.templateFunction) {

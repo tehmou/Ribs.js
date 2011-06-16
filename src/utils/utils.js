@@ -26,7 +26,7 @@ Ribs.utils.addingExtend = function (obj) {
                 } else {
                     Ribs.throwError("addingExtendArrayWithNonArray");
                 }
-            } else {
+            } else if (source[prop] !== null) {
                 obj[prop] = source[prop];
             }
         }
