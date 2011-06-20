@@ -6,6 +6,9 @@ Ribs.log = function (msg) {
 
 Ribs.utils.addingExtend = function (obj) {
     _.each(Array.prototype.slice.call(arguments, 1), function(source) {
+        if (source === undefined || source === null) {
+            Ribs.throwError("extendingWithUndefinedOrNull");
+        }
         for (var prop in source) {
             if (_.isFunction(obj[prop])) {
                 if (_.isFunction(source[prop])) {

@@ -8,7 +8,8 @@ Ribs.enableThrowError = {
     noCompositeMixinFoundForParsing: true,
     invalidObjectPath: true,
     addingExtendFunctionWithNonFunction: true,
-    addingExtendArrayWithNonArray: true
+    addingExtendArrayWithNonArray: true,
+    extendingWithUndefinedOrNull: true
 };
 
 Ribs.throwError = function (errorType, msg) {

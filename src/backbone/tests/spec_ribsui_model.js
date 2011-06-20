@@ -1,4 +1,4 @@
-describe("Augment model with ribsUI property", function() {
+describe("Ribs.backbone.utils.augmentModelWithUIAttributes", function() {
     var model;
 
     beforeEach(function () {
@@ -7,18 +7,18 @@ describe("Augment model with ribsUI property", function() {
 
     it("Should add a property ribsUI to the model", function () {
         expect(model.hasOwnProperty("ribsUI")).toBeFalsy();
-        Ribs.augmentModelWithUIAttributes(model);
+        Ribs.backbone.utils.augmentModelWithUIAttributes(model);
         expect(model.hasOwnProperty("ribsUI")).toBeTruthy();
     });
 
     describe("Augmented model functionality", function () {
         beforeEach(function () {
-            Ribs.augmentModelWithUIAttributes(model);
+            Ribs.backbone.utils.augmentModelWithUIAttributes(model);
         });
 
         it("Should not recreate the ribsUI model if it exists", function () {
             var firstRibsUI = model.ribsUI;
-            Ribs.augmentModelWithUIAttributes(model);
+            Ribs.backbone.utils.augmentModelWithUIAttributes(model);
             expect(model.ribsUI).toEqual(firstRibsUI);
         });
 

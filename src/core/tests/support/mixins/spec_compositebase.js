@@ -1,18 +1,18 @@
-describe("Ribs.mixins.composite", function () {
-    var composite, pivot, inheritingMethods, mixin1, mixin2;
+describe("Ribs.support.mixins.compositeBase", function () {
+    var composite, pivot, randomProp, mixin1, mixin2;
 
     beforeEach(function () {
         pivot = {};
-        inheritingMethods = [ "call1", "call2" ];
+        randomProp = [ "call1", "call2" ];
         mixin1 = {
             elementSelector: "mixinSelector",
             call1: function () { }, call2: function () { }
         };
         mixin2 = { myParam: "myValue" };
 
-        composite = _.extend({}, Ribs.mixins.composite, {
+        composite = _.extend({}, Ribs.support.mixins.compositeBase, {
             pivot: pivot,
-            inheritingMethods: inheritingMethods,
+            randomProp: randomProp,
             mixinClasses: [ mixin1, mixin2 ],
             testMethod: function () { }
         });
@@ -36,23 +36,7 @@ describe("Ribs.mixins.composite", function () {
         expect(composite.mixins[1]).not.toEqual(mixin2);
     });
 
-    it("Should delegate all calls defined inheritingMethods to the created mixins", function () {
-        composite.mixinInitialize();
-
-        var mixin = composite.mixins[0],
-            callStack = objectCallObserver(mixin);
-
-        callStack.expectCalls(["call1", "call2"]);
-        callStack.start();
-
-        composite.call1();
-        composite.testMethod();
-        composite.call2();
-
-        callStack.expectFinished();
-    });
-
-    it("Should pass inheritingMethods and pivot to created mixins", function () {
+    it("Should pass randomProp and pivot to created mixins", function () {
          composite.mixinInitialize();
 
         expect(composite.mixinClasses[0].inheritingMethods).toBeUndefined();
@@ -60,9 +44,9 @@ describe("Ribs.mixins.composite", function () {
         expect(composite.mixinClasses[1].inheritingMethods).toBeUndefined();
         expect(composite.mixinClasses[1].pivot).toBeUndefined();
 
-        expect(composite.mixins[0].inheritingMethods).toEqual(inheritingMethods);
+        expect(composite.mixins[0].randomProp).toEqual(randomProp);
         expect(composite.mixins[0].pivot).toEqual(pivot);
-        expect(composite.mixins[1].inheritingMethods).toEqual(inheritingMethods);
+        expect(composite.mixins[1].randomProp).toEqual(randomProp);
         expect(composite.mixins[1].pivot).toEqual(pivot);
     });
 });

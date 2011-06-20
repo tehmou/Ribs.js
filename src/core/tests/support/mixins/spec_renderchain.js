@@ -7,7 +7,7 @@ describe("Ribs.support.mixins.renderChain", function () {
     });
 
     if("Should add inheritingMethods", function () {
-        expect(renderChain.inheritingMethods.length).toEqual(0);
+        expect(renderChain.inheritingMethods.length).toEqual(4);
         renderChain.mixinInitialize();
         expect(renderChain.inheritingMethods).toEqual([
             "unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"

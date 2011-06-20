@@ -1,37 +1,15 @@
 Ribs.support.mixins.compositeBase = {
-    inheritingMethods: [],
     mixinClasses: null,
+    
     mixinInitialize: function () {
         this.mixinClasses = this.mixinClasses || [];
         this.mixins = [];
-        _.each(this.mixinClasses, _.bind(function (mixinType) {
-            var mixin = _.extend({}, mixinType, {
-                inheritingMethods: this.inheritingMethods,
-                pivot: this.pivot
-            });
-            _.bind(function () { _.bindAll(this); }, mixin)();
-            this.mixins.push(mixin);
-        }, this));
-        this.callAllMixins("mixinInitialize", arguments);
-        this.inheritMethods(this);
+        _.each(this.mixinClasses, _.bind(this.createMixin, this));
     },
-    callAllMixins: function (methodName, originalArguments) {
-        _.each(this.mixins, function (mixin) {
-            if (typeof(mixin[methodName]) === "function") {
-                mixin[methodName].apply(mixin, originalArguments);
-            }
-        });
-    },
-    inheritMethods: function () {
-        _.each(this.inheritingMethods, _.bind(function (methodName) {
-            var oldMethod = this[methodName];
-            this[methodName] = function () {
-                if (typeof(oldMethod) === "function") {
-                    oldMethod.apply(this, arguments);
-                }
-                this.callAllMixins(methodName, arguments);
-            };
-        }, this));
+    createMixin: function (mixinDef) {
+        var mixin = _.extend({}, this, mixinDef);
+        _.bind(function () { _.bindAll(this); }, mixin)();
+        this.mixins.push(mixin);
     },
     findMixinWithElementSelector: function (elementSelector) {
         for (var i = 0; i < this.mixinClasses.length; i++) {

@@ -1,9 +1,6 @@
 Ribs.mixins.plain = Ribs.support.mixins.eventful;
-Ribs.mixins.plainWithModel = Ribs.utils.addingExtend({},
-        Ribs.mixins.plain,
-        Ribs.support.mixins.modelful
-    );
 Ribs.mixins.composite = Ribs.utils.addingExtend({},
+        Ribs.support.mixins.methodInherit,
         Ribs.support.mixins.compositeBase,
         Ribs.support.mixins.childMixinElementResolver
     );
