@@ -1,20 +1,20 @@
 /**
- * @field
+ * @namespace
  */
 Ribs.backbone = {};
 
 /**
- * @field
+ * @namespace
  */
-Ribs.backbone.mixins = {};
+Ribs.backbone.mixins = Ribs.mixins.backbone = {};
 
 /**
- * @field
+ * @namespace
  */
 Ribs.backbone.support = {};
 
 /**
- * @field
+ * @namespace
  */
 Ribs.backbone.utils = {};
 

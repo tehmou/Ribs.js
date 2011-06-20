@@ -1,22 +1,22 @@
 /**
- * @class
+ * @namespace
  */
 var Ribs = {};
 
 /**
- * @field
+ * @namespace
  * @desc Hash of all mixins visible to the mixin
  * parser. Add your custom ones here.
  */
 Ribs.mixins = {};
 
 /**
- * @field
+ * @namespace
  */
 Ribs.support = {};
 
 /**
- * @field
+ * @namespace
  */
 Ribs.utils = {};
 

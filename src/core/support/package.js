@@ -6,5 +6,5 @@ Ribs.support.functions = {};
 /**
  * @field
  */
-Ribs.support.mixins = {};
+Ribs.support.mixins = Ribs.mixins.support = {};
 
