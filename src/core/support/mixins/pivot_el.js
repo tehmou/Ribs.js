@@ -1,5 +1,5 @@
 Ribs.support.mixins.pivotEl = {
-    tagName: "div",
+    tagName: null,
     el: null,
     initialized: false,
 

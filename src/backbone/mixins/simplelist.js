@@ -1,4 +1,4 @@
-Ribs.backbone.mixins.simpleList = Ribs.utils.addingExtend({},
+Ribs.mixins.simpleList = Ribs.utils.addingExtend({},
     Ribs.support.mixins.myModel,
     {
         itemRenderer: null,

@@ -1,4 +1,4 @@
-Ribs.backbone.support.modelSupport = {
+Ribs.backbone.support.mixins.modelSupport = {
     backboneModels: null,
     createInternalModel: true,
     inheritingMethods: ["modelRemoved", "modelAdded"],

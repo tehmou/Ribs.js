@@ -1,0 +1,18 @@
+body {
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans;
+    font-size: 10pt;
+}
+
+.button {
+    width: 40px;
+    text-align: center;
+    display: inline-block;
+    color: #101010;
+    background: #e0e0e0;
+    border: 1px solid #909090;
+    border-radius: 4px;
+    padding: 1px 4px;
+}
+.button:hover {
+    border-color: #303030;
+}

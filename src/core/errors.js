@@ -1,16 +1,3 @@
-var Ribs = {};
-
-/**
- * @field
- * @desc Hash of all mixins visible to the mixin
- * parser. Add your custom ones here.
-**/
-Ribs.mixins = {};
-
-Ribs.support = {};
-
-Ribs.utils = {};
-
 Ribs.enableThrowError = {
     multipleViewsForEl: true,
     modelNotFound: true,
@@ -29,5 +16,4 @@ Ribs.throwError = function (errorType, msg) {
         throw errorType + (typeof(msg) !== "undefined" ? ": " + msg : "");
     }
 };
-
 

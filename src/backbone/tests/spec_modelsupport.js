@@ -7,7 +7,7 @@ describe("Ribs.backbone.support.modelSupport", function () {
             test: "foo",
             myAttr: "1234"
         });
-        mixin = _.extend({}, Ribs.backbone.support.modelSupport);
+        mixin = _.extend({}, Ribs.backbone.support.mixins.modelSupport);
         mixin.pivot = mixin;
         mixin.models = models;
         mixin.backboneModels = { myModel: model };

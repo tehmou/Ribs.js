@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Ribs.js--Trivial Example</title>
+    <title>Ribs.js--Form Example</title>
 
     <link href="css/generic.css" rel="stylesheet">
 
@@ -47,23 +47,23 @@
                     { name: "Kaisa" }
                 ]);
 
-            var comp = { pivot: {
-                mixinDefinitions: [
-                    { simpleList: {
-                        myModelName: "data",
-                        itemRenderer:
-                            { pivot: [
+            $("#list-container").ribs("createView",
+                Ribs.backbone({
+                    backboneModels: { data: myCollection },
+                    mixinDefinitions: [
+                        { "backbone.simpleList": {
+                            myModelName: "data",
+                            itemRenderer: Ribs.backbone(
                                 Ribs.mixins.templated,
                                 {
                                     overwriteEl: true,
                                     templateSelector: "#my-template"
                                 }
-                            ]}
-                    }}
-                ]
-            }};
-
-            $("#list-container").ribs("createView", comp, { backboneModels: { data: myCollection } });
+                            )
+                        }}
+                    ]
+                })
+            );
         });
 
     </script>

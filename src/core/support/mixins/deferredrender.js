@@ -1,4 +1,4 @@
-Ribs.support.mixins.smartRender = {
+Ribs.support.mixins.deferredRender = {
     _renderPending: false,
 
     requestRender: function () {
@@ -22,3 +22,4 @@ Ribs.support.mixins.smartRender = {
         }
     }
 };
+

@@ -9,14 +9,7 @@ Ribs.utils.addingExtend = function (obj) {
         for (var prop in source) {
             if (_.isFunction(obj[prop])) {
                 if (_.isFunction(source[prop])) {
-                    (function () {
-                        var oldProp = obj[prop],
-                            newProp = source[prop];
-                        obj[prop] = function () {
-                            oldProp.apply(this, arguments);
-                            newProp.apply(this, arguments);
-                        };
-                    }());
+                    obj[prop] = _.compose(source[prop], obj[prop]);
                 } else {
                     Ribs.throwError("addingExtendFunctionWithNonFunction");
                 }

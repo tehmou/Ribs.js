@@ -14,15 +14,21 @@
 
 // Backbone integrations
 
+Ribs.backbone = {};
+Ribs.backbone.mixins = {};
+Ribs.backbone.support = {};
+Ribs.backbone.utils = {};
+
 /*global Backbone*/
 
-Ribs.backbone = {};
+Ribs.backbone.create = function () {
+    var args = Array.prototype.concat.apply([{}, Ribs.backbone.backbonePivot], arguments);
+    return Ribs.utils.addingExtend.apply(this, args);
+};
 
 Ribs.mixins.backbone = Ribs.backbone.mixins = {};
 
-Ribs.backbone.support = {};
-
-Ribs.backbone.utils = {};Ribs.backbone.utils.NonSyncingCollection = Backbone.Collection.extend({
+Ribs.backbone.utils.NonSyncingCollection = Backbone.Collection.extend({
     add: function (item) {
         var oldCollection = item.collection;
         Backbone.Collection.prototype.add.apply(this, arguments);
@@ -105,10 +111,10 @@ Ribs.backbone.utils.augmentModelWithUIAttributes = function (model) {
 
 // Support blocks
 
-Ribs.backbone.support.functions = { };
+Ribs.backbone.support.functions = {};
 Ribs.backbone.support.mixins = {};
 
-Ribs.backbone.support.invalidating = {
+Ribs.backbone.support.mixins.invalidating = {
     mixinInitialize: function () {
         var that = this;
 
@@ -130,18 +136,18 @@ Ribs.backbone.support.invalidating = {
     }
 };
 
-Ribs.backbone.support.modelSupport = {
+Ribs.backbone.support.mixins.modelSupport = {
     backboneModels: null,
     createInternalModel: true,
+    inheritingMethods: ["modelRemoved", "modelAdded"],
 
     mixinInitialize: function () {
-        this.inheritingMethods = (this.inheritingMethods || []).concat(["modelRemoved", "modelAdded"]);
         var backboneModels = this.backboneModels || {};
 
         if (this.createInternalModel) {
-            _.extend(backboneModels, {
+            backboneModels = _.extend({
                 internal: new Backbone.Model()
-            });
+            }, backboneModels);
         }
 
         if (this.models) {
@@ -152,10 +158,9 @@ Ribs.backbone.support.modelSupport = {
 
         this.models.bind("change", _.bind(function () { this.modelChangeHandler(); }, this));
 
-        if (typeof(this.models.get("data")) !== "undefined") {
-            Ribs.backbone.utils.augmentModelWithUIAttributes(this.models.get("data"));
-            this.models.dataUI = this.models.get("data").ribsUI;
-        }
+        _.each(this.models.attributes, _.bind(function (model, name) {
+            this.modelAdded(name, model);
+        }, this));
     },
 
     modelChangeHandler: function () {
@@ -190,7 +195,7 @@ Ribs.backbone.support.modelSupport = {
         var json,
             modelName = options.jsonModelName;
 
-        if (!modelName) {
+        if (!modelName || !this.models) {
             return;
         }
 
@@ -213,7 +218,7 @@ Ribs.backbone.support.modelSupport = {
         var modelName = options.valueModelName,
             attributeName = options.valueAttributeName;
 
-        if (!modelName || !attributeName) {
+        if (!modelName || !attributeName || !this.models) {
             return;
         }
 
@@ -248,7 +253,7 @@ Ribs.backbone.support.modelSupport = {
     }
 };
 
-Ribs.backbone.backbonePivot = Ribs.utils.addingExtend({},
+Ribs.backbone.support.mixins.pivot = Ribs.utils.addingExtend({},
     Ribs.mixins.plainPivot,
     Ribs.backbone.support.modelSupport,
     Ribs.backbone.support.invalidating,
@@ -264,7 +269,7 @@ Ribs.backbone.backbonePivot = Ribs.utils.addingExtend({},
 
 // Mixins
 
-Ribs.backbone.mixins.simpleList = Ribs.utils.addingExtend({},
+Ribs.mixins.simpleList = Ribs.utils.addingExtend({},
     Ribs.support.mixins.myModel,
     {
         itemRenderer: null,
@@ -272,7 +277,17 @@ Ribs.backbone.mixins.simpleList = Ribs.utils.addingExtend({},
         redraw: function () {
             $(this.el).html("");
             _.each(this._listViews, _.bind(function (view) {
+                if (_.isFunction(view.redraw)) {
+                    view.redraw();
+                }
                 $(this.el).append(view.el);
+            }, this));
+        },
+        refresh: function () {
+            _.each(this._listViews, _.bind(function (view) {
+                if (_.isFunction(view.refresh)) {
+                    view.refresh();
+                }
             }, this));
         },
         myModelAdded: function (model) {
@@ -296,7 +311,10 @@ Ribs.backbone.mixins.simpleList = Ribs.utils.addingExtend({},
         },
         listAdd: function (item) {
             if (!this._listViews.hasOwnProperty(item.cid)) {
-                var itemView = _.extend({}, this.itemRenderer, { model: item });
+                var itemView = _.extend({}, this.itemRenderer, {
+                    backboneModels: { data: item },
+                    jsonModelName: "data"
+                });
                 itemView.mixinInitialize();
                 this._listViews[item.cid] = itemView;
                 this.pivot.requestInvalidate();
@@ -311,7 +329,7 @@ Ribs.backbone.mixins.simpleList = Ribs.utils.addingExtend({},
         listRefresh: function () {
             this._listViews = {};
             if (this.myModel && _.isFunction(this.myModel.each)) {
-                this.myModel.each(this.addOne);
+                this.myModel.each(this.listAdd);
             }
             this.pivot.requestInvalidate();
         }

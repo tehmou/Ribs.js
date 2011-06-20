@@ -1,4 +1,4 @@
-Ribs.backbone.support.invalidating = {
+Ribs.backbone.support.mixins.invalidating = {
     mixinInitialize: function () {
         var that = this;
 
