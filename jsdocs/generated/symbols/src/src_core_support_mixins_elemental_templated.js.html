@@ -1,0 +1,88 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @class
+<span class='line'>  3</span>  * @requires Ribs.support.mixins.element
+<span class='line'>  4</span>  */</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="NAME">Ribs.support.mixins.templated</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>  7</span>      * @field
+<span class='line'>  8</span>      * @desc jQuery selector for the template element.
+<span class='line'>  9</span>      * @default null
+<span class='line'> 10</span>      */</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">    </span><span class="NAME">templateSelector</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 12</span> 
+<span class='line'> 13</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 14</span>      * @field
+<span class='line'> 15</span>      * @desc Plain string to use as the template.&lt;br />&lt;br />
+<span class='line'> 16</span>      *
+<span class='line'> 17</span>      * Overrides templateSelector.
+<span class='line'> 18</span>      * @default null
+<span class='line'> 19</span>      */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="NAME">templateString</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 21</span> 
+<span class='line'> 22</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 23</span>      * @field
+<span class='line'> 24</span>      * @desc Template function to call when using the template.
+<span class='line'> 25</span>      * Gets the model json as its first parameter.&lt;br />&lt;br />
+<span class='line'> 26</span>      *
+<span class='line'> 27</span>      * Overrides templateSelector and templateString
+<span class='line'> 28</span>      * @default null
+<span class='line'> 29</span>      */</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">    </span><span class="NAME">templateFunction</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 31</span> 
+<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 33</span>      * @field
+<span class='line'> 34</span>      * @desc If set to true, will replace the el property with the
+<span class='line'> 35</span>      * template element. Otherwise replaces the contents of the el
+<span class='line'> 36</span>      * with the templated element, leaving the root tag.&lt;br />&lt;br />
+<span class='line'> 37</span>      *
+<span class='line'> 38</span>      * Notice that you will have to re-append this el to DOM manually
+<span class='line'> 39</span>      * in case it is overwritten.&lt;br />&lt;br />
+<span class='line'> 40</span>      * @default false
+<span class='line'> 41</span>      */</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">    </span><span class="NAME">overwriteEl</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 43</span> 
+<span class='line'> 44</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 45</span>      * @field
+<span class='line'> 46</span>      * @desc "Data" to give to the template function. Should be
+<span class='line'> 47</span>      * calculated right before rendering the template in redraw.
+<span class='line'> 48</span>      */</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">    </span><span class="NAME">json</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 50</span> 
+<span class='line'> 51</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 52</span>      * @method
+<span class='line'> 53</span>      * @desc Initializes the template based on the mentioned fields.
+<span class='line'> 54</span>      */</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">    </span><span class="NAME">mixinInitialize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.templateFunction</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.templateSelector</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.templateString</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">                </span><span class="NAME">this.templateString</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">this.templateSelector</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.templateString</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">                </span><span class="NAME">this.templateFunction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">_.template</span><span class="PUNC">(</span><span class="NAME">this.templateString</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 65</span> 
+<span class='line'> 66</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 67</span>      * @method
+<span class='line'> 68</span>      * @desc This is where the template is applied.
+<span class='line'> 69</span>      */</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">    </span><span class="NAME">redraw</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.templateFunction</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.overwriteEl</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">                </span><span class="NAME">this.el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">this.templateFunction</span><span class="PUNC">(</span><span class="NAME">this.json</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">                </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">this.el</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="NAME">this.templateFunction</span><span class="PUNC">(</span><span class="NAME">this.json</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> 
+<span class='line'> 81</span> </span></pre></body></html>

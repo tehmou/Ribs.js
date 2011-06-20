@@ -8,4 +8,4 @@ mkdir $TARGET_DIR
 
 echo "Building the jsdocs from ${SRC_DIR}..."
 cd lib/jsdoc-toolkit
-./jsrun.sh ../../$SRC_DIR -d=../../$TARGET_DIR -t=../../$TEMPLATE_DIR -r=3
+./jsrun.sh ../../$SRC_DIR -d=../../$TARGET_DIR -t=../../$TEMPLATE_DIR -r=6

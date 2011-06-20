@@ -1,5 +1,8 @@
+/**
+ * @class
+ */
 Ribs.mixins.simpleList = Ribs.utils.addingExtend({},
-    Ribs.support.mixins.myModel,
+    Ribs.mixins.support.myModel,
     {
         itemRenderer: null,
 

@@ -1,8 +1,12 @@
+/**
+ * @class
+ */
 Ribs.mixins.plainPivot = Ribs.utils.addingExtend({},
-        Ribs.support.mixins.renderChain,
-        Ribs.support.mixins.deferredRender,
-        Ribs.support.mixins.selfParsing,
-        Ribs.support.mixins.pivotEl,
+        Ribs.mixins.support.renderChain,
+        Ribs.mixins.support.defaultElementRenderChain,
+        Ribs.mixins.support.deferredRender,
+        Ribs.mixins.support.selfParsing,
+        Ribs.mixins.support.element,
         Ribs.mixins.composite
     );
 

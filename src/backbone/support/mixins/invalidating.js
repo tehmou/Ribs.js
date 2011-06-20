@@ -1,9 +1,12 @@
+/**
+ * @class
+ */
 Ribs.backbone.support.mixins.invalidating = {
+    renderingHash: [],
+    invalidatingHash: [],
+    
     mixinInitialize: function () {
         var that = this;
-
-        this.renderingHash = this.renderingHash || {};
-        this.invalidatingHash = this.invalidatingHash || {};
 
         // Set up model change listeners for rendering only.
         _.each(this.renderingHash, function (attributeName, modelName) {

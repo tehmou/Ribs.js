@@ -270,7 +270,7 @@ Ribs.backbone.support.mixins.pivot = Ribs.utils.addingExtend({},
 // Mixins
 
 Ribs.mixins.simpleList = Ribs.utils.addingExtend({},
-    Ribs.support.mixins.myModel,
+    Ribs.mixins.support.myModel,
     {
         itemRenderer: null,
 

@@ -63,7 +63,7 @@ describe("Ribs.backbone.support.modelSupport", function () {
     it("Should mixins multiple models", function () {
         models.set({ newModel: new Backbone.Model({ val: "text", test: "test" }) });
         mixin.jsonModelName = ["newModel", "myModel"];
-        Ribs.support.functions.resolveJSON.apply(mixin);
+        Ribs.utils.resolveJSON.apply(mixin);
         expect(mixin.json.val).toEqual("text");
         expect(mixin.json.test).toEqual("foo");
         expect(mixin.json.myAttr).toEqual("1234");

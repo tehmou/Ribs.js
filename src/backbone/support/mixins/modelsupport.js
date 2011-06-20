@@ -1,3 +1,6 @@
+/**
+ * @class
+ */
 Ribs.backbone.support.mixins.modelSupport = {
     backboneModels: null,
     createInternalModel: true,
