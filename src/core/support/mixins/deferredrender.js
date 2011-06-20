@@ -1,8 +1,8 @@
 /**
  * @class
- * @requires Ribs.mixins.support.renderChain
+ * @requires Ribs.support.mixins.renderChain
  */
-Ribs.mixins.support.deferredRender = {
+Ribs.support.mixins.deferredRender = {
     _renderPending: false,
 
     requestRender: function () {

@@ -1,4 +1,4 @@
-describe("Ribs.utils.modelresolving", function () {
+describe("Ribs.support.functions.modelresolving", function () {
     var mixin, json;
 
     beforeEach(function () {
@@ -28,7 +28,7 @@ describe("Ribs.utils.modelresolving", function () {
     });
 
     it("Should resolve value from the given model/attribute name", function () {
-        Ribs.utils.resolveValue.apply(mixin);
+        Ribs.support.functions.resolveValue.apply(mixin);
         expect(mixin.value).toEqual("returnValue");
     });
 

@@ -1,3 +1,7 @@
+/**
+ * @method
+ * @param parserOptions
+ */
 Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
     parserOptions = parserOptions || {};
 
@@ -46,5 +50,8 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
     return parser;
 };
 
+/**
+ * @field
+ */
 Ribs.mixinParser = Ribs.utils.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
 

@@ -13,20 +13,26 @@
 <span class='line'>  6</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>  7</span>      * @field
 <span class='line'>  8</span>      * @desc Name of the tag to create, if no el was provided.
-<span class='line'>  9</span>      */</span><span class="WHIT">
-<span class='line'> 10</span> </span><span class="WHIT">    </span><span class="NAME">tagName</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 11</span> 
-<span class='line'> 12</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 13</span>      * @field
-<span class='line'> 14</span>      * @desc If given, no element will be created, but it will
-<span class='line'> 15</span>      * be used instead.
-<span class='line'> 16</span>      */</span><span class="WHIT">
-<span class='line'> 17</span> </span><span class="WHIT">    </span><span class="NAME">el</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 18</span> 
-<span class='line'> 19</span> </span><span class="WHIT">    </span><span class="NAME">mixinInitialize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 20</span> </span><span class="WHIT">        </span><span class="NAME">this.el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.el</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="NAME">this.tagName</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"div"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 21</span> </span><span class="WHIT">        </span><span class="NAME">this.pivot</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 22</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  9</span>      * @default null
+<span class='line'> 10</span>      */</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">    </span><span class="NAME">tagName</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 12</span> 
+<span class='line'> 13</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 14</span>      * @field
+<span class='line'> 15</span>      * @desc If given, no element will be created, but it will
+<span class='line'> 16</span>      * be used instead.
+<span class='line'> 17</span>      */</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">    </span><span class="NAME">el</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 19</span> 
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 21</span>      * @field
+<span class='line'> 22</span>      */</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">    </span><span class="NAME">inheritingProperties</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="STRN">"pivot"</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'> 24</span> 
-<span class='line'> 25</span> </span></pre></body></html>
+<span class='line'> 25</span> </span><span class="WHIT">    </span><span class="NAME">mixinInitialize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">        </span><span class="NAME">this.el</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.el</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">document.createElement</span><span class="PUNC">(</span><span class="NAME">this.tagName</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"div"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">        </span><span class="NAME">this.pivot</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span></pre></body></html>

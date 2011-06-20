@@ -1,4 +1,4 @@
-describe("Ribs.mixins.support.compositeBase", function () {
+describe("Ribs.support.mixins.compositeBase", function () {
     var composite, pivot, randomProp, mixin1, mixin2;
 
     beforeEach(function () {
@@ -10,11 +10,12 @@ describe("Ribs.mixins.support.compositeBase", function () {
         };
         mixin2 = { myParam: "myValue" };
 
-        composite = _.extend({}, Ribs.mixins.support.compositeBase, {
+        composite = _.extend({}, Ribs.support.mixins.compositeBase, {
             pivot: pivot,
             randomProp: randomProp,
             mixinClasses: [ mixin1, mixin2 ],
-            testMethod: function () { }
+            testMethod: function () { },
+            inheritingProperties: ["inheritingMethods", "randomProp", "pivot"]
         });
     });
 

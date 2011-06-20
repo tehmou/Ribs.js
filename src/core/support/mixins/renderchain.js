@@ -1,9 +1,9 @@
 /**
  * @class Creates a more sophisticated component life cycle
  * inside the render function.
- * @requires Ribs.mixins.support.methodInherit
+ * @requires Ribs.support.mixins.methodInherit
 **/
-Ribs.mixins.support.renderChain = {
+Ribs.support.mixins.renderChain = {
     /**
      * @field
      * @desc When calling render(), if this flag is set,

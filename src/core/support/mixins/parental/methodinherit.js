@@ -1,9 +1,10 @@
 /**
  * @class
- * @requires Ribs.mixins.support.parent
+ * @requires Ribs.support.mixins.parent
  */
-Ribs.mixins.support.methodInherit = {
+Ribs.support.mixins.methodInherit = {
     inheritingMethods: [],
+    inheritingProperties: ["inheritingMethods"],
 
     mixinInitialize: function () {
         this.callAllMixins("mixinInitialize", arguments);

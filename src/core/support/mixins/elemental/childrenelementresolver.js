@@ -1,10 +1,10 @@
 /**
  * @class
- * @requires Ribs.mixins.support.parent
- * @requires Ribs.mixins.support.element
- * @requires Ribs.mixins.support.renderChain
+ * @requires Ribs.support.mixins.parent
+ * @requires Ribs.support.mixins.element
+ * @requires Ribs.support.mixins.renderChain
  */
-Ribs.mixins.support.childrenElementResolver = {
+Ribs.support.mixins.childrenElementResolver = {
     mixinInitialize: function () {
         this.resolveChildMixinElements();
     },

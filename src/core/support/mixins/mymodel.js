@@ -4,7 +4,7 @@
  * calls myModelAdded and myModelRemoved whenever
  * applicable.
  */
-Ribs.mixins.support.myModel = {
+Ribs.support.mixins.myModel = {
     /**
      * @field
      * @desc Name of the model to use.

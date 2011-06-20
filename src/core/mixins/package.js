@@ -1,5 +1,0 @@
-/**
- * @field
- */
-Ribs.mixins.support = {};
-

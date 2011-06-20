@@ -1,10 +1,10 @@
 /**
  * @class
  * @desc Default behavior for renderChain with a DOM element.
- * @requires Ribs.mixins.support.element
- * @requires Ribs.mixins.support.renderChain
+ * @requires Ribs.support.mixins.element
+ * @requires Ribs.support.mixins.renderChain
  */
-Ribs.mixins.support.defaultElementRenderChain = {
+Ribs.support.mixins.defaultElementRenderChain = {
     /**
      * @method
      * @desc Calls $(this.el).detach();

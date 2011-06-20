@@ -1,8 +1,8 @@
-describe("Ribs.mixins.support.renderChain", function () {
+describe("Ribs.support.mixins.renderChain", function () {
     var renderChain;
 
     beforeEach(function () {
-        renderChain = _.extend({}, Ribs.mixins.support.renderChain, { initialized: true });
+        renderChain = _.extend({}, Ribs.support.mixins.renderChain, { initialized: true });
     });
 
     describe("Function calls", function () {

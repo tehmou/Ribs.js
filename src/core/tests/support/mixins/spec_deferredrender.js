@@ -1,8 +1,8 @@
-describe("Ribs.mixins.support.deferredRender", function () {
+describe("Ribs.support.mixins.deferredRender", function () {
     var mixin, callStack;
 
     beforeEach(function () {
-        mixin = _.extend({}, Ribs.mixins.support.deferredRender);
+        mixin = _.extend({}, Ribs.support.mixins.deferredRender);
         callStack = objectCallObserver(mixin);
     });
 

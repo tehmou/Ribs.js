@@ -1,8 +1,8 @@
-describe("Ribs.mixins.support.element", function () {
+describe("Ribs.support.mixins.element", function () {
     var mixin;
 
     beforeEach(function () {
-        mixin = _.clone(Ribs.mixins.support.element);
+        mixin = _.clone(Ribs.support.mixins.element);
     });
 
     it("Should be uninitialized by default", function () {

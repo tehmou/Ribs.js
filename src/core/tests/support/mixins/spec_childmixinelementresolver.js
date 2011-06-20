@@ -1,8 +1,8 @@
-describe("Ribs.mixins.support.childrenElementResolver", function () {
+describe("Ribs.support.mixins.childrenElementResolver", function () {
     var mixin;
 
     beforeEach(function () {
-       mixin = _.clone(Ribs.mixins.support.childrenElementResolver);
+       mixin = _.clone(Ribs.support.mixins.childrenElementResolver);
     });
 
     it("It should consider this.elementSelector", function () {

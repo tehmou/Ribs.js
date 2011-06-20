@@ -1,9 +1,18 @@
+/**
+ * @method
+ * @desc Internal logging method.
+ * @param msg
+ */
 Ribs.log = function (msg) {
     if (typeof(console) !== "undefined") {
         console.log(msg);
     }
 };
 
+/**
+ * @method
+ * @param obj
+ */
 Ribs.utils.addingExtend = function (obj) {
     _.each(Array.prototype.slice.call(arguments, 1), function(source) {
         if (source === undefined || source === null) {
@@ -30,6 +39,11 @@ Ribs.utils.addingExtend = function (obj) {
     return obj;
 };
 
+/**
+ * @method
+ * @param obj
+ * @param path
+ */
 Ribs.utils.findObject = function (obj, path) {
     var splitPath = path.split(".");
     _.each(splitPath, function (elem) {

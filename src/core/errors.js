@@ -1,3 +1,6 @@
+/**
+ * @field   
+ */
 Ribs.enableThrowError = {
     multipleViewsForEl: true,
     modelNotFound: true,
@@ -12,6 +15,9 @@ Ribs.enableThrowError = {
     extendingWithUndefinedOrNull: true
 };
 
+/**
+ * @method
+ */
 Ribs.throwError = function (errorType, msg) {
     if (!Ribs.enableThrowError.hasOwnProperty(errorType) || Ribs.enableThrowError[errorType]) {
         throw errorType + (typeof(msg) !== "undefined" ? ": " + msg : "");

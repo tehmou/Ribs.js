@@ -1,4 +1,4 @@
-describe("Ribs.mixins.support.methodInherit", function () {
+describe("Ribs.support.mixins.methodInherit", function () {
     var mixin, inheritingMethods, mixin1, mixin2;
 
     beforeEach(function () {
@@ -8,7 +8,7 @@ describe("Ribs.mixins.support.methodInherit", function () {
         };
         mixin2 = { myParam: "myValue" };
 
-        mixin = _.extend({}, Ribs.mixins.support.methodInherit, {
+        mixin = _.extend({}, Ribs.support.mixins.methodInherit, {
             inheritingMethods: inheritingMethods,
             children: [ mixin1, mixin2 ],
             testMethod: function () { }
