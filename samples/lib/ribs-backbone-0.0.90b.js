@@ -23,7 +23,7 @@ Ribs.backbone.utils = {};
 
 Ribs.backbone.create = function () {
     var args = Array.prototype.concat.apply([{}, Ribs.backbone.backbonePivot], arguments);
-    return Ribs.utils.addingExtend.apply(this, args);
+    return Ribs.utils.compose.apply(this, args);
 };
 
 Ribs.mixins.backbone = Ribs.backbone.mixins = {};
@@ -253,7 +253,7 @@ Ribs.backbone.support.mixins.modelSupport = {
     }
 };
 
-Ribs.backbone.support.mixins.pivot = Ribs.utils.addingExtend({},
+Ribs.backbone.support.mixins.pivot = Ribs.utils.compose(
     Ribs.mixins.plainPivot,
     Ribs.backbone.support.modelSupport,
     Ribs.backbone.support.invalidating,
@@ -269,7 +269,7 @@ Ribs.backbone.support.mixins.pivot = Ribs.utils.addingExtend({},
 
 // Mixins
 
-Ribs.mixins.simpleList = Ribs.utils.addingExtend({},
+Ribs.mixins.simpleList = Ribs.utils.compose(
     Ribs.support.mixins.myModel,
     {
         itemRenderer: null,

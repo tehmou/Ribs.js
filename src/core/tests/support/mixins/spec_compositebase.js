@@ -13,7 +13,7 @@ describe("Ribs.support.mixins.compositeBase", function () {
         composite = _.extend({}, Ribs.support.mixins.compositeBase, {
             pivot: pivot,
             randomProp: randomProp,
-            mixinClasses: [ mixin1, mixin2 ],
+            childrenTypes: [ mixin1, mixin2 ],
             testMethod: function () { },
             inheritingProperties: ["inheritingMethods", "randomProp", "pivot"]
         });
@@ -28,7 +28,7 @@ describe("Ribs.support.mixins.compositeBase", function () {
         expect(composite2.children.length).toEqual(2);
     });
 
-    it("Should create clones of all its mixinClasses", function () {
+    it("Should create clones of all its childrenTypes", function () {
         composite.mixinInitialize();
 
         expect(composite.children[0].elementSelector).toEqual("mixinSelector");
@@ -40,10 +40,10 @@ describe("Ribs.support.mixins.compositeBase", function () {
     it("Should pass randomProp and pivot to created mixins", function () {
          composite.mixinInitialize();
 
-        expect(composite.mixinClasses[0].inheritingMethods).toBeUndefined();
-        expect(composite.mixinClasses[0].pivot).toBeUndefined();
-        expect(composite.mixinClasses[1].inheritingMethods).toBeUndefined();
-        expect(composite.mixinClasses[1].pivot).toBeUndefined();
+        expect(composite.childrenTypes[0].inheritingMethods).toBeUndefined();
+        expect(composite.childrenTypes[0].pivot).toBeUndefined();
+        expect(composite.childrenTypes[1].inheritingMethods).toBeUndefined();
+        expect(composite.childrenTypes[1].pivot).toBeUndefined();
 
         expect(composite.children[0].randomProp).toEqual(randomProp);
         expect(composite.children[0].pivot).toEqual(pivot);

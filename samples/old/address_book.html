@@ -57,7 +57,7 @@
 
             // Create a Backbone.View class for one person.
             PersonView = Ribs.createMixed({
-                mixinClasses: [
+                childrenTypes: [
                     Ribs.mixins.invalidateOnBackboneModelChange({
                         includedRibsUIAttributes: []
                     }),
@@ -71,7 +71,7 @@
 
             PersonEditView = Ribs.createMixed({
                 base: PersonView,
-                mixinClasses: [
+                childrenTypes: [
                     Ribs.mixins.editable({
                         elementSelector: ".edit-button"
                     }),
@@ -100,7 +100,7 @@
 
             // Create a Backbone.View class for a list of people.
             PeopleView = Ribs.createMixed({
-                mixinClasses: [
+                childrenTypes: [
                     Ribs.mixins.simpleList({
                         ItemRenderer: PersonView,
                         itemTagName: "div",
@@ -111,7 +111,7 @@
 
             // Create a Backbone.View class for a list of people.
             PeopleEditView = Ribs.createMixed({
-                mixinClasses: [
+                childrenTypes: [
                     Ribs.mixins.simpleList({
                         ItemRenderer: PersonEditView,
                         itemTagName: "div",

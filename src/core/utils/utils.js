@@ -11,10 +11,10 @@ Ribs.log = function (msg) {
 
 /**
  * @method
- * @param obj
  */
-Ribs.utils.addingExtend = function (obj) {
-    _.each(Array.prototype.slice.call(arguments, 1), function(source) {
+Ribs.utils.compose = function () {
+    var obj = {};
+    _.each(arguments, function(source) {
         if (source === undefined || source === null) {
             Ribs.throwError("extendingWithUndefinedOrNull");
         }

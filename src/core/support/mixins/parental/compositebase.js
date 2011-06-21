@@ -7,7 +7,7 @@ Ribs.support.mixins.compositeBase = {
      * @field
      * @desc Array of objects to copy when initializing.
      */
-    mixinClasses: null,
+    childrenTypes: null,
 
     /**
      * @field
@@ -15,9 +15,9 @@ Ribs.support.mixins.compositeBase = {
     inheritingProperties: [],
     
     mixinInitialize: function () {
-        this.mixinClasses = this.mixinClasses || [];
+        this.childrenTypes = this.childrenTypes || [];
         this.children = [];
-        _.each(this.mixinClasses, _.bind(this.createChild, this));
+        _.each(this.childrenTypes, _.bind(this.createChild, this));
     },
     createChild: function (mixinDef) {
         var that = this,
@@ -29,9 +29,9 @@ Ribs.support.mixins.compositeBase = {
         this.children.push(mixin);
     },
     findChildWithElementSelector: function (elementSelector) {
-        for (var i = 0; i < this.mixinClasses.length; i++) {
-            if (this.mixinClasses[i].elementSelector === elementSelector) {
-                return this.mixinClasses[i];
+        for (var i = 0; i < this.childrenTypes.length; i++) {
+            if (this.childrenTypes[i].elementSelector === elementSelector) {
+                return this.childrenTypes[i];
             }
         }
         return null;

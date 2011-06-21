@@ -30,13 +30,13 @@ describe("Ribs.support.mixins.selfParsing", function () {
         });
 
         it("Should consider elements of an array as mixins", function () {
-            expect(composite).toHaveNumberOfMixinClasses(def.length);
+            expect(composite).toHaveNumberOfchildrenTypes(def.length);
         });
 
         it("Should consider the key in a mixin definition as the base, and the value as the overrides", function () {
-            expect(composite.mixinClasses[0].elementSelector).toEqual(".mySel");
-            expect(composite.mixinClasses[1].param1).toEqual("testparam");
-            expect(composite.mixinClasses[2].param1).toEqual("foo");
+            expect(composite.childrenTypes[0].elementSelector).toEqual(".mySel");
+            expect(composite.childrenTypes[1].param1).toEqual("testparam");
+            expect(composite.childrenTypes[2].param1).toEqual("foo");
         });
     });
 
@@ -54,7 +54,7 @@ describe("Ribs.support.mixins.selfParsing", function () {
             expect(composite).toContainOneMixinWithElementSelector("");
             expect(composite).toContainOneMixinWithElementSelector("elementOne");
             expect(composite).toContainOneMixinWithElementSelector("myEl");
-            expect(composite).toHaveNumberOfMixinClasses(3);
+            expect(composite).toHaveNumberOfchildrenTypes(3);
         });
     });
 
@@ -65,7 +65,7 @@ describe("Ribs.support.mixins.selfParsing", function () {
         });
 
         it("Should find the nested mixins", function () {
-            expect(composite.mixinClasses[0]).toEqual(customMixin);
+            expect(composite.childrenTypes[0]).toEqual(customMixin);
         });
     });
 });

@@ -1,7 +1,7 @@
 /**
  * @class
  */
-Ribs.backbone.mixins.simpleList = Ribs.utils.addingExtend({},
+Ribs.backbone.mixins.simpleList = Ribs.utils.compose(
     Ribs.support.mixins.myModel,
     {
         itemRenderer: null,

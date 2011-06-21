@@ -30,7 +30,7 @@ $(function () {
         },
         initialize = function () {
             var FruitItem = Ribs.createMixed({
-                   mixinClasses: [
+                   childrenTypes: [
                        Ribs.mixins.templated({
                            className: "fruit-item",
                            templateFunction: _.template($("#fruit-item-tmpl").html())
@@ -41,14 +41,14 @@ $(function () {
                 }),
                 FruitDetails = Ribs.createMixed({
                     requireModel: false,
-                    mixinClasses: [
+                    childrenTypes: [
                         Ribs.mixins.templated({
                             templateFunction: _.template($("#fruit-details-tmpl").html())
                         })
                     ]
                 }),
                 PlainList = Ribs.createMixed({
-                    mixinClasses: [
+                    childrenTypes: [
                         Ribs.mixins.templated({
                            templateFunction: _.template($("#plain-list-tmpl").html())
                         }),
@@ -59,7 +59,7 @@ $(function () {
                     ]
                 }),
                 AlphabetItem = Ribs.createMixed({
-                    mixinClasses: [
+                    childrenTypes: [
                         Ribs.mixins.templated({
                             className: "alphabet-item",
                             templateFunction: _.template($("#alphabet-item-tmpl").html())
@@ -77,7 +77,7 @@ $(function () {
                     ]
                 }),
                 AlphabetList = Ribs.createMixed({
-                    mixinClasses: [
+                    childrenTypes: [
                         Ribs.mixins.templated({
                             templateFunction: _.template($("#alphabet-list-tmpl").html())
                         }),

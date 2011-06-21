@@ -1,7 +1,7 @@
 /**
  * @class
  */
-Ribs.mixins.plainPivot = Ribs.utils.addingExtend({},
+Ribs.mixins.plainPivot = Ribs.utils.compose(
         Ribs.support.mixins.renderChain,
         Ribs.support.mixins.defaultElementRenderChain,
         Ribs.support.mixins.deferredRender,

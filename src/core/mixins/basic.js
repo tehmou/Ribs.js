@@ -6,7 +6,7 @@ Ribs.mixins.plain = Ribs.support.mixins.eventful;
 /**
  * @class
  */
-Ribs.mixins.composite = Ribs.utils.addingExtend({},
+Ribs.mixins.composite = Ribs.utils.compose(
         Ribs.support.mixins.methodInherit,
         Ribs.support.mixins.compositeBase,
         Ribs.support.mixins.childrenElementResolver
@@ -15,7 +15,7 @@ Ribs.mixins.composite = Ribs.utils.addingExtend({},
 /**
  * @class
  */
-Ribs.mixins.templated = Ribs.utils.addingExtend({},
+Ribs.mixins.templated = Ribs.utils.compose(
         { redraw: Ribs.support.functions.resolveJSON },
         { redraw: Ribs.support.functions.resolveValue },
         Ribs.support.mixins.templated

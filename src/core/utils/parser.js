@@ -17,7 +17,7 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
 
         var composite = options.composite || _.clone(mixinLibrary.composite),
             mixinDefinitions = options.mixinDefinitions || [],
-            mixinClasses = options.mixinClasses || [];
+            childrenTypes = options.childrenTypes || [];
 
         composite.elementSelector = options.elementSelector;
 
@@ -28,7 +28,7 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
                 } catch (e) {
                     Ribs.throwError("mixinTypeNotFound", key);
                 }
-                mixinClasses.push(_.extend({}, mixin, value));
+                childrenTypes.push(_.extend({}, mixin, value));
             };
             for (var i = 0; i < mixinDefinitions.length; i++) {
                 _.each(mixinDefinitions[i], parseOne);
@@ -39,11 +39,11 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
                     mixinDefinitions: nestedMixinDefinitions,
                     elementSelector: elementSelector
                 });
-                mixinClasses.push(mixin);
+                childrenTypes.push(mixin);
             };
             _.each(mixinDefinitions, _createMixinFromDefinitions);
         }
-        composite.mixinClasses = mixinClasses;
+        composite.childrenTypes = childrenTypes;
         return composite;
     };
 

@@ -37,7 +37,7 @@
 
             // Create a Backbone.View class for one person.
             PersonView = Ribs.createMixed({
-                mixinClasses: [
+                childrenTypes: [
                     Ribs.mixins.templated({
                         templateFunction: _.template(
                             $("#person-tmpl").html()
@@ -51,7 +51,7 @@
 
             // Create a Backbone.View class for a list of people.
             PeopleView = Ribs.createMixed({
-                mixinClasses: [
+                childrenTypes: [
                     Ribs.mixins.simpleList({
                         ItemRenderer: PersonView
                     })
