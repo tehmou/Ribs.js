@@ -14,42 +14,51 @@
     <script src="lib/ribs-backbone-0.0.90b.js"></script>-->
 
     <!-- include source files here... -->
+    <script src="../src/core/package.js"></script>
     <script src="../src/core/errors.js"></script>
     <script src="../src/core/jquery.ribs.js"></script>
     <script src="../src/core/utils/parser.js"></script>
     <script src="../src/core/utils/utils.js"></script>
     <script src="../src/core/support/package.js"></script>
     <script src="../src/core/support/functions/modelresolving.js"></script>
-    <script src="../src/core/support/mixins/elemental/childrenelementresolver.js"></script>
-    <script src="../src/core/support/mixins/parental/compositebase.js"></script>
-    <script src="../src/core/support/mixins/elemental/element.js"></script>
+    <script src="../src/core/support/mixins/deferredrender.js"></script>
     <script src="../src/core/support/mixins/mymodel.js"></script>
     <script src="../src/core/support/mixins/renderchain.js"></script>
-    <script src="../src/core/support/mixins/parental/selfparsing.js"></script>
-    <script src="../src/core/support/mixins/deferredrender.js"></script>
+    <script src="../src/core/support/mixins/elemental/childrenelementresolver.js"></script>
+    <script src="../src/core/support/mixins/elemental/defaultelementrenderchain.js"></script>
+    <script src="../src/core/support/mixins/elemental/element.js"></script>
+    <script src="../src/core/support/mixins/elemental/eventful.js"></script>
     <script src="../src/core/support/mixins/elemental/templated.js"></script>
+    <script src="../src/core/support/mixins/parental/compositebase.js"></script>
+    <script src="../src/core/support/mixins/parental/methodinherit.js"></script>
+    <script src="../src/core/support/mixins/parental/parent.js"></script>
+    <script src="../src/core/support/mixins/parental/selfparsing.js"></script>
     <script src="../src/core/mixins/basic.js"></script>
     <script src="../src/core/mixins/plainpivot.js"></script>
 
+    <script src="../src/backbone/package.js"></script>
     <script src="../src/backbone/ribs.backbone.js"></script>
+    <script src="../src/backbone/support/package.js"></script>
+    <script src="../src/backbone/support/mixins/invalidating.js"></script>
     <script src="../src/backbone/support/mixins/modelsupport.js"></script>
     <script src="../src/backbone/mixins/pivot.js"></script>
-    <script src="../src/backbone/utils/utils.js"></script>
     <script src="../src/backbone/mixins/simplelist.js"></script>
+    <script src="../src/backbone/utils/utils.js"></script>
 
 
     <script type="text/javascript">
 
         $(function () {
+            Ribs.backbone.init();
+
             var myCollection = new Backbone.Collection([
                     { name: "Petteri" },
                     { name: "Pekka" },
                     { name: "Kaisa" }
                 ]);
 
-            var comp = { pivot: {
-                mixinDefinitions: [
-                    { simpleList: {
+            var comp = [
+                    { "backbone.simpleList": {
                         myModelName: "data",
                         itemRenderer:
                             { pivot: [
@@ -60,8 +69,7 @@
                                 }
                             ]}
                     }}
-                ]
-            }};
+                ];
 
             $("#list-container").ribs("createView", comp, { backboneModels: { data: myCollection } });
         });

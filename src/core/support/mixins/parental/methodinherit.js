@@ -7,15 +7,8 @@ Ribs.support.mixins.methodInherit = {
     inheritingProperties: ["inheritingMethods"],
 
     mixinInitialize: function () {
-        this.callAllMixins("mixinInitialize", arguments);
+        this.delegateToChildren("mixinInitialize", arguments);
         this.inheritMethods();
-    },
-    callAllMixins: function (methodName, originalArguments) {
-        _.each(this.children, function (mixin) {
-            if (typeof(mixin[methodName]) === "function") {
-                mixin[methodName].apply(mixin, originalArguments);
-            }
-        });
     },
     inheritMethods: function () {
         var that = this;
@@ -28,7 +21,7 @@ Ribs.support.mixins.methodInherit = {
                     if (typeof(oldMethod) === "function") {
                         oldMethod.apply(this, arguments);
                     }
-                    this.callAllMixins(methodName, arguments);
+                    this.delegateToChildren(methodName, arguments);
                 };
                 that._inheritedMethods.push(methodName);
             }

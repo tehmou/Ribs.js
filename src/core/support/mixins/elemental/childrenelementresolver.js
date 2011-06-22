@@ -18,7 +18,7 @@ Ribs.support.mixins.childrenElementResolver = {
                 el = this.el;
             }
             _.each(this.children, function (mixin) {
-                mixin.el = mixin.elementSelector ? el.find(mixin.elementSelector) : el;
+                mixin.el = mixin.elementSelector ? $(el).find(mixin.elementSelector) : el;
             });
         }
     }

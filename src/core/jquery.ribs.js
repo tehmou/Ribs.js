@@ -6,9 +6,14 @@
                 if (this.ribsView) {
                     Ribs.throwError("multipleViewsForEl");
                 }
-                this.ribsView = _.extend({}, view, { el: this });
-                this.ribsView.mixinInitialize();
-                this.ribsView.render();
+
+                var ribsView = _.extend({}, Ribs.mixins.pivot, {
+                    el: this, mixinDefinitions: view
+                });
+
+                ribsView.mixinInitialize();
+                ribsView.render();
+                this.ribsView = ribsView;
             });
         }
     };

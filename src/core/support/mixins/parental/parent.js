@@ -3,7 +3,12 @@
  */
 Ribs.support.mixins.parent = {
     children: null,
-    forEachChild: function (f) {
-        _.each(this.children, f);
+    
+    delegateToChildren: function (methodName, originalArguments) {
+        _.each(this.children, function (mixin) {
+            if (typeof(mixin[methodName]) === "function") {
+                mixin[methodName].apply(mixin, originalArguments);
+            }
+        });
     }
 };
