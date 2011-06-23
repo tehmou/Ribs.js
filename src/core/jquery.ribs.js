@@ -8,9 +8,9 @@
                 }
 
                 var ribsView = _.extend({}, Ribs.mixins.pivot, {
-                    el: this, mixinDefinitions: view
+                    mixinDefinitions: view,
+                    el: this
                 });
-
                 ribsView.mixinInitialize();
                 ribsView.render();
                 this.ribsView = ribsView;

@@ -12,7 +12,8 @@ Ribs.enableThrowError = {
     invalidObjectPath: true,
     addingExtendFunctionWithNonFunction: true,
     addingExtendArrayWithNonArray: true,
-    extendingWithUndefinedOrNull: true
+    extendingWithUndefinedOrNull: true,
+    pivotAlreadyInitialized: true
 };
 
 /**

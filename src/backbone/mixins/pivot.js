@@ -7,6 +7,9 @@ Ribs.backbone.mixins.pivot = Ribs.utils.compose(
     Ribs.backbone.support.mixins.invalidating,
     {
         mixinInitialize: function () {
+            if (this.initialized) {
+                throw Ribs.error("pivotAlreadyInitialized");
+            }
             this.initialized = true;
         }
     }
