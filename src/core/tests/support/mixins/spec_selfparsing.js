@@ -1,8 +1,8 @@
-describe("Ribs.support.mixins.selfParsing", function () {
+describe("Ribs.support.mixins.parsing", function () {
     var mixin, parser, def, composite, customMixin;
 
     beforeEach(function () {
-        mixin = _.clone(Ribs.support.mixins.selfParsing);
+        mixin = _.clone(Ribs.support.mixins.parsing);
         customMixin = {};
         parser = Ribs.utils.createMixinDefinitionParser({
             mixinLibrary: {

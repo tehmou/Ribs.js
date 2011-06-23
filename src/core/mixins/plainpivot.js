@@ -7,7 +7,7 @@ Ribs.mixins.plainPivot = Ribs.utils.compose(
         Ribs.support.mixins.hideable,
         Ribs.support.mixins.disposeable,
         Ribs.support.mixins.deferredRender,
-        Ribs.support.mixins.selfParsing,
+        Ribs.support.mixins.parsing,
         Ribs.support.mixins.element,
         {
             render: function () {

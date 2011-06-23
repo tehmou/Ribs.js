@@ -2,7 +2,7 @@
  * @class
  * @requires Ribs.support.mixins.parent
  */
-Ribs.support.mixins.selfParsing = {
+Ribs.support.mixins.parsing = {
     mixinDefinitions: null,
 
     mixinInitialize: function () {
