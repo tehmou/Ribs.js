@@ -3,19 +3,18 @@
  */
 Ribs.backbone.mixins.simpleList = Ribs.utils.compose(
     Ribs.support.mixins.parent,
-    Ribs.support.mixins.methodInherit,
     Ribs.support.mixins.myModel,
     {
         itemRenderer: null,
 
         mixinInitialize: function () {
-            this.redraw = _.compose(this.afterRedraw, this.redraw);
+            this.render = _.compose(this.afterRender, this.render);
         },
 
         redraw: function () {
             $(this.el).html("");
         },
-        afterRedraw: function () {
+        afterRender: function () {
             _.each(this._listViews, _.bind(function (view) {
                 $(this.el).append(view.el);
             }, this));

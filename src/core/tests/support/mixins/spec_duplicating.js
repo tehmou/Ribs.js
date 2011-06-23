@@ -1,4 +1,4 @@
-describe("Ribs.support.mixins.compositeBase", function () {
+describe("Ribs.support.mixins.duplicating", function () {
     var composite, pivot, randomProp, mixin1, mixin2;
 
     beforeEach(function () {
@@ -10,7 +10,7 @@ describe("Ribs.support.mixins.compositeBase", function () {
         };
         mixin2 = { myParam: "myValue" };
 
-        composite = _.extend({}, Ribs.support.mixins.compositeBase, {
+        composite = _.extend({}, Ribs.support.mixins.duplicating, {
             pivot: pivot,
             randomProp: randomProp,
             childrenTypes: [ mixin1, mixin2 ],

@@ -9,7 +9,7 @@ Ribs.mixins.plain = Ribs.support.mixins.eventful;
 Ribs.mixins.composite = Ribs.utils.compose(
         Ribs.support.mixins.parent,
         Ribs.support.mixins.methodInherit,
-        Ribs.support.mixins.compositeBase,
+        Ribs.support.mixins.duplicating,
         Ribs.support.mixins.childrenElementResolver
     );
 

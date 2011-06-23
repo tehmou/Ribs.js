@@ -25,7 +25,7 @@ Ribs.support.mixins.renderChain = {
      * @field
      * @default ["unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"]
      */
-    inheritingMethods: ["unbindEvents", "bindEvents", "redraw", "refresh", "hide", "dispose"],
+    inheritingMethods: ["unbindEvents", "bindEvents", "render", "redraw", "refresh"],
 
     /**
      * @method
@@ -77,19 +77,7 @@ Ribs.support.mixins.renderChain = {
      * each time the View is rendered, so don't do anything expensive
      * here. This is an empty function by default.
      */
-    refresh: function () { },
-
-    /**
-     * @method
-     * @desc Remove from DOM with the prospect of reattaching.
-     */
-    hide: function () { },
-
-    /**
-     * @method
-     * @desc Destroy the View beyond restoring.
-     */
-    dispose: function () { }
+    refresh: function () { }
 };
 
 

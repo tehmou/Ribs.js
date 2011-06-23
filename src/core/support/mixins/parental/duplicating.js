@@ -2,12 +2,12 @@
  * @class
  * @requires Ribs.support.mixins.parent
  */
-Ribs.support.mixins.compositeBase = {
+Ribs.support.mixins.duplicating = {
     /**
      * @field
      * @desc Array of objects to copy when initializing.
      */
-    childrenTypes: null,
+    childrenTypes: [],
 
     /**
      * @field
@@ -15,7 +15,9 @@ Ribs.support.mixins.compositeBase = {
     inheritingProperties: [],
     
     mixinInitialize: function () {
-        this.childrenTypes = this.childrenTypes || [];
+        this.duplicate();
+    },
+    duplicate: function () {
         this.children = [];
         _.each(this.childrenTypes, _.bind(this.createChild, this));
     },
