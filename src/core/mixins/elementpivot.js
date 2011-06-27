@@ -10,11 +10,11 @@ Ribs.mixins.elementPivot = Ribs.mixins.pivot = Ribs.compose(
         "support.renderChain",
         "support.deferredRender",
         "support.parsing",
-        "support.methodInherit",
         "support.propertyInherit",
         "support.hideable",
         "support.disposeable",
         "support.duplicating",
+        "support.methodInherit",
         {
             mixinInitialize: Ribs.utils.functions.resolveChildrenElements,
             redraw: Ribs.utils.functions.resolveChildrenElements
