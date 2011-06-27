@@ -17,5 +17,6 @@ describe("Ribs.mixins.support.deferredRender", function () {
         callStack.expectCalls(["flushRequests", "render"]);
         mixin.flushRequests();
         callStack.expectFinished();
+        callStack.pause(); // To prevent an error from the timeout.
     });
 });

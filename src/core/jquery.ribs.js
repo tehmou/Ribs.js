@@ -1,18 +1,23 @@
 (function ($) {
 
     var methods = {
-        createView: function (view, options) {
+        createView: function () {
+            var originalArguments = _.toArray(arguments);
+
             return this.each(function () {
                 if (this.ribsView) {
                     Ribs.throwError("multipleViewsForEl");
                 }
 
-                var ribsView = Ribs.compose("pivot", {
-                    mixinDefinitions: view,
-                    el: this
-                }, options || {});
-                ribsView.mixinInitialize();
-                ribsView.render();
+                var ribsView = Ribs.compose.apply(null, originalArguments);
+                ribsView.el = this;
+
+                if (_.isFunction(ribsView.mixinInitialize)) {
+                    ribsView.mixinInitialize();
+                }
+                if (_.isFunction(ribsView.render)) {
+                    ribsView.render();
+                }
                 this.ribsView = ribsView;
             });
         }

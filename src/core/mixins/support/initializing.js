@@ -5,7 +5,7 @@ Ribs.mixins.support.initializing = {
     initialized: false,
     mixinInitialize: function () {
         if (this.initialized) {
-            throw Ribs.error("alreadyInitialized");
+            throw Ribs.throwError("alreadyInitialized");
         }
         this.initialized = true;
     }

@@ -3,7 +3,7 @@ describe("jquery.ribs.js", function () {
 
     beforeEach(function () {
         el = $("<div></div>");
-        def = [];
+        def = {};
     });
 
     it("Should create a component based on definition", function () {

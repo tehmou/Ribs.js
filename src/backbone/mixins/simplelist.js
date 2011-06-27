@@ -55,7 +55,7 @@ Ribs.backbone.mixins.simpleList = Ribs.compose(
         listRefresh: function () {
             this._listViews = {};
             if (this.myModel && _.isFunction(this.myModel.each)) {
-                this.myModel.each(this.listAdd);
+                this.myModel.each(_.bind(this.listAdd, this));
             }
             this.pivot.requestInvalidate();
         }

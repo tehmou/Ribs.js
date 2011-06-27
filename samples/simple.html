@@ -17,16 +17,18 @@
     <script src="../src/core/package.js"></script>
     <script src="../src/core/errors.js"></script>
     <script src="../src/core/jquery.ribs.js"></script>
+    <script src="../src/core/ribs.js"></script>
     <script src="../src/core/utils/package.js"></script>
     <script src="../src/core/utils/parser.js"></script>
     <script src="../src/core/utils/utils.js"></script>
     <script src="../src/core/utils/functions/modelresolve.js"></script>
     <script src="../src/core/mixins/package.js"></script>
+    <script src="../src/core/mixins/support/bindalltothis.js"></script>
     <script src="../src/core/mixins/support/deferredrender.js"></script>
     <script src="../src/core/mixins/support/initializing.js"></script>
     <script src="../src/core/mixins/support/mymodel.js"></script>
     <script src="../src/core/mixins/support/parental/renderchain.js"></script>
-    <script src="../src/core/mixins/support/elemental/childrenelementresolver.js"></script>
+    <script src="../src/core/utils/functions/resolvechildrenelements.js"></script>
     <script src="../src/core/mixins/support/elemental/disposeable.js"></script>
     <script src="../src/core/mixins/support/elemental/hideable.js"></script>
     <script src="../src/core/mixins/support/elemental/element.js"></script>
@@ -64,23 +66,29 @@
                     { name: "Kaisa" }
                 ]);
 
-            var comp = [
-                    /*{ "backbone.simpleList": {
-                        myModelName: "data",
-                        itemRenderer:
-                            { pivot: [
-                                Ribs.mixins.templated,
-                                {
-                                    overwriteEl: true,
-                                    templateSelector: "#my-template"
-                                }
-                            ]}
-                    }}*/
-                ];
+            var comp = Ribs.view({
+                childrenTypes: [
+                    Ribs.compose(
+                        "backbone.simpleList",
+                        {
+                            myModelName: "data",
+                            itemRenderer: Ribs.view({
+                                childrenTypes: [
+                                    Ribs.compose(
+                                        "templated",
+                                        {
+                                            overwriteEl: true,
+                                            templateSelector: "#my-template"
+                                        }
+                                    )
+                                ]
+                            })
+                        }
+                    )
+                ]
+            });
 
             $("#list-container").ribs("createView", comp, { backboneModels: { data: myCollection } });
-            console.log($("#list-container")[0].ribsView);
-
         });
 
     </script>

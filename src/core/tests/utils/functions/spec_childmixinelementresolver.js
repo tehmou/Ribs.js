@@ -1,8 +1,10 @@
-describe("Ribs.mixins.support.childrenElementResolver", function () {
+describe("Ribs.utils.functions.resolveChildrenElements", function () {
     var mixin, child, el, helloEl, subEl;
 
     beforeEach(function () {
-        mixin = Ribs.compose("support.parent", "support.childrenElementResolver");
+        mixin = Ribs.compose("support.parent", {
+            redraw: Ribs.utils.functions.resolveChildrenElements
+        });
         child = {};
 
         helloEl = $('<div class="hello"></div>');
@@ -17,14 +19,14 @@ describe("Ribs.mixins.support.childrenElementResolver", function () {
 
     it("It should consider this.elementSelector", function () {
         mixin.elementSelector = ".hello";
-        mixin.resolveChildMixinElements();
+        mixin.redraw();
         expect(child.el.length).toEqual(1);
         expect(child.el[0]).toEqual(helloEl[0]);
     });
 
     it("It should consider child.elementSelector", function () {
         child.elementSelector = ".hello";
-        mixin.resolveChildMixinElements();
+        mixin.redraw();
         expect(child.el.length).toEqual(1);
         expect(child.el[0]).toEqual(helloEl[0]);
     });
@@ -32,7 +34,7 @@ describe("Ribs.mixins.support.childrenElementResolver", function () {
     it("It should prioritize this.elementSelector over child.elementSelector", function () {
         mixin.elementSelector = ".hello";
         child.elementSelector = ".sub";
-        mixin.resolveChildMixinElements();
+        mixin.redraw();
         expect(child.el.length).toEqual(1);
         expect(child.el[0]).toEqual(subEl[0]);
     });

@@ -4,7 +4,7 @@
 Ribs.backbone.mixins.support.modelSupport = {
     backboneModels: null,
     createInternalModel: true,
-    //inheritingMethods: ["modelRemoved", "modelAdded"],
+    inheritingMethods: ["modelRemoved", "modelAdded"],
 
     mixinInitialize: function () {
         var backboneModels = this.backboneModels || {};

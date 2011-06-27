@@ -62,3 +62,8 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
  */
 Ribs.mixinParser = Ribs.utils.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
 
+/**
+ * @method
+ */
+Ribs.parse = Ribs.mixinParser.createCompositeFromDefinitions;
+

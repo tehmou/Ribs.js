@@ -28,6 +28,13 @@ describe("Ribs.compose", function () {
         expect(errorThrown).toBeTruthy();
     });
 
+    it("Should add property if it does not exist", function () {
+        var array = ["newArray"], object = {};
+        obj = Ribs.compose(obj, { f: array, g: object });
+        expect(obj.f).toEqual(array);
+        expect(obj.g).toEqual(object);
+    });
+
     it("Should concatenate arrays", function () {
         obj = Ribs.compose(obj, { e: ["thirdItem"] });
         expect(obj.e.length).toEqual(3);

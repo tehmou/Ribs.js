@@ -19,9 +19,7 @@ Ribs.mixins.support.duplicating = {
         _.each(this.childrenTypes, _.bind(this.createChild, this));
     },
     createChild: function (childType) {
-        var that = this,
-            mixin = _.extend({}, childType);
-        _.bind(function () { _.bindAll(this); }, mixin)();
+        var mixin = Ribs.compose(childType);
         this.children.push(mixin);
     }
 };
