@@ -1,20 +1,17 @@
 /**
  * @class
  */
-Ribs.backbone.mixins.simpleList = Ribs.utils.compose(
-    Ribs.support.mixins.parent,
-    Ribs.support.mixins.myModel,
+Ribs.backbone.mixins.simpleList = Ribs.compose(
+    "support.parent",
+    "backbone.support.modelSupport",
+    "support.myModel",
     {
         itemRenderer: null,
-
-        mixinInitialize: function () {
-            this.render = _.compose(this.afterRender, this.render);
-        },
 
         redraw: function () {
             $(this.el).html("");
         },
-        afterRender: function () {
+        render: function () {
             _.each(this._listViews, _.bind(function (view) {
                 $(this.el).append(view.el);
             }, this));

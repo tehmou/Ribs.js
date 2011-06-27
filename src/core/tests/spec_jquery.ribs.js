@@ -3,24 +3,16 @@ describe("jquery.ribs.js", function () {
 
     beforeEach(function () {
         el = $("<div></div>");
-        def = { pivot: {
-            mixinDefinitions: [
-                { simpleList: {
-                    myModelName: "data",
-                    itemRenderer:
-                        { pivot: [
-                            Ribs.mixins.templated,
-                            {
-                                overwriteEl: true,
-                                templateSelector: "#my-template"
-                            }
-                        ]}
-                }}
-            ]
-        }};
+        def = [];
     });
 
-    if ("Should create a component based on definition", function () {
+    it("Should create a component based on definition", function () {
         $(el).ribs("createView", def);
+        expect($(el)[0].ribsView).toBeDefined();
+    });
+
+    it("Should consider the third arguments as options", function () {
+        $(el).ribs("createView", def, { myValue: "foo" });
+        expect($(el)[0].ribsView.myValue).toEqual("foo");
     });
 });

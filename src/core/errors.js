@@ -13,7 +13,7 @@ Ribs.enableThrowError = {
     addingExtendFunctionWithNonFunction: true,
     addingExtendArrayWithNonArray: true,
     extendingWithUndefinedOrNull: true,
-    pivotAlreadyInitialized: true
+    alreadyInitialized: true
 };
 
 /**

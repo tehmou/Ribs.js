@@ -1,16 +1,16 @@
 (function ($) {
 
     var methods = {
-        createView: function (view) {
+        createView: function (view, options) {
             return this.each(function () {
                 if (this.ribsView) {
                     Ribs.throwError("multipleViewsForEl");
                 }
 
-                var ribsView = _.extend({}, Ribs.mixins.pivot, {
+                var ribsView = Ribs.compose("pivot", {
                     mixinDefinitions: view,
                     el: this
-                });
+                }, options || {});
                 ribsView.mixinInitialize();
                 ribsView.render();
                 this.ribsView = ribsView;

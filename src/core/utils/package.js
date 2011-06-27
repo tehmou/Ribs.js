@@ -1,0 +1,5 @@
+/**
+ * @namespace
+ */
+Ribs.utils.functions = {};
+

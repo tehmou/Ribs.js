@@ -3,7 +3,7 @@
  * @desc Internal logging method.
  * @param msg
  */
-Ribs.log = function (msg) {
+Ribs.utils.log = Ribs.log = function (msg) {
     if (typeof(console) !== "undefined") {
         console.log(msg);
     }
@@ -12,11 +12,12 @@ Ribs.log = function (msg) {
 /**
  * @method
  */
-Ribs.utils.compose = function () {
+Ribs.utils.compose = Ribs.compose = function () {
     var obj = {};
-    _.each(arguments, function(source) {
+    _.each(arguments, function(sourceDef) {
+        var source = _.isString(sourceDef) ? Ribs.mixinParser.parseMixin(sourceDef) : sourceDef;
         if (source === undefined || source === null) {
-            Ribs.throwError("extendingWithUndefinedOrNull");
+            Ribs.throwError("extendingWithUndefinedOrNull", sourceDef);
         }
         for (var prop in source) {
             if (_.isFunction(obj[prop])) {

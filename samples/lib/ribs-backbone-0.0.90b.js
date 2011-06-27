@@ -23,10 +23,10 @@ Ribs.backbone.utils = {};
 
 Ribs.backbone.create = function () {
     var args = Array.prototype.concat.apply([{}, Ribs.backbone.backbonePivot], arguments);
-    return Ribs.utils.compose.apply(this, args);
+    return Ribs.compose.apply(this, args);
 };
 
-Ribs.mixins.backbone = Ribs.backbone.mixins = {};
+Ribs.backbone.mixins = Ribs.backbone.mixins = {};
 
 Ribs.backbone.utils.NonSyncingCollection = Backbone.Collection.extend({
     add: function (item) {
@@ -112,9 +112,9 @@ Ribs.backbone.utils.augmentModelWithUIAttributes = function (model) {
 // Support blocks
 
 Ribs.backbone.support.functions = {};
-Ribs.backbone.support.mixins = {};
+Ribs.backbone.mixins.support = {};
 
-Ribs.backbone.support.mixins.invalidating = {
+Ribs.backbone.mixins.support.invalidating = {
     mixinInitialize: function () {
         var that = this;
 
@@ -136,7 +136,7 @@ Ribs.backbone.support.mixins.invalidating = {
     }
 };
 
-Ribs.backbone.support.mixins.modelSupport = {
+Ribs.backbone.mixins.support.modelSupport = {
     backboneModels: null,
     createInternalModel: true,
     inheritingMethods: ["modelRemoved", "modelAdded"],
@@ -253,8 +253,8 @@ Ribs.backbone.support.mixins.modelSupport = {
     }
 };
 
-Ribs.backbone.support.mixins.pivot = Ribs.utils.compose(
-    Ribs.mixins.plainPivot,
+Ribs.backbone.mixins.support.pivot = Ribs.compose(
+    Ribs.mixins.elementPivot,
     Ribs.backbone.support.modelSupport,
     Ribs.backbone.support.invalidating,
     {
@@ -269,8 +269,8 @@ Ribs.backbone.support.mixins.pivot = Ribs.utils.compose(
 
 // Mixins
 
-Ribs.mixins.simpleList = Ribs.utils.compose(
-    Ribs.support.mixins.myModel,
+Ribs.mixins.simpleList = Ribs.compose(
+    Ribs.mixins.support.myModel,
     {
         itemRenderer: null,
 

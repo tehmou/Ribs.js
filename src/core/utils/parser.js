@@ -8,6 +8,18 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
     var parser = { },
         mixinLibrary = parserOptions.mixinLibrary || {};
 
+    parser.parseMixin = function (name, mixinOptions) {
+        try {
+            var mixin = _.extend({},
+                    Ribs.utils.findObject(mixinLibrary, name),
+                    mixinOptions, { _type: name }
+                );
+        } catch (e) {
+            Ribs.throwError("mixinTypeNotFound", name);
+        }
+        return mixin;
+    };
+
     parser.createCompositeFromDefinitions = function (options) {
         options = options || {};
 
@@ -15,7 +27,7 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
             Ribs.throwError("noCompositeMixinFoundForParsing");
         }
 
-        var composite = options.composite || _.clone(mixinLibrary.composite),
+        var composite = options.composite || parser.parseMixin("composite"),
             mixinDefinitions = options.mixinDefinitions || [],
             childrenTypes = options.childrenTypes || [];
 
@@ -23,12 +35,7 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
 
         if (_.isArray(mixinDefinitions)) {
             var parseOne = function (value, key) {
-                try {
-                    var mixin = Ribs.utils.findObject(mixinLibrary, key);
-                } catch (e) {
-                    Ribs.throwError("mixinTypeNotFound", key);
-                }
-                childrenTypes.push(_.extend({}, mixin, value));
+                childrenTypes.push(parser.parseMixin(key, value));
             };
             for (var i = 0; i < mixinDefinitions.length; i++) {
                 _.each(mixinDefinitions[i], parseOne);
