@@ -136,7 +136,7 @@ Ribs.backbone.mixins.support.invalidating = {
     }
 };
 
-Ribs.backbone.mixins.support.modelSupport = {
+Ribs.backbone.mixins.support.modelBase = {
     backboneModels: null,
     createInternalModel: true,
     inheritingMethods: ["modelRemoved", "modelAdded"],
