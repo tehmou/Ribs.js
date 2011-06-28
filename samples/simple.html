@@ -64,24 +64,25 @@
             Ribs.backbone.init();
 
             var myCollection = new Backbone.Collection([
-                    { name: "Petteri" },
-                    { name: "Pekka" },
-                    { name: "Kaisa" }
+                    { name: "Petteri", age: 11 },
+                    { name: "Pekka", age: 13 },
+                    { name: "Petteri", age: 15 }
                 ]);
 
-            var comp = Ribs.view([
-                {"backbone.simpleList":{
-                    myModelName: "data",
-                    itemRenderer: Ribs.view([
-                        {"templated":{
-                            myModelName: "data",
-                            templateSelector: "#my-template"
-                        }}
-                    ])
-                }}
-            ]);
+            var renderer = Ribs.view([
+                    {"templated":{
+                        myModelName: "data",
+                        templateSelector: "#my-template"
+                    }}
+                ]),
+                list = Ribs.view([
+                    {"backbone.simpleList":{
+                        myModelName: "data",
+                        itemRenderer: renderer
+                    }}
+                ]);
 
-            $("#list-container").ribs("createView", comp, { backboneModels: { data: myCollection } });
+            $("#list-container").ribs("createView", list, { backboneModels: { data: myCollection } });
         });
 
     </script>
@@ -92,7 +93,7 @@
     <div id="list-container"></div>
 
     <script id="my-template" type="text/html">
-        <h1>Welcome <%= name %></h1>
+        <h1>Name: <%= name %>, age: <%= age %></h1>
     </script>
 </body>
 </html>
