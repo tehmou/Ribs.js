@@ -66,27 +66,17 @@
                     { name: "Kaisa" }
                 ]);
 
-            var comp = Ribs.view({
-                childrenTypes: [
-                    Ribs.compose(
-                        "backbone.simpleList",
-                        {
-                            myModelName: "data",
-                            itemRenderer: Ribs.view({
-                                childrenTypes: [
-                                    Ribs.compose(
-                                        "templated",
-                                        {
-                                            jsonModelName: "data",
-                                            templateSelector: "#my-template"
-                                        }
-                                    )
-                                ]
-                            })
-                        }
-                    )
-                ]
-            });
+            var comp = Ribs.view([
+                {"backbone.simpleList":{
+                    myModelName: "data",
+                    itemRenderer: Ribs.view([
+                        {"templated":{
+                            jsonModelName: "data",
+                            templateSelector: "#my-template"
+                        }}
+                    ])
+                }}
+            ]);
 
             $("#list-container").ribs("createView", comp, { backboneModels: { data: myCollection } });
         });

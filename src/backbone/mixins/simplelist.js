@@ -4,11 +4,8 @@
 Ribs.backbone.mixins.simpleList = Ribs.compose(
     "support.parent",
     "backbone.support.modelSupport",
-    "support.methodInherit",
     "support.myModel",
     {
-        inheritingMethods: ["render"],
-        
         itemRenderer: null,
 
         redraw: function () {
