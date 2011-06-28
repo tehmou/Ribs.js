@@ -15,8 +15,8 @@ Ribs.backbone.mixins.simpleList = Ribs.compose(
             $(this.el).html("");
         },
         render: function () {
-            // TODO: Call children render()
             _.each(this._listViews, _.bind(function (view) {
+                view.render();
                 $(this.el).append(view.el);
             }, this));
         },
@@ -42,8 +42,7 @@ Ribs.backbone.mixins.simpleList = Ribs.compose(
         listAdd: function (item) {
             if (!this._listViews.hasOwnProperty(item.cid)) {
                 var itemView = _.extend({}, this.itemRenderer, {
-                    backboneModels: { data: item },
-                    jsonModelName: "data"
+                    backboneModels: { data: item }
                 });
                 itemView.mixinInitialize();
                 this._listViews[item.cid] = itemView;

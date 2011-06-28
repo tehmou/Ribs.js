@@ -16,8 +16,7 @@ Ribs.mixins.elementPivot = Ribs.mixins.pivot = Ribs.compose(
         "support.duplicating",
         "support.methodInherit",
         {
-            mixinInitialize: Ribs.utils.functions.resolveChildrenElements,
-            redraw: Ribs.utils.functions.resolveChildrenElements
+            mixinInitialize: Ribs.utils.functions.resolveChildrenElements
         }
     );
 

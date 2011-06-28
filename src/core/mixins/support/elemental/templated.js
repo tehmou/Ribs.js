@@ -68,6 +68,13 @@ Ribs.mixins.support.templated = {
      * @desc This is where the template is applied.
      */
     redraw: function () {
+        this.applyTemplate();
+    },
+
+    /**
+     * @method
+     */
+    applyTemplate: function () {
         if (this.templateFunction) {
             if (this.overwriteEl) {
                 this.el = $(this.templateFunction(this.json || {}));
