@@ -33,7 +33,7 @@ var IO;
             if (!IO.exists(path)) {
                 throw "File doesn't exist there: "+path;
             }
-            return readFile(path, IO.encoding);
+            return readFile(path, "utf-8");
         },
 
         ls: function(dir) {
