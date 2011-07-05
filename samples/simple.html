@@ -55,6 +55,8 @@
     <script src="../src/backbone/mixins/support/modelsupport.js"></script>
     <script src="../src/backbone/mixins/pivot.js"></script>
     <script src="../src/backbone/mixins/simplelist.js"></script>
+    <script src="../src/backbone/utils/collection.js"></script>
+    <script src="../src/backbone/utils/model.js"></script>
     <script src="../src/backbone/utils/utils.js"></script>
 
 
@@ -63,11 +65,11 @@
         $(function () {
             Ribs.backbone.init();
 
-            var myCollection = new Backbone.Collection([
-                    { name: "Petteri", age: 11 },
+            var myCollection = new Ribs.backbone.utils.Collection([
+                    [{ name: "Petteri", age: 11 }, { open: true }],
                     { name: "Pekka", age: 13 },
                     { name: "Petteri", age: 15 }
-                ]);
+                ], { model: Ribs.backbone.utils.Model });
 
             var renderer = Ribs.view([
                     {"templated":{
