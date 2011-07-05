@@ -74,8 +74,9 @@
                         myModelName: "data",
                         templateSelector: "#my-template"
                     }}
-                ], { invalidatingHash: { data: "name" } }),
-                list = Ribs.view([
+                ], { redrawHash: { data: "name" } });
+
+            var list = Ribs.view([
                     {"backbone.simpleList":{
                         myModelName: "data",
                         itemRenderer: renderer

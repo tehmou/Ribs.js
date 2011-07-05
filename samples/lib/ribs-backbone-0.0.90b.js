@@ -119,7 +119,7 @@ Ribs.backbone.mixins.support.invalidating = {
         var that = this;
 
         this.renderingHash = this.renderingHash || {};
-        this.invalidatingHash = this.invalidatingHash || {};
+        this.redrawHash = this.redrawHash || {};
 
         // Set up model change listeners for rendering only.
         _.each(this.renderingHash, function (attributeName, modelName) {
@@ -127,7 +127,7 @@ Ribs.backbone.mixins.support.invalidating = {
         });
 
         // Set model change listeners for invalidate+render.
-        _.each(this.invalidatingHash, function (attributeName, modelName) {
+        _.each(this.redrawHash, function (attributeName, modelName) {
             that.models[modelName].bind("change:" + attributeName, function () {
                 that.invalidated = true;
                 that.render();
