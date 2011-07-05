@@ -74,7 +74,7 @@
                         myModelName: "data",
                         templateSelector: "#my-template"
                     }}
-                ]),
+                ], { invalidatingHash: { data: "name" } }),
                 list = Ribs.view([
                     {"backbone.simpleList":{
                         myModelName: "data",
@@ -83,6 +83,10 @@
                 ]);
 
             $("#list-container").ribs("createView", list, { backboneModels: { data: myCollection } });
+
+            setTimeout(function () {
+                myCollection.at(0).set({ name: "Gary" })
+            }, 1000);
         });
 
     </script>
