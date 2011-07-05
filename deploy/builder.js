@@ -1,6 +1,5 @@
 load("io.js");
 
-
 function build(buildSettings) {
     buildLog("Building " + buildSettings.name + " " + buildSettings.version);
 
@@ -31,16 +30,22 @@ function build(buildSettings) {
 
         function processDir(dir) {
             indent++;
-            buildLog("* Processing dir " + dir, indent);
-            appendFile("package.js");
-            var ls = IO.ls(dir);
-            for (var i = 0; i < ls.directories.length; i++) {
-                processDir(dir + "/" + ls.directories[i]);
-            }
-            for (i = 0; i < ls.files.length; i++) {
-                if (ls.files[i] !== "package.js") {
-                    appendFile(ls.files[i]);
+            if (dir.match(/tests$/)) {
+                buildLog("x Tests directory omitted " + dir, indent);
+            } else {
+                buildLog("* Processing dir " + dir, indent);
+                indent++;
+                appendFile("package.js");
+                var ls = IO.ls(dir);
+                for (var i = 0; i < ls.directories.length; i++) {
+                    processDir(dir + "/" + ls.directories[i]);
                 }
+                for (i = 0; i < ls.files.length; i++) {
+                    if (ls.files[i] !== "package.js") {
+                        appendFile(ls.files[i]);
+                    }
+                }
+                indent--;
             }
             indent--;
 
@@ -48,13 +53,17 @@ function build(buildSettings) {
                 path = dir + "/" + path;
                 buildLog("* Appending file " + path, indent);
                 if (IO.exists(path)) {
-                    output += IO.read(path);
+                    var file = IO.read(path);
+
+                    output += file.replace(/([\n]*)$/, "");
+                    output += "\n\n\n";
                 }
             }
         }
 
         function writeModule(name, content) {
             var filePath = targetFilePath(buildSettings.name + "-" + buildSettings.version + "-" + name + ".js");
+            filePath = filePath.toLowerCase();
             buildLog("\\ Writing file to " + filePath, indent);
             IO.write(filePath, content);
         }
