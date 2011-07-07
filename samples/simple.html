@@ -69,7 +69,7 @@
             var myCollection = new Ribs.backbone.utils.Collection([
                     [{ name: "Petteri", age: 11 }, { open: true }],
                     [{ name: "Pekka", age: 13 }, { open: true }],
-                    [{ name: "Petteri", age: 15 }, { open: true }]
+                    [{ name: "Petteri", age: 15 }, { open: false }]
                 ], { model: Ribs.backbone.utils.Model });
 
             var renderer = Ribs.view([
@@ -100,7 +100,7 @@
     <div id="list-container"></div>
 
     <script id="my-template" type="text/html">
-        <h1>Name: <%= name %>, age: <%= age %></h1>
+        <h1>Name: <%= name %>, age: <%= age %> (<%= open %>)</h1>
     </script>
 </body>
 </html>

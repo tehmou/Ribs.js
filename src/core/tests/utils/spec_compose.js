@@ -53,33 +53,55 @@ describe("Ribs.compose", function () {
     });
 
     it("Should call all replaced functions with right arguments", function () {
-        var f1, f1Called, f2, f2Called, args = {};
+        doTest();
+        Ribs.debug = true;
+        doTest();
+        delete Ribs.debug;
 
-        f1Called = false;
-        f2Called = false;
+        function doTest () {
+            var f1, f1Called, f2, f2Called, f3, f3Called, args = {};
 
-        f1 = function () {
-            if (f2Called) {
-                throw "Wrong order in calling extended function (old one should be first).";
-            }
-            if (arguments[0] !== args) {
-                throw "Wrong arguments given for f1";
-            }
-            f1Called = true;
-        };
+            f1Called = false;
+            f2Called = false;
+            f3Called = false;
 
-        f2 = function () {
-            if (arguments[0] !== args) {
-                throw "Wrong arguments given for f2";
-            }
-            f2Called = true;
-        };
-        
-        obj.f = f1;
-        obj = Ribs.compose(obj, { f: f2 });
-        obj.f(args);
-        expect(f1Called).toBeTruthy();
-        expect(f2Called).toBeTruthy();
+            f1 = function () {
+                if (f1Called || f2Called || f3Called) {
+                    throw "Wrong order in calling extended function (old one should be first).";
+                }
+                if (arguments[0] !== args) {
+                    throw "Wrong arguments given for f1";
+                }
+                f1Called = true;
+            };
+
+            f2 = function () {
+                if (f2Called || f3Called) {
+                    throw "Wrong order in calling extended function (old one should be first).";
+                }
+                if (arguments[0] !== args) {
+                    throw "Wrong arguments given for f2";
+                }
+                f2Called = true;
+            };
+
+            f3 = function () {
+                if (f3Called) {
+                    throw "Wrong order in calling extended function (old one should be first).";
+                }
+                if (arguments[0] !== args) {
+                    throw "Wrong arguments given for f3";
+                }
+                f3Called = true;
+            };
+
+            obj.f = f1;
+            obj = Ribs.compose(obj, { f: f2 }, { f: f3 });
+            obj.f(args);
+            expect(f1Called).toBeTruthy();
+            expect(f2Called).toBeTruthy();
+            expect(f3Called).toBeTruthy();
+        }
     });
 });
 

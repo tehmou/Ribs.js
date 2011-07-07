@@ -7,7 +7,7 @@ Ribs.backbone.mixins.support.supportModel = {
     useSupportModel: true,
 
     myModelAdded: function (model) {
-        if (this.useSupportModel && this.supportModelName && model.hasOwnProperty(this.supportModelName)) {
+        if (this.useSupportModel && this.supportModelName) {
             var values = {};
             values[this.supportModelName] = model.supportModel;
             this.models.set(values);

@@ -13,7 +13,7 @@ Ribs.utils.log = Ribs.log = function (msg) {
  * @method
  */
 Ribs.utils.compose = Ribs.compose = function () {
-    var obj = {};
+    var obj = { };
     _.each(arguments, function(sourceDef) {
         var source = _.isString(sourceDef) ? Ribs.mixinParser.parseMixin(sourceDef) : sourceDef;
         if (source === undefined || source === null) {
@@ -22,7 +22,36 @@ Ribs.utils.compose = Ribs.compose = function () {
         for (var prop in source) {
             if (_.isFunction(obj[prop])) {
                 if (_.isFunction(source[prop])) {
-                    obj[prop] = _.compose(source[prop], obj[prop]);
+                    if (obj[prop].hasOwnProperty("_stack")) {
+                        if (source[prop].hasOwnProperty("_stack")) {
+                            Array.prototype.splice.apply(obj[prop]._stack, [obj[prop]._stack.length - 1, 0].concat(source[prop]._stack));
+                        } else {
+                            if (Ribs.debug) {
+                                obj[prop]._stack.push({ name: sourceDef, fnc: source[prop] });
+                            } else {
+                                obj[prop]._stack.push(source[prop]);
+                            }
+                        }
+                    } else {
+                        (function () {
+                            var stack;
+                            if (Ribs.debug) {
+                                stack = [{ fnc: obj[prop] }, { name: sourceDef, fnc: source[prop] }];
+                            } else {
+                                stack = [obj[prop], source[prop]];
+                            }
+                            obj[prop] = function () {
+                                for (var i = 0; i < stack.length; i++) {
+                                    if (Ribs.debug) {
+                                        stack[i].fnc.apply(this, arguments);
+                                    } else {
+                                        stack[i].apply(this, arguments);
+                                    }
+                                }
+                            };
+                            obj[prop]._stack = stack;
+                        })();
+                    }
                 } else {
                     Ribs.throwError("addingExtendFunctionWithNonFunction");
                 }

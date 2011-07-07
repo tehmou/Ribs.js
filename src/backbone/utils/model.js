@@ -12,6 +12,7 @@ Ribs.backbone.utils.Model = function(attributes, options) {
     supportModel.bind("change", _.bind(function (ev) {
         this.trigger("support:" + ev);
     }, this));
+    this.supportModel = supportModel;
 };
 
 _.extend(Ribs.backbone.utils.Model.prototype, Backbone.Model.prototype);
