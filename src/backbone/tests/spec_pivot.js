@@ -5,7 +5,7 @@ describe("Ribs.backbone.mixins.pivot", function () {
         model = new Backbone.Model();
         pivot = _.extend({}, Ribs.backbone.mixins.pivot);
         pivot.backboneModels = {
-            myModel: model
+            modelChooser: model
         };
         pivot.mixinInitialize();
     });

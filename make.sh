@@ -1,2 +1,2 @@
 ./document.sh
-./deploy.sh
+./deploy/jsdeploy.sh

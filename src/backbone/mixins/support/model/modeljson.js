@@ -5,7 +5,7 @@
 Ribs.backbone.mixins.support.modelJSON = {
     getModelJSON: function (options) {
         var json,
-            modelName = options.jsonModelName || options.myModelName;
+            modelName = options.jsonModelName || options.modelName;
 
         if (!modelName || !this.models) {
             return;

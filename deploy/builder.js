@@ -1,4 +1,5 @@
 load("io.js");
+load("../lib/underscore.js");
 
 function build(buildSettings) {
     buildLog("Building " + buildSettings.name + " " + buildSettings.version);
@@ -64,8 +65,9 @@ function build(buildSettings) {
         function writeModule(name, content) {
             var filePath = targetFilePath(buildSettings.name + "-" + buildSettings.version + "-" + name + ".js");
             filePath = filePath.toLowerCase();
+            var header = _.template(IO.read("modulehead.tmpl"), _.extend({ module: name }, buildSettings));
             buildLog("\\ Writing file to " + filePath, indent);
-            IO.write(filePath, content);
+            IO.write(filePath, header + content);
         }
     }
 

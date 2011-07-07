@@ -23,7 +23,7 @@
     <script src="../src/core/utils/functions/resolvechildrenelements.js"></script>
     <script src="../src/core/mixins/support/parental/duplicating.js"></script>
     <script src="../src/core/mixins/support/elemental/element.js"></script>
-    <script src="../src/core/mixins/support/mymodel.js"></script>
+    <script src="../src/core/mixins/support/modelchooser.js"></script>
     <script src="../src/core/mixins/support/parental/renderchain.js"></script>
     <script src="../src/core/mixins/support/parental/parsing.js"></script>
     <script src="../src/core/mixins/support/deferredrender.js"></script>
@@ -52,7 +52,7 @@
                     backboneModels: { data: myCollection },
                     mixinDefinitions: [
                         { "backbone.simpleList": {
-                            myModelName: "data",
+                            modelName: "data",
                             itemRenderer: Ribs.backbone(
                                 Ribs.mixins.templated,
                                 {

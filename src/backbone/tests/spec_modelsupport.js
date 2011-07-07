@@ -13,7 +13,7 @@ describe("Ribs.mixins.backbone.support.modelSupport", function () {
         });
         mixin.pivot = mixin;
         mixin.models = models;
-        mixin.backboneModels = { myModel: model };
+        mixin.backboneModels = { modelChooser: model };
     });
 
     it("Should create model internal automatically", function () {
@@ -23,13 +23,13 @@ describe("Ribs.mixins.backbone.support.modelSupport", function () {
 
     it("Should have the given model", function () {
         mixin.mixinInitialize();
-        expect(mixin.getModelJSON({ jsonModelName: "myModel" })).toBeDefined();
+        expect(mixin.getModelJSON({ jsonModelName: "modelChooser" })).toBeDefined();
     });
 
     it("Should resolve json for multiple models", function () {
         mixin.mixinInitialize();
         models.set({ newModel: new Backbone.Model({ val: "text", test: "test" }) });
-        mixin.jsonModelName = ["newModel", "myModel"];
+        mixin.jsonModelName = ["newModel", "modelChooser"];
         Ribs.utils.functions.resolveJSON.apply(mixin);
         expect(mixin.json.val).toEqual("text");
         expect(mixin.json.test).toEqual("foo");
@@ -51,7 +51,7 @@ describe("Ribs.mixins.backbone.support.modelSupport", function () {
             callStack.expectCalls([
                 "mixinInitialize",
                 { name: "modelAdded" }, // internal
-                { name: "modelAdded", arguments: ["myModel", model] }
+                { name: "modelAdded", arguments: ["modelChooser", model] }
             ]);
             callStack.start();
             mixin.mixinInitialize();
@@ -70,7 +70,7 @@ describe("Ribs.mixins.backbone.support.modelSupport", function () {
                     "modelRemoved",
                     "modelAdded"
                 ]);
-                models.set({ myModel: new Backbone.Model() });
+                models.set({ modelChooser: new Backbone.Model() });
             });
 
             it("Should inform about model added by the user", function () {
@@ -86,7 +86,7 @@ describe("Ribs.mixins.backbone.support.modelSupport", function () {
                     "modelChangeHandler",
                     "modelRemoved"
                 ]);
-                models.unset("myModel");
+                models.unset("modelChooser");
             });
         });
     });

@@ -1,9 +1,9 @@
-describe("Ribs.mixins.support.myModel", function () {
+describe("Ribs.mixins.support.modelChooser", function () {
     var mixin, callStack, testModel;
 
     beforeEach(function () {
-        mixin = Ribs.compose("support.myModel", {
-            myModelName: "testModel",
+        mixin = Ribs.compose("support.modelChooser", {
+            modelName: "testModel",
             myModelAdded: function () { },
             myModelRemoved: function () { }
         });

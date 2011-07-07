@@ -56,13 +56,13 @@
 
     <script type="text/javascript">
         $(function () {
-            var myModel = new Backbone.Model({ name: "Karita", age: 16 }),
+            var modelChooser = new Backbone.Model({ name: "Karita", age: 16 }),
                 View = Ribs.createMixed({
                     mixins: [
                         { editableText: { attributeName: "name" }}
                     ]
                 }),
-                view = new View({ model: myModel, el: $("#container ") });
+                view = new View({ model: modelChooser, el: $("#container ") });
 
 
         });

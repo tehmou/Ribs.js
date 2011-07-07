@@ -4,7 +4,7 @@
 Ribs.backbone.mixins.simpleList = Ribs.compose(
     "support.parent",
     "backbone.support.modelSupport",
-    "support.myModel",
+    "support.modelChooser",
     {
         itemRenderer: null,
         listRendererModelName: "data",

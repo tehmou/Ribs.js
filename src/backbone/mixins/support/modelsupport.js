@@ -7,6 +7,7 @@
 Ribs.backbone.mixins.support.modelSupport = Ribs.compose(
     "backbone.support.modelBase",
     "backbone.support.modelAccess",
-    "backbone.support.modelJSON"  
+    "backbone.support.modelJSON",
+    "backbone.support.supportModel"
 );
 

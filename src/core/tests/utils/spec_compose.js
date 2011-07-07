@@ -52,8 +52,8 @@ describe("Ribs.compose", function () {
         expect(errorThrown).toBeTruthy();
     });
 
-    it("Should call all replaced functions", function () {
-        var f1, f1Called, f2, f2Called;
+    it("Should call all replaced functions with right arguments", function () {
+        var f1, f1Called, f2, f2Called, args = {};
 
         f1Called = false;
         f2Called = false;
@@ -62,16 +62,22 @@ describe("Ribs.compose", function () {
             if (f2Called) {
                 throw "Wrong order in calling extended function (old one should be first).";
             }
+            if (arguments[0] !== args) {
+                throw "Wrong arguments given for f1";
+            }
             f1Called = true;
         };
 
         f2 = function () {
+            if (arguments[0] !== args) {
+                throw "Wrong arguments given for f2";
+            }
             f2Called = true;
         };
         
         obj.f = f1;
         obj = Ribs.compose(obj, { f: f2 });
-        obj.f();
+        obj.f(args);
         expect(f1Called).toBeTruthy();
         expect(f2Called).toBeTruthy();
     });
