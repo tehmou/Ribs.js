@@ -3,14 +3,19 @@ describe("Ribs.utils.createMixinDefinitionParser", function () {
 
     beforeEach(function () {
         customMixin = {};
-        parser = Ribs.utils.createMixinDefinitionParser({
-            mixinLibrary: {
+        var composer = c0mposer.instance({
+            debug: true,
+            library: {
                 plain: { param1: "foo"},
                 composite: Ribs.mixins.composite,
                 customNameSpace: {
                     actualMixin: customMixin
                 }
             }
+        });
+
+        parser = Ribs.utils.createMixinDefinitionParser({
+            parseFunction: _.bind(composer.create, composer)
         });
     });
 
@@ -26,6 +31,7 @@ describe("Ribs.utils.createMixinDefinitionParser", function () {
                 mixinDefinitions: def,
                 composite: composite
             });
+            console.log(composite);
         });
 
         it("Should consider elements of an array as mixins", function () {
@@ -34,11 +40,11 @@ describe("Ribs.utils.createMixinDefinitionParser", function () {
 
         it("Should consider the key in a mixin definition as the base, and the value as the overrides", function () {
             expect(composite.childrenTypes[0].elementSelector).toEqual(".mySel");
-            expect(composite.childrenTypes[0]._type).toEqual("plain");
+            expect(composite.childrenTypes[0]._lineage[1]).toEqual("plain");
             expect(composite.childrenTypes[1].param1).toEqual("testparam");
-            expect(composite.childrenTypes[1]._type).toEqual("plain");
+            expect(composite.childrenTypes[1]._lineage[1]).toEqual("plain");
             expect(composite.childrenTypes[2].param1).toEqual("foo");
-            expect(composite.childrenTypes[2]._type).toEqual("plain");
+            expect(composite.childrenTypes[2]._lineage[1]).toEqual("plain");
         });
     });
 
@@ -67,7 +73,7 @@ describe("Ribs.utils.createMixinDefinitionParser", function () {
         });
 
         it("Should find the nested mixins", function () {
-            expect(composite.childrenTypes[0]._type).toEqual("customNameSpace.actualMixin");
+            expect(composite.childrenTypes[0]._lineage[1]).toEqual("customNameSpace.actualMixin");
         });
     });
 });

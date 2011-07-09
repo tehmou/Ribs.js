@@ -6,28 +6,12 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
     parserOptions = parserOptions || {};
 
     var parser = { },
-        mixinLibrary = parserOptions.mixinLibrary || {};
-
-    parser.parseMixin = function (name, mixinOptions) {
-        try {
-            var mixin = _.extend({},
-                    Ribs.utils.findObject(mixinLibrary, name),
-                    mixinOptions, { _type: name }
-                );
-        } catch (e) {
-            Ribs.throwError("mixinTypeNotFound", name);
-        }
-        return mixin;
-    };
+        parseFunction = parserOptions.parseFunction;
 
     parser.createCompositeFromDefinitions = function (options) {
         options = options || {};
 
-        if (!mixinLibrary.hasOwnProperty("composite")) {
-            Ribs.throwError("noCompositeMixinFoundForParsing");
-        }
-
-        var composite = options.composite || parser.parseMixin("composite"),
+        var composite = options.composite || parseFunction("composite"),
             mixinDefinitions = options.mixinDefinitions || [],
             childrenTypes = options.childrenTypes || [];
 
@@ -35,7 +19,7 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
 
         if (_.isArray(mixinDefinitions)) {
             var parseOne = function (value, key) {
-                childrenTypes.push(parser.parseMixin(key, value));
+                childrenTypes.push(parseFunction(key, value));
             };
             for (var i = 0; i < mixinDefinitions.length; i++) {
                 _.each(mixinDefinitions[i], parseOne);
@@ -60,7 +44,7 @@ Ribs.utils.createMixinDefinitionParser = function (parserOptions) {
 /**
  * @field
  */
-Ribs.mixinParser = Ribs.utils.createMixinDefinitionParser({ mixinLibrary: Ribs.mixins });
+Ribs.mixinParser = Ribs.utils.createMixinDefinitionParser({ parseFunction: Ribs.compose });
 
 /**
  * @method

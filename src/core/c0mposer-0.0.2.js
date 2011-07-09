@@ -1,5 +1,5 @@
 /**
- * c0mposer.js
+ * c0mposer.js 0.0.2
  *
  * (c) 2011 Timo Tuominen
  * May be freely distributed under the MIT license.
@@ -51,10 +51,18 @@ var c0mposer;
             }, this));
         },
         parseString: function (string) {
-            if (!this.library.hasOwnProperty(string)) {
-                this.throwError("couldNotParseString", string);
-            }
-            return this.library[string];
+            return this.findNested(this.library, string);
+        },
+        findNested: function (obj, path) {
+            var splitPath = path.split(".");
+            _.each(splitPath, _.bind(function (elem) {
+                if (obj.hasOwnProperty(elem)) {
+                    obj = obj[elem];
+                } else {
+                    this.throwError("invalidObjectPath", path);
+                }
+            }, this));
+            return obj;
         },
         resolveKind: function (obj) {
             if (_.isArray(obj)) {
@@ -88,6 +96,7 @@ var c0mposer;
                 value = this.composeObjects(obj[prop], src[prop]);
             } else {
                 this.throwError("extendingPropertyKindMismatch", [objKind, srcKind]);
+                return;
             }
             obj[prop] = value;
         },

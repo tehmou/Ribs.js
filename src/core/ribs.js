@@ -1,3 +1,10 @@
+Ribs.composer = c0mposer.instance({ library: Ribs.mixins });
+
+/**
+ * @method
+ */
+Ribs.compose = _.bind(Ribs.composer.create, Ribs.composer);
+
 /**
  * @method
  */
