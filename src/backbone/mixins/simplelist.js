@@ -1,7 +1,7 @@
 /**
  * @class
  */
-Ribs.backbone.mixins.simpleList = Ribs.compose(
+Ribs.export("backbone.simpleList", [
     "support.parent",
     "backbone.support.modelSupport",
     "support.modelChooser",
@@ -63,5 +63,4 @@ Ribs.backbone.mixins.simpleList = Ribs.compose(
             this.pivot.requestInvalidate();
         }
     }
-);
-
+]);

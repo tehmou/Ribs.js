@@ -1,7 +1,7 @@
 /**
  * @class
  */
-Ribs.utils.functions.resolveValue = function () {
+Ribs.mixins.support.functions.resolveValue = function () {
     if (this.pivot && _.isFunction(this.pivot.getValue)) {
         this.value = this.pivot.getValue(this);
     }
@@ -10,7 +10,7 @@ Ribs.utils.functions.resolveValue = function () {
 /**
  * @class
  */
-Ribs.utils.functions.resolveJSON = function () {
+Ribs.mixins.support.functions.resolveJSON = function () {
     if (this.pivot && _.isFunction(this.pivot.getModelJSON)) {
         this.json = this.pivot.getModelJSON(this);
     }

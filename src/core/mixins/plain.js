@@ -1,5 +1,6 @@
 /**
  * @class
  */
-Ribs.mixins.plain = Ribs.compose("support.eventful");
-
+Ribs.export("plain", [
+    "support.eventful"
+]);

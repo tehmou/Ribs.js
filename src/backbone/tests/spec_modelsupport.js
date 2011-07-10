@@ -30,7 +30,7 @@ describe("Ribs.mixins.backbone.support.modelSupport", function () {
         mixin.mixinInitialize();
         models.set({ newModel: new Backbone.Model({ val: "text", test: "test" }) });
         mixin.jsonModelName = ["newModel", "modelChooser"];
-        Ribs.utils.functions.resolveJSON.apply(mixin);
+        Ribs.mixins.support.functions.resolveJSON.apply(mixin);
         expect(mixin.json.val).toEqual("text");
         expect(mixin.json.test).toEqual("foo");
         expect(mixin.json.myAttr).toEqual("1234");

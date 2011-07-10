@@ -1,9 +1,9 @@
-describe("Ribs.utils.functions.resolveChildrenElements", function () {
+describe("Ribs.mixins.support.functions.resolveChildrenElements", function () {
     var mixin, child, el, helloEl, subEl;
 
     beforeEach(function () {
         mixin = Ribs.compose("support.parent", {
-            redraw: Ribs.utils.functions.resolveChildrenElements
+            redraw: Ribs.mixins.support.functions.resolveChildrenElements
         });
         child = {};
 

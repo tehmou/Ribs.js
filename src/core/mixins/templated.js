@@ -1,9 +1,8 @@
 /**
  * @class
  */
-Ribs.mixins.templated = Ribs.compose(
-        { redraw: Ribs.utils.functions.resolveJSON },
-        { redraw: Ribs.utils.functions.resolveValue },
-        "support.templated"
-    );
-
+Ribs.export("templated", [
+    { redraw: Ribs.mixins.support.functions.resolveJSON },
+    { redraw: Ribs.mixins.support.functions.resolveValue },
+    "support.templated"
+]);

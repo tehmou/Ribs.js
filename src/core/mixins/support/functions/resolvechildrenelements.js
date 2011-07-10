@@ -3,7 +3,7 @@
  * @requires Ribs.mixins.support.parent
  * @requires Ribs.mixins.support.element
  */
-Ribs.utils.functions.resolveChildrenElements = function () {
+Ribs.mixins.support.functions.resolveChildrenElements = function () {
     if (this.children && this.el) {
         var el = $(this.elementSelector, this.el);
         if (el.length === 0) {

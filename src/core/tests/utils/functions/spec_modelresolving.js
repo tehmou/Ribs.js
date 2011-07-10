@@ -28,12 +28,12 @@ describe("Ribs.utils.functions.modelresolving", function () {
     });
 
     it("Should resolve value from the given model/attribute name", function () {
-        Ribs.utils.functions.resolveValue.apply(mixin);
+        Ribs.mixins.support.functions.resolveValue.apply(mixin);
         expect(mixin.value).toEqual("returnValue");
     });
 
     it("Should resolve json from the given model/attribute name", function () {
-        Ribs.utils.functions.resolveJSON.apply(mixin);
+        Ribs.mixins.support.functions.resolveJSON.apply(mixin);
         expect(mixin.json).toEqual(json);
     });
 });
