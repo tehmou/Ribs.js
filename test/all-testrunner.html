@@ -85,10 +85,15 @@
 <body>
 
 <script type="text/javascript">
-    var reporter = new jasmine.TrivialReporter();
-    reporter.logRunningSpecs = true;
-    jasmine.getEnv().addReporter(reporter);
-    jasmine.getEnv().execute();
+    $(function () {
+        Ribs.init();
+        
+        var reporter = new jasmine.TrivialReporter();
+        reporter.logRunningSpecs = true;
+        jasmine.getEnv().addReporter(reporter);
+        jasmine.getEnv().execute();
+    });
+
 </script>
 
 <script id="test-tmpl" type="text/html">

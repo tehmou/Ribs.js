@@ -13,6 +13,8 @@ describe("Ribs.mixins.templated", function () {
                 templateString: templateString,
                 el: $("<div></div>")
             });
+            console.log("moimo");
+            console.log(mixin);
             mixin.mixinInitialize();
             mixin.redraw();
         });
