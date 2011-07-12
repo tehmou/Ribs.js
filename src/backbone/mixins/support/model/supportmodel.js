@@ -2,7 +2,7 @@
  * @class
  * @requires Ribs.mixins.support.modelChooser
  */
-Ribs.backbone.mixins.support.supportModel = {
+Ribs.backbone.mixins.support.model.supportModel = {
     supportModelName: "support",
     useSupportModel: true,
 

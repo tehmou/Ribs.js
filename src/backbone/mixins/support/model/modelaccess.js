@@ -1,8 +1,8 @@
 /**
  * @class
- * @requires Ribs.backbone.mixins.support.modelBase
+ * @requires Ribs.backbone.mixins.support.model.modelBase
  */
-Ribs.backbone.mixins.support.modelAccess = {
+Ribs.backbone.mixins.support.model.modelAccess = {
 
     getValue: function (options) {
         var modelName = options.valueModelName,

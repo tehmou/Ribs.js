@@ -1,7 +1,7 @@
 /**
  * @class
  */
-Ribs.backbone.mixins.support.modelBase = {
+Ribs.backbone.mixins.support.model.modelBase = {
     backboneModels: null,
     createInternalModel: true,
     inheritingMethods: ["modelRemoved", "modelAdded"],

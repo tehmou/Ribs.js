@@ -1,8 +1,8 @@
 /**
  * @class
- * @requires Ribs.backbone.mixins.support.modelBase
+ * @requires Ribs.backbone.mixins.support.model.modelBase
  */
-Ribs.backbone.mixins.support.modelJSON = {
+Ribs.backbone.mixins.support.model.modelJSON = {
     getModelJSON: function (options) {
         var json,
             modelName = options.jsonModelName || options.modelName;

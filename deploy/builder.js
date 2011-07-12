@@ -30,25 +30,33 @@ function build(buildSettings) {
         indent--;
 
         function processDir(dir) {
+            if (!IO.exists(dir)) {
+                return;
+            }
+            buildLog("* Processing dir " + dir, indent);
             indent++;
-            if (dir.match(/tests$/)) {
-                buildLog("x Tests directory omitted " + dir, indent);
-            } else {
-                buildLog("* Processing dir " + dir, indent);
-                indent++;
-                appendFile("package.js");
-                var ls = IO.ls(dir);
-                for (var i = 0; i < ls.directories.length; i++) {
-                    processDir(dir + "/" + ls.directories[i]);
-                }
-                for (i = 0; i < ls.files.length; i++) {
-                    if (ls.files[i] !== "package.js") {
-                        appendFile(ls.files[i]);
+            var ls = IO.ls(dir);
+            appendFile("package.js");
+            processDir(dir + "/support");
+            appendFiles(ls.files, ["package.js"]);
+            appendDirectories(ls.directories, ["support", "tests"]);
+            indent--;
+
+            function appendDirectories(directories, exclude) {
+                for (var i = 0; i < directories.length; i++) {
+                    if (_.indexOf(exclude, directories[i]) === -1) {
+                        processDir(dir + "/" + directories[i]);
                     }
                 }
-                indent--;
             }
-            indent--;
+
+            function appendFiles(files, exclude) {
+                for (var i = 0; i < files.length; i++) {
+                    if (_.indexOf(exclude, files[i]) === -1) {
+                        appendFile(files[i]);
+                    }
+                }
+            }
 
             function appendFile(path) {
                 path = dir + "/" + path;
