@@ -6,7 +6,7 @@
      * @desc Resolves and assigns DOM listeners for
      * events defined in events property.
      *
-     * @requires Ribs.mixins.support.element
+     * @requires Ribs.mixins.support.dom.element
      * @requires Ribs.mixins.support.renderChain
      */
     Ribs.mixins.support.eventful = {

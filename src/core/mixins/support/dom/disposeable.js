@@ -1,6 +1,6 @@
 /**
  * @class
- * @requires Ribs.mixins.support.element
+ * @requires Ribs.mixins.support.dom.element
  */
 Ribs.mixins.support.disposeable = {
     inheritingMethods: ["dispose"],

@@ -2,7 +2,7 @@
  * @class
  * @desc Create "el" in mixinInitialize if it does not already exist.
  */
-Ribs.mixins.support.element = {
+Ribs.mixins.support.dom.element = {
     /**
      * @field
      * @desc Name of the tag to create, if no el was provided.
