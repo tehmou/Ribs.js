@@ -1,7 +1,7 @@
 /**
  * @field
  */
-Ribs.mixins.support.elemental = {};
+Ribs.mixins.support.dom = {};
 
 /**
  * @field
@@ -11,5 +11,5 @@ Ribs.mixins.support.functions = {};
 /**
  * @field
  */
-Ribs.mixins.support.parental = {};
+Ribs.mixins.support.rendering = {};
 

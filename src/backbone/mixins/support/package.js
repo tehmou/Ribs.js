@@ -1,5 +1,5 @@
 /**
  * @field
  */
-Ribs.backbone.mixins.support = {};
+Ribs.backbone.mixins.support.model = {};
 

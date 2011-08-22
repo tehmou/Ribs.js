@@ -1,10 +1,10 @@
-describe("Ribs.mixins.support.renderChain", function () {
+describe("Ribs.mixins.support.rendering.renderChain", function () {
     var renderChain, renderTarget;
 
     beforeEach(function () {
         renderChain = Ribs.compose(
                 "support.parent",
-                "support.renderChain",
+                "support.rendering.renderChain",
                 { initialized: true }
             );
         renderTarget = {

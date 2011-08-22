@@ -1,5 +1,5 @@
 Ribs.backbone.utils.Collection = function (models, options) {
-    this.model = options.model || Backbone.Model;
+    this.model = (options && options.model) || Backbone.Model;
     Backbone.Collection.apply(this, arguments);
 };
 

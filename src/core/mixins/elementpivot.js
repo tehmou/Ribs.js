@@ -3,16 +3,16 @@
  * @desc Pivot mixin that is based on DOM elements. Default
  * pivot used by Ribs, though does not provide model support.
  */
-Ribs.export("pivot", [
+Ribs.exportMixin("pivot", [
     "support.bindAllToThis",
-    "support.element",
+    "support.dom.element",
     "support.parent",
-    "support.renderChain",
-    "support.deferredRender",
+    "support.rendering.renderChain",
+    "support.rendering.deferredRender",
     "support.parsing",
     "support.propertyInherit",
-    "support.hideable",
-    "support.disposeable",
+    "support.dom.hideable",
+    "support.dom.disposeable",
     "support.duplicating",
     "support.methodInherit",
     {

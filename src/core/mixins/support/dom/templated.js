@@ -2,7 +2,7 @@
  * @class
  * @requires Ribs.mixins.support.dom.element
  */
-Ribs.mixins.support.templated = {
+Ribs.mixins.support.dom.templated = {
     /**
      * @field
      * @desc jQuery selector for the template element.

@@ -1,7 +1,7 @@
 /**
  * @class
  * @requires Ribs.mixins.support.parent
- * @requires Ribs.mixins.support.element
+ * @requires Ribs.mixins.support.dom.element
  */
 Ribs.mixins.support.functions.resolveChildrenElements = function () {
     if (this.children && this.el) {

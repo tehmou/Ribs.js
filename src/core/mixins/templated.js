@@ -1,8 +1,8 @@
 /**
  * @class
  */
-Ribs.export("templated", [
+Ribs.exportMixin("templated", [
     { redraw: Ribs.mixins.support.functions.resolveJSON },
     { redraw: Ribs.mixins.support.functions.resolveValue },
-    "support.templated"
+    "support.dom.templated"
 ]);

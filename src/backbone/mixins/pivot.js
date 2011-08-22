@@ -1,7 +1,7 @@
 /**
  * @class
  */
-Ribs.export("backbone.pivot", [
+Ribs.exportMixin("backbone.pivot", [
     "pivot",
     "backbone.support.modelSupport",
     "backbone.support.invalidating",

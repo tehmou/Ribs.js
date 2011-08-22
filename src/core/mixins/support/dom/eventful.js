@@ -7,9 +7,9 @@
      * events defined in events property.
      *
      * @requires Ribs.mixins.support.dom.element
-     * @requires Ribs.mixins.support.renderChain
+     * @requires Ribs.mixins.support.rendering.renderChain
      */
-    Ribs.mixins.support.eventful = {
+    Ribs.mixins.support.dom.eventful = {
         /**
          * @field
          * @desc Hash of events to listen. Key is of form

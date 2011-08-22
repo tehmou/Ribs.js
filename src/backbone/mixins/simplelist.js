@@ -1,7 +1,7 @@
 /**
  * @class
  */
-Ribs.export("backbone.simpleList", [
+Ribs.exportMixin("backbone.simpleList", [
     "support.parent",
     "backbone.support.modelSupport",
     "support.modelChooser",

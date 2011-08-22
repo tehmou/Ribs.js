@@ -1,8 +1,8 @@
-describe("Ribs.mixins.support.element", function () {
+describe("Ribs.mixins.support.dom.element", function () {
     var mixin;
 
     beforeEach(function () {
-        mixin = Ribs.compose("support.element");
+        mixin = Ribs.compose("support.dom.element");
     });
 
     it("Should be uninitialized by default", function () {

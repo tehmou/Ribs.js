@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script type="text/javascript" src="../lib/jquery-1.6.1.js"></script>
+    <script type="text/javascript" src="../lib/less-1.0.41.min.js"></script>
+    <script type="text/javascript" src="../lib/underscore.js"></script>
+    <script type="text/javascript" src="../lib/backbone.js"></script>
+    
+
+    <script src="../target/ribs.js-0.0.90b-core.js"></script>
+    <script src="../target/ribs.js-0.0.90b-backbone.js"></script>
+
+    <script type="text/javascript">
+
+        var initFeed;
+
+        (function () {
+
+            var feed;
+
+            initFeed = function (data) {
+                feed = data.feed;
+                console.log(feed);
+            };
+
+            $(function () {
+
+                Ribs.backbone.init();
+
+                var entries = new Ribs.backbone.utils.Collection(feed.entry, { model: Ribs.backbone.utils.Model });
+                var renderer = Ribs.view([
+                        {"templated":{
+                            modelName: ["data"],
+                            templateString: '<img src="<%= content.src %>" />'
+                        }}
+                    ]);
+                var list = Ribs.view([
+                        {"backbone.simpleList":{
+                            itemRenderer: renderer
+                        }}
+                    ]);
+
+                $("#list-container").ribs("createView", list, { backboneModels: { data: entries } });
+            });
+
+        })();
+
+    </script>
+    <script type="text/javascript" src="https://picasaweb.google.com/data/feed/base/user/101239827031429117300/albumid/5641510119136361361?alt=json-in-script&callback=initFeed&kind=photo&authkey=Gv1sRgCN_P-e3ptaKo8gE"></script>
+</head>
+<body>
+    <div id="list-container"></div>
+</body>
+</html>

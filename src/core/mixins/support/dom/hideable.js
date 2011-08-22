@@ -2,7 +2,7 @@
  * @class
  * @requires Ribs.mixins.support.dom.element
  */
-Ribs.mixins.support.hideable = {
+Ribs.mixins.support.dom.hideable = {
     inheritingMethods: ["hide"],
     
     /**

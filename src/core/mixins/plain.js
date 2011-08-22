@@ -1,6 +1,6 @@
 /**
  * @class
  */
-Ribs.export("plain", [
-    "support.eventful"
+Ribs.exportMixin("plain", [
+    "support.dom.eventful"
 ]);

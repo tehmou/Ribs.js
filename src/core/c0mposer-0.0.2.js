@@ -164,7 +164,7 @@ var c0mposer;
         throwError: function (msg, obj) {
             this.log("c0mposer error \"" + msg + "\", with object:");
             this.log(obj);
-            throw msg;
+            throw [msg, obj];
         }
     };
 })();

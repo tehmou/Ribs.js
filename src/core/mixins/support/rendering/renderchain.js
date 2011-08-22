@@ -4,7 +4,7 @@
  * @requires Ribs.mixins.support.initializing
  * @requires Ribs.mixins.support.parent
  */
-Ribs.mixins.support.renderChain = {
+Ribs.mixins.support.rendering.renderChain = {
     /**
      * @field
      * @desc When calling render(), if this flag is set,
