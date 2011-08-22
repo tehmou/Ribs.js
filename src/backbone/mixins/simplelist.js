@@ -13,7 +13,7 @@ Ribs.exportMixin("backbone.simpleList", [
             $(this.el).html("");
         },
         render: function () {
-            _.each(this._listViews, _.bind(function (view) {
+            _.each(this.childViews, _.bind(function (view) {
                 view.render();
                 $(this.el).append(view.el);
             }, this));
@@ -25,38 +25,38 @@ Ribs.exportMixin("backbone.simpleList", [
             this.listRefresh();
         },
         myModelRemoved: function (model) {
-            if (this._listViews) {
-                _.each(this._listViews, function (view) {
+            if (this.childViews) {
+                _.each(this.childViews, function (view) {
                     if (_.isFunction(view.dispose)) {
                         view.dispose();
                     }
                 });
-                this._listViews = {};
+                this.childViews = {};
             }
             model.unbind("add", this.listAdd);
             model.unbind("remove", this.listRemove);
             model.unbind("refresh", this.listRefresh);
         },
         listAdd: function (item) {
-            if (!this._listViews.hasOwnProperty(item.cid)) {
+            if (!this.childViews.hasOwnProperty(item.cid)) {
                 var models = {}, itemView;
                 models[this.listRendererModelName] = item;
                 itemView = _.extend({}, this.itemRenderer, {
                     backboneModels: models
                 });
                 itemView.mixinInitialize();
-                this._listViews[item.cid] = itemView;
+                this.childViews[item.cid] = itemView;
                 this.pivot.requestInvalidate();
             }
         },
         listRemove: function (item) {
-            if(this._listViews.hasOwnProperty(item.cid)) {
-                $(this._listViews[item.cid].el).remove();
-                delete this._listViews[item.cid];
+            if(this.childViews.hasOwnProperty(item.cid)) {
+                $(this.childViews[item.cid].el).remove();
+                delete this.childViews[item.cid];
             }
         },
         listRefresh: function () {
-            this._listViews = {};
+            this.childViews = {};
             if (this.myModel && _.isFunction(this.myModel.each)) {
                 this.myModel.each(_.bind(this.listAdd, this));
             }
