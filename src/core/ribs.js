@@ -5,12 +5,8 @@ Ribs.composer = c0mposer.instance({ library: Ribs.mixins });
  */
 Ribs.compose = _.bind(Ribs.composer.create, Ribs.composer);
 
-Ribs.exportMixinQueue = [];
-Ribs.exportMixin = function (name, def) {
-    Ribs.exportMixinQueue.push({ name: name, def: def });
-};
-
 (function () {
+    var initialized = false;
     var purgeMixin = function (obj) {
         var path = obj.name.split(".");
         var parent = Ribs.mixins;
@@ -23,9 +19,19 @@ Ribs.exportMixin = function (name, def) {
         parent[_.last(path)] = Ribs.compose.apply(Ribs, obj.def);
     };
 
+    Ribs.exportMixinQueue = [];
+    Ribs.exportMixin = function (name, def) {
+        if (!initialized) {
+            Ribs.exportMixinQueue.push({ name: name, def: def });
+        } else {
+            purgeMixin({ name: name, def: def });
+        }
+    };
+
     Ribs.init = function () {
         _.each(Ribs.exportMixinQueue, purgeMixin);
         Ribs.exportMixinQueue = [];
+        initialized = true;
     };
 })();
 

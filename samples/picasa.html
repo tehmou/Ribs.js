@@ -35,6 +35,26 @@
 
                 Ribs.backbone.init();
 
+                Ribs.exportMixin("viewStack", [
+                        "backbone.simpleList",
+                        {
+                            activeViewIndex: 0,
+                            nextView: function () {
+                                this.activeViewIndex = (this.activeViewIndex + 1) % this.childViews.length;
+                                this.requestInvalidate();
+                            },
+                            prevView: function () {
+                                this.activeViewIndex = (2*this.activeViewIndex - 1) % this.childViews.length;
+                                this.requestInvalidate();
+                            },
+                            refresh: function () {
+                                $(this.el).prependChild(
+                                    $(this.el).children()[this.activeViewIndex]
+                                );
+                            }
+                        }
+                    ]);
+
                 var entries = new Ribs.backbone.utils.Collection(feed.entry, { model: Ribs.backbone.utils.Model });
                 var renderer = Ribs.view([
                         {"templated":{
@@ -43,7 +63,7 @@
                         }}
                     ]);
                 var list = Ribs.view([
-                        {"backbone.simpleList":{
+                        {"viewStack": {
                             itemRenderer: renderer
                         }}
                     ]);
